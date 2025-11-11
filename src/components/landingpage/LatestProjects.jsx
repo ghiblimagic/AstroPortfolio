@@ -33,11 +33,11 @@ export default function LatestProjects() {
           projectDescription={
             "An app to easily filter through technical resources so you can find the 'banger' resources you need! Spend less time finding the best resources (or looking for an old resource you love) and more time learning. Whether you're looking for technical resources, AI resources, the right community for you or career tips, theres resources for everyone. Logged in users can save favorites, sort through their liked and submitted posts, flag contents and submit content. "
           }
-          linkToCode={"https://github.com/JSMarsh813/only-bangers"}
+          linkToCode={"https://github.com/ghiblimagic/only-bangers"}
           linkToLiveSite={"https://www.onlytechbangers.com"}
           loadingtype={"eager"}
           readmeLink={
-            "https://github.com/JSMarsh813/only-bangers/blob/main/README.md"
+            "https://github.com/ghiblimagic/only-bangers/blob/main/README.md"
           }
         ></Project>
 
@@ -52,11 +52,11 @@ export default function LatestProjects() {
           projectDescription={
             "Help adoption counselors improve pet adoption rates with impactful, fun, and tailor-fitted adoption profiles! Users can easily search and filter through community submitted names and descriptions. After signing up, users can save favorites, follow other users, and submit new names and descriptions."
           }
-          linkToCode={"https://github.com/JSMarsh813/PetProfileTailor"}
+          linkToCode={"https://github.com/ghiblimagic/PetProfileTailor"}
           linkToLiveSite={"https://www.tailoredpetnames.com/"}
           loadingtype={"eager"}
           readmeLink={
-            "https://github.com/JSMarsh813/PetProfileTailor/blob/main/README.md"
+            "https://github.com/ghiblimagic/PetProfileTailor/blob/main/README.md"
           }
         ></Project>
 
@@ -87,7 +87,7 @@ export default function LatestProjects() {
           projectDescription={
             "A personal blog site for a client; the main theme is how their food choices have affected their health. Their blog posts are integrated with netlify's cms, so the client can add, edit and delete blog post by signing in."
           }
-          linkToCode={"https://github.com/JSMarsh813/jillyannesite"}
+          linkToCode={"https://github.com/ghiblimagic/jillyannesite"}
           linkToLiveSite={"https://nourishedbyketo.netlify.app/"}
           loadingtype={"eager"}
         ></Project>

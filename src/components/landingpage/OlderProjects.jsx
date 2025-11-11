@@ -13,10 +13,10 @@ export default function LatestProjects() {
         projectDescription={
           "A fansite for everyones favorite fiesty Final Fantasy 14 receptionist. Originally created as a Christmas present at the request of a client, this public version keeps the functionality but replaces their personal character with the popular NPC, Tataru!"
         }
-        linkToCode={"https://github.com/JSMarsh813/Tataru"}
+        linkToCode={"https://github.com/ghiblimagic/Tataru"}
         linkToLiveSite={"https://tataru.onrender.com/"}
         loadingtype={"eager"}
-        readmeLink={"https://github.com/JSMarsh813/Tataru/blob/main/README.md"}
+        readmeLink={"https://github.com/ghiblimagic/Tataru/blob/main/README.md"}
       ></Project>
 
       <Project
@@ -29,7 +29,7 @@ export default function LatestProjects() {
         projectDescription={
           "This project is dedicated to one of the best stories ever told that influenced millions of kids and adults alike. A CRUD app with local authentication so you can add different Pokemon to your deck to view their abilities and information to plan out your perfect PokéDeck. Built with a team of developers."
         }
-        linkToCode={"https://github.com/JSMarsh813/group-project-todo-mvc"}
+        linkToCode={"https://github.com/ghiblimagic/group-project-todo-mvc"}
         loadingtype={"eager"}
       ></Project>
 
@@ -42,8 +42,8 @@ export default function LatestProjects() {
         projectDescription={
           "A one-page, responsive website for a unique rabbit themed restaurant called The Leaping Rabbit. A shopify storefront for The Leaping Rabbit was created and integrated to the website."
         }
-        linkToCode={"https://github.com/JSMarsh813/TheLeapingRabbit"}
-        linkToLiveSite={"https://jsmarsh813.github.io/TheLeapingRabbit/"}
+        linkToCode={"https://github.com/ghiblimagic/TheLeapingRabbit"}
+        linkToLiveSite={"https://ghiblimagic.github.io/TheLeapingRabbit/"}
         loadingtype={"lazy"}
       ></Project>
 
@@ -58,7 +58,7 @@ export default function LatestProjects() {
         projectDescription={
           "A public version of a CRUD app created as a gift to a friend, where users can add, edit or delete personalized messages."
         }
-        linkToCode={"https://github.com/JSMarsh813/thanksapp"}
+        linkToCode={"https://github.com/ghiblimagic/thanksapp"}
         linkToLiveSite={"https://thanksfriend.cyclic.app/"}
         loadingtype={"lazy"}
       ></Project>
@@ -72,8 +72,8 @@ export default function LatestProjects() {
         projectDescription={
           "Enter a date and recieve a picture, video or game of the day directly from NASA's API. Select the date, 6/19/2022, to play Super Planet Crash!"
         }
-        linkToCode={"https://github.com/JSMarsh813/Nasa-daily-photo"}
-        linkToLiveSite={"https://jsmarsh813.github.io/Nasa-daily-photo/"}
+        linkToCode={"https://github.com/ghiblimagic/Nasa-daily-photo"}
+        linkToLiveSite={"https://ghiblimagic.github.io/Nasa-daily-photo/"}
         loadingtype={"lazy"}
       ></Project>
 
@@ -84,8 +84,8 @@ export default function LatestProjects() {
         projectTitle={"Level Ground Pokemon Gym"}
         projectLanguages={"HTML5, CSS"}
         projectDescription={"Responsive mock site of a pokemon gym's services."}
-        linkToCode={"https://github.com/JSMarsh813/gym"}
-        linkToLiveSite={"https://jsmarsh813.github.io/gym/"}
+        linkToCode={"https://github.com/ghiblimagic/gym"}
+        linkToLiveSite={"https://ghiblimagic.github.io/gym/"}
         loadingtype={"eager"}
       ></Project>
     </div>

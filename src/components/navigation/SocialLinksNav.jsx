@@ -20,7 +20,7 @@ function SocialLinksNav() {
       alt: "Link to LinkedIn",
     },
     {
-      href: "https://github.com/JSMarsh813",
+      href: "https://github.com/ghiblimagic",
       icon: "github",
       title: "github",
       alt: "Link to github",

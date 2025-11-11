@@ -16,21 +16,21 @@ export default function WhereToFindMeSection() {
     },
 
     {
-      href: "https://x.com/Janetthedev",
+      href: "https://x.com/ghiblimagicdev",
       icon: "twitter",
       title: "twitter",
       alt: "Link to twitter",
     },
 
     {
-      href: "https://github.com/JSMarsh813",
+      href: "https://github.com/ghiblimagic",
       icon: "github",
       title: "github",
       alt: "Link to github",
     },
 
     {
-      href: "https://www.youtube.com/@JanetTheDev",
+      href: "https://www.youtube.com/@ghiblimagicdev",
       icon: "youtube",
       title: "youtube",
       alt: "Link to youtube",
@@ -43,14 +43,14 @@ export default function WhereToFindMeSection() {
       alt: "Link to twitch",
     },
     {
-      href: "https://janetthedev.hashnode.dev/",
+      href: "https://ghiblimagic.hashnode.dev/",
       icon: "hashnode",
       title: "hashnode",
       alt: "Link to hashnode",
     },
 
     {
-      href: "https://dev.to/janetthedev",
+      href: "https://dev.to/ghiblimagic",
       icon: "dev",
       title: "dev.to",
       alt: "Link to dev.to",
