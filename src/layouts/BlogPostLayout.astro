@@ -1,0 +1,35 @@
+---
+const { title, date, description } = Astro.props;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{title}</title>
+  <meta name="description" content={description || ''}>
+</head>
+<body class="bg-white">
+  <main class="max-w-4xl mx-auto px-6 py-12">
+    <article>
+      <header class="mb-8">
+        <h1 class="text-4xl font-bold mb-2">{title}</h1>
+        <time class="text-gray-600" datetime={date}>
+          {new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+        </time>
+        {description && <p class="text-xl text-gray-600 mt-4">{description}</p>}
+      </header>
+      
+      <div class="prose prose-lg prose-headings:font-bold prose-a:text-blue-600 hover:prose-a:text-blue-800 max-w-none">
+        <slot />
+      </div>
+    </article>
+    
+    <section class="mt-12 pt-8 border-t">
+      <h2 class="text-2xl font-bold mb-4">Comments</h2>
+      <p class="text-gray-500">Coming soon…</p>
+    </section>
+  </main>
+</body>
+</html>

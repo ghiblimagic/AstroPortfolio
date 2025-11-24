@@ -1,0 +1,9 @@
+---
+const { cols = 2, gap = "1rem" } = Astro.props;
+---
+
+<div
+  style={`display: grid; grid-template-columns: repeat(${cols}, minmax(0, 1fr)); gap: ${gap};`}
+>
+  <slot />
+</div>

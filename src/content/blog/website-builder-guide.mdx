@@ -1,0 +1,702 @@
+---
+title: "Ultimate Website Builder Guide: Finding Your Perfect Match"
+date: "2025-11-23"
+description: "A comprehensive guide to choosing the right website builder for your business, with flowchart and detailed comparisons"
+---
+
+If you:
+
+- Have the time and energy to create a website yourself.
+- Do not want to spend $$$ to team up with a developer.
+
+Then this guide is made for you!
+
+Picking a website builder can feel like speed-dating, with apps all swearing they’re “the one.” In reality, each builder is only "the perfect match" for specific situations. This guide helps you cut through the noise and find the website builder(s) that actually match your business.
+
+Since this is just a general guide, you'd still have to research the finalists to see which have all the features you might need.
+
+If you’d rather save some time and avoid headaches, then reach out to your local friendly developer or developer agency!
+
+Shameless self plug: [janetspellman.com](https://janetspellman.com/)
+
+Note: This article will not cover industry specific web builders since most new businesses won't need these and they're pricey. Examples of restaurant specific builders: BentoBox and Restaurantify. General site builders like Wix, Squarespace, WordPress ect will work fine for most smaller businesses.
+
+### Do you just need a website for credibility?
+
+Then you likely just need:
+
+- A professional landing page
+- Hours
+- Services
+- Contact Form
+
+Resist the urge to go crazy with plugins or customization. A one page Caard website or one of the simple multi-page website builders (Squarespace, Wix, Hostinger, ect) will likely be enough for your business.
+
+## Flowchart
+
+Below is a choose-your-path chart to quickly narrow down your top options. Once you know your options, you can jump down to the Deeper Breakdown section to get more details about your options.
+
+import Mermaid from "../../components/blog/Mermaid.astro";
+
+<Mermaid code={`
+flowchart TD
+
+START["Start"]
+
+%% MAIN SPLIT
+START --> FW["Want a multi-page website?"]
+
+%% QUICK PATH
+QUICKOPT["<b>Google Business Page</b> <br/> (free, but its just a google listing, <br> not a website)<br><br><b>Caard</b> <br> (very affordable, <br>fast, simple, but limited customization)"]
+
+%% FULL WEBSITE PATH
+FW -->|Yes| SELL["Need to sell things online?"]
+FW -->|No| QUICKOPT
+
+%% SELL CHECK
+SELL -->|Yes| FEW["Selling only a few products<br>Or <br> you just need DoorDash or UberEats integration?"]
+SELL -->|No| DESIGN["Want total design control<br/>aka you are a designer?"]
+
+%% FEW PRODUCTS PATH
+FEW -->|Yes| SMALLSHOP["<b>Squarespace / WordPress / Wix</b><br>with e-commerce plugins<br/>(good for small shops)"]
+FEW -->|No| SHOPIFY["<b>Shopify</b> <br> (best for full online stores) <br> <br>or possibly <b>industry specific website builders</b> <br> for larger businesses"]
+
+%% POS CHECK
+SMALLSHOP --> POS["Is built-in POS integration the top priority? <br> (read the article below this flowchart <br> if you are confused why you might want this)"]
+POS -->|Yes| POSOPT["<b>Square</b> <br> (for any type of business)<br>or<br><b>Toast</b> <br>(is specifically for restaurants)"]
+POS -->|No| DESIGN
+
+%% DESIGN CONTROL BRANCH
+DESIGN -->|Yes| WEBFLOW["<b>Webflow</b>"]
+DESIGN -->|No| TEMPLATES["Do you want to customize templates heavily?"]
+
+%% TEMPLATE CHOICE QUESTION
+TEMPLATES -->|No| CHOICE["Would you prefer many template options
+even if it takes more time to adjust them"]
+
+%% YES → WIX
+CHOICE -->|Yes| WIX["<b>Wix</b> <br> (more extensions + themes <br> than Squarespace but its more finicky)"]
+
+%% NO → Squarespace → Hostinger
+CHOICE -->|No| SQ["<b>Squarespace</b> <br> (less templates than Wix or WordPress <br> but templates are well made, <br> mobile & desktop ready <br> easy to use)"]
+
+%% Hostinger comes after Squarespace
+SQ --> HOST["<b>Hostinger</b> <br> (limited but professional templates, <br> no app/extension store, <br> simple websites only)"]
+
+%% ADVANCED TEMPLATE PATH STILL LEADS TO WORDPRESS
+TEMPLATES -->|Yes| WP["<b>WordPress</b> <br> More customizable and grows with the business,
+but takes time to learn"]
+
+%% WP CHOICE
+WP --> WPCHOICE["Do you want a simpler experience in exchange for a: <br> • higher base price <br> • less control <br> • being restricted from some themes and plugins?"]
+
+WPCHOICE -->|Yes| WPCOM["<b>WordPress(.com)</b>"]
+WPCHOICE -->|No| WPORG["<b>WordPress(.org)</b>"]
+`} />
+
+### Should built-in POS integration be a top priority?
+
+Short article explaining why native POS integration might matter for your business:
+
+(alas this article was getting too long, so I had to move the native integration topic to a separate article. Thanks for bearing with me!)
+
+[https://janetthedev.hashnode.dev/why-native-pos-integration-might-matter-for-you](https://janetthedev.hashnode.dev/why-native-pos-integration-might-matter-for-you)
+
+### What is a plugin, extension or app
+
+These are "apps" you can install to give extra features to your website. It acts the same way as a mobile phone, where you'll access an "app store" in the website builder, and choose which ones you need. Some are free, others have monthly costs.
+
+### What is a domain name?
+
+Every website has an IP address ex: 192..168.1.1 In human terms, this would be someone's full legal name like: Albus Percival Wulfric Brian Dumbledore.
+
+A domain name is a human readable name, so it would be a nickname like: Professor Dumbledore. Buying a domain name means you're buying a unique nickname that people can use to find your website.
+
+### Which businesses might benefit from a website?
+
+**Businesses that can potentially thrive with just social media:**
+
+1. Hyper-local service businesses or well established business that get customers from word of mouth.
+2. Appointment-based professionals who book through platforms.
+3. Food businesses that primarily use delivery apps.
+4. Businesses that only sell on marketplaces (Etsy, Ebay ect).
+5. B2B companies that land clients through relationships.
+
+In these cases, even a cheap website might not have enough ROI to use your limited money on, versus spending that money instead on advertising, ect.
+
+If a website is likely to have minimal ROI and but you want a very simple website consider:
+
+- Caard $19/year (can use the free domain that is included, or buy and add your own)
+- Square (free plan, but very limited, must use the free .square.site domain)
+- Wix (free with ads, have to use the free wix domain)
+- Wordpress.com (free, but very limited, must use the free wordpress.com domain)
+
+**Potential Pros to Having a Website:**
+
+**1\. Improved SEO, potential clients can find you with a google search easier**
+
+High SEO = Make google rank your website higher in google search results.
+
+This means if you're a plumbing business and users type in "local emergency plumber near me" into google, your business likely won't pop up near the top! Because to google, your FB/Instagram/ect is just a part of that social media company!
+
+If google automatically created a google business profile for you or you created it, then you'll get some SEO benefits from that. But with a fast website you can improve how high up you're listed in google search results, which can lead to more clients/$$$ IF they're likely to search for you with google.
+
+Even if your business will get the majority of its leads through your social presence, the other benefits below might be enough to consider making a cheap website.
+
+Special note: If your company is not very unique, or there's a ton of local competition that is very similar, it will take more effort to get a higher SEO ranking.
+
+**2\. Your company is not blocked behind a social medias "sign in to view" message**
+
+If a person sees you're only on social media and sees they have to sign in or make account, they might skip you and look at your competition instead.
+
+**3\. Finding menus, store hours, address, ect is much easier**
+
+Most users aren't going to want to look through a ton of images to find the information for a business they have no connection to. Especially if the user is not familiar with the layout of these social media websites.
+
+However, if you create a free google business profile, your hours of operation and address will at least be easy to find.
+
+**4\. Don't have to worry about social media suspending your core business page**
+
+Even if you are careful with how you word your posts, there's a chance something unexpected could trigger the suspension.
+
+But if you have a website, users will know they can get the information they need from that, so you won't be hemorrhaging as much money while you get the suspension situation fixed.
+
+**5\. Looks more professional. A website can make you look more serious than your competition**
+
+If a user has to choose between a business only listed on social media, or one that has an active social media and a website, they'll likely choose the business with a website.
+
+Only using social media makes it easier for your competition to win over potential customers from your business.
+
+**6\. A website signals your business is still open**
+
+Meanwhile a social media page that hasn't been updated in several months or a year might of closed down.
+
+## Deeper Breakdown
+
+The cost listed below is for the plans without anything added. The **cost** **does not include**:
+
+- Cost of the apps/ plugins you'll choose (since its different for each business). Some small businesses can make do with free apps/ plugins.
+- Cost of the domain name if its not included in the price (usually cheap ~$10-$20). A domain name is your website name ex: janetspellman.com.
+- Cost of a premium template, if you decide to use one.
+
+### **Google Business Profile**
+
+- Perfect if:
+  - you only need people to find you on Google, quickly.
+- Skip it if:
+  - You need an actual website.
+- Difficulty:
+- - ⭐
+- Cost:
+  - Free
+- Best For:
+  - Local visibility, great for “I need something NOW.”
+  - Most businesses should claim/create a google business profile, its free, relatively easy to setup and its often the first thing that potential clients see about your business.
+- Customer Support:
+  - Difficult to get a hold of if you are unlucky enough to run into issues but its free, so worth trying to get your google business profile setup anyway. Usually takes a few weeks for the business to be verified.
+  - [https://support.google.com/business/gethelp/?sjid=14556443374957707723-NC&visit_id=638994772013234530-3113233149&rd=1](https://support.google.com/business/gethelp/?sjid=14556443374957707723-NC&visit_id=638994772013234530-3113233149&rd=1)
+- Migration & Security & Accessibility:
+  - N/A, this is a google listing not a website.
+- Pros:
+  - Free, will help people find your business to potentially lead to some more sales
+  - Easy to setup
+- Cons:
+  - Looks less professional if you don’t add a website to your google business profile, but it’s better than nothing and easy to setup.
+  - Although you can post your menu as images to get around setting up a website, it requires more work for customers to click through images to find the menu images.
+- Setup Guide:
+  - 13 minute set up guide: [https://www.youtube.com/watch?v=KPfjzL9oPiE](https://www.youtube.com/watch?v=KPfjzL9oPiE)
+
+### **Carrd**
+
+- Perfect if:
+  - you want a clean simple, affordable one page website in roughly an hour. It has templates you’ll chose from to create your website. You can also add forms to it.
+- Skip it if:
+  - You need blogging or complex features.
+- Difficulty:
+  - ⭐
+- Cost:
+  - Pro Lite $9/year
+  - Pro Standard $19/year
+  - Pro Plus $49/yr
+  - [https://carrd.co/pro](https://carrd.co/pro)
+- Trial:
+  - 7 day trial
+- Best For:
+  - Simple one-page sites for:
+    - Freelancers, Entrepreneurs, Portfolios, Personal Brands, Event Organizers, Small Biz Landing Pages
+  - Fast, clean, minimal, affordable For ONE page websites
+- Customer Support:
+  - Offers email support, no phone support. Usually replies within 24 hours.
+  - [https://carrd.co/contact](https://carrd.co/contact)
+- Migration:
+  - Can only export the website on a pro plus plan or higher, though even then the form elements will not be functional in the download
+  - [https://carrd.co/docs/sites/downloading](https://carrd.co/docs/sites/downloading)
+- Security:
+  - Handled by Caard, you don’t have to do anything.
+- Accessibility (ADA/WCAG compliance):
+  - Since Caard sites are simpler they’re more likely to be accessible. However there’s nothing about “we meet WCAG 2.1 Level AA” for the templates, so if you legally need to meet this requirements or want to care for all your potential customers, you’d likely have to manually check for accessibility compliance.
+  - Simple accessibility tips for Caard: [https://accessibility.carrd.co](https://accessibility.carrd.co)
+  - Web accessibility Resources: [https://weba11y.carrd.co/](https://weba11y.carrd.co/)
+- How easy to hand-off to employees:
+  - Very simple to share access:
+  - [https://carrd.co/docs/sites/sharing-access-to-a-site](https://carrd.co/docs/sites/sharing-access-to-a-site)
+- Pros:
+  - Very affordable!
+  - Easy to use
+- Cons:
+  - For single page websites. Though if you want it to "look" like a multi page website you can use their sections feature. However it won't have the SEO benefits of a true multi page website. A “multi page” Caard is also slightly more complicated to set up. 3 minute guide: https://www.youtube.com/watch?v=RVcovcKaeq4
+- 8 minute overview: [https://www.youtube.com/watch?v=oAtkeesUW68](https://www.youtube.com/watch?v=oAtkeesUW68)
+- 15 minute tutorial: [https://www.youtube.com/watch?v=1PL6NntBaK4](https://www.youtube.com/watch?v=1PL6NntBaK4)
+- Examples:
+  - “18 Best Carrd Websites” inspiration article: [18 Best Carrd Websites & Ideas](https://colorlib.com/wp/carrd-websites/)
+  - Also: a curated gallery of Carrd one-page sites: [Carrd Website Examples (OnePageLove)](https://onepagelove.com/tag/carrd)
+  - “20 Inspiring Carrd Website Examples”: [SiteBuilderReport](https://www.sitebuilderreport.com/inspiration/carrd-websites)
+  - Curated gallery of Carrd one-pagers: [Deck of Carrd](https://deckof.carrd.co/)
+
+### **Squarespace**
+
+- Perfect if:
+  - You want beautiful templates and zero fuss, you don't need tons of extra features.
+- Skip it if:
+  - You want heavy customization or pixel-perfect control.
+- Difficulty:
+  - ⭐⭐
+- Cost:
+  - Basic $16/mo (with year payment) $25 pay per month
+  - Core $23/mo (with year payment) $36 to pay per month
+  - 2 more plans for more advanced businesses
+  - [https://www.squarespace.com/pricing](https://www.squarespace.com/pricing)
+- Trial:
+  - 14 day trial
+- Best For:
+  - Small biz, creatives, portfolios, blogs, personal sites, simple e-commerce
+  - Those who prioritize simplicity versus customization
+  - For small businesses and bloggers that want something easy to use and fast to setup, while also having a professional looking site
+- Customer Support:
+  - Live chat (open 4am-8pm EST)
+  - Email
+  - No phone support
+  - [https://support.squarespace.com/hc/en-us/p/contact](https://support.squarespace.com/hc/en-us/p/contact)
+  - [https://www.launchthedamnthing.com/blog/how-to-contact-squarespace-support](https://www.launchthedamnthing.com/blog/how-to-contact-squarespace-support)
+- Migration:
+  - Very limited and painful to deal with
+  - Some things can be exported to WordPress, but its hit or miss.
+  - [https://support.squarespace.com/hc/en-us/articles/206566687-Exporting-your-site](https://support.squarespace.com/hc/en-us/articles/206566687-Exporting-your-site)
+- Security:
+  - Handles security, you don’t have to do anything.
+- Accessibility (ADA/WCAG compliance):
+  - Squarespace has built in tools to fine-tune your site to be more accessible.
+  - [https://support.squarespace.com/hc/en-us/articles/215129127-Accessibility-resources-at-Squarespace](https://support.squarespace.com/hc/en-us/articles/215129127-Accessibility-resources-at-Squarespace)
+  - [https://accessibe.com/blog/knowledgebase/squarespace-website-accessibility](https://accessibe.com/blog/knowledgebase/squarespace-website-accessibility)
+- How easy to hand-off to employees:
+  - Easy to add them as a contributor and easy for them to edit.
+  - [https://support.squarespace.com/hc/en-us/articles/206537287-Inviting-a-contributor](https://support.squarespace.com/hc/en-us/articles/206537287-Inviting-a-contributor)
+- Pros:
+  - All in one platform, you can buy your domain within Squarespace.
+  - Simple to use.
+  - Strong support and community
+  - Although there are less templates, they’re good quality so they’ll look professional on any screen size. So you’ll save the time you would of spent on these annoying adjustments.
+- Cons:
+  - Slightly pricier but everything is in one place
+  - Can’t customize the templates as much as you can with other builders like WordPress BUT the templates that do exist are good quality.
+  - Less extensions/plugins than other options
+  - If you have multiple locations, you'd have to make a site for each once since their e-commerce capabilities are more limited due to their smaller app market.
+- If you need an online store as well, you can get it as an addon for extra $$
+- 6 minute pro and cons: https://www.youtube.com/watch?v=FP1wTBM\_8F8
+- Examples:
+  - Official showcase: [Made with Squarespace – Showcase](https://www.squarespace.com/showcase?utm_source=chatgpt.com)
+  - More examples for creatives/businesses: [22 + Squarespace Inspiring Websites](https://www.landing.gallery/website-builder/squarespace?utm_source=chatgpt.com)
+  - SiteBuilderReport “55 Beautiful Examples of Squarespace Websites” [https://www.sitebuilderreport.com/squarespace-examples](https://www.sitebuilderreport.com/squarespace-examples?utm_source=chatgpt.com)
+  - Colorlib “21 Best Squarespace eCommerce Examples in 2025”
+  - [https://colorlib.com/wp/squarespace-ecommerce-examples/](https://colorlib.com/wp/squarespace-ecommerce-examples/?utm_source=chatgpt.com)
+
+### **Hostinger**
+
+- Perfect if:
+  - You just need a simple website with text, images and maybe some contact forms. You don't need all the bells and whistles (addons/plugins).
+- Skip it if:
+  - You want to heavily customize the look of your website, or you want plugin/addons to add extra features to your website.
+  - Or you want to do eCommerce (it technically has an eCommerce plan, but its very limited)
+- Difficulty:
+  - ⭐⭐
+- Cost:
+  - Premium $12.95/mo ($1.95/mo with a 2 year sub)
+  - Business $18.95/mo ($2.75/mo with a 2 year sub)
+  - [https://www.hostinger.com/pricing/website-builder](https://www.hostinger.com/pricing/website-builder)
+- Trial:
+  - 30 day money back guarantee, currently has a 14 day trial though its a bit hidden
+  - [https://www.hostinger.com/support/10323594-how-to-try-hostinger-website-builder-for-free/](https://www.hostinger.com/support/10323594-how-to-try-hostinger-website-builder-for-free/)
+- Best for:
+  - For those that need a simple website: just text, videos, pictures, contact form or appointment form.
+  - Useful to create very simple websites for cheap
+  - eCommerce is technically there for extra $$ but it has very minimal customization currently
+- Customer Support:
+  - Live chat (24/7)
+  - Email (reply within 24 hours)
+  - No phone support
+  - [https://www.hostinger.com/legal/customer-service-policy](https://www.hostinger.com/legal/customer-service-policy)
+  - [https://www.hostinger.com/contacts](https://www.hostinger.com/contacts)
+- Migration:
+  - Not everything can be exported to WordPress, its hit or miss.
+  - [https://www.hostinger.com/support/6572573-hostinger-website-builder-how-to-export-content-to-wordpress/](https://www.hostinger.com/support/6572573-hostinger-website-builder-how-to-export-content-to-wordpress/)
+- Security:
+  - Handles security, you don’t have to do anything.
+- Accessibility (ADA/WCAG compliance):
+  - Couldn’t find information about how accessible the templates are.
+  - However they have an article about how to make your site more accessible: [https://www.hostinger.com/tutorials/web-accessibility](https://www.hostinger.com/tutorials/web-accessibility)
+  - How to add alt text on Hostinger: [https://www.hostinger.com/support/6466460-hostinger-website-builder-how-to-add-alt-text/](https://www.hostinger.com/support/6466460-hostinger-website-builder-how-to-add-alt-text/)
+- How easy to hand-off to employees:
+  - Can share access with an employee, easy to edit site:
+  - [https://www.hostinger.com/support/1583777-how-to-share-access-to-your-account-at-hostinger/](https://www.hostinger.com/support/1583777-how-to-share-access-to-your-account-at-hostinger/)
+- Pros:
+  - Has templates that are created by the platform itself and are regularly updated
+  - Easy to use and edit
+- Cons:
+  - Limited customization options
+  - eCommerce options are currently limited
+  - No marketing options, limited analytics
+- Examples:
+  - “20 Inspiring Hostinger Website Builder Examples” [https://www.sitebuilderreport.com/inspiration/hostinger-websites](https://www.sitebuilderreport.com/inspiration/hostinger-websites)
+
+### **Square**
+
+- Perfect if:
+  - You are a small to medium business that wants an easy way to handle mobile/ online payments
+- Skip it if:
+  - You want your website to look more polished or you want a full fledged eCommerce business
+- Difficulty:
+  - ⭐⭐
+- Trial:
+  - 30 day trial
+- Cost:
+  - Free + processing fees (though its website builder square online has very limited themes for the free plan)
+  - Plus $49/mo + processing fees
+  - Premium which is more $$$
+  - [https://squareup.com/us/en/pricing](https://squareup.com/us/en/pricing)
+- Best For:
+  - Small to medium businesses that don't need many e-commerce options
+  - Pop up shops, bookstores, Cafés, appointment-based businesses, artists and creators, service businesses, food trucks, quick-serve
+  - Owners who want something simple + affordable
+  - Hybrid businesses (retail + café, etc.)
+- Customer Support:
+  - Chat (The ai assistant will reply first but they state “If you prefer, you can also chat with a live agent and Square will pair you with the first available Square Support advocate for support.”)
+  - Email (replies within 24-48 hours)
+  - Has phone support:
+    - Free: 6am - 6pm M-F for first 90 days
+      Plus: 6am-6pm PT M-F
+      Premium: 24/7
+      You can check for updated support hours here: [https://squareup.com/us/en/online-store/plans#support](https://squareup.com/us/en/online-store/plans#support)
+  - [https://squareup.com/help/us/en/article/4993-contact-square-support](https://squareup.com/help/us/en/article/4993-contact-square-support)
+- Migration:
+  - You can export certain data like customers, item library, orders and reports, but you can’t export the website itself
+- Security:
+  - Handles security, you don’t have to do anything.
+- Accessibility (ADA/WCAG compliance):
+  - The square checkout has accessibility options:
+  - [https://squareup.com/help/us/en/article/8337-set-up-accessibility-features](https://squareup.com/help/us/en/article/8337-set-up-accessibility-features)
+  - Unclear how accessible the square online themes are but there are some widgets to help check your accessibility.
+- How easy to hand-off to employees:
+  - To give an employee access to **edit the Square Online website itself**, you must assign them a permission set that includes **Full Access** to the account. This permission level still prevents them from making major account changes like managing bank accounts, but grants the necessary permissions for website building and editing.
+  - Note that basic team permissions are free, but if you need to create custom permission sets for different access levels to your online store and other features, you may need a subscription to the paid Team Management plan.
+  - [https://www.gentlefrog.com/how-to-add-a-full-access-team-member-to-square/](https://www.gentlefrog.com/how-to-add-a-full-access-team-member-to-square/)
+- Pros
+  - You can learn in a day, clean user interface
+  - Low upfront cost, perfect if you don’t need hardcore features. Pay per transaction, no monthly fees for a basic account
+  - The cheapest path to a functional POS with good online ordering tools
+  - Only add the addons you need ( ex: appointments, retail inventory, loyalty and marketing programs, invoices, payroll, team management)
+  - They have a website builder as well (square online, which has a free plan)
+- Cons:
+  - Addons will cost extra, but that’s the same for almost all website builders.
+  - Limited customization options, square’s online websites will look basic.
+  - Not ideal for large retail chains since inventory & multi-location tools are basic
+  - E-commerce features are weaker than Shopify, best to use shopify you want a strong e-commerce platform. If you’re a small business though, Shopify would be overkill.
+  - If you need a highly unique checkout flow, square might be too rigid for you
+- Examples:
+  - “10 Inspirational Square Online Store Examples” [https://alvarotrigo.com/blog/square-online-store-examples/](https://alvarotrigo.com/blog/square-online-store-examples/)
+
+### **Wix**
+
+- Perfect if:
+  - You are willing to spend a bit more time editing in return for having access to more templates, or you need more apps to add more features
+- Skip it if:
+  - you might migrate later (it’s not easy). Or you don’t want to fiddle with an editor too much to get everything looking right.
+- Difficulty:
+  - ⭐⭐–⭐⭐⭐
+- Cost:
+  - Free (with Wix ads, have to use a [wixsite.com](http://wixsite.com) domain name)
+  - Light $17/mo
+  - Core $29/mo
+  - And some more expensive plans [https://www.wix.com/plans](https://www.wix.com/plans)
+- Trial:
+  - 14 day trial for premium plans
+- Best for:
+  - Creative service businesses, small shops that want a cute storefront, personal brands, service businesses with scheduling
+  - A business that wants greater control how their site looks, doesn’t mind that it will take some more time to get it to look just right, while not dealing with the complexity of Webflow or WordPress
+- Customer Service:
+  - Hours vary based on what language you speak:
+    [https://support.wix.com/en/article/contacting-wix-customer-care-for-support](https://support.wix.com/en/article/contacting-wix-customer-care-for-support)
+  - You’re have to start with the chat, and then select if you want to use chat, email or phone support.
+  - Chat:
+    - “Describe your issue in a chat to get help right away, 24/7”
+  - Email
+  - Phone:
+    - (English) Monday-Friday 2AM-6PM EST
+- Migration:
+  - Can’t be migrated, the website is stuck on Wix. If you want to move, you’d have to rebuild from scratch elsewhere.
+  - [https://support.wix.com/en/article/exporting-or-embedding-your-wix-site-elsewhere](https://support.wix.com/en/article/exporting-or-embedding-your-wix-site-elsewhere)
+- Security:
+  - Handles security, you don’t have to do anything.
+- Accessibility (ADA/WCAG compliance):
+  - Their “features comply with the highest global standards ([WCAG 2.0](https://www.w3.org/WAI/standards-guidelines/wcag/))[.](https://www.w3.org/WAI/standards-guidelines/wcag/)” and they have guides about how to make sure your website is accessible:
+    [htt](https://www.w3.org/WAI/standards-guidelines/wcag/)[ps://www.wix.com/accessibility](https://www.wix.com/accessibility)
+  - These specific template were built with accessibility in mind (though you’d still have to manually enter alt text for images, which would be the same for any accessible template): [https://es.wix.com/website/templates/html/accessible](https://es.wix.com/website/templates/html/accessible)
+- How easy to hand-off to employees:
+  - More limitations. On a free Wix site (non-Studio), you only get 1 person beyond yourself who can be invited as a collaborator.
+  - If you expect more than one person to edit the site you’ll need a paid plan:
+  - [https://support.wix.com/en/article/inviting-people-to-contribute-to-your-site?utm_source=chatgpt.com](https://support.wix.com/en/article/inviting-people-to-contribute-to-your-site?utm_source=chatgpt.com)
+- Pros:
+  - Offers a free plan, though you’ll have to deal with the “created by Wix” header.
+  - More templates to choose from
+  - Has more apps/plugins than Squarespace
+- Cons:
+  - Can be a bit finicky to get it to look just right, might look off on different size screens. Trial and error to get it to look how you want. The “strip” layout is a bit weird to figure out.
+  - All the options can be overwhelming at first
+- Examples:
+  - Blog post with 15 outstanding Wix examples: [https://www.wix.com/blog/wix-websites-examples](https://www.wix.com/blog/wix-websites-examples?utm_source=chatgpt.com)
+  - Gallery of real-life Wix websites: [https://www.sitebuilderreport.com/wix-examples](https://www.sitebuilderreport.com/wix-examples)
+
+### **Shopify**
+
+- Perfect if:
+  - You have a medium or large eCommerce business.
+- Skip it if:
+  - You’re not running a store—it's overkill.
+- Difficulty:
+  - ⭐⭐–⭐⭐⭐
+- Cost:
+  - Basic (solo) $29/mo
+  - There are more expensive plans as well
+- Trial:
+  - 3 day free trial + $1/mo for the first 3 months of some plans
+  - [https://www.shopify.com/pricing](https://www.shopify.com/pricing)
+- Customer Support:
+  - Chat: for all plans: (available 24/7)
+  - Phone: Shopify Plus and Retail plans only
+  - Email: Shopify Plus and Retail plans only
+    “If you use a free Shopify theme and are on the Basic plan or higher, then you get up to 60 minutes of free design support (in 15-minute increments) for small theme changes.”
+  - “For paid third-party themes, support is provided by the theme developer, not Shopify Support. You can access theme documentation and contact developer support through your Shopify admin.”
+  - [https://help.shopify.com/en/manual/your-account/contact-shopify-support](https://help.shopify.com/en/manual/online-store/themes/theme-support#where-to-find-support-for-your-theme)
+- Migration:
+  - Very limited, you can export your stores data but the theme is specific to shopify.
+  - You’d basically need to hire a developer to fully migrate or just start from scratch on the new platform
+  - [https://wpcreative.com.au/convert-shopify-theme-to-wordpress/](https://wpcreative.com.au/convert-shopify-theme-to-wordpress/)
+- Security:
+  - Handles security, you don’t have to do anything.
+- Accessibility (ADA/WCAG compliance):
+  - Guide on how to make your site accessible:
+  - [https://help.shopify.com/en/manual/online-store/themes/customizing-themes/accessibility](https://help.shopify.com/en/manual/online-store/themes/customizing-themes/accessibility)
+  - These are some of the more accessible themes:
+  - [https://accessibe.com/blog/knowledgebase/accessible-shopify-themes](https://accessibe.com/blog/knowledgebase/accessible-shopify-themes)
+  - Though the plugins/ apps you use might not be as accessible as your theme.
+- How easy to hand-off to employees:
+  - Can easily personalize staff permissions BUT the basic plan has 0, you can’t even buy 1 staff account to use with the basic plan.
+  - You’d need to buy the pricey 79$/mo grow plan to get any staff accounts (5 staff)
+  - [https://community.shopify.com/t/how-can-i-view-and-edit-staff-privileges-on-my-website/78602](https://community.shopify.com/t/how-can-i-view-and-edit-staff-privileges-on-my-website/78602)
+  - [https://help.shopify.com/en/manual/your-account/users/users-plan-requirements](https://help.shopify.com/en/manual/your-account/users/users-plan-requirements)
+- Cons:
+  - No drag and drop builder, so less creative freedom
+  - Learning curve for advanced features like SEO, analytics, automation flows
+  - Basic and plus plans have limited checkout customization options, the pricier plans have more customization options.
+  - Shopify can ban your store if it suspects you’re a bot, selling prohibited items, running multiple brands in the same store (they want a store for each brand), and various other reasons. You can speak to shopify support on the off chance it does happen to you.
+- Pros:
+  - But the sections are built to be easy to edit, and to look good on any size screen (be responsive).
+  - They make it easy to manage your inventory, order fulfillment, ect, though there will be transaction fees
+  - Over 8000 Apps you can add for various prices to add features to your site.
+- Examples:
+  - Official store examples: [https://www.shopify.com/examples](https://www.shopify.com/examples)
+  - More detailed list: [https://www.sitebuilderreport.com/shopify-stores-examples](https://www.sitebuilderreport.com/shopify-stores-examples?utm_source=chatgpt.com)
+
+### **WordPress (In General)**
+
+- Perfect if:
+  - You want flexibility, something highly customizable, plugins, blogging, or long-term scalability.
+- Skip it if:
+  - You want something extremely simple right away.
+- Note: Wordpress.com and WordPress.org are different, even though they use the same wordpress code. Wordpress.org is free, it just requires a little bit more setup. Wordpress.com handles hosting and security, but is pricier. They’ll be described below.
+- Pro:
+  - Need a site that will grow with your business (scalable)
+  - Can add e-commerce capabilities with plugins
+  - Not locked into a specific platform like the other website builders, you can pick up your website and move to another platform if a hosting platform starts price gouging you.
+  - Can be relatively cheap, as long as you don’t go crazy with adding plugins.
+- Cons:
+  - Bigger learning curve, takes time to get used to the setup.
+- Examples:
+  - Official “showcase” of real sites built on WordPress: [https://wordpress.org/showcase/](https://wordpress.org/showcase/)
+  - Big brands using WordPress: [https://kinsta.com/blog/wordpress-site-examples/](https://kinsta.com/blog/wordpress-site-examples/)
+  - Collection of “100+ real WordPress website examples”: [https://reallygooddesigns.com/wordpress-website-examples](https://reallygooddesigns.com/wordpress-website-examples)
+  - Kinsta “130+ WordPress Site Examples” [https://kinsta.com/blog/wordpress-site-examples/](https://kinsta.com/blog/wordpress-site-examples/)
+  - 10Web “26 WordPress Website Examples to Inspire You” [https://10web.io/blog/wordpress-websites/](https://10web.io/blog/wordpress-websites/)
+
+### **Wordpress**.org
+
+- Perfect if:
+  - You want to be able to have total ownership of your site and do heavy customization at a relatively low price. And you don’t mind a higher learning curve and some more setup to get those benefits.
+- Skip it if:
+  - You don’t have the time to research hosting providers
+  - If you choose basic WP hosting instead of WP managed hosting, you’d have to do technical maintenance manually. (Manually telling the plugins to update, and server side security updates, manual backups)
+- Difficulty:
+  - ⭐⭐⭐-⭐⭐⭐⭐
+- Cost:
+  - Depends on where you host it, WordPress itself is free. You’d chose your host and build your WordPress site there
+  - Hostinger $1.95/mo for 48 months 10.99/mo regular price at renewal
+  - Bluehost: 2.95-3.00/mo starting
+  - Dreamhost: starts at $2.59/mo
+  - Also use care when selecting apps/plugins, these prices can stack up quietly ($10/mo here, $20/mo there)
+- Trial:
+  - Depends on the provider you chose.
+- Customer Support:
+  - Support varies based on your hosting platform
+  - Theme and plugin support levels vary by the creators
+- Migration:
+  - This is where WordPress shines, its the easiest to move away from. You can easily switch to one hosting provider to another.
+- Security:
+  - If you use managed WordPress hosting they’ll handle security.
+  - If you use a self-hosted solution you’d have to manually update plugins, themes and other security updates.
+- Accessibility (ADA/WCAG compliance):
+  - Varies by theme, these are some of the more accessible themes:
+  - [https://wordpress.org/themes/tags/accessibility-ready/](https://wordpress.org/themes/tags/accessibility-ready/)
+  - Though your plugins/apps might not be as accessible.
+- How easy to hand-off to employees:
+  - You can easily add editors with various permission levels:
+  - [https://wordpress.com/support/invite-people/](https://wordpress.com/support/invite-people/)
+- Pros:
+  - Very customizable. Over 30,000 themes and 70,000 plugins to choose from to personalize your site, at various prices (some are free)
+  - No themes or plugins are restricted, you can use any that you want.
+  - Freedom to customize anything (themes, plugins, code)
+  - Full access to files, database, server
+  - You can heavily customize performance, caching, SEO
+  - You can easily switch hosting providers, if one of them suddenly raises prices on you. Or you just want to take advantage of the “new client” plans by jumping around.
+- Cons:
+  - You have to deal with finding hosting. If you don’t choose a provider that offers “Managed WordPress hosting”, then you’d have to manually do plugin updates, security updates and backups.
+  - You have to use more care when choosing themes and plugins, as not all of them are good quality. Look at reviews, avoid ones with low reviews.
+  - You’ll have to deal with more technical aspects of your website, especially if you don’t use “Managed WordPress Hosting”
+
+### **Wordpress.com**
+
+- Difficulty: ⭐⭐⭐
+- Perfect if:
+  - You want to be able to heavily customize your website visually
+  - You want the technical bits handled (plugin and security updates). Higher tier plans also get automatic backups.
+- Skip it if:
+  - You want *t*otal ownership of your site and heavy customization is important to you.
+  - You’d rather save some money by dealing with a bigger learning curve & doing more research.
+- Cost:
+  - Free $0/mo (will have ads, can't install plugins or themes)
+  - There are discounts if you pay yearly or once every 2 years, saving up to 68%)
+    - personal $9/mo (access plugin and some premium themes)
+    - premium plans ($18/mo), (access to plugin and all premium themes)
+    - business plan at $40/mo (to access e-commerce options with plugins)
+    - [https://wordpress.com/pricing/#lpc-pricing](https://wordpress.com/pricing/#lpc-pricing) (to see all the pricing including yearly and biyearly pricing)
+- Trial:
+  - No trial, but they do have a free plan
+- Customer Support:
+  - Chat and email: for paid plans (reply within 24 hours)
+  - Phone: no phone support
+  - [https://wordpress.com/support/help-support-options/#how-to-contact-us](https://wordpress.com/support/help-support-options/#how-to-contact-us)
+  - Offers support for themes made by WordPress.com:
+    - [https://wordpress.com/support/plugins/get-help-with-plugins-and-themes/](https://wordpress.com/support/plugins/get-help-with-plugins-and-themes/)
+  - Third party Plugin and theme issues will depend on the support options listed by the creator
+- Migration:
+  - You can move the website to another hosting provider:
+  - [https://wordpress.com/support/export/](https://wordpress.com/support/export/)
+- Security:
+  - Handles security, you don’t have to do anything.
+- Accessibility (ADA/WCAG compliance):
+  - Varies by theme, these are some of the more accessible themes:
+    [https://wordpress.com/themes/filter/accessibility-ready](https://wordpress.com/themes/filter/accessibility-ready)
+  - Though your plugins/apps might not be as accessible.
+- How easy to hand-off to employees:
+  - You can create an account for an employee and edit what permissions they have:
+  - [https://learn.wordpress.org/lesson-plan/user-management/](https://learn.wordpress.org/lesson-plan/user-management/)
+- Pros:
+  - Unlimited traffic (visitors to your site) without surprise hosting bills, which makes the site very scalable (the site can handle your business growing over time)
+  - Automatic updates & security
+  - Fast performance without tuning, since its optimized to run WordPress websites
+  - Zero server setup (no hosting configuration needed)
+  - Less risk of “breaking” your site by accident
+  - Personal and Premium plans have access to plugins now. The personal and premium plans used to have no access to premium themes or plugins so most avoided using it, but WP.com listened to the complaints and made those plans actually usable.
+- Cons:
+  - Can only export your WordPress site with higher tier plans, so if you want to leave WordPress.com you’d have to go to a higher tier to be able to export your WordPress site to a different host.
+  - Slightly less customization because some plugins and themes won’t be available to you, because they only allow plugins that do not seem risky
+  - Won’t have full control over databases, files and code
+  - Automatic backups are only available on business and higher plans. Lower tier plans would have to use a plugin for backups.
+  - Can’t do deep backend customization
+
+### **Webflow**
+
+- Perfect if:
+  - You love design and want total visual control while not dealing with coding
+- Skip it if:
+  - You’re not ready for a learning curve.
+- Difficulty:
+  - ⭐⭐⭐⭐⭐
+- Cost:
+  - Free (for 2 page websites & 50 form submissions)
+  - Basic $14/mo (with yearly payment)
+- Trial:
+  - No free trial for the premium plans but it has a limited free plan
+- Customer Support:
+  - Chat: AI 24/7, live agent varies based on the time of day
+  - Email: through their Webflow Support Portal
+  - Phone and video call: only for Enterprise plans
+  - [https://help.webflow.com/hc/en-us/articles/39672881707155-Customer-Support-Policy#h_01JQ478K6QZS3YTS9N2566E3TM](https://help.webflow.com/hc/en-us/articles/39672881707155-Customer-Support-Policy#h_01JQ478K6QZS3YTS9N2566E3TM)
+- Migration:
+  - Limited. You can only export your code on the workspace plans but a good chunk of the content won’t be included in the export (CMS, user accounts, e-commerce content, form logic, ect).
+  - [https://help.webflow.com/hc/en-us/articles/33961386739347-How-do-I-export-my-Webflow-site-code](https://help.webflow.com/hc/en-us/articles/33961386739347-How-do-I-export-my-Webflow-site-code)
+- Security:
+  - Handles security, you don’t have to do anything.
+- Accessibility (ADA/WCAG compliance):
+  - Has built in tools to audit your website for accessibility issues
+    [https://webflow.com/accessibility](https://webflow.com/accessibility)
+  - [https://webflow.com/blog/ada-testing](https://webflow.com/blog/ada-testing)
+  - There wasn’t a way to sort through the templates by accessibility but some people do create templates with accessibility in mind, such as this person:
+  - [https://www.bryntaylor.co.uk/templates/accessible-webflow](https://www.bryntaylor.co.uk/templates/accessible-webflow)
+- How easy to hand-off to employees:
+  - Relatively easy: Up to 25 concurrent members per site
+  - However the different “modes” effect what can be edited:
+  - [https://help.webflow.com/hc/en-us/articles/33961260491795-Collaborate-on-your-site-in-Webflow](https://help.webflow.com/hc/en-us/articles/33961260491795-Collaborate-on-your-site-in-Webflow)
+- Pros:
+  - Free for a 2 page website
+  - Can host elsewhere with a workspace plan, no attribution required
+- Con:
+  - Editor feels more like a graphic design tool like Photoshop
+  - For blog and e-commerce sites there’s separate plans for those features
+  - E-commerce is very limited, only really an option if you have a micro shop and this feature has basically been abandoned:
+  - [https://www.reddit.com/r/webflow/comments/1cdpuqe/webflow_ecommerce_whats_your_opinion/](https://www.reddit.com/r/webflow/comments/1cdpuqe/webflow_ecommerce_whats_your_opinion/)
+  - [https://www.reddit.com/r/webflow/comments/1euzta1/has_webflow_forsaken_their_ecommerce/](https://www.reddit.com/r/webflow/comments/1euzta1/has_webflow_forsaken_their_ecommerce/)
+- Examples:
+  - Community showcase of sites: [https://webflow.com/made-in-webflow](https://webflow.com/made-in-webflow)
+  - Blog article with top Webflow examples: [https://www.flux-academy.com/blog/12-stunning-webflow-examples-that-show-just-how-versatile-the-website-builder-is](https://www.flux-academy.com/blog/12-stunning-webflow-examples-that-show-just-how-versatile-the-website-builder-is?utm_source=chatgpt.com)
+  - Digidop “10 Great Company Websites Built on Webflow” [https://www.digidop.com/blog/large-enterprise-webflow-sites](https://www.digidop.com/blog/large-enterprise-webflow-sites?utm_source=chatgpt.com)
+
+### GoDaddy
+
+- Best For:
+  - No-one
+  - Avoid using, they’re known for predatory pricing. It starts off cheap for a year, but then you’ll be hit with 100+ in surprise charges
+
+## When to hire a developer
+
+**1\. You don’t have the time or energy to build a website yourself**
+
+You’ll work with a developer to figure out what your site should look like to achieve your goals. They’ll then deal with creating it for you and make edits as needed.
+
+They can use a website builder so you can easily maintain it once its setup, or they can code a custom website.
+
+**2\. You want to be listed in the top spot for google search results**
+
+Website builders are going to **usually** be “heavier” for the webpage to load than a website that was coded for you. However, If you only use a few apps/ extensions and don't go crazy with the animations or effects, then a website builder's loading speed will likely be fine.
+
+Starting out, website builders will usually be fast enough. As your business gets larger, and you want to increase your SEO ranking (visibility on google search results) this can become more important.
+
+**3\. You’re a larger business and need more advanced features or customization**
