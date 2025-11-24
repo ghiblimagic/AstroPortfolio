@@ -1,8 +1,24 @@
 ---
-title: "Ultimate Website Builder Guide: Finding Your Perfect Match"
+title: "Matchmaking for Your Business: Pick the Right Website Builder!"
 date: "2025-11-23"
-description: "A comprehensive guide to choosing the right website builder for your business, with flowchart and detailed comparisons"
+description: 'A comprehensive guide to helping you "swipe right" on the right website builder for your business, with a flowchart and detailed comparisons.'
 ---
+
+import ButtonALink from "@/components/blog/ButtonALink.astro";
+
+export const builders = [
+  { href: "#google-business-profile", label: "Google Business Profile" },
+  { href: "#caard", label: "Caard" },
+  { href: "#squarespace", label: "Squarespace" },
+  { href: "#hostinger", label: "Hostinger" },
+  { href: "#square", label: "Square" },
+  { href: "#wix", label: "Wix" },
+  { href: "#wordpress-in-general", label: "Wordpress (In General)" },
+  { href: "#wordpressorg", label: "wordpress.org" },
+  { href: "#wordpresscom", label: "wordpress.com" },
+  { href: "#webflow", label: "Webflow" },
+  { href: "#godaddy", label: "GoDaddy" },
+];
 
 If you:
 
@@ -17,9 +33,7 @@ Since this is just a general guide, you'd still have to research the finalists t
 
 If you’d rather save some time and avoid headaches, then reach out to your local friendly developer or developer agency!
 
-Shameless self plug: [janetspellman.com](https://janetspellman.com/)
-
-Note: This article will not cover industry specific web builders since most new businesses won't need these and they're pricey. Examples of restaurant specific builders: BentoBox and Restaurantify. General site builders like Wix, Squarespace, WordPress ect will work fine for most smaller businesses.
+Note: This article will not cover industry specific web builders like BentoBox since most new businesses won't need these and they're pricey. General site builders like Wix, Squarespace, WordPress ect will work fine for most smaller businesses.
 
 ### Do you just need a website for credibility?
 
@@ -94,11 +108,21 @@ WPCHOICE -->|Yes| WPCOM["<b>WordPress(.com)</b>"]
 WPCHOICE -->|No| WPORG["<b>WordPress(.org)</b>"]
 `} />
 
+### Jump to a Specific Builder's Section:
+
+{builders.map(builder => (
+
+<ButtonALink
+  href={builder.href}
+  label={builder.label}
+/>
+))}
+
 ### Should built-in POS integration be a top priority?
 
 Short article explaining why native POS integration might matter for your business:
 
-(alas this article was getting too long, so I had to move the native integration topic to a separate article. Thanks for bearing with me!)
+(alas this article was getting too long, so I had to move the native integration topic to a separate article.)
 
 [https://janetthedev.hashnode.dev/why-native-pos-integration-might-matter-for-you](https://janetthedev.hashnode.dev/why-native-pos-integration-might-matter-for-you)
 
@@ -112,7 +136,7 @@ Every website has an IP address ex: 192..168.1.1 In human terms, this would be s
 
 A domain name is a human readable name, so it would be a nickname like: Professor Dumbledore. Buying a domain name means you're buying a unique nickname that people can use to find your website.
 
-### Which businesses might benefit from a website?
+### Which businesses might not need a website?
 
 **Businesses that can potentially thrive with just social media:**
 
@@ -122,16 +146,16 @@ A domain name is a human readable name, so it would be a nickname like: Professo
 4. Businesses that only sell on marketplaces (Etsy, Ebay ect).
 5. B2B companies that land clients through relationships.
 
-In these cases, even a cheap website might not have enough ROI to use your limited money on, versus spending that money instead on advertising, ect.
+In these cases, even a cheap website might not have enough ROI (return on investment) to use your limited money on, versus spending that money instead on advertising, ect.
 
 If a website is likely to have minimal ROI and but you want a very simple website consider:
 
-- Caard $19/year (can use the free domain that is included, or buy and add your own)
+- Caard $9/year (can use the free domain that is included, or buy and add your own)
 - Square (free plan, but very limited, must use the free .square.site domain)
 - Wix (free with ads, have to use the free wix domain)
 - Wordpress.com (free, but very limited, must use the free wordpress.com domain)
 
-**Potential Pros to Having a Website:**
+### Potential Pros to Having a Website:
 
 **1\. Improved SEO, potential clients can find you with a google search easier**
 

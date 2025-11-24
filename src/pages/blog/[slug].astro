@@ -16,10 +16,10 @@ if (!post) {
   throw new Error(`Post not found for slug: ${Astro.params.slug}`);
 }
 
-const { Content } = await post.render();
+const { Content, headings } = await post.render();
 const { title, date, description } = post.data;
 ---
 
-<BlogPostLayout title={title} date={date} description={description}>
+<BlogPostLayout title={title} date={date} description={description} headings={headings}>
   <Content />
 </BlogPostLayout>

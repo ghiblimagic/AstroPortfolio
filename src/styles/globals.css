@@ -48,6 +48,10 @@ video {
   aspect-ratio: 16 / 9;
 }
 
+.scrollbar-purple::-webkit-scrollbar-thumb {
+  background-color: #8b5cf6;
+}
+
 /* #sidebar {
   background-image: url("/images/dotsBackground.png");
 } */

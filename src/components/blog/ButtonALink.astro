@@ -1,0 +1,11 @@
+---
+const { href, label, color = "bg-violet-800" } = Astro.props;
+---
+
+<a
+  href={href}
+  class={`inline-block px-4 py-2 m-1 rounded-2xl text-white no-underline ${color} hover:bg-blue-600 hover:text-white`}
+
+>
+  {label}
+</a>

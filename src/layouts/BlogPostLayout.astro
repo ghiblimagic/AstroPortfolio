@@ -1,35 +1,54 @@
 ---
-const { title, date, description } = Astro.props;
+import '@/styles/globals.css'
+import '@/styles/normalize.css'
+import Layout from '@/layouts/Layout.astro';
+import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar"
+import TableOfContents from "@/components/blog/TableOfContents.astro"
+const { title, date, description, headings } = Astro.props;
+
+
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>{title}</title>
-  <meta name="description" content={description || ''}>
-</head>
-<body class="bg-white">
-  <main class="max-w-4xl mx-auto px-6 py-12">
-    <article>
+<Layout title="Janet Spellman's Blog.">
+
+  <main class=" flex"/>
+  
+    <SpaceForDesktopSidebar client:load/>
+    <div>
+    
+   <div class="min-h-screen  h-full sm:px-12 max-w-4xl md:ml-64 bg-white text-black rounded-2xl pb-16">
+   <article>
       <header class="mb-8">
-        <h1 class="text-4xl font-bold mb-2">{title}</h1>
-        <time class="text-gray-600" datetime={date}>
+        <h1 class="text-4xl font-bold my-6 text-center">{title}</h1>
+
+       <span class="text-white text-base mx-auto bg-mainColor group-hover:bg-blue-800  w-fit py-1 px-4 rounded-2xl my-6 block">
+        <time datetime={date}>
           {new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
         </time>
-        {description && <p class="text-xl text-gray-600 mt-4">{description}</p>}
+    </span>
+        {description && <p class="text-xl  mb-4">{description}</p>}
       </header>
       
-      <div class="prose prose-lg prose-headings:font-bold prose-a:text-blue-600 hover:prose-a:text-blue-800 max-w-none">
+      <div class="gradient-line border-2 border-b mb-8"></div>
+
+         <!-- Sidebar TOC for desktop -->
+      <aside class="overflow-y-auto scrollbar-thin scrollbar-purple">
+        <TableOfContents headings={headings} />
+      </aside>
+      <div class="prose prose-lg prose-headings:font-bold prose-headings:text-center max-w-none">
+
+        
         <slot />
       </div>
     </article>
     
-    <section class="mt-12 pt-8 border-t">
+    <section class="mt-12 pt-8 border-t gradient-line">
       <h2 class="text-2xl font-bold mb-4">Comments</h2>
-      <p class="text-gray-500">Coming soon…</p>
+      <p class="text-black bg-red-300">Coming soon…</p>
     </section>
+    
+</div>
+</div>
   </main>
-</body>
-</html>
+  
+</Layout>

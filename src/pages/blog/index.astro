@@ -1,5 +1,9 @@
 ---
+import Layout from '@/layouts/Layout.astro';
+import '@/styles/globals.css'
+import '@/styles/normalize.css'
 import { getCollection } from 'astro:content';
+import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar"
 
 const posts = await getCollection('blog');
 const sorted = posts
@@ -7,31 +11,40 @@ const sorted = posts
   .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
 ---
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Blog</title>
-</head>
-<body class="bg-white">
-  <main class="max-w-4xl mx-auto px-6 py-12">
-    <h1 class="text-4xl font-bold mb-8">Blog</h1>
+<Layout title="Janet Spellman's Blog.">
+
+  <main class="min-h-screen h-full flex">
+    	<SpaceForDesktopSidebar client:load/>
+        	<div >
+ 
+                <!-- ********************* HEADER ********************* -->
+
+        <div class=" rounded-2xl mx-auto  " >
+    <h1 class=" text-6xl text-mainColor font-bold  text-center font-Rogue py-3">Blog</h1>
+        </div>
+
+<!-- ********************* BLOG LIST *********************** -->
+
+    <div class=" pt-10 px-4 sm:px-12 text-center">
     <ul class="space-y-6">
       {sorted.map(post => (
-        <li class="border-b pb-4">
-          <a href={`/blog/${post.slug}`} class="text-2xl font-semibold text-blue-600 hover:text-blue-800">
+        <li class=" p-4 bg-white rounded-2xl shadow-lg ">
+          <a href={`/blog/${post.slug}`} class="text-2xl font-semibold text-purple-950 hover:text-blue-800 group w-full">
+
             {post.data.title}
-          </a>
-          <div class="text-gray-600 mt-2">
+       
+          <div class="text-white text-base mx-auto bg-mainColor group-hover:bg-blue-800  w-fit py-1 px-4 rounded-2xl my-4">
             {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
           </div>
           {post.data.description && (
-            <p class="text-gray-700 mt-2">{post.data.description}</p>
+            <p class=" mt-2 text-base">{post.data.description}</p>
           )}
+             </a>
         </li>
       ))}
     </ul>
+    </div>
+</div>
   </main>
-</body>
-</html>
+
+</Layout>
