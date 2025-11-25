@@ -9,6 +9,7 @@ interface CommentListProps {
 }
 
 const CommentList: React.FC<CommentListProps> = ({ slug, currentUserId }) => {
+  console.log("slug in comment list", slug);
   const [comments, setComments] = useState<Comment[]>([]);
   const [loading, setLoading] = useState(true);
 
