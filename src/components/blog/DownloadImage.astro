@@ -1,0 +1,14 @@
+---
+const { src, alt, label, styling } = Astro.props;
+import ButtonALink from "./ButtonALink.astro";
+---
+
+<div class="my-6 p-4 bg-[#3c5dca] rounded-lg border border-gray-700">
+  <img src={src} alt={alt} class="rounded mb-3" />
+
+ 
+  <div class="text-center">
+  <ButtonALink href={src} label={label} styling={styling} download=true/>
+  </div>
+
+</div>

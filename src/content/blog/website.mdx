@@ -5,6 +5,7 @@ description: 'A comprehensive guide to help you "swipe right" on the right websi
 ---
 
 import ButtonALink from "@/components/blog/ButtonALink.astro";
+import DownloadImage from "@/components/blog/DownloadImage.astro";
 
 export const builders = [
   { href: "#google-business-profile", label: "Google Business Profile" },
@@ -107,7 +108,7 @@ WPCHOICE -->|Yes| WPCOM["<b>WordPress(.com)</b>"]
 WPCHOICE -->|No| WPORG["<b>WordPress(.org)</b>"]
 `} />
 
-### Jump to a Specific Builder's Section:
+### Jump to a Section:
 
 {builders.map(builder => (
 
@@ -721,3 +722,13 @@ Website builders are going to **usually** be “heavier” for the webpage to lo
 Starting out, website builders will usually be fast enough. As your business gets larger, and you want to increase your SEO ranking (visibility on google search results) this can become more important.
 
 **3\. You’re a larger business and need more advanced features or customization**
+
+## Download Flowchart As Image
+
+If you want to have easy access to the flowchart for later, you can download it as an image:
+
+<DownloadImage
+  src="/blog/images/website-flowchart.png"
+  alt="Flowchart diagram"
+  label="Download flowchart"
+/>

@@ -1,23 +1,37 @@
 ---
+import type { MarkdownHeading } from 'astro';
+
 interface Props {
-  headings: {
-    depth: number;
-    slug: string;
-    text: string;
-  }[];
+  headings: MarkdownHeading[];
 }
 
 const { headings } = Astro.props;
-
-// Filter to only show h2 and h3 headings 
-const filteredHeadings = headings.filter((h: { depth: number }) => h.depth <= 3);
+const filteredHeadings = headings.filter(h => h.depth <= 3);
 ---
 
 {filteredHeadings.length > 0 && (
-  <nav class="toc mb-8 p-6  rounded-lg border border-gray-200 shadow-lg">
-    <h2 class="text-xl font-bold mb-4">Table of Contents</h2>
-    <ul class="space-y-2">
-      {filteredHeadings.map((heading: { depth: number; slug: string; text: string }) => (
+  <nav class="toc mb-8 p-6 rounded-lg border border-gray-200 shadow-lg">
+    <div class="flex justify-between items-center mb-4">
+      <h2 class="text-xl font-bold">Table of Contents</h2>
+      <button 
+        id="toc-toggle" 
+        class="text-blue-600 hover:text-blue-800 font-semibold transition-transform"
+        aria-label="Toggle table of contents"
+        aria-expanded="true"
+      >
+        <svg 
+          id="toc-arrow" 
+          class="w-5 h-5 transition-transform duration-200" 
+          fill="none" 
+          stroke="currentColor" 
+          viewBox="0 0 24 24"
+        >
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+    </div>
+    <ul id="toc-list" class="space-y-2 transition-all duration-300 overflow-hidden">
+      {filteredHeadings.map((heading) => (
         <li 
           class="toc-item"
           style={`margin-left: ${(heading.depth - 2) * 1}rem`}
@@ -36,3 +50,46 @@ const filteredHeadings = headings.filter((h: { depth: number }) => h.depth <= 3)
   </nav>
 )}
 
+<script>
+  const toggleButton = document.getElementById('toc-toggle');
+  const tocList = document.getElementById('toc-list');
+  const arrow = document.getElementById('toc-arrow');
+  
+  let isOpen = true;
+  
+  toggleButton?.addEventListener('click', () => {
+    isOpen = !isOpen;
+    
+    if (tocList) {
+      if (isOpen) {
+        tocList.style.maxHeight = tocList.scrollHeight + 'px';
+        tocList.style.opacity = '1';
+      } else {
+        tocList.style.maxHeight = '0';
+        tocList.style.opacity = '0';
+      }
+    }
+    
+    if (arrow) {
+      arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(-180deg)';
+    }
+    
+    toggleButton?.setAttribute('aria-expanded', isOpen.toString());
+  });
+  
+  // Set initial max-height for smooth animation
+  if (tocList && isOpen) {
+    tocList.style.maxHeight = tocList.scrollHeight + 'px';
+  }
+</script>
+
+<style>
+  .toc {
+    max-height: calc(100vh - 2rem);
+    overflow-y: auto;
+  }
+  
+  #toc-list {
+    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
+  }
+</style>
