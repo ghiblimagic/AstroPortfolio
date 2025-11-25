@@ -2,11 +2,74 @@
 const { code } = Astro.props;
 ---
 
-<div class="mermaid">
-  {code}
+<div class="mermaid-wrapper">
+  <pre class="mermaid">{code}</pre>
 </div>
 
-<script is:inline src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
-<script is:inline>
-  mermaid.initialize({ startOnLoad: true });
+<script>
+  import mermaid from 'mermaid';
+  
+  document.addEventListener('astro:page-load', () => {
+    mermaid.initialize({ 
+      startOnLoad: true,
+      theme: 'neutral', 
+      securityLevel: 'loose',
+      themeVariables: {
+        primaryColor: '#f3f4f6',
+        primaryTextColor: '#1f2937',
+        primaryBorderColor: '#374151',
+        lineColor: '#6b7280',
+        secondaryColor: '#e5e7eb',
+        tertiaryColor: '#ffffff',
+        fontSize: '16px',
+      },
+      flowchart: {
+        htmlLabels: true,
+        curve: 'basis',
+        padding: 20,
+      }
+    });
+    mermaid.run();
+  });
 </script>
+
+<style>
+  .mermaid-wrapper {
+    display: flex;
+    justify-content: center;
+    margin: 2rem 0;
+    background: white;
+    padding: 1rem;
+    border-radius: 0.5rem;
+    overflow-x: auto;
+    box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+  }
+
+  .mermaid {
+    background: white;
+    width: 100%;
+  }
+
+  /* Force white background on SVG */
+  :global(.mermaid svg) {
+    background: white !important;
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Responsive text sizing with minimum */
+  :global(.mermaid text),
+  :global(.mermaid .nodeLabel),
+  :global(.mermaid .edgeLabel) {
+    font-size: clamp(12px, 2vw, 16px) !important;
+  }
+
+  /* Desktop: larger text */
+  @media (min-width: 1024px) {
+    :global(.mermaid text),
+    :global(.mermaid .nodeLabel),
+    :global(.mermaid .edgeLabel) {
+      font-size: 16px !important;
+    }
+  }
+</style>

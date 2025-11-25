@@ -1,78 +1,65 @@
 ---
 interface Props {
-	title: string;
+    title: string;
 }
-import { ClientRouter } from 'astro:transitions';
 const { title } = Astro.props;
 import SocialLinksNav from "../components/navigation/SocialLinksNav"
 import NavToggleButton from "../components/buttons/NavToggleButton"
-
 import MobileNavContainer from "../components/navigation/MobileNavContainer"
-import image from "../../public/images/transparent-logo-bright.png"
 ---
-
 <!doctype html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="description" content="Software developer portfolio covering Janet Spellman's website building services, previous projects and skills" />
-       <meta property="og:image" content=https://janetspellman.com/images/thumbnail.png/>
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" href="/images/transparent-logo-bright.png" />
-		<link rel="sitemap" href="/sitemap-index.xml" />
-		<link rel="preload" fetchpriority="high" as="image" href="/images/dotsBackground.png" type="image/png"/>
-		<meta name="Janet Spellman's portfolio" content={Astro.generator} />
-		<title>{title}</title>
-		<ClientRouter />
-	</head>
-
-
-	<body class="h-full relative">
-		<header class="flex justify-between ">
-			<NavToggleButton client:load/>
-			<!-- <img src="../../src/astroImages/transparent-logo.png" alt="logo for spellman's consulting its a blue code symbol </> with a wand in place of the slash" class="pl-4 bg-violet-900 box-content" height="40" width="40"/> -->
-			<SocialLinksNav />
-		
-		</header>
-		<!-- need it to be linked to nav toggle button state, use store-->
-            <MobileNavContainer  client:load/>
-		<slot />
-
-		<footer
-		id="footer"	
-		class="absolute bottom-0 bg-mainColor w-full border-t-2 gradient-line">
-	
-	        <small class="pl-8  text-white">&copy; Janet Spellman. All rights reserved.</small>
-	  </footer>
-	</body>
-
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="description" content="Software developer portfolio covering Janet Spellman's website building services, previous projects and skills" />
+        <meta property="og:image" content="https://janetspellman.com/images/thumbnail.png" />
+        <meta name="viewport" content="width=device-width" />
+        <link rel="icon" href="/images/transparent-logo-bright.png" />
+        <link rel="sitemap" href="/sitemap-index.xml" />
+        <link rel="preload" fetchpriority="high" as="image" href="/images/dotsBackground.png" type="image/png"/>
+        <meta name="Janet Spellman's portfolio" content={Astro.generator} />
+        <title>{title}</title>
+    </head>
+    <body class="h-full relative">
+        <header class="flex justify-between">
+            <NavToggleButton />
+            <SocialLinksNav />
+        </header>
+        <MobileNavContainer />
+        <slot />
+        <footer
+            id="footer" 
+            class="absolute bottom-0 bg-mainColor w-full border-t-2 gradient-line">
+            <small class="pl-8 text-white">&copy; Janet Spellman. All rights reserved.</small>
+        </footer>
+    </body>
 </html>
 <style is:global>
-	:root {
-		--accent: 136, 58, 234;
-		--accent-light: 224, 204, 250;
-		--accent-dark: 49, 10, 101;
-		--accent-gradient: linear-gradient(
-			45deg,
-			rgb(var(--accent)),
-			rgb(var(--accent-light)) 30%,
-			white 60%
-		);
-	}
-	html {
-		font-family: system-ui, sans-serif;
-		background: #13151a;
-		background-size: 224px;
-	}
-	code {
-		font-family:
-			Menlo,
-			Monaco,
-			Lucida Console,
-			Liberation Mono,
-			DejaVu Sans Mono,
-			Bitstream Vera Sans Mono,
-			Courier New,
-			monospace;
-	}
+    :root {
+        --accent: 136, 58, 234;
+        --accent-light: 224, 204, 250;
+        --accent-dark: 49, 10, 101;
+        --accent-gradient: linear-gradient(
+            45deg,
+            rgb(var(--accent)),
+            rgb(var(--accent-light)) 30%,
+            white 60%
+        );
+    }
+    html {
+        font-family: system-ui, sans-serif;
+        background: #13151a;
+        background-size: 224px;
+    }
+    code {
+        font-family:
+            Menlo,
+            Monaco,
+            Lucida Console,
+            Liberation Mono,
+            DejaVu Sans Mono,
+            Bitstream Vera Sans Mono,
+            Courier New,
+            monospace;
+    }
 </style>

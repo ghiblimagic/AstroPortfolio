@@ -1,7 +1,7 @@
 ---
 title: "Matchmaking for Your Business: Pick the Right Website Builder!"
 date: "2025-11-23"
-description: 'A comprehensive guide to helping you "swipe right" on the right website builder for your business, with a flowchart and detailed comparisons.'
+description: 'A comprehensive guide to help you "swipe right" on the right website builder for your business, with a flowchart and detailed comparisons.'
 ---
 
 import ButtonALink from "@/components/blog/ButtonALink.astro";
@@ -61,7 +61,7 @@ START["Start"]
 START --> FW["Want a multi-page website?"]
 
 %% QUICK PATH
-QUICKOPT["<b>Google Business Page</b> <br/> (free, but its just a google listing, <br> not a website)<br><br><b>Caard</b> <br> (very affordable, <br>fast, simple, but limited customization)"]
+QUICKOPT["<b>Google Business Page</b> <br/> (free, but its just <br> a google listing, <br> not a website)<br><br><b>Caard</b> <br> (very affordable, <br>fast, simple, <br> but limited customization)"]
 
 %% FULL WEBSITE PATH
 FW -->|Yes| SELL["Need to sell things online?"]
@@ -73,7 +73,7 @@ SELL -->|No| DESIGN["Want total design control<br/>aka you are a designer?"]
 
 %% FEW PRODUCTS PATH
 FEW -->|Yes| SMALLSHOP["<b>Squarespace / WordPress / Wix</b><br>with e-commerce plugins<br/>(good for small shops)"]
-FEW -->|No| SHOPIFY["<b>Shopify</b> <br> (best for full online stores) <br> <br>or possibly <b>industry specific website builders</b> <br> for larger businesses"]
+FEW -->|No| SHOPIFY["<b>Shopify</b> <br> (best for full online stores) <br> <br>or possibly <b>industry <br> specific website builders</b> <br> for larger businesses"]
 
 %% POS CHECK
 SMALLSHOP --> POS["Is built-in POS integration the top priority? <br> (read the article below this flowchart <br> if you are confused why you might want this)"]
@@ -82,27 +82,26 @@ POS -->|No| DESIGN
 
 %% DESIGN CONTROL BRANCH
 DESIGN -->|Yes| WEBFLOW["<b>Webflow</b>"]
-DESIGN -->|No| TEMPLATES["Do you want to customize templates heavily?"]
+DESIGN -->|No| TEMPLATES["Do you want to customize <br> templates heavily?"]
 
 %% TEMPLATE CHOICE QUESTION
 TEMPLATES -->|No| CHOICE["Would you prefer many template options
 even if it takes more time to adjust them"]
 
 %% YES → WIX
-CHOICE -->|Yes| WIX["<b>Wix</b> <br> (more extensions + themes <br> than Squarespace but its more finicky)"]
+CHOICE -->|Yes| WIX["<b>Wix</b> <br> (more extensions <br> + themes <br> than Squarespace <br> but its more finicky)"]
 
 %% NO → Squarespace → Hostinger
-CHOICE -->|No| SQ["<b>Squarespace</b> <br> (less templates than Wix or WordPress <br> but templates are well made, <br> mobile & desktop ready <br> easy to use)"]
+CHOICE -->|No| SQ["<b>Squarespace</b> <br> (less templates than <br> Wix or WordPress <br> but templates are well made, <br> mobile & desktop ready <br> easy to use)"]
 
 %% Hostinger comes after Squarespace
-SQ --> HOST["<b>Hostinger</b> <br> (limited but professional templates, <br> no app/extension store, <br> simple websites only)"]
+SQ --> HOST["<b>Hostinger</b> <br> (limited but <br> professional templates, <br> no app/extension store, <br> simple websites only)"]
 
 %% ADVANCED TEMPLATE PATH STILL LEADS TO WORDPRESS
-TEMPLATES -->|Yes| WP["<b>WordPress</b> <br> More customizable and grows with the business,
-but takes time to learn"]
+TEMPLATES -->|Yes| WP["<b>WordPress</b> <br> More customizable, <br> grows with the business, <br> but takes time to learn"]
 
 %% WP CHOICE
-WP --> WPCHOICE["Do you want a simpler experience in exchange for a: <br> • higher base price <br> • less control <br> • being restricted from some themes and plugins?"]
+WP --> WPCHOICE["Do you want a <br> simpler experience <br> in exchange for a: <br><br> • higher base price <br> • less control <br> • being restricted from some <br> themes and plugins?"]
 
 WPCHOICE -->|Yes| WPCOM["<b>WordPress(.com)</b>"]
 WPCHOICE -->|No| WPORG["<b>WordPress(.org)</b>"]
@@ -120,11 +119,9 @@ WPCHOICE -->|No| WPORG["<b>WordPress(.org)</b>"]
 
 ### Should built-in POS integration be a top priority?
 
-Short article explaining why native POS integration might matter for your business:
+Alas this article was getting too long, so I had to move the native integration topic to a separate short article:
 
-(alas this article was getting too long, so I had to move the native integration topic to a separate article.)
-
-[https://janetthedev.hashnode.dev/why-native-pos-integration-might-matter-for-you](https://janetthedev.hashnode.dev/why-native-pos-integration-might-matter-for-you)
+[Why native POS integration might matter for your business](/blog/pos/)
 
 ### What is a plugin, extension or app
 
