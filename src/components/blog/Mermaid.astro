@@ -1,11 +1,9 @@
 ---
 const { code } = Astro.props;
 ---
-
 <div class="mermaid-wrapper">
   <pre class="mermaid">{code}</pre>
 </div>
-
 <script>
   import mermaid from 'mermaid';
   
@@ -21,49 +19,59 @@ const { code } = Astro.props;
         lineColor: '#6b7280',
         secondaryColor: '#e5e7eb',
         tertiaryColor: '#ffffff',
-        fontSize: '16px',
+        fontSize: '14px',
       },
       flowchart: {
         htmlLabels: true,
         curve: 'basis',
-        padding: 20,
+        padding: 15,
+        useMaxWidth: true, // This is key!
       }
     });
     mermaid.run();
   });
 </script>
-
 <style>
   .mermaid-wrapper {
-    display: flex;
-    justify-content: center;
     margin: 2rem 0;
     background: white;
     padding: 1rem;
     border-radius: 0.5rem;
     overflow-x: auto;
     box-shadow: 0 1px 3px 0 rgb(0 0 0 / 0.1);
+    max-width: 100%;
   }
-
+  
   .mermaid {
     background: white;
-    width: 100%;
+    max-width: 100%;
+    overflow-x: auto;
   }
-
-  /* Force white background on SVG */
+  
+  /* Force white background on SVG and ensure it doesn't overflow */
   :global(.mermaid svg) {
     background: white !important;
-    max-width: 100%;
-    height: auto;
+    max-width: 100% !important;
+    height: auto !important;
+    display: block;
   }
-
+  
   /* Responsive text sizing with minimum */
   :global(.mermaid text),
   :global(.mermaid .nodeLabel),
   :global(.mermaid .edgeLabel) {
-    font-size: clamp(12px, 2vw, 16px) !important;
+    font-size: clamp(10px, 1.5vw, 14px) !important;
   }
-
+  
+  /* Tablet and up */
+  @media (min-width: 768px) {
+    :global(.mermaid text),
+    :global(.mermaid .nodeLabel),
+    :global(.mermaid .edgeLabel) {
+      font-size: clamp(12px, 1.8vw, 16px) !important;
+    }
+  }
+  
   /* Desktop: larger text */
   @media (min-width: 1024px) {
     :global(.mermaid text),

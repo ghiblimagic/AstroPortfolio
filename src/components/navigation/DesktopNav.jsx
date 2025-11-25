@@ -87,6 +87,10 @@ const sidebar = () => {
           <li className="glow gradient-line border-b-2 pb-1">
             <a href="/#contact">contact</a>
           </li>
+
+          <li className="glow gradient-line border-b-2 pb-1">
+            <a href="/blog">blog</a>
+          </li>
         </ul>
 
         <div className="flex flex-col space-y-5 items-center justify-items-center pt-8"></div>

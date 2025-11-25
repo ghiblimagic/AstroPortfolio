@@ -5,50 +5,63 @@ import Layout from '@/layouts/Layout.astro';
 import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar"
 import TableOfContents from "@/components/blog/TableOfContents.astro"
 const { title, date, description, headings } = Astro.props;
-
-
 ---
-
 <Layout title="Janet Spellman's Blog.">
-
-  <main class=" flex"/>
+  <main class="flex overflow-x-hidden">
   
     <SpaceForDesktopSidebar client:load/>
-    <div>
+    <div class="w-full overflow-x-hidden">
     
-   <div class="min-h-screen  h-full sm:px-12 max-w-4xl md:ml-64 bg-white text-black rounded-2xl pb-16">
-   <article class="mx-4">
-      <header class="mb-8">
-        <h1 class="text-4xl font-bold my-6 pt-6 text-center">{title}</h1>
-
-       <span class="text-white text-base mx-auto bg-mainColor group-hover:bg-blue-800  w-fit py-1 px-4 rounded-2xl my-6 block">
-        <time datetime={date}>
-          {new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-        </time>
-    </span>
-        {description && <p class="text-xl  mb-4">{description}</p>}
-      </header>
-      
-      <div class="gradient-line border-2 border-b mb-8"></div>
-
-         <!-- Sidebar TOC for desktop -->
-      <aside class="overflow-y-auto scrollbar-thin scrollbar-purple">
-        <TableOfContents headings={headings} />
-      </aside>
-      <div class="prose prose-lg prose-headings:font-bold prose-headings:text-center max-w-none">
-
+      <div class="min-h-screen h-full sm:px-12 max-w-4xl md:ml-64 bg-white text-black rounded-2xl pb-16 overflow-x-hidden">
+        <article class="mx-4 overflow-x-hidden">
+          <header class="mb-8">
+            <h1 class="text-4xl font-bold my-6 pt-6 text-center">{title}</h1>
+            <span class="text-white text-base mx-auto bg-mainColor group-hover:bg-blue-800 w-fit py-1 px-4 rounded-2xl my-6 block">
+              <time datetime={date}>
+                {new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
+              </time>
+            </span>
+            {description && <p class="text-xl mb-4">{description}</p>}
+          </header>
+          
+          <div class="gradient-line border-2 border-b mb-8"></div>
+          
+          <!-- Sidebar TOC for desktop -->
+          <aside class="overflow-y-auto scrollbar-thin scrollbar-purple">
+            <TableOfContents headings={headings} />
+          </aside>
+          
+          <div class="prose prose-lg prose-headings:font-bold prose-headings:text-center max-w-none overflow-x-hidden">
+            <slot />
+          </div>
+        </article>
         
-        <slot />
+        <section class="mt-12 pt-8 border-t gradient-line mx-4">
+          <h2 class="text-2xl font-bold mb-4">Comments</h2>
+          <p class="text-black bg-red-300">Coming soon…</p>
+        </section>
       </div>
-    </article>
-    
-    <section class="mt-12 pt-8 border-t gradient-line">
-      <h2 class="text-2xl font-bold mb-4">Comments</h2>
-      <p class="text-black bg-red-300">Coming soon…</p>
-    </section>
-    
-</div>
-</div>
+    </div>
   </main>
-  
 </Layout>
+
+<style>
+  /* Ensure no horizontal overflow anywhere */
+  :global(body) {
+    overflow-x: hidden;
+  }
+  
+  /* Make sure prose content doesn't overflow */
+  :global(.prose) {
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+  }
+  
+  /* Ensure all images and embeds are responsive */
+  :global(.prose img),
+  :global(.prose video),
+  :global(.prose iframe) {
+    max-width: 100%;
+    height: auto;
+  }
+</style>
