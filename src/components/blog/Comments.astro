@@ -1,0 +1,161 @@
+---
+import { supabase } from "@/lib/supabase"
+const { postSlug } = Astro.props;
+
+// Load comments at build time (static) OR remove for full CSR
+const { data: initialComments } = await supabase
+  .from("comments")
+  .select("id, content, created_at, updated_at, user_id")
+  .eq("post_id", postSlug)
+  .order("created_at", { ascending: true });
+---
+
+<div id="comments-root" class="mt-8"></div>
+
+<script type="module">
+  import { supabase } from "/src/lib/supabase.js";
+
+  const postSlug = JSON.parse(`"${postSlug}"`);
+  let comments = [...JSON.parse(String.raw`${JSON.stringify(initialComments)}`)];
+  let user = null;
+
+  // Check auth status
+  supabase.auth.getUser().then(({ data }) => {
+    user = data?.user || null;
+    render();
+  });
+
+  // Listen for future changes
+  supabase.auth.onAuthStateChange((evt, session) => {
+    user = session?.user || null;
+    render();
+  });
+
+  async function addComment(content) {
+    if (!content.trim()) return;
+
+    if (user) {
+      // Logged-in user inserts directly
+      const { data, error } = await supabase
+        .from("comments")
+        .insert([{ post_id: postSlug, content, user_id: user.id }])
+        .select()
+        .single();
+
+      if (!error) {
+        comments.push(data);
+        render();
+      }
+    } else {
+      // Anonymous insert via API
+      const res = await fetch("/api/comments/add", {
+        method: "POST",
+        body: JSON.stringify({ post_id: postSlug, content }),
+      });
+
+      const { data } = await res.json();
+      comments.push(data);
+      render();
+    }
+  }
+
+  async function updateComment(id, newValue) {
+    const { data, error } = await supabase
+      .from("comments")
+      .update({ content: newValue })
+      .eq("id", id)
+      .select()
+      .single();
+
+    if (!error) {
+      const index = comments.findIndex(c => c.id === id);
+      comments[index] = data;
+      render();
+    }
+  }
+
+  async function deleteComment(id) {
+    const { error } = await supabase
+      .from("comments")
+      .delete()
+      .eq("id", id);
+
+    if (!error) {
+      comments = comments.filter((c) => c.id !== id);
+      render();
+    }
+  }
+
+  function render() {
+    const root = document.getElementById("comments-root");
+
+    root.innerHTML = `
+      <h2 class="text-xl font-bold mb-4">Comments</h2>
+
+      <div class="mb-4">
+        <textarea
+          id="new-comment"
+          class="w-full p-3 border bg-gray-900 border-gray-700 rounded"
+          placeholder="Write a comment..."
+        ></textarea>
+
+        <button id="submit-comment"
+          class="mt-2 px-3 py-2 bg-blue-700 rounded text-white hover:bg-blue-600">
+          Post Comment
+        </button>
+      </div>
+
+      <div class="space-y-3">
+        ${comments
+          .map((c) => {
+            const isOwner = user?.id === c.user_id;
+
+            return `
+              <div class="p-3 border border-gray-700 rounded bg-gray-800">
+                <div class="whitespace-pre-wrap">${c.content}</div>
+                <div class="text-xs opacity-70 mt-1">
+                  ${new Date(c.created_at).toLocaleString()}
+                </div>
+
+                ${
+                  isOwner
+                    ? `
+                  <button class="mt-1 text-yellow-400 edit" data-id="${c.id}">Edit</button>
+                  <button class="mt-1 text-red-400 delete" data-id="${c.id}">Delete</button>
+                `
+                    : ""
+                }
+              </div>
+            `;
+          })
+          .join("")}
+      </div>
+    `;
+
+    // Add comment
+    root.querySelector("#submit-comment").onclick = () => {
+      const txt = root.querySelector("#new-comment");
+      addComment(txt.value);
+      txt.value = "";
+    };
+
+    // Edit buttons
+    root.querySelectorAll(".edit").forEach((btn) => {
+      btn.onclick = () => {
+        const id = btn.dataset.id;
+        const newVal = prompt("Edit your comment:");
+        if (newVal) updateComment(id, newVal);
+      };
+    });
+
+    // Delete buttons
+    root.querySelectorAll(".delete").forEach((btn) => {
+      btn.onclick = () => {
+        const id = btn.dataset.id;
+        if (confirm("Delete this comment?")) deleteComment(id);
+      };
+    });
+  }
+
+  render();
+</script>

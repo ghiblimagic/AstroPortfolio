@@ -20,6 +20,7 @@
     "@nanostores/react": "^0.7.1",
     "@radix-ui/react-menubar": "^1.1.4",
     "@radix-ui/react-navigation-menu": "^1.2.3",
+    "@supabase/supabase-js": "^2.84.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "astro": "^5.16.0",
@@ -36,6 +37,7 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.19"
+    "@tailwindcss/typography": "^0.5.19",
+    "supabase": "^2.61.2"
   }
 }

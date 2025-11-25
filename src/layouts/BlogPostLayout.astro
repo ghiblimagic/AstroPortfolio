@@ -1,10 +1,23 @@
 ---
 import '@/styles/globals.css'
 import '@/styles/normalize.css'
+import { getCollection, getEntry } from 'astro:content';
+
 import Layout from '@/layouts/Layout.astro';
 import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar"
 import TableOfContents from "@/components/blog/TableOfContents.astro"
+import CommentForm from "@/components/blog/CommentForm"
+import Comments from '@/components/blog/Comments.astro';
+
+const { slug } = Astro.params; // from the URL
+console.log("slug",slug)
+
+if (!slug) {
+  throw new Error(`Post not found: ${slug}`);
+}
+
 const { title, date, description, headings } = Astro.props;
+
 ---
 <Layout title="Janet Spellman's Blog.">
   <main class="flex overflow-x-hidden">
@@ -36,9 +49,11 @@ const { title, date, description, headings } = Astro.props;
           </div>
         </article>
         
+          <!-- ****************** COMMMENTS ***************** -->
         <section class="mt-12 pt-8 border-t gradient-line mx-4">
-          <h2 class="text-2xl font-bold mb-4">Comments</h2>
-          <p class="text-black bg-red-300">Coming soon…</p>
+        
+  <h2 class="text-xl font-bold text-white mb-4">Comments</h2>
+  <CommentForm client:load slug={slug} />
         </section>
       </div>
     </div>

@@ -4,7 +4,7 @@ const { href, label, download=false, color = "bg-violet-800", styling } = Astro.
 
 <a
   href={href}
-  download
+  download={download}
   class={`inline-block px-4 py-2 m-1 rounded-2xl text-white no-underline ${color} hover:bg-blue-600 hover:text-white ${styling}`}
 
 >
