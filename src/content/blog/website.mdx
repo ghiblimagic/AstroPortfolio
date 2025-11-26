@@ -10,13 +10,15 @@ import DownloadImage from "@/components/blog/DownloadImage.astro";
 export const builders = [
   { href: "#google-business-profile", label: "Google Business Profile" },
   { href: "#carrd", label: "Carrd" },
+  { href: "#pixpa", label: "Pixpa" },
   { href: "#squarespace", label: "Squarespace" },
   { href: "#hostinger", label: "Hostinger" },
   { href: "#square", label: "Square" },
   { href: "#wix", label: "Wix" },
+  { href: "#siimple", label: "Siimple" },
   { href: "#wordpress-in-general", label: "Wordpress (In General)" },
-  { href: "#wordpressorg", label: "wordpress.org" },
-  { href: "#wordpresscom", label: "wordpress.com" },
+  { href: "#wordpressorg", label: "Wordpress.org" },
+  { href: "#wordpresscom", label: "Wordpress.com" },
   { href: "#webflow", label: "Webflow" },
   { href: "#godaddy", label: "GoDaddy" },
 ];
@@ -80,7 +82,7 @@ START["Start"]
 START --> FW["Want a multi-page website?"]
 
 %% QUICK PATH
-QUICKOPT["<b>Google Business Page</b> <br/> (free, but its just <br> a google listing, <br> not a website)<br><br><b>Carrd</b> <br> (very affordable, <br>fast, simple, <br> but limited customization)"]
+QUICKOPT["<b>Google Business Page</b> <br/> (free, but its just <br> a google listing, <br> not a website)<br><br><b>Carrd or Siimple</b> <br> (very affordable, <br>fast, simple, <br> but limited customization)"]
 
 %% FULL WEBSITE PATH
 FW -->|Yes| SELL["Need to sell things online?"]
@@ -91,7 +93,9 @@ SELL -->|Yes| FEW["Selling only a few products<br>Or <br> you just need DoorDash
 SELL -->|No| DESIGN["Want total design control<br/>aka you are a designer?"]
 
 %% FEW PRODUCTS PATH
-FEW -->|Yes| SMALLSHOP["<b>Squarespace / WordPress / Wix</b><br>with e-commerce plugins<br/>(good for small shops)"]
+FEW -->|Yes| SMALLSHOP["<b>Squarespace / WordPress / Wix</b><br>with e-commerce plugins<br/>(good for small shops)<br><br>
+
+<b>Pixpa</b><br> (For creatives that want a website & simple shop to sell prints, ect)"]
 FEW -->|No| SHOPIFY["<b>Shopify</b> <br> (best for full online stores) <br> <br>or possibly <b>industry <br> specific website builders</b> <br> for larger businesses"]
 
 %% POS CHECK
@@ -115,6 +119,9 @@ CHOICE -->|No| SQ["<b>Squarespace</b> <br> (less templates than <br> Wix or Word
 
 %% Hostinger comes after Squarespace
 SQ --> HOST["<b>Hostinger</b> <br> (limited but <br> professional templates, <br> no app/extension store, <br> simple websites only)"]
+
+%% Hostinger comes after Squarespace
+HOST --> PIXPA["<b>Pixpa</b> <br> (built-in portfolio, gallery, blog <br> and ecommerce tools <br> for creatives)"]
 
 %% ADVANCED TEMPLATE PATH STILL LEADS TO WORDPRESS
 TEMPLATES -->|Yes| WP["<b>WordPress</b> <br> More customizable, <br> grows with the business, <br> but takes time to learn"]
@@ -295,6 +302,56 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - Also: a curated gallery of Carrd one-page sites: [Carrd Website Examples (OnePageLove)](https://onepagelove.com/tag/carrd)
   - “20 Inspiring Carrd Website Examples”: [SiteBuilderReport](https://www.sitebuilderreport.com/inspiration/carrd-websites)
   - Curated gallery of Carrd one-pagers: [Deck of Carrd](https://deckof.carrd.co/)
+
+  <div class=" text-center">
+    <ButtonALink
+      href="#jump-to-a-section"
+      label="Return to Website Quicklinks"
+    />
+  </div>
+
+### **Pixpa**
+
+- Perfect if:
+  - You’re a photographer/artist/creative & want a portfolio, store, gallery and blog in one bundle.
+
+- Skip it if:
+  - You expect heavy traffic, many pages, complex functionality, or plan for the business to get large (scale). (In that case Shopify would be better)
+
+- Difficulty:
+  - ⭐
+- Cost:
+  - Basic: $9/mo (per month), $4.05/mo (pay for 2 years)
+  - Creator: $15/mo (per month), $6.75/mo (pay for 2 years)
+  - Professional: $20/mo (per month), $9/mo (pay for 2 years)
+  - one more higher tier
+  - There are limits for the amount of products, images and storage based on tier (see link for details).
+  - https://www.pixpa.com/pricing
+- Trial:
+  - 15 days
+- Best For:
+  - small to moderate creative businesses who want an all in one platform
+
+- Customer Support:
+  - Chat and Email: "24/7 via live chat and email. Get a fast response, any time."
+  - Can also hire a Pixpa expert for $199
+- ## Migration:
+- Security:
+  - handled for you
+- Accessibility:
+  - From this article, it seems like it might be decent but of course, you would have to follow the guide: https://help.pixpa.com/kb/improving-web-accessibility-of-your-website-on-pixpa/
+- Pros:
+  - focused on creatives
+  - offers built-in portfolio, gallery, blog and ecommerce tools on one platform — so you don’t need separate plugins, hosting, or store software.
+  - Great for selling prints, digital downloads, small-batch goods, limited inventory with low traffice
+  - Does have an app store: https://www.pixpa.com/apps
+  - Already responsive
+- Cons:
+  - Storage limitations, depends on plan https://www.pixpa.com/pricing
+  - Not for big businesses
+  - Doesn't have much customization
+- Some of the templates:
+  - https://www.pixpa.com/templates/blog
 
   <div class=" text-center">
     <ButtonALink
@@ -555,14 +612,43 @@ The cost listed below is for the plans without anything added. The **cost** **do
 ### **Siimple**
 
 - Perfect if:
+  - You just need a simple one page website with minimal upkeep, with no blogging. It does have a contact form that will send messages to your email.
+  - Need a simple site where any purchases would be done through a payment processor (like Paypal, Gumroad or Stripe)
 - Skip it if:
+  - You need multiple pages, blogging or formal e-commerce features.
+- Difficulty:
+- Cost:
+  - $10/mo (monthly)
+  - $8/mo (if you pay for a year)
+  - Special note, you can make your site for free but you only start paying when you publish it.
+  - https://getsiimple.com/#pricing
+- Trial:
+  - No trial, but you can build your entire site for free before publishing.
+  - The free domain will use the simple domain
+- Best for:
+  - Those who need a simple one page website, with a basic form. Small businesses, creatives.
+  - If you need very basic ecommerce, you could attach a payment processor like paypal, ect.
 - Customer Support:
+  - "Siimple is made with care and attention my team of 3 friends that have been building websites for over 2 decades. If anything gets tricky, you can talk to a real person immediately."
+  - They have a chat feature, but its not clear what the hours are.
 - Migration:
+  - Would need to start from scratch
 - Security:
+  - Handled for you
 - Accessibility (ADA/WCAG compliance):
+  - They at least make sure the color palettes are accessible but is clear what other accessibility features it has. https://getsiimple.com/blog/why-website-builders-like-wix-squarespace-and-wordpress-might-be-hurting-your-local-business/
 - How easy to hand-off to employees:
+  - I made a free account and there was no obvious way to share access with someone else. There's a chance it might only be visible when the site is published/after payment.
+  - However the site itself is easy to edit, so at the very minimum even if you have to share your login it'd be easy for them to update.
 - Pros:
+  - You can bring your own domain or purchase the domain through them. Or use their free Siimple domain.
+  - "you can cancel your subscription at any time. There are no contracts or hidden fees."
 - Cons:
+  - No blogging features
+  - No multi page support
+  - Won't scale with your business if it grows past a one page site
+  - No
+  - no e-commerce or shopping cart BUT you can "connect your own checkout or payment processor (like Paypal, Gumroad or Stripe!)"
 
   <div class=" text-center">
     <ButtonALink
@@ -823,9 +909,9 @@ The cost listed below is for the plans without anything added. The **cost** **do
 ### GoDaddy
 
 - Perfect if:
-  - Very few, I'd highly suggest avoiding this service.
+  - Perfect for very few people, I'd highly suggest avoiding this service.
   - You already use GoDaddy for your domain and you want everything in one place.
-  - Want an easy but basic building experience and you just need a simple website like a business landing page or small personal projects.
+  - Want an easy but basic building experience and you just need a simple website, such as a business landing page or small personal projects.
   - Just want to get online fast, don't care about having a website builder that will grow with your business needs.
 - Skip it if:
   - You don't want to deal with a company known for especially aggressive introductory discounts followed by high renewal prices and known for heavy upselling.
@@ -845,9 +931,9 @@ The cost listed below is for the plans without anything added. The **cost** **do
 - Trial:
   - 7 day trial
 - Customer Support:
-  - 24/7 phone, chat and text support, though they offshored so there can be a bit of a language barrier.
+  - 24/7 phone, chat and text support, though they offshored so there can be a language barrier.
   - https://www.godaddy.com/help/contact-us
-  - When you contact them for help, you'll have to deal with aggressive upselling. Example, saying the problem will probably be fixed if you upgrade to a new plan versus trying to solve the actual problem.
+  - When you contact them for help, you'll have to deal with aggressive upselling. Example: saying the problem will probably be fixed if you upgrade to a new plan versus trying to solve the actual problem.
   - Common complaint is that the responses were unhelpful and had long wait times, if the problem was even resolved at the end.
 - Migration:
   - You'd have to rebuild your site from scratch
