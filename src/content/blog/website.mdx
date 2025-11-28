@@ -83,7 +83,7 @@ START["Start"]
 START --> FW["Want a multi-page website?"]
 
 %% QUICK PATH
-QUICKOPT["<b>Google Business Page</b> <br/> (free, but its just <br> a google listing, <br> not a website)<br><br><b>Carrd or Siimple</b> <br> (very affordable, <br>fast, simple, <br> but limited customization)"]
+QUICKOPT["<b>Google Business Page</b> <br/> (free, but its just <br> a google listing, <br> not a website)<br><br><b>Carrd, Google Sites or Siimple</b> <br> (very affordable, <br>fast, simple, <br> but limited customization)"]
 
 %% FULL WEBSITE PATH
 FW -->|Yes| SELL["Need to sell things online?"]
@@ -94,14 +94,17 @@ SELL -->|Yes| FEW["Selling only a few products<br>Or <br> you just need DoorDash
 SELL -->|No| DESIGN["Want total design control<br/>aka you are a designer?"]
 
 %% FEW PRODUCTS PATH
-FEW -->|Yes| SMALLSHOP["<b>Squarespace / WordPress / Wix</b><br>with e-commerce plugins<br/>(good for small shops) Carrd (by embedding Ecwid or other e-commerce stores) <br><br>
+FEW -->|Yes| SMALLSHOP["<b>Squarespace / WordPress / Wix</b><br>with e-commerce plugins<br/>(good for small shops) <br> <br><b>Carrd or Google Sites</b><br> (by embedding Ecwid or other e-commerce stores) <br><br>
+
+<b>Ecwid</b>
+(E-commerce thats usually integrated in a website, though you can use their free website builder)<br><br>
 
 <b>Pixpa</b><br> (For creatives that want a website & simple shop to sell prints, ect)"]
 FEW -->|No| SHOPIFY["<b>Shopify</b> <br> (best for full online stores) <br> <br>or possibly <b>industry <br> specific website builders</b> <br> for larger businesses"]
 
 %% POS CHECK
-SMALLSHOP --> POS["Is built-in POS integration the top priority? <br> (read the article below this flowchart <br> if you are confused why you might want this)"]
-POS -->|Yes| POSOPT["<b>Square</b> <b> Wix </b> <br> (for any type of business)<br>or<br><b>Toast</b> <br>(is specifically for restaurants)"]
+SMALLSHOP --> POS["Is built-in POS integration the top priority? <br><br> (read the article below this flowchart <br> if you are confused why you might want this)"]
+POS -->|Yes| POSOPT["<b>Square</b> or <b>Wix</b> <br> (for any type of business)<br> <br><b>Toast</b> <br>(is specifically for restaurants)"]
 POS -->|No| DESIGN
 
 %% DESIGN CONTROL BRANCH
@@ -121,14 +124,17 @@ CHOICE -->|No| SQ["<b>Squarespace</b> <br> (less templates than <br> Wix or Word
 %% Hostinger comes after Squarespace
 SQ --> HOST["<b>Hostinger</b> <br> (limited but <br> professional templates, <br> no app/extension store, <br> simple websites only)"]
 
-%% Hostinger comes after Squarespace
+%% Pixpa comes after Hostinger
 HOST --> PIXPA["<b>Pixpa</b> <br> (built-in portfolio, gallery, blog <br> and e-commerce tools <br> for creatives)"]
+
+%% Google Sites comes after Pixpa
+PIXPA --> GOOGLE["<b>Google Sites</b> <br> (Free, best for basic websites)"]
 
 %% ADVANCED TEMPLATE PATH STILL LEADS TO WORDPRESS
 TEMPLATES -->|Yes| WP["<b>WordPress</b> <br> More customizable, <br> grows with the business, <br> but takes time to learn"]
 
 %% WP CHOICE
-WP --> WPCHOICE["Do you want a <br> simpler experience <br> in exchange for a: <br><br> • higher base price <br> • less control <br> • being restricted from some <br> themes and plugins?"]
+WP --> WPCHOICE["Do you want a <br> simpler experience <br> in exchange for a: <br><br> • higher base price <br> • less control <br> • being restricted from some themes and plugins?"]
 
 WPCHOICE -->|Yes| WPCOM["<b>WordPress(.com)</b>"]
 WPCHOICE -->|No| WPORG["<b>WordPress(.org)</b>"]
@@ -230,7 +236,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
 - Skip it if:
   - You need an actual website.
 - Difficulty:
-- - ⭐
+  - ⭐
 - Cost:
   - Free
 - Best For:
@@ -241,6 +247,8 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - [https://support.google.com/business/gethelp/?sjid=14556443374957707723-NC&visit_id=638994772013234530-3113233149&rd=1](https://support.google.com/business/gethelp/?sjid=14556443374957707723-NC&visit_id=638994772013234530-3113233149&rd=1)
 - Migration & Security & Accessibility:
   - N/A, this is a google listing not a website.
+- SEO:
+  - If you have this and link your website, it will help improve your SEO. Because google like's to see your website linked on other sites, to boost its trustworthiness.
 - Pros:
   - Free, will help people find your business to potentially lead to some more sales
   - Easy to setup
@@ -257,23 +265,79 @@ The cost listed below is for the plans without anything added. The **cost** **do
     />
   </div>
 
-### ** Google Sites **
+### **Google Sites**
 
 - Perfect if:
+  - You just want a basic website with maybe a contact form, gallery and map at most, budget and technical hassle need to be minimal, you're okay with a basic design, no complex features.
+  - You want a short term site for an event or a report.
+  - For a very simple store, you could use a template which gives you access to a small store, mostly through JotForm integrations.
+  - If your organization also uses Google Drive and other Google products, the native integration can help a lot.
 - Skip it if:
+  - You need a site that will grow as your business grows. However, you could always start with a free Google Site and move to a more robust page builder later.
+  - Want to avoid having a basic looking site, customization is limited.
+  - Want to have the highest SEO ranking possible (ranking high on google search results)
+  - Need a true E-commerce store.
 - Difficulty:
+  - ⭐
 - Cost:
+  - Free website builder and hosting with a google account, free SSL cert, no tiers, no ads, there is a tiny, semi-transparent "Report Abuse" button in the bottom left.
+  - Although you can use the free Google.sites subdomain I highly recommend buying a custom domain. Why? Because lots of scams use sites with google.sites subdomains because its free, so some socials/websites filter out google.site subdomains. Also it looks more professional to have a cheap custom domain added to your site.
+  - "Google Sites are free to build, host, and maintain with a Google or Gmail account. There are no web hosting fees. If, however, you are using Google Sites in conjunction with Google Workspace, the cost is rolled into the user license fee of all plans."
 - Trial:
+  - N/A its free
 - Best For:
+  - Simple blogs, bio sites, portfolios, simple websites, internal team sites, disposable sites for one time events or reports
 - Customer Support:
+  - "Google Sites support for a free Gmail account is basically no existent from Google Inc. themselves. There isn't a way to submit a ticket or talk to a Google representative. With a Google Workspace subscription the situation improves, but it comes at a cost there. However, there is an active Help Community of product experts, which is a forum type system." https://www.kirksvillewebdesign.com/google-sites-developer/google-sites-news/free-website-builder-plans
 - Migration:
+  - You can only migrate it to sharepoint (used for corporate intranets) otherwise you'd have to rebuild from scratch https://cloudiway.com/solutions/google-sites-migration/
+
 - Security:
+  - Your website data is stored on Google's servers, which could raise concerns about data privacy and security for some people.
 - Accessibility (ADA/WCAG compliance):
+  - Not great for accessibility but there are guides to make use of the accessibility features it does have:
+    - such as this 7 minute video https://www.youtube.com/watch?v=XSsY9Wr0WD0&t=444s
+  - https://sites.google.com/a/umich.edu/engcom-wiki/web/accessibility/google-sites-accessibilty
 - How easy to hand-off to employees:
+  - Very Easy to add someone, and its a very simple website builder https://support.google.com/sites/answer/97934?hl=en
+  - "If, at some point, I want/need to turn webmaster duties over to someone, it wouldn't take eons to show them what to do. I've shown other embroiderers (most of whom are not terribly techie) how to start their sites, and all have been successful. ... it's perfect for the groups I work with (demographics tilt toward senior citizen)" https://www.reddit.com/r/GoogleSites/comments/1jih1vj/comment/mjlw7bb/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+  - "I onboarded many nonprofits onto Google Sites because they used Docs and Sheets, but also because your average person can easily make updates." https://www.reddit.com/r/GoogleSites/comments/1jih1vj/would_anyone_actually_recommend_google_sites/
 - E-commerce:
+  - "The lack of a proper CMS makes the prospect of managing a large ecommerce site on Google Sites impractical. However, templates have been made which utilize Pay Now buttons and simple storefronts. https://www.kirksvillewebdesign.com/google-sites/google-sites-templates/business-ecommerce" Most seem to use jotform to create a simple store
 - Widgets or App Store
+  - No App store but you can embed code (widgets into your site to extend its functionality slightly)
+  - https://sites.google.com/site/horstwebdesign/integrations-widgets-apps-and-add-ons
+  - Examples of premium "apps", in this case its just code you'll copy and paste into Google Sites: https://www.commoninja.com/widgets?via=googlesites
+- SEO:
+  - Although google site's FAQ says it can rank (have high SEO), so many other say its been terrible for SEO so I'd be wary if you want to get the highest google search rankings. The SEO features it offers is basic, unlike the advanced SEO offered by some other site builders, so I'd be surprised if you could achieve the highest SEO ranking with Google Sites.
+    - Through guide for improving SEO: https://www.googlesites-seo.com/
+  - "There is nothing preventing Google Sites from performing well in search. We've provided some tips to help Google Sites users with SEO. https://sites.google.com/site/horstwebdesign/seo-tips"
+  - "Although Classic Google Sites used to support entry of meta data like meta descriptions, New Google Sites has been simplified. It allows:
+    - Site Title
+    - Page Title
+    - Heading Tags
+    - Image Alt Tags
+
+    In addition, Google Analytics and Google Search Console (formerly Webmaster Tools) can track and make sure your website is in good SEO form. For more information on SEO, please see the videos of Matt Cutts, Google Webmaster Tools representative or read our complete SEO guide for New Google Sites. https://www.kirksvillewebdesign.com/google-sites/seo"
+
 - Pros:
+  - Free with a google account!
+  - All google sites are made to work on desktop and mobile devices, so it'll save you time troubleshooting the apperance of the site on different screens.
+  - If your organization also uses Google Drive and other Google products, the native integration can help a lot.
+  - You can get templates through their store, theres both free and premium templates: https://www.kirksvillewebdesign.com/google-sites/google-sites-templates
+  - "I’ve used Wordpress, Wix, and Squarespace, and just really enjoy the simplicity. There are great prebuilt templates out there, but even using Canva and a few embeds from other platforms and you can have a decent site." https://www.reddit.com/r/GoogleSites/comments/1jih1vj/comment/mjs9emf/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+  - " We are a school using Google Workspace for Education, basically all of the Google apps like docs, sheets, slides etc. I decided on Google Sites as it is collaborative, and our team could easily work on it, adding content and pulling in images from Google Photos. Most of the team have no experience in web designing but it was easy to set up and we have no complaints!" https://www.reddit.com/r/GoogleSites/comments/1jih1vj/comment/mjtzq4q/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+  - Google sites used to share your google drive or google worksplace storage, but that is no longer the case for new google sites.
 - Cons:
+  - Minimal customization, so the sites tend to look basic.
+  - It only supports minimal blogging features.
+  - If you don't use a custom domain and stick with the google.sites domain, some sites such as reddit filter out google site links because of the high amount of scams and malware that create free google sites to trick potential victims.
+- For more information:
+  - https://sites.google.com/site/horstwebdesign/about-google-sites
+- Examples:
+  - https://www.splitrockoutdoors.ca/
+  - https://www.tunbridgehs.com/
+  - https://www.shevingtonphotographicsocialclub.com/
 
 ### **Carrd**
 
@@ -285,7 +349,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - ⭐
 - Cost:
   - Pro Lite $9/year
-  - Pro Standard $19/year
+  - Pro Standard $19/year (need this tier or higher to use a custom domain)
   - Pro Plus $49/yr
   - [https://carrd.co/pro](https://carrd.co/pro)
 - Trial:
@@ -319,6 +383,14 @@ The cost listed below is for the plans without anything added. The **cost** **do
 - Widgets or App Store
   - Limited to just 5 widgets: Stripe, PayPal, Gumroad, Typeform, facebook https://carrd.co/docs/building/adding-widgets
   - But you can also embed services like Ecwid with a pro standard plan.
+- SEO:
+  - Less SEO customization than other web builders, but if you follow all the tips you might get a decent ranking, its just unlikely you'll be able to rank at the very top of a google search.
+  - Many SEO tools are behind a small paywall ( must have a Pro Standar or higher plan). But Carrd is so much cheaper than other web builders its not a big issue
+    - Can add meta tags (on Pro Standard or higher plan )
+    - add google analytics ID to see where your traffic is coming from and what people are searching for, to help tweak your SEO.
+  - Since its a simple site, it will likely be fast as long as you don't use giant images/videos, which might help slightly with SEO.
+  - 7 minute guide to optimize Carrd for SEO: https://www.youtube.com/watch?v=F7_1BWxxYoQ
+  - Another guide: https://www.nocode.mba/articles/10-essential-card-seo-tips-to-boost-your-website#
 - Pros:
   - Very affordable!
   - Easy to use
@@ -382,6 +454,15 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - Example of stores build on Pixpa: https://www.pixpa.com/examples/stores
 - Widgets or App Store
   - Has 100+ apps to extend your site's functionality https://www.pixpa.com/apps some require a premium plan but that's the same for every app store.
+- SEO:
+  - https://www.pixpa.com/seo-tools Has put an impressive amount of work to make get SEO rankings easier. Like anywhere, you'll still need to add the metatags, titles ect but they built out pixpa in a way that makes it easier to rank.
+  - "Our websites are designed with the best SEO practices in mind, employing multiple strategies to elevate your site's ranking in search results." https://www.pixpa.com/seo-tools
+  - "Pixpa ensures each part of your website – be it pages, galleries, folders, products, or blog posts – features clean, static URLs. These URLs are not only search-engine friendly but also user-intuitive. "
+  - "With Pixpa, you can add distinct SEO metadata – including titles and descriptions – for every page, blog post, product, and gallery."
+  - Optimized their HTML to be clean so its better indexable to search engines"
+  - "Pixpa utilizes Server-Side Rendering, ensuring search engines can fully read and index your site content."
+  - "Easily Setup 301 Redirects"
+  - SEO success checklist: https://help.pixpa.com/kb/managing-website-seo/
 - Pros:
   - focused on creatives
   - offers built-in portfolio, gallery, blog and e-commerce tools on one platform — so you don’t need separate plugins, hosting, or store software.
@@ -407,6 +488,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - You want beautiful templates and zero fuss, you don't need tons of extra features.
 - Skip it if:
   - You want heavy customization or pixel-perfect control.
+  - Need a private gallery. If you're a creative that needs gallery software then Pixpa would be better for you. You can see a deepr comparison here: https://www.youtube.com/watch?v=JkGh0W8j9f0
 - Difficulty:
   - ⭐⭐
 - Cost:
@@ -455,6 +537,12 @@ The cost listed below is for the plans without anything added. The **cost** **do
 - Widgets or App Store:
   - Less extensions/plugins than other options
   - https://www.squarespace.com/extensions/home
+- SEO:
+  - "All Squarespace sites are built for clean indexing by search engines", they created a helpful guide to maximize your SEO score https://support.squarespace.com/hc/en-us/articles/360002090267-SEO-checklist
+  - They have a SEO report tool to see where your SEO is weak
+  - https://katescott.co/blog/squarespace-seo
+  - Some argue that you can't customize SEO as much as you could with WordPress plugins like Yoast but if you follow all the tips, you could get decent SEO. There are now 2 SEO plugins for SquareSpace: TinyIMg and SEOSpace.
+  - 21 minute Squarespace SEO video tutorial: https://www.youtube.com/watch?v=g4eF_H3rOhQ
 - Pros:
   - All in one platform, you can buy your domain within Squarespace.
   - Simple to use.
@@ -534,6 +622,13 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - "tools for SEO, email, and marketing your business
 - Widgets or App Store:
   - No plugin store
+- SEO:
+  https://www.websitebuilderexpert.com/website-builders/hostinger-seo-review/:
+  - If you pay for the $3.79/ mo Business Website Builder plan you can use the AI guidance feature, to get help building out SEO.
+  - SEO settings can be tweaked for individual product pages and blog posts
+  - Can add meta titles and descriptions, custom urls, alt text, optimized headings
+  - Missing advanced SEO functionality, and since it doesn't have an app market there's no workaround (Ex: Image optimization, SEO analytics, keyword research)
+  - Guide: https://www.hostinger.com/support/6466320-hostinger-website-builder-seo-settings/
 - Pros:
   - Has templates that are created by the platform itself and are regularly updated
   - Easy to use and edit
@@ -594,7 +689,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - To give an employee access to **edit the Square Online website itself**, you must assign them a permission set that includes **Full Access** to the account. This permission level still prevents them from making major account changes like managing bank accounts, but grants the necessary permissions for website building and editing.
   - Note that basic team permissions are free, but if you need to create custom permission sets for different access levels to your online store and other features, you may need a subscription to the paid Team Management plan.
   - [https://www.gentlefrog.com/how-to-add-a-full-access-team-member-to-square/](https://www.gentlefrog.com/how-to-add-a-full-access-team-member-to-square/)
-- E- commerce:
+- E-commerce:
   - Low upfront cost, perfect if you don’t need hardcore features. Pay per transaction, no monthly fees for a basic account
   - The cheapest path to a functional POS with good online ordering tools
   - Not ideal for large retail chains since inventory & multi-location tools are basic
@@ -604,6 +699,10 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - https://squareup.com/us/en/app-marketplace
   - https://squareup.com/help/us/en/article/5437-manage-your-square-app-marketplace-subscriptions
   - Some apps will cost extra, but that’s the same for all website builders.
+- SEO:
+  - "SEO isn’t its strongest suit compared to Shopify or even Ecwid. While you can do basic SEO (meta titles, descriptions, alt text), its customization and flexibility for advanced SEO strategies (like structured data or technical SEO tweaks) are limited" https://www.reddit.com/r/ecommerce/comments/1i7ewhn/comment/m8p8jor/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+  - SEO tips from the square team: https://squareup.com/us/en/the-bottom-line/starting-your-business/seo-guide-for-business
+  - 17 minute video guide for setting SEO for square: https://www.youtube.com/watch?v=QVJ4dQ2P-xk
 - Pros
   - You can learn in a day, clean user interface
   - Staff management starting on the square plus plan
@@ -682,12 +781,13 @@ The cost listed below is for the plans without anything added. The **cost** **do
 - Widgets or App Store:
   - Has more apps/plugins than Squarespace, over 300 that you can add to your site with a click to easily extend the functionality of your site.
   - https://www.wix.com/app-market
+- SEO:
+  - Seo tool goes beyond the basics: structured data, image compression, canoncial tags, seo tool walks you through optimization based on your niche. So beginner friendly but still useful for pros.
 - Pros:
   - Offers a free plan, though you’ll have to deal with the “created by Wix” header.
   - More templates to choose from
   - Marketing templates, basic automation and integration with site behavior (sending emails based on users actions), app marketplace gives you access to chat bots and referral programs.
   - Robust analytics: emails, bookings, e-commerce all in one hub.
-  - Seo tool goes beyond the basics: structured data, image compression, canoncial tags, seo tool walks you through optimization based on your niche. So beginner friendly but still useful for pros.
 
 - Cons:
   - Can be a bit finicky to get it to look just right, might look off on different size screens. Trial and error to get it to look how you want. The “strip” layout is a bit weird to figure out.
@@ -712,9 +812,11 @@ The cost listed below is for the plans without anything added. The **cost** **do
 - Perfect if:
   - You just need a simple one page website with minimal upkeep, with no blogging. It does have a contact form that will send messages to your email.
   - Need a simple site where any purchases would be done through a payment processor (like Paypal, Gumroad or Stripe)
+  - Heavy focus on local SEO makes it great for localized small businesses
 - Skip it if:
-  - You need multiple pages, blogging or formal e-commerce features.
+  - You need multiple pages, blogging or a formal e-commerce features.
 - Difficulty:
+  - ⭐
 - Cost:
   - $10/mo (monthly)
   - $8/mo (if you pay for a year)
@@ -732,21 +834,30 @@ The cost listed below is for the plans without anything added. The **cost** **do
 - Migration:
   - Would need to start from scratch
 - Security:
-  - Handled for you
+  - Handled for you, automatic updates
 - Accessibility (ADA/WCAG compliance):
-  - They at least make sure the color palettes are accessible but is clear what other accessibility features it has. https://getsiimple.com/blog/why-website-builders-like-wix-squarespace-and-wordpress-might-be-hurting-your-local-business/
+  - "Accessibility features aren’t just nice-to-have — they’re part of the default setup. Siimple’s templates are mobile-first, use readable fonts, maintain strong color contrast, and follow clean navigation structures that work with assistive technologies. https://getsiimple.com/blog/the-honest-truth-about-siimple-website-builder/
 - How easy to hand-off to employees:
   - I made a free account and there was no obvious way to share access with someone else. There's a chance it might only be visible when the site is published/after payment.
   - However the site itself is easy to edit, so at the very minimum even if you have to share your login it'd be easy for them to update.
+- E-commerce
+  - no e-commerce features (creating a shop, managing inventory, shopping cart) BUT you can "connect your own checkout or payment processor (like Paypal, Gumroad or Stripe!)"
+  - how to use paypal, gumroad or stripe https://docs.getsiimple.com/en/articles/9830861-does-siimple-offer-e-commerce-or-shop-features
+- Widgets or App Store:
+  - no app store
+- SEO:
+  - Great overview of their SEO with short and easy tips to maximize your SEO: https://getsiimple.com/blog/how-a-siimple-website-can-get-your-local-business-found-on-google/
+  - Great for localized SEO , Siimples templates are built to be fast and mobile friendly, which lead to higher rankings.
+  - Fields to enter page title, meta description, meta image and URL.
+
 - Pros:
   - You can bring your own domain or purchase the domain through them. Or use their free Siimple domain.
   - "you can cancel your subscription at any time. There are no contracts or hidden fees."
+  - "Version History and Backups"
 - Cons:
   - No blogging features
   - No multi page support
   - Won't scale with your business if it grows past a one page site
-  - No
-  - no e-commerce or shopping cart BUT you can "connect your own checkout or payment processor (like Paypal, Gumroad or Stripe!)"
 
   <div class=" text-center">
     <ButtonALink
@@ -782,6 +893,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - [https://wpcreative.com.au/convert-shopify-theme-to-wordpress/](https://wpcreative.com.au/convert-shopify-theme-to-wordpress/)
 - Security:
   - Handles security, you don’t have to do anything.
+  - "All Shopify sites are PCI compliant and SLL certified, ensuring your business and customer data are protected."
 - Accessibility (ADA/WCAG compliance):
   - Guide on how to make your site accessible:
   - [https://help.shopify.com/en/manual/online-store/themes/customizing-themes/accessibility](https://help.shopify.com/en/manual/online-store/themes/customizing-themes/accessibility)
@@ -789,19 +901,34 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - [https://accessibe.com/blog/knowledgebase/accessible-shopify-themes](https://accessibe.com/blog/knowledgebase/accessible-shopify-themes)
   - Though the plugins/ apps you use might not be as accessible as your theme.
 - How easy to hand-off to employees:
+  - Collaborator Accounts do not count towards staff limits, so you can give designers, developers, and marketing limited access to the store.
   - Can easily personalize staff permissions BUT the basic plan has 0, you can’t even buy 1 staff account to use with the basic plan.
   - You’d need to buy the pricey 79$/mo grow plan to get any staff accounts (5 staff)
   - [https://community.shopify.com/t/how-can-i-view-and-edit-staff-privileges-on-my-website/78602](https://community.shopify.com/t/how-can-i-view-and-edit-staff-privileges-on-my-website/78602)
   - [https://help.shopify.com/en/manual/your-account/users/users-plan-requirements](https://help.shopify.com/en/manual/your-account/users/users-plan-requirements)
-- Cons:
-  - No drag and drop builder, so less creative freedom
-  - Learning curve for advanced features like SEO, analytics, automation flows
+- E-commerce
+  - Shopify was made for E-commerce
+  - Unlimited products (though they'll ban you if you share illegal or NSFW products)
+  - Can dropship with shopify's network
+  - Marketing, abandoned checkout revoery, discount codes
+  - They make it easy to manage your inventory, order fulfillment, ect, though there will be transaction fees
   - Basic and plus plans have limited checkout customization options, the pricier plans have more customization options.
-  - Shopify can ban your store if it suspects you’re a bot, selling prohibited items, running multiple brands in the same store (they want a store for each brand), and various other reasons. You can speak to shopify support on the off chance it does happen to you.
+  - Scroll down to "Full list of features" and click to see what features are available for every plan: https://www.shopify.com/pricing?country=us&lang=en
+- Widgets or App Store:
+  - Over 8000 Apps you can add for various prices to add features to your site.
+- SEO:
+  - https://help.shopify.com/en/manual/promoting-marketing/seo
+  - https://www.shopify.com/blog/shopify-seo#
+  - A friendly and no-fluff 18 minute shopify SEO optimization guide video: https://www.youtube.com/watch?v=LMGj7N2iW2A
+  - Can also use the SEO apps to further improve your SEO rankings
 - Pros:
   - But the sections are built to be easy to edit, and to look good on any size screen (be responsive).
-  - They make it easy to manage your inventory, order fulfillment, ect, though there will be transaction fees
-  - Over 8000 Apps you can add for various prices to add features to your site.
+  - It now has a drag and drop page builder: https://www.shopify.com/website/builder?country=us&lang=en, though you can use third party apps to add more advanced drag and drop features.
+- Cons:
+  - Less creative freedom
+  - Learning curve for advanced features like SEO, analytics, automation flows
+  - Shopify can ban your store if it suspects you’re a bot, selling prohibited items, running multiple brands in the same store (they want a store for each brand), and various other reasons. You can speak to shopify support on the off chance it does happen to you.
+
 - Examples:
   - Official store examples: [https://www.shopify.com/examples](https://www.shopify.com/examples)
   - More detailed list: [https://www.sitebuilderreport.com/shopify-stores-examples](https://www.sitebuilderreport.com/shopify-stores-examples)
@@ -813,6 +940,72 @@ The cost listed below is for the plans without anything added. The **cost** **do
     />
   </div>
 
+### **Ecwid**
+
+- Perfect if:
+  - You have a website that needs e-commerce functionality embed into it through code or a widget.
+  - You just need a simple website and simple e-commerce store and you want them in the same place, however most people will built on wix/squarespace/Carrd/ect and add their Ecwid store to it, instead of using Ecwid's more limited website builder.
+  - Straightforward shops with small budgets that don’t need a lot of customized features or integrations with a ton of third-party tools.
+- Skip it if:
+  - You have a medium to large business, or plan for your business to grow significantly.
+- Difficulty:
+  - ⭐⭐–⭐⭐⭐
+- Cost:
+  - Starter $5/mo (same price to pay annually or monthly)
+  - Venture: $30/mo ($25 if paid annually)
+  - Business: $55/mo ($45 if paid annually)
+  - Unlimited: $130/mo ($105 if paid annually)
+  - https://www.ecwid.com/pricing
+  - https://www.ecwid.com/website-builder
+- Trial:
+  - none
+- Best For:
+  - Smaller businesses
+- Customer Support:
+  - Email: all plans
+  - Chat: Venture plan or above required (24/7 monday through friday)
+  - Phone: Business or above required: "Call-backs are available 2PM-10PM PDT, Monday-Friday in English. Scheduling via chat is required"
+  - Store Customization help (Annual Business or unlimited plan required): 2 to 6 hours of help customizing your shop
+- Migration:
+  - Ecwid lets you export/import product catalogs via CSV, so if you migrate later
+- Security:
+  - Handled by Ecwid
+  - "Ecwid uses Amazon Web Services (AWS), so your store inherits some great security features, and both AWS and Ecwid are Level 1 PCI DSS certified." https://www.forbes.com/advisor/business/software/ecwid-vs-shopify/
+- Accessibility (ADA/WCAG compliance):
+- How easy to hand-off to employees:
+  - You would need a business plan to be able to give specific editing permissions to staff, designers, developers ect. https://support.ecwid.com/hc/en-us/articles/115005355089-Adding-and-managing-staff-accounts
+- E-commerce:
+  - To see a breakdown of all the features available to each plan go here: https://www.ecwid.com/pricing
+  - Ideal for a small to medium sized business, not a full enterprise shop
+  - No transaction fees through them (though third party payment processors might still charge fees)
+  - Can sell physical or digital products, manage orders & inventory, and integrate with many payment gateways
+  - Mobile POS requires Venture or higher plans
+  - POS integration with ightspeed Retail POS requires the business or higher plan
+  - POS integration with Square, Clover is only available on the unlimited plan
+  - supports multi-channel selling: storefront + social media shops + marketplace integrations, which is useful if you want to reach customers outside just your website
+  - Abandoned cart emails only available on business plan or above
+  - "Ecwid works with over 70 payment providers worldwide, including PayPal and Stripe, so there’s a great chance we support your favorite option."
+  - "email marketing, discount management, product variations and automated sales tax calculations, and it handles physical, subscription and digital product types." https://www.forbes.com/advisor/business/software/ecwid-vs-shopify/
+- Widgets or App Store
+  - Yes https://www.ecwid.com/apps/Featured
+  - App store is much smaller than Shopifys
+- SEO:
+  - Offers basic SEO, you'd have to use external tools for more advanced SEO
+- Pros:
+  - Largely easy to use, but the inital process can be a bit difficult at first since the intial shop setup controls are lumped together.
+  - "Can set up a store in 10-15 minutes" https://www.youtube.com/watch?v=UWT2vDUOUFc
+  - Nonprofits get 6 months of Venture plans for free: "Tell us more about your nonprofit and get 6 months of Venture for free." Scroll down to "Do you offer any discounts for nonprofit organizations?" and click it to see the link to the form.
+  - all Ecwid plans come with unlimited bandwidth and storage at no extra cost.
+- Con:
+  - Some plugins have left ecwid so some businesses have had to move to shopify, if they needed those integrations.
+  - Would need the venture plan or higher to use a custom domain, but each plan has a free .company.site domain
+  - For large shops, or shops that expect to get big it can be limiting.
+  - Limited customization options, but might be enough for a small shop that doesn't need heavy customization.
+  - Weaker marketing tools, though you can use plugins to get access to more marketing tools
+  - "Wix and Ecwid can work for small hobby shops, but they get messy once you add more products, variants, shipping rules, or start running ads. Shopify has better checkout, payment options, apps, and support for scaling. Plus if you ever want to run Meta/TikTok ads, Shopify integrates smoothly." https://www.reddit.com/r/EcommerceWebsite/comments/1n8i79t/comment/ncirbj9/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+- Article comparing Ecwid to Shopify: https://www.forbes.com/advisor/business/software/ecwid-vs-shopify/
+- 22 minute tutorial for setting up an Ecwid site: https://www.youtube.com/watch?v=UWT2vDUOUFc
+
 ### **WordPress (In General)**
 
 - Perfect if:
@@ -820,6 +1013,27 @@ The cost listed below is for the plans without anything added. The **cost** **do
 - Skip it if:
   - You want something extremely simple right away.
 - Note: Wordpress.com and WordPress.org are different, even though they use the same wordpress code. Wordpress.org is free, it just requires a little bit more setup. Wordpress.com handles hosting and security, but is pricier. They’ll be described below.
+- E-commerce:
+  - You can add a plugin, two popular ones are woocomcd amerce and bigcommerce
+  - https://wordpress.org/plugins/bigcommerce/
+  - https://wordpress.org/plugins/woocommerce/
+    - https://woocommerce.com/posts/woocommerce-pricing/
+  - " WooCommerce is unusable if you are not running any plugins on it. You need some expensive plugins that will cost you more than a year of shopify plan to really run on WooCommerce. Funnelkit for exemple cost $400 per year and, is just one of the best plugins out here for ecommerce.
+
+    Need to pay at least 1 to 2k in plugins every single year, which is waaaay more than a basic shopify plan which costs around 400$ per year.
+
+    Also have to add hosting cost. If you are running a pretty big store, you will need a strong server, which can cost some k every year too.
+
+    To be short :
+
+    If you are making sales on Shopify, WooCommerce will be insanely cheaper than Shopify as you will pay more in Shopify Fees for 1 month than a WooCommerce store for a year.
+
+    If you are not making sales, WooCommerce will be more expensive. " https://www.reddit.com/r/woocommerce/comments/1cbqexb/comment/l10hty4/?utm_source=share&utm_medium=web3x&utm_name=web3xcss&utm_term=1&utm_content=share_button
+
+- Widgets or App Store:
+  - Both wordpress.com and wordpress.org have app stores, though wordpress.com's store acceptance criteria is more strict, so you have less apps to choose from than with wordpress.org.
+- SEO:
+  - Both Wordpress.com and .org have apps that will let you fine tune your SEO.
 - Pro:
   - Need a site that will grow with your business (scalable)
   - Can add e-commerce capabilities with plugins
@@ -984,16 +1198,24 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - Relatively easy: Up to 25 concurrent members per site
   - However the different “modes” effect what can be edited:
   - [https://help.webflow.com/hc/en-us/articles/33961260491795-Collaborate-on-your-site-in-Webflow](https://help.webflow.com/hc/en-us/articles/33961260491795-Collaborate-on-your-site-in-Webflow)
-- Pros:
-  - Free for a 2 page website
-  - Can host elsewhere with a workspace plan, no attribution required
-  - Solid SEO, with custom meta tags, clean structure, fast loading.
-- Cons:
-  - Editor feels more like a graphic design tool like Photoshop
-  - For blog and e-commerce sites there’s separate plans for those features
+- E-commerce:
   - E-commerce is very limited, only really an option if you have a micro shop and this feature has basically been abandoned:
   - [https://www.reddit.com/r/webflow/comments/1cdpuqe/webflow_ecommerce_whats_your_opinion/](https://www.reddit.com/r/webflow/comments/1cdpuqe/webflow_ecommerce_whats_your_opinion/)
   - [https://www.reddit.com/r/webflow/comments/1euzta1/has_webflow_forsaken_their_ecommerce/](https://www.reddit.com/r/webflow/comments/1euzta1/has_webflow_forsaken_their_ecommerce/)
+- Widgets or App Store:
+  - Has an app store: https://webflow.com/apps
+  - Figma to webflow app would especially be useful for designers
+- SEO:
+  - Solid SEO options, with custom meta tags, clean structure, fast loading
+  - https://webflow.com/feature/seo
+  - SEO guide: https://webflow.com/blog/seo-and-webflow-the-essential-guide
+- Pros:
+  - Free for a 2 page website
+  - Can host elsewhere with a workspace plan, no attribution required
+- Cons:
+  - Editor feels more like a graphic design tool like Photoshop
+  - For blog and e-commerce sites there’s separate plans for those features
+
 - Examples:
   - Community showcase of sites: [https://webflow.com/made-in-webflow](https://webflow.com/made-in-webflow)
   - Blog article with top Webflow examples: [https://www.flux-academy.com/blog/12-stunning-webflow-examples-that-show-just-how-versatile-the-website-builder-is](https://www.flux-academy.com/blog/12-stunning-webflow-examples-that-show-just-how-versatile-the-website-builder-is)
@@ -1047,6 +1269,10 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - You can add an unlimited amount of delegates (collaborators)
   - Different levels of permission, they won't have access to billing information ect
     https://www.godaddy.com/help/invite-a-delegate-to-access-my-godaddy-account-12376
+- SEO:
+  - "The SEO part of the site builder looks like a good idea, but in reality is an uncustomisable nightmare and is tougher to get results with than a Wordpress site."
+  - SEO is lacking in multiple areas: https://www.highervisibility.com/seo/learn/godaddy-seo-review/
+
 - Pros:
   - The website builder is very easy to use since the editor is more structured/simplier.
   - All the basics in one place (website, domain, ssl security, marketing tools) though booking, seo, ect is limited to higher tiers.
@@ -1055,8 +1281,6 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - Very limited customization.
   - very limited e-commerce options.
   - "If you're trying to sell anything, the site builder may or may not let you add any products! It's a crap shoot. I tried to alter & change a product for over 30 minutes and it won't do it!"
-  - "The SEO part of the site builder looks like a good idea, but in reality is an uncustomisable nightmare and is tougher to get results with than a Wordpress site."
-  - SEO is lacking in multiple areas: https://www.highervisibility.com/seo/learn/godaddy-seo-review/
   - basic analytics, you'd need to hook up to google analytics to get better data.
 
   <div class=" text-center">
