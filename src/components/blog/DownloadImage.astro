@@ -8,7 +8,8 @@ import ButtonALink from "./ButtonALink.astro";
 
  
   <div class="text-center">
-  <ButtonALink href={src} label={label} styling={styling} download=true/>
+  <ButtonALink href={src} label={label} styling={styling} download />
+ <!-- In Astro, download=true does NOT pass a boolean. it passes true as a string. So just do download to get true passed -->
   </div>
 
 </div>
