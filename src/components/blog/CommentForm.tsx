@@ -46,7 +46,7 @@ export default function CommentForm({ slug }: CommentFormProps) {
         onChange={(e) => setAuthor(e.target.value)}
         className="p-2 rounded-2xl bg-violet-100"
       />
-      <label htmlFor="comment-submission">Username: </label>
+      <label htmlFor="comment-submission">Comment: </label>
 
       <textarea
         value={content}
