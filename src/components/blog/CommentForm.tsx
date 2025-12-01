@@ -36,27 +36,32 @@ export default function CommentForm({ slug }: CommentFormProps) {
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-2 p-4 bg-gray-800 rounded-lg"
+      className="flex flex-col gap-2 p-4 rounded-2xl bg-white  shadow-xl shadow-violet-950"
     >
+      <label htmlFor="name-comment-submission">Your name (optional)</label>
       <input
         type="text"
-        placeholder="Your name (optional)"
+        id="name-comment-submission"
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
-        className="p-2 rounded"
+        className="p-2 rounded-2xl bg-violet-100"
       />
+      <label htmlFor="comment-submission">Username: </label>
+
       <textarea
-        placeholder="Your comment"
         value={content}
+        id="comment-submission"
         onChange={(e) => setContent(e.target.value)}
-        className="p-2 rounded"
+        className="p-2 rounded-2xl bg-violet-100"
         required
       />
+
       {error && <p className="text-red-500">{error}</p>}
+
       <button
         type="submit"
         disabled={isSubmitting}
-        className="bg-blue-600 text-white rounded p-2"
+        className={`block px-4 py-2 m-1 rounded-2xl text-white no-underline w-fit bg-mainColor mx-auto hover:bg-blue-600 hover:text-white text-lg ${isSubmitting && "bg-slate-700"}`}
       >
         {isSubmitting ? "Posting..." : "Post Comment"}
       </button>

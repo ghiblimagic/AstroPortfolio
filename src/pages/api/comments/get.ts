@@ -17,3 +17,5 @@ export async function getComments(slug: string) {
   if (error) throw error;
   return data;
 }
+
+console.log("get.ts module loaded");

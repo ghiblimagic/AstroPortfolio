@@ -44,10 +44,10 @@ export default function CommentItem({
   }
 
   return (
-    <div className="bg-gray-700 p-3 rounded mb-2">
+    <div className="bg-white rounded-2xl shadow-xl shadow-violet-950 p-3 mb-2">
       <div className="flex justify-between items-center">
         <strong>{comment.author || "Anonymous"}</strong>
-        <span className="text-gray-400 text-sm">
+        <span className="text-gray-900 text-sm">
           {new Date(comment.created_at || "").toLocaleString()}
         </span>
       </div>
