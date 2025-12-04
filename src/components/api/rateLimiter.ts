@@ -1,4 +1,23 @@
+// Types
+interface RateLimitOptions {
+  windowMs?: number;
+  maxRequests?: number;
+}
+
+interface RateLimitRecord {
+  count: number;
+  resetTime: number;
+}
+
+interface RateLimitResult {
+  allowed: boolean;
+  remaining: number;
+  resetTime: number;
+}
+
 class RateLimiter {
+  private records: Map<string, RateLimitRecord>;
+
   constructor() {
     this.records = new Map();
   }
@@ -11,7 +30,7 @@ class RateLimiter {
    * @param {number} options.maxRequests - Maximum requests allowed in window (default: 5)
    * @returns {Object} { allowed: boolean, remaining: number, resetTime: number }
    */
-  check(identifier, options = {}) {
+  check(identifier: string, options: RateLimitOptions = {}): RateLimitResult {
     const { windowMs = 60000, maxRequests = 5 } = options;
     const now = Date.now();
 
@@ -23,7 +42,7 @@ class RateLimiter {
 
     if (!record || now > record.resetTime) {
       // New window or expired window
-      const newRecord = {
+      const newRecord: RateLimitRecord = {
         count: 1,
         resetTime: now + windowMs,
       };
@@ -49,7 +68,7 @@ class RateLimiter {
   /**
    * Clean up expired records to prevent memory leaks
    */
-  cleanup() {
+  cleanup(): void {
     const now = Date.now();
     for (const [identifier, record] of this.records.entries()) {
       if (now > record.resetTime) {
@@ -61,14 +80,17 @@ class RateLimiter {
   /**
    * Manually reset a specific identifier (useful for testing or admin overrides)
    */
-  reset(identifier) {
+  reset(identifier: string): void {
     this.records.delete(identifier);
   }
 
   /**
    * Get current status without incrementing count
    */
-  getStatus(identifier, options = {}) {
+  getStatus(
+    identifier: string,
+    options: RateLimitOptions = {},
+  ): RateLimitResult {
     const { windowMs = 60000, maxRequests = 5 } = options;
     const now = Date.now();
     const record = this.records.get(identifier);
@@ -93,7 +115,7 @@ class RateLimiter {
 export const rateLimiter = new RateLimiter();
 
 // Export different preset configurations
-export const rateLimitPresets = {
+export const rateLimitPresets: Record<string, RateLimitOptions> = {
   strict: { windowMs: 60000, maxRequests: 2 }, // 2 per minute
   normal: { windowMs: 60000, maxRequests: 5 }, // 5 per minute
   relaxed: { windowMs: 60000, maxRequests: 10 }, // 10 per minute
@@ -102,7 +124,7 @@ export const rateLimitPresets = {
 };
 
 // Helper function to get client IP
-export function getClientIP(headersList) {
+export function getClientIP(headersList: Headers): string {
   const forwarded = headersList.get("x-forwarded-for");
   const forwardedIP = forwarded?.split(",")[0]?.trim();
 
