@@ -79,7 +79,7 @@ export default function CommentItem({
         <p className="mt-1">{content}</p>
       )}
 
-      {currentUserId === comment.user_id && !isEditing && (
+      {/* {currentUserId === comment.user_id && !isEditing && (
         <div className="flex gap-2 mt-1">
           <button
             onClick={() => setIsEditing(true)}
@@ -94,7 +94,7 @@ export default function CommentItem({
             Delete
           </button>
         </div>
-      )}
+      )} */}
     </div>
   );
 }
