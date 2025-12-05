@@ -1,20 +1,24 @@
-@import url("https://fonts.googleapis.com/css2?family=Rouge+Script&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-@theme {
-  --font-lavishly-yours: "lavishly-yours", sans-serif;
+@font-face {
+  font-family: "Dancing Script";
+  src: url("/fonts/DancingScript-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Prevents invisible text while loading */
 }
-
 body {
   background-image: url("/images/background.jpg");
   background-color: #e1f5ff;
   background-size: contain;
   color: #220749;
-  font-weight: 600;
-  font-size: 1rem; /* 16px */
+  font-weight: 500;
+  font-family: "Open Sans", Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 1rem;
   line-height: 1.5rem; /* 24px */
   min-height: 100vh;
 }
@@ -89,16 +93,17 @@ video {
 
 /* hero heading */
 .heading-styling {
-  font-size: 1.125rem; /* 18px */
+  font-size: 1.7rem;
   line-height: 1.75rem; /* 28px */
   /* border-bottom-width: 4px; */
   display: inline-block;
   margin-bottom: 20px;
   padding-bottom: 10px;
+  font-family: "Dancing Script", cursive;
 }
 
 .input-styling {
-  background: #eaebf7;
+  background: #dbeafe;
   border-radius: 0.5rem;
   margin-top: 7px;
   padding-left: 10px;
@@ -113,8 +118,10 @@ input::placeholder {
 .project-titles {
   margin-bottom: 4px;
   font-weight: 700;
-  font-size: 1.125rem; /* 18px */
+  font-size: 1.7rem;
   line-height: 1.75rem; /* 28px */
+  font-family: "Dancing Script", cursive;
+  margin-bottom: 20px;
 }
 
 .project-coding-languages {
@@ -149,7 +156,7 @@ input::placeholder {
 .shadow-transition-effect:hover {
   /* gradient bottom border color effect */
 
-  filter: drop-shadow(1mm 3mm 1mm rgb(136, 155, 204));
+  filter: drop-shadow(1mm 3mm 1mm #889bcc);
   transition: 1s;
   /*
   ); */
@@ -157,6 +164,20 @@ input::placeholder {
   /* end of gradient code */
 }
 
+.background-tile {
+  background-color: #dbeafe;
+  border-radius: 1rem;
+  padding: 1rem;
+  margin-top: 1rem;
+  box-shadow:
+    0 4px 6px -1px rgba(89, 21, 197, 0.1),
+    0 10px 4px -2px rgba(57, 9, 131, 0.1);
+  border-right: 1px solid #d1d5db;
+}
+
+.project-description {
+  white-space: pre-line;
+}
 .wave {
   animation-name: wave-animation; /* Refers to the name of your @keyframes element below */
   animation-duration: 2.5s; /* Change to speed up or slow down */
@@ -173,7 +194,7 @@ input::placeholder {
   margin-right: 10px;
   background-repeat: no-repeat;
 
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath d='M512 32c0 113.6-84.6 207.5-194.2 222c-7.1-53.4-30.6-101.6-65.3-139.3C290.8 46.3 364 0 448 0h32c17.7 0 32 14.3 32 32zM0 96C0 78.3 14.3 64 32 64H64c123.7 0 224 100.3 224 224v32V480c0 17.7-14.3 32-32 32s-32-14.3-32-32V320C100.3 320 0 219.7 0 96z' fill='%23220749'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3C!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--%3E%3Cpath d='M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512zm0-352a96 96 0 1 1 0 192 96 96 0 1 1 0-192z' fill='%23220749'/%3E%3C/svg%3E");
   background-size: contain;
 }
 

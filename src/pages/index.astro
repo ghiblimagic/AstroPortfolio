@@ -10,6 +10,9 @@ import DiamondBackgroundImages from "@/components/landingpage/DiamondBackgroundI
 import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar"
 import wireFrame from "../../src/astroImages/wireFrame.png"
 import logo from "../../src/astroImages/wireFrame.png"
+import GradientDivider from "@/components/ui/gradientDivider";
+import GradientNavigationButton from "@/components/buttons/GradientNavigationButton";
+
 
 ---
 
@@ -24,27 +27,36 @@ import logo from "../../src/astroImages/wireFrame.png"
 	-->
 
 	<SpaceForDesktopSidebar client:load/>
-	<div>
+	<div class="max-w-7xl">
 		<section class=" pt-10 px-4 sm:px-12 text-center" id="home">
 		
 			
-				<h1 class="font-Rogue text-4xl">Hi there!
+				<h1 class="font-Dancing text-4xl mb-4">Hi there!
 
 					 <span class="wave" title="waving animated hand">&#128075; </span> I'm Janet, your next software engineer.
 				
 				</h1>
 
-                <p > I use my software development magic ✨ to create personalized and responsive websites and applications.</p>
+				<div class="background-tile mb-8 border-r-2 border-gray-300 ">
 
-				<p class="mt-4"> You've put lots of time and care into running your business. You deserve to have a website which reflects that and makes your clients excited to become repeat customers!</p>
+                <p > I bring a little "spellman magic" to every project I touch, creating personalized and user-friendly websites and applications.</p>
 
-				<p class="mt-4"> I enjoy collaborating with business owners like you to strengthen your digital presence and grow your customer base with attention-grabbing, accessible, and functional websites.</p>		
+				<p class="mt-4"> You pour your heart into your business, and your website should reflect that. Let’s make it welcoming, performant, and memorable so first-time visitors feel excited to stick around and become loyal fans!</p>
+
+				<p class="mt-4"> If you'd rather try to build it yourself, I made a guide to choose the right website builder for your business!
+
+				</p>
+			
 
 					<HeroButtons/>
+		
+				</div>
+
+				
 			
 					<section class="flex justify-center">
 						
-	                      	<h2 class="font-Rogue text-4xl"> My github activity</h2> 	
+	                      	<h2 class="font-Dancing text-4xl"> My github activity</h2> 	
 
 								<a href="https://github.com/ghiblimagic"
 							  aria-label="link to github"
@@ -69,7 +81,7 @@ import logo from "../../src/astroImages/wireFrame.png"
 		</section>
    <!--  ******* Project Section ******** -->
    <section class="gradient-line mt-8 border-t-4 pt-10 px-4 sm:px-12" id="projects">
-			<h2 class=" gradient-line font-Rogue text-4xl text-center"> Latest Projects </h2>
+			<h2 class=" gradient-line font-Dancing text-4xl text-center"> Latest Projects </h2>
 
 		
 				 <LatestProjects>
@@ -79,7 +91,7 @@ import logo from "../../src/astroImages/wireFrame.png"
 <!-- 		SERVICES SECTION -->
 
 		<section class="gradient-line mt-8 border-t-4 pt-10  px-4 sm:px-12 mb-20" id="services">
-			<h3 class="  gradient-line font-Rogue text-4xl text-center"> Services</h2>
+			<h3 class="  gradient-line font-Dancing text-4xl text-center"> Services</h2>
 
 		<div class="grid grid-cols-1 xl:grid-cols-2 gap-8 my-8 ml-4">
 
@@ -88,9 +100,9 @@ import logo from "../../src/astroImages/wireFrame.png"
 <DiamondBackgroundImages imgSrc="service-palette"/>
 
 					
-				<div class="ml-6">
-					<h3 class="heading-styling">Website Development </h3>
-					<p> I am committed to creating a website which meets your unique needs and tastes. The process will begin with a personalized wireframe layout and end with a site that looks great on any screen size (Reponsiveness).</p>
+				<div class="ml-6 background-tile">
+					<h3 class="heading-styling ">Website Development </h3>
+					<p > Your project deserves a tailored approach. I’ll begin by creating a wireframe shaped around your preferences, then bring it to life as a responsive website that feels right at home on phones, tablets, and big screens.</p>
 				</div>
 			</section>
 
@@ -99,9 +111,9 @@ import logo from "../../src/astroImages/wireFrame.png"
 	
 			<DiamondBackgroundImages imgSrc="responsive"/>
 			
-				<div class="ml-6">
+				<div class="ml-6 background-tile">
 					<h3 class="heading-styling">Responsive Design</h3>
-					<p>It is vital for your website to perform beautifully on a device of any size to retain clients. A responsive design allows your audience to browse and shop efficiently, whether they are using a desktop computer, mobile device, tablet or more.</p>
+					<p>Keeping clients means giving them a smooth experience on any device. With responsive design, your website automatically adjusts to desktops, tablets, and mobile phones so your audience can navigate and purchase without frustration..</p>
 				</div>
 			</section>
 
@@ -109,9 +121,9 @@ import logo from "../../src/astroImages/wireFrame.png"
 
 				<DiamondBackgroundImages imgSrc="accessiblity"/>
 
-				<div class="ml-6">
+				<div class="ml-6 background-tile">
 					<h3 class="heading-styling">Accessiblity </h3>
-					<p> Easy-to-navigate and accessible experience. Maximizing your reach by ensuring even technology challenged or disabled clients can easily access your services.</p>
+					<p> An accessible website creates a smoother experience for everyone.I build websites that are easy to navigate and inclusive, so every potential client can interact with your content without barriers.</p>
 				</div>
 			</section>
 
@@ -121,9 +133,9 @@ import logo from "../../src/astroImages/wireFrame.png"
 
 				
 						<DiamondBackgroundImages imgSrc="diamond"/>
-				<div class="ml-6">
+				<div class="ml-6 background-tile">
 					<h3 class="heading-styling border-b-0">Search Engine Optimization (SEO) </h3>
-					<p> Helping you get more clients by helping you rank higher on Google search results. </p>
+					<p> Strong SEO makes it easier for clients to find you. I optimize your site so it shows up higher in search results and brings more traffic your way. </p>
 				</div>
 			</section>
 
@@ -138,40 +150,44 @@ import logo from "../../src/astroImages/wireFrame.png"
 	   <section class="gradient-line mt-8 border-t-4 pt-10  px-4 sm:px-12 " id="process">
 	
 	
-		<h3 class=" gradient-line font-Rogue text-4xl text-center"> The Process</h2>
+		<h3 class=" gradient-line font-Dancing text-4xl text-center"> The Process</h2>
         
 		<ol class="grid grid-cols-1 xl:grid-cols-2 gap-8 my-8">
 
-			<li>
+			<li class="background-tile">
 				<h3 class="heading-styling"> Step 1 : Consultation</h3>
 
-				<p> We will chat about your vision, needs, and expectations. Different tiers are available depending on your budget and needs.</p>
+				<p class="mb-2"> We will chat about your vision, needs, and expectations.</p>
 
-				<p class=my-4"> We can either 
+				<p class=my-4"> We can either: 
 					<ol>
-					<li>
+					<li class="my-2 ml-2">
 						1. Use a site builder so its easier for you to edit later (ex: Wix, Squarespace, Wordpress)
 					</li>
-					<li>
+					<li class="my-2 ml-2">
 						2. Or I can code a custom site.
 					</li>
 				</ol>
 						 </p>
+
+				
+
+				
 			</li>
 	
 		
-			<li class="content">
-				<h3 class="heading-styling">Step 2 : Proposal</h3>
+			<li class="content background-tile">
+				<h3 class="heading-styling ">Step 2 : Proposal</h3>
 				<p class="mb-4"> A personalized wire-frame layout will be created on figma so you can visually preview the site and suggest adjustments.</p>
 				<Image src={wireFrame} alt="a wireframe of NourishedByKeto showing a color palette and a preview of the home page" height="600"/>
 			</li>
 	
-			<li class="content">
-				<h3 class="heading-styling">Step 3 : Creation and Adjustments </h3>
+			<li class="content background-tile">
+				<h3 class="heading-styling ">Step 3 : Creation and Adjustments </h3>
 				<p> You will receive regular updates as the site is created, edited and tested. </p>
 			</li>
 	
-			<li class="content">
+			<li class="content background-tile">
 				<h3 class="heading-styling"> Step 4 : Deployment</h3>
 				<p> Your site will be deployed on a webhost (a webhost takes the code I write and turns it into a site). Congratulations, your site is now live!</p>
 
@@ -186,21 +202,21 @@ import logo from "../../src/astroImages/wireFrame.png"
 
    <section class="gradient-line mt-8 border-t-4 pt-10  px-4 sm:px-12" id="skills">
 
-	<h2 class=" gradient-line grid-none font-Rogue text-4xl text-center"> Skills</h2>
+	<h2 class=" gradient-line grid-none font-Dancing text-4xl text-center"> Skills</h2>
  <div class="grid grid-cols-2 md:grid-cols-3 gap-8 my-8 justify-items-center">
 	
 
-	<section> 
+	<section class="background-tile w-full"> 
 		<h3 class="heading-styling"> Frameworks </h2>
 		<ul>
-			<li class="li-icons">Next JS 12,13,15</li>
+			<li class="li-icons">Next JS 12-15</li>
 			<li class="li-icons">Astro</li>
 			<li class="li-icons">Gatsby</li>
 		
 		</ul>
 	</section>
 
-	<section> 
+	<section class="background-tile w-full"> 
 
 		<h3 class="heading-styling"> Languages</h2>
 		<ul>
@@ -215,7 +231,7 @@ import logo from "../../src/astroImages/wireFrame.png"
 	</section>
 
 
-	<section> 
+	<section class="background-tile w-full"> 
 		<h3 class="heading-styling"> Back-End </h2>
 		<ul>
 				<li class="li-icons">Node.js</li>
@@ -224,21 +240,19 @@ import logo from "../../src/astroImages/wireFrame.png"
 			
 				<li class="li-icons">AppWrite</li>
 				<li class="li-icons">PostMan</li>
-				<li class="li-icons">Ubuntu</li>
 				<li class="li-icons">Digital Ocean</li>
 			
 		</ul>
 	</section>
 
 
-	<section> 
+	<section class="background-tile w-full"> 
 		<h3 class="heading-styling"> Tools/Other </h2>
 		<ul>
 				<li class="li-icons">React</li>
 				<li class="li-icons">TailwindCSS</li>
 				<li class="li-icons">Git</li>
 				<li class="li-icons">GitHub</li>
-				<li class="li-icons">VS Code</li>
 				<li class="li-icons">Figma</li>
 				<li class="li-icons">Shopify</li>
 				<li class="li-icons">Prettier</li>
@@ -253,7 +267,7 @@ import logo from "../../src/astroImages/wireFrame.png"
 		</ul>
 	</section>
 
-	<section> 
+	<section class="background-tile w-full"> 
 		<h3 class="heading-styling text-wrap"> CMS </h2>
 		<ul>
 			<li class="li-icons">WordPress</li>
@@ -262,7 +276,7 @@ import logo from "../../src/astroImages/wireFrame.png"
 		</ul>
 	</section>
 
-		<section> 
+		<section class="background-tile w-full"> 
 		<h3 class="heading-styling"> AI </h2>
 		<ul>
 			<li class="li-icons">Open AI API</li>
@@ -279,11 +293,13 @@ import logo from "../../src/astroImages/wireFrame.png"
 </div>
 </section>
 
-<section class="my-12 py-8 border-t gradient-line px-8 bg-[#3C5DCA] w-full  rounded-2xl max-w-4xl mx-auto " id="contact">
+<GradientDivider style="ml-10"/>
 
-	<h2 class="heading font-Rogue text-4xl text-center text-white ">  Contact</h2>
+<section class="my-12 py-8  px-8 bg-[#3c5dca] w-full  rounded-2xl max-w-4xl mx-auto " id="contact">
 
-	<div class="flex flex-col items-center bg-white rounded-2xl shadow-lg shadow-violet-950  w-[95%] mx-auto max-w-xl">
+	<h2 class="heading font-Dancing text-4xl text-center text-white ">  Get in Touch</h2>
+
+	<div class="flex flex-col items-center bg-white rounded-2xl shadow-lg shadow-blue-950  w-[95%] mx-auto max-w-xl">
 
 	<p class="my-6">All fields marked with  <span class="text-red-800">*</span> are required</p>
 	
@@ -326,7 +342,7 @@ import logo from "../../src/astroImages/wireFrame.png"
 				<button
 				type="submit" 
 				title="click after filling out all required fields to submit contact request"			
-				class="px-4 py-2 rounded-lg bg-violet-900 text-white hover:text-mainColor  animated-gradient hover:font-bold"
+				class="px-4 py-2 rounded-lg bg-[#3C5DCA] text-white hover:text-mainColor  animated-gradient hover:font-bold"
 				>
 				Send
 		</button>

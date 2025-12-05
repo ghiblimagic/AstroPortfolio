@@ -13,7 +13,7 @@ module.exports = {
   prefix: "",
   theme: {
     fontFamily: {
-      Rogue: ["Rouge Script", "sans-serif"],
+      Dancing: ["Dancing Script", "sans-serif"],
     },
     container: {
       center: true,

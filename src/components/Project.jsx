@@ -46,47 +46,49 @@ export default function Projects({
         />
       )}
 
-      <h3 className="project-titles">{projectTitle}</h3>
+      <div className="background-tile">
+        <h3 className="project-titles my-4">{projectTitle}</h3>
 
-      <span className="project-coding-languages">{projectLanguages}</span>
+        <span className="project-coding-languages">{projectLanguages}</span>
 
-      <p className="">{projectDescription}</p>
+        <p className="mt-5 project-description">{projectDescription}</p>
 
-      <ul className="gap-4 my-10 flex justify-evenly">
-        {linkToCode && (
-          <li>
-            <GradientNavigationButton
-              text={"Code"}
-              aria="link to codebase"
-              link={linkToCode}
-              target={"_blank"}
-              rel={"noopener noreferrer"}
-            />
-          </li>
-        )}
-        {linkToLiveSite && (
-          <li>
-            <GradientNavigationButton
-              text="View"
-              aria="View"
-              link={linkToLiveSite}
-              target={"_blank"}
-              rel={"noopener noreferrer"}
-            />
-          </li>
-        )}
-        {readmeLink && (
-          <li>
-            <GradientNavigationButton
-              text="ReadMe"
-              aria="readMe"
-              link={readmeLink}
-              target={"_blank"}
-              rel={"noopener noreferrer"}
-            />
-          </li>
-        )}
-      </ul>
+        <ul className="gap-4 my-10 flex justify-evenly">
+          {linkToCode && (
+            <li>
+              <GradientNavigationButton
+                text={"Code"}
+                aria="link to codebase"
+                link={linkToCode}
+                target={"_blank"}
+                rel={"noopener noreferrer"}
+              />
+            </li>
+          )}
+          {linkToLiveSite && (
+            <li>
+              <GradientNavigationButton
+                text="View"
+                aria="View"
+                link={linkToLiveSite}
+                target={"_blank"}
+                rel={"noopener noreferrer"}
+              />
+            </li>
+          )}
+          {readmeLink && (
+            <li>
+              <GradientNavigationButton
+                text="ReadMe"
+                aria="readMe"
+                link={readmeLink}
+                target={"_blank"}
+                rel={"noopener noreferrer"}
+              />
+            </li>
+          )}
+        </ul>
+      </div>
     </article>
   );
 }

@@ -143,7 +143,7 @@ export default function CommentForm({
         id="name-comment-submission"
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
-        className="p-2 rounded-2xl bg-violet-100"
+        className="input-styling"
       />
       <label htmlFor="comment-submission">Comment: </label>
 
@@ -151,7 +151,7 @@ export default function CommentForm({
         value={content}
         id="comment-submission"
         onChange={(e) => setContent(e.target.value)}
-        className="p-2 rounded-2xl bg-violet-100"
+        className="input-styling"
         maxLength={10000}
         required
       />
@@ -203,7 +203,7 @@ export default function CommentForm({
       <button
         type="submit"
         disabled={isSubmitting || recaptchaLoading}
-        className={`block px-4 py-2 m-1 rounded-2xl text-white no-underline w-fit bg-mainColor mx-auto hover:bg-blue-600 hover:text-white text-lg ${isSubmitting && "bg-slate-700"}`}
+        className={`block px-4 py-2 m-1 rounded-2xl text-white no-underline w-fit bg-blue-600 mx-auto hover:bg-mainColor hover:text-white text-lg ${isSubmitting && "bg-slate-700"}`}
       >
         {isSubmitting ? "Posting..." : "Post Comment"}
       </button>

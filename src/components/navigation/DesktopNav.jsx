@@ -18,7 +18,7 @@ const sidebar = () => {
             width="40"
           />
 
-          <p class="ml-4 font-Rogue">
+          <p class="ml-4 font-Dancing">
             <span class="inline-block text-white text-[30px] ">
               {" "}
               Spellman's{" "}
@@ -29,11 +29,11 @@ const sidebar = () => {
             </span>
           </p>
         </div>
-        <ul className="flex flex-col space-y-3 pt-6 bg-[#3c5dca] text-center font-Rogue text-2xl">
+        <ul className="flex flex-col space-y-3 pt-6 bg-[#3c5dca] text-center font-Dancing text-2xl">
           {/* ************************** FIRST ITEM ***********************  */}
           <li className="glow gradient-line border-b-2 pb-1">
             <a href="/#home">
-              <span className="text-center">home</span>
+              <span className="text-center">Home</span>
             </a>
           </li>
 
@@ -43,7 +43,7 @@ const sidebar = () => {
               {({ open }) => (
                 <>
                   <Disclosure.Button className="flex mx-auto ">
-                    <span className="pl-6 mr-2 glow ">projects </span>
+                    <span className="pl-6 mr-2 glow ">Projects </span>
                     <img
                       className=""
                       src={`/images/icon-arrow-${open ? "up" : "down"}.svg`}
@@ -53,11 +53,11 @@ const sidebar = () => {
                   <Disclosure.Panel className="px-4 pt-4 pb-2 text-sm">
                     <ul className="flex flex-col space-y-3 text-2xl">
                       <li className="cursor-pointer glow ">
-                        <a href="/#projects">newest projects</a>
+                        <a href="/#projects">Newest Projects</a>
                       </li>
 
                       <li className="cursor-pointer glow">
-                        <a href="/otherprojects/">other projects </a>
+                        <a href="/otherprojects/">Other Projects </a>
                       </li>
                     </ul>
                   </Disclosure.Panel>
@@ -67,29 +67,29 @@ const sidebar = () => {
           </li>
 
           <li className="glow gradient-line border-b-2 pb-1">
-            <a href="/about/">about me</a>
+            <a href="/about/">About me</a>
           </li>
 
           <li className="glow gradient-line border-b-2 pb-1">
             <a href="/#services">
-              <span>services </span>
+              <span>Services </span>
             </a>
           </li>
 
           <li className="glow gradient-line border-b-2 pb-1">
-            <a href="/#process">the process </a>
+            <a href="/#process">The Process </a>
           </li>
 
           <li className="glow gradient-line border-b-2 pb-1">
-            <a href="/#skills">skills</a>
+            <a href="/#skills">Skills</a>
           </li>
 
           <li className="glow gradient-line border-b-2 pb-1">
-            <a href="/#contact">contact</a>
+            <a href="/#contact">Contact</a>
           </li>
 
           <li className="glow gradient-line border-b-2 pb-1">
-            <a href="/blog">blog</a>
+            <a href="/blog">Blog</a>
           </li>
         </ul>
 
