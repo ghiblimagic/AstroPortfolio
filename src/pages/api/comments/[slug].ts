@@ -2,12 +2,14 @@ import type { APIRoute } from "astro";
 import { createClient } from "@supabase/supabase-js";
 import type { Database } from "src/types/supabase";
 
+export const prerender = false;
+
 const supabase = createClient<Database>(
   import.meta.env.PUBLIC_SUPABASE_URL,
   import.meta.env.PUBLIC_SUPABASE_ANON_KEY,
 );
 
-export const get: APIRoute = async ({ params }) => {
+export const GET: APIRoute = async ({ params }) => {
   const slug = params.slug!;
   const { data, error } = await supabase
     .from("comments")
