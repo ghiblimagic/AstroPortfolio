@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
 import type { BlogComment } from "src/types/comments";
 import CommentForm from "./CommentForm";
 import CommentList from "./CommentLIst";
@@ -37,21 +38,30 @@ export default function CommentsSection({
   };
 
   return (
-    <div className="mt-12 py-8 border-t gradient-line mx-4 px-4 bg-[#3C5DCA] w-full rounded-2xl">
-      <h2 className="text-2xl font-bold text-white mb-6 text-center">
-        Comments
-      </h2>
+    <GoogleReCaptchaProvider
+      reCaptchaKey={import.meta.env.PUBLIC_RECAPTCHA_V3_SITE_KEY}
+      scriptProps={{
+        async: true,
+        defer: true,
+        appendTo: "body",
+      }}
+    >
+      <div className="mt-12 py-8 border-t gradient-line mx-4 px-4 bg-[#3C5DCA] w-full rounded-2xl">
+        <h2 className="text-2xl font-bold text-white mb-6 text-center">
+          Comments
+        </h2>
 
-      <CommentForm
-        slug={slug}
-        onCommentAdded={handleCommentAdded}
-      />
+        <CommentForm
+          slug={slug}
+          onCommentAdded={handleCommentAdded}
+        />
 
-      <CommentList
-        comments={comments}
-        loading={loading}
-        currentUserId={currentUserId}
-      />
-    </div>
+        <CommentList
+          comments={comments}
+          loading={loading}
+          currentUserId={currentUserId}
+        />
+      </div>
+    </GoogleReCaptchaProvider>
   );
 }
