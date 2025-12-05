@@ -71,6 +71,10 @@ export default function MobileNav() {
           <li className="glow gradient-line border-b-2 pb-1">
             <a href="/blog">Blog</a>
           </li>
+
+          <li className="glow gradient-line border-b-2 pb-1">
+            <a href="/torc">Torc</a>
+          </li>
         </ul>
 
         <div className="flex flex-col space-y-5 items-center justify-items-center pt-8"></div>
