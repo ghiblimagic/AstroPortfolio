@@ -7,7 +7,7 @@ export default function NavToggleButton() {
   const [hamburgerImage, setHamburgerImage] = useState("");
 
   const $isNavOpen = useStore(isNavOpen);
-  console.log($isNavOpen);
+
   return (
     <div className={`bg-mainColor md:hidden flex justify-center`}>
       {$isNavOpen ? (

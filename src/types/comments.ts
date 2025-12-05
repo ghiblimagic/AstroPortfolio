@@ -1,0 +1,6 @@
+// src/types/comments.ts
+import type { Database } from "./supabase";
+
+export type Comment = Database["public"]["Tables"]["comments"]["Row"];
+export type CommentInsert = Database["public"]["Tables"]["comments"]["Insert"];
+export type CommentUpdate = Database["public"]["Tables"]["comments"]["Update"];

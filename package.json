@@ -20,6 +20,7 @@
     "@nanostores/react": "^0.7.1",
     "@radix-ui/react-menubar": "^1.1.4",
     "@radix-ui/react-navigation-menu": "^1.2.3",
+    "@supabase/supabase-js": "^2.84.0",
     "@types/react": "^18.3.18",
     "@types/react-dom": "^18.3.5",
     "astro": "^5.16.0",
@@ -30,12 +31,16 @@
     "nanostores": "^0.9.5",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-google-recaptcha": "^3.1.0",
+    "react-google-recaptcha-v3": "^1.11.0",
     "tailwind-merge": "^2.2.0",
     "tailwindcss": "^3.4.1",
     "tailwindcss-animate": "^1.0.7",
     "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "@tailwindcss/typography": "^0.5.19"
+    "@tailwindcss/typography": "^0.5.19",
+    "@types/react-google-recaptcha": "^2.1.9",
+    "supabase": "^2.61.2"
   }
 }
