@@ -1,11 +1,11 @@
 // src/components/CommentItem.tsx
 import { useState } from "react";
-import type { Comment } from "src/types/comments";
+import type { BlogComment } from "src/types/comments";
 import { editComment } from "src/pages/api/comments/edit";
 import { deleteComment } from "src/pages/api/comments/delete";
 
 interface CommentItemProps {
-  comment: Comment;
+  comment: BlogComment;
   currentUserId: string | null;
 }
 

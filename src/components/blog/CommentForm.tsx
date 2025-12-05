@@ -2,12 +2,17 @@ import { useState, useRef, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import LoadingSpinner from "../ui/loadingSpinner";
+import type { BlogComment } from "@/types/comments";
 
 interface CommentFormProps {
   slug: string;
+  onCommentAdded: (comment: BlogComment) => void;
 }
 
-export default function CommentForm({ slug }: CommentFormProps) {
+export default function CommentForm({
+  slug,
+  onCommentAdded,
+}: CommentFormProps) {
   const formStartTime = useRef(Date.now());
   // useRef so:
   //  1. a bot can't spoof the date, like they could with useState
@@ -113,7 +118,10 @@ export default function CommentForm({ slug }: CommentFormProps) {
         setError(result.error);
         return;
       }
-
+      // Call the callback with the new comment data
+      if (result.data && result.data[0]) {
+        onCommentAdded(result.data[0]);
+      }
       setContent("");
       setAuthor("");
       alert("Comment added!");
