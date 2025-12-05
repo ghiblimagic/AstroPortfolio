@@ -3,6 +3,8 @@ import type { Database } from "src/types/supabase";
 import { rateLimiter, rateLimitPresets } from "@/components/api/rateLimiter";
 import type { APIRoute } from "astro";
 
+export const prerender = false;
+
 const supabase = createClient<Database>(
   import.meta.env.PUBLIC_SUPABASE_URL,
   import.meta.env.PUBLIC_SUPABASE_ANON_KEY,

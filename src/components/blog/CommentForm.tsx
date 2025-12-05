@@ -1,5 +1,4 @@
 import { useState, useRef, useEffect } from "react";
-import type { CommentInsert } from "@/pages/api/comments/add.json";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import LoadingSpinner from "../ui/loadingSpinner";
