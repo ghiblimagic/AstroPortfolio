@@ -33,14 +33,7 @@ export default function CommentForm({
 
   // Set recaptcha as loaded when it's ready, with timeout fallback
   useEffect(() => {
-    console.log("reCAPTCHA v3 status:", {
-      executeRecaptcha: !!executeRecaptcha,
-      recaptchaLoading,
-      recaptchaFailed,
-    });
-
     if (executeRecaptcha) {
-      console.log("✅ reCAPTCHA v3 loaded successfully");
       setRecaptchaLoading(false);
       setRecaptchaFailed(false);
       return;
@@ -49,7 +42,6 @@ export default function CommentForm({
     // If recaptcha doesn't load within 10 seconds, show fallback
     const timeout = setTimeout(() => {
       if (!executeRecaptcha) {
-        console.warn("❌ reCAPTCHA v3 failed to load within 10 seconds");
         setRecaptchaLoading(false);
         setRecaptchaFailed(true);
         setShowV2(true); // Automatically show v2 as fallback
@@ -145,7 +137,7 @@ export default function CommentForm({
       onSubmit={handleSubmit}
       className="flex flex-col gap-2 p-4 rounded-2xl bg-white  shadow-lg shadow-violet-950"
     >
-      <label htmlFor="name-comment-submission">Your name (optional)</label>
+      <label htmlFor="name-comment-submission">Name (optional)</label>
       <input
         type="text"
         id="name-comment-submission"
