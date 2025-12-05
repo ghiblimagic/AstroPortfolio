@@ -15,6 +15,7 @@ export default function CommentsSection({
 }: CommentsSectionProps) {
   const [comments, setComments] = useState<BlogComment[]>([]);
   const [loading, setLoading] = useState(true);
+  const [message, setMessage] = useState<null | string>(null);
 
   // Fetch comments on mount
   useEffect(() => {
@@ -22,6 +23,13 @@ export default function CommentsSection({
       try {
         const response = await fetch(`/api/comments/${slug}`);
         const data = await response.json();
+        if (data.error) {
+          setMessage(
+            "There was an error when loading comments, please refresh or try again later",
+          );
+          setLoading(false);
+          return;
+        }
         setComments(data);
       } catch (err) {
         console.error("Failed to fetch comments:", err);
@@ -55,6 +63,13 @@ export default function CommentsSection({
           slug={slug}
           onCommentAdded={handleCommentAdded}
         />
+
+        {message && (
+          <p className="bg-white my-6 rounded-2xl pl-4 py-2 border-4 border-yellow-400">
+            {" "}
+            {message}{" "}
+          </p>
+        )}
 
         <CommentList
           comments={comments}

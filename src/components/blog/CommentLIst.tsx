@@ -21,13 +21,14 @@ export default function CommentList({
       {comments.length === 0 && (
         <p className="text-white text-center">No comments yet. Be the first!</p>
       )}
-      {comments.map((comment) => (
-        <CommentItem
-          key={comment.id}
-          comment={comment}
-          currentUserId={currentUserId}
-        />
-      ))}
+      {comments.length > 0 &&
+        comments.map((comment) => (
+          <CommentItem
+            key={comment.id}
+            comment={comment}
+            currentUserId={currentUserId}
+          />
+        ))}
     </div>
   );
 }
