@@ -33,7 +33,14 @@ export default function CommentForm({
 
   // Set recaptcha as loaded when it's ready, with timeout fallback
   useEffect(() => {
+    console.log("reCAPTCHA v3 status:", {
+      executeRecaptcha: !!executeRecaptcha,
+      recaptchaLoading,
+      recaptchaFailed,
+    });
+
     if (executeRecaptcha) {
+      console.log("✅ reCAPTCHA v3 loaded successfully");
       setRecaptchaLoading(false);
       setRecaptchaFailed(false);
       return;
@@ -42,6 +49,7 @@ export default function CommentForm({
     // If recaptcha doesn't load within 10 seconds, show fallback
     const timeout = setTimeout(() => {
       if (!executeRecaptcha) {
+        console.warn("❌ reCAPTCHA v3 failed to load within 10 seconds");
         setRecaptchaLoading(false);
         setRecaptchaFailed(true);
         setShowV2(true); // Automatically show v2 as fallback
