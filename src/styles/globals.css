@@ -98,7 +98,12 @@ video {
 }
 
 .input-styling {
-  border: 2px solid rgb(54, 2, 54);
+  background: #eaebf7;
+  border-radius: 0.5rem;
+  margin-top: 7px;
+  padding-left: 10px;
+  padding-top: 6px;
+  padding-bottom: 6px;
 }
 
 input::placeholder {

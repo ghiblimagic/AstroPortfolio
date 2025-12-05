@@ -90,7 +90,7 @@ import logo from "../../src/astroImages/wireFrame.png"
 					
 				<div class="ml-6">
 					<h3 class="heading-styling">Website Development </h3>
-					<p> I am committed to creating a website which meets your unique needs and tastes. The process will begin with a personalized wireframe layout and end with a fully-reponsive and live website.</p>
+					<p> I am committed to creating a website which meets your unique needs and tastes. The process will begin with a personalized wireframe layout and end with a site that looks great on any screen size (Reponsiveness).</p>
 				</div>
 			</section>
 
@@ -123,7 +123,7 @@ import logo from "../../src/astroImages/wireFrame.png"
 						<DiamondBackgroundImages imgSrc="diamond"/>
 				<div class="ml-6">
 					<h3 class="heading-styling border-b-0">Search Engine Optimization (SEO) </h3>
-					<p> Helping you reach the most clients possible by utilizing best practices. </p>
+					<p> Helping you get more clients by helping you rank higher on Google search results. </p>
 				</div>
 			</section>
 
@@ -144,7 +144,19 @@ import logo from "../../src/astroImages/wireFrame.png"
 
 			<li>
 				<h3 class="heading-styling"> Step 1 : Consultation</h3>
+
 				<p> We will chat about your vision, needs, and expectations. Different tiers are available depending on your budget and needs.</p>
+
+				<p class=my-4"> We can either 
+					<ol>
+					<li>
+						1. Use a site builder so its easier for you to edit later (ex: Wix, Squarespace, Wordpress)
+					</li>
+					<li>
+						2. Or I can code a custom site.
+					</li>
+				</ol>
+						 </p>
 			</li>
 	
 		
@@ -163,9 +175,6 @@ import logo from "../../src/astroImages/wireFrame.png"
 				<h3 class="heading-styling"> Step 4 : Deployment</h3>
 				<p> Your site will be deployed on a webhost (a webhost takes the code I write and turns it into a site). Congratulations, your site is now live!</p>
 
-				<p class="mt-4"> I I typically recommend using netlify to host the site, because it offers a SSL/TLS certificate for free (in other words, the s in http). If you don't mind having a ".netlify.app" after your site name, you can host your site for free. Ex: https://janetspellman.netlify.app/ </p>
-
-				<p class="mt-4">If you want to remove the "netlify.app" after your site name, I usually recommend namecheap to buy a domain. A domain is the "name" we enter in the searchbar (ex:"www.google.com"). The price can be as low as 10.28/yr but it depends on your desired site name. I highly recommend against godaddy, due to server outages, predatory pricing/hidden charges and poor support. </p>
 				
 			</li>
 		
@@ -270,13 +279,15 @@ import logo from "../../src/astroImages/wireFrame.png"
 </div>
 </section>
 
-<section class="gradient-line my-8 border-t-4 pt-10  px-4 sm:px-12" id="contact">
-	<h2 class="gradient-line heading font-Rogue text-4xl text-center">  Contact</h2>
+<section class="my-12 py-8 border-t gradient-line px-8 bg-[#3C5DCA] w-full  rounded-2xl max-w-4xl mx-auto " id="contact">
 
-	<div class="flex flex-col items-center">
+	<h2 class="heading font-Rogue text-4xl text-center text-white ">  Contact</h2>
 
-	<p class="mb-3">All fields marked with * are required</p>
-	<form name="contact" method="POST"  data-netlify="true" netlify-honeypot   action="/success"> 
+	<div class="flex flex-col items-center bg-white rounded-2xl shadow-lg shadow-violet-950  w-[95%] mx-auto max-w-xl">
+
+	<p class="my-6">All fields marked with  <span class="text-red-800">*</span> are required</p>
+	
+	<form name="contact" method="POST"  data-netlify="true" netlify-honeypot  data-netlify-recaptcha="true"  action="/success" class="w-[90%]"> 
 		<p class="hidden">
 			<label>
 			  Don’t fill this out if you’re human: <input name="bot-field" />
@@ -284,36 +295,40 @@ import logo from "../../src/astroImages/wireFrame.png"
 		  </p>
 		<div class="fields">
 			<div class="field">
-				<label for="name" class="label-styling">Name *</label>
-				<input type="text" name="name" id="name" required class="input-styling"/>
+				<label for="name" class="block font-bold">Name  <span class="text-red-800">*</span></label>
+				<input type="text" name="name" id="name" required class="w-full input-styling"/>
 			</div>
 			<div class="field">
-				<label for="email" class="label-styling">Email *</label>
-				<input type="text" name="email" id="email" required class="input-styling"/>
+				<label for="email" class="block font-bold">Email  <span class="text-red-800">*</span></label>
+				<input type="text" name="email" id="email" required class="w-full input-styling"/>
 			</div>
 
 			<div class="field">
-				<label for="phone" class="label-styling"> Phone</label>
-				<input type="tel" name="phone" id="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
+				<label for="phone" class="block font-bold"> Phone:</label>
+				<input type="tel" name="phone" id="phone" class="w-full input-styling" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
 				
-				placeholder="  333-333-3333"
+				
 				class="mr-2 input-styling"> 
-				Format: ###-###-####</input>
+				</input>
+				<span class="block ">Format: 111-222-3333 </span>
 			</div>
+			
 
 			<div class="field">
-				<label for="message" class="label-styling">Message *</label>
-				<textarea name="message" id="message" rows="3" required class="input-styling"></textarea>
+				<label for="message" class="block font-bold">Message <span class="text-red-800">*</span></label>
+				<textarea name="message" id="message" rows="3" required class="input-styling w-full "></textarea>
 			</div>
 		</div>					
+
+		 <div data-netlify-recaptcha="true"></div>
 		
-		<div class="flex">
+		<div class="flex align-center justify-center  w-full mb-11">
 				<button
 				type="submit" 
 				title="click after filling out all required fields to submit contact request"			
-				class="px-4 py-2 ml-32 rounded-lg bg-violet-900 text-white hover:text-mainColor  animated-gradient hover:font-bold"
+				class="px-4 py-2 rounded-lg bg-violet-900 text-white hover:text-mainColor  animated-gradient hover:font-bold"
 				>
-				Send A Message
+				Send
 		</button>
 	
 		</div>
