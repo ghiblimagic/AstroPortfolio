@@ -1,5 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap");
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -11,6 +9,23 @@
   font-style: normal;
   font-display: swap; /* Prevents invisible text while loading */
 }
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-Regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap; /* Prevents invisible text while loading */
+}
+
+@font-face {
+  font-family: "Open Sans";
+  src: url("/fonts/OpenSans-Bold.ttf") format("truetype");
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap; /* Prevents invisible text while loading */
+}
+
 body {
   background-image: url("/images/background.jpg");
   background-color: #e1f5ff;
