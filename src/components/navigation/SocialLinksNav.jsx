@@ -49,7 +49,7 @@ function SocialLinksNav() {
       {/* //23:53:04 [WARN] [vite] Files in the public directory are served at the root path.
       Instead of /public/images/logo-purple.png, use /images/logo-purple.png. */}
       <img
-        src="/images/transparent-logo-bright.png"
+        src="/images/transparent-logo-bright-small.png"
         alt="logo for spellman's consulting its a blue code symbol </> with a wand in place of the slash"
         className=" bg-violet-900 box-content absolute left-[10px] md:none"
         height="40"
