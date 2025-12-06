@@ -5,10 +5,12 @@ import netlify from "@astrojs/netlify";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
 
+import partytown from "@astrojs/partytown";
+
 // https://astro.build/config
 export default defineConfig({
   site: "https://main--vermillion-mandazi-4ce414.netlify.app/",
-  integrations: [react(), tailwind(), sitemap(), mdx()],
+  integrations: [react(), tailwind(), sitemap(), mdx(), partytown()],
   output: "static",
   adapter: netlify(),
   prefetch: {

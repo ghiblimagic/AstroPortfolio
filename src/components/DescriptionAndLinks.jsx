@@ -1,5 +1,3 @@
-import React from "react";
-
 export default function DescriptionAndLinks({ list }) {
   return (
     <div className="mx-auto">

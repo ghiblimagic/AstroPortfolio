@@ -9,21 +9,21 @@ const sidebar = () => {
         className={`fixed left-0 top-0 w-[250px] h-screen bg-mainColor pt-14 p-6 z-51 text-white border-r-4 gradient-line`}
         style={{ backgroundImage: `url("/images/dotsBackground.png")` }}
       >
-        <div class="flex bg-violet-900 gradient-line border-2 py-4 glow">
+        <div className="flex bg-violet-900 gradient-line border-2 py-4 glow">
           <img
             src="/images/transparent-logo-bright.png"
             alt="logo for spellman's consulting its a blue code symbol </> with a wand in place of the slash"
-            class=" bg-violet-900 box-content hover:border-2 hover:border-white hover:rounded-full hover:bg-white"
+            className=" bg-violet-900 box-content hover:border-2 hover:border-white hover:rounded-full hover:bg-white"
             height="40"
             width="40"
           />
 
-          <p class="ml-4 font-Dancing">
-            <span class="inline-block text-white text-[30px] ">
+          <p className="ml-4 font-Dancing">
+            <span className="inline-block text-white text-[30px] ">
               {" "}
               Spellman's{" "}
             </span>
-            <span class="inline-block text-white  text-[30px]">
+            <span className="inline-block text-white  text-[30px]">
               {" "}
               Consulting
             </span>
