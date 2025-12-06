@@ -22,10 +22,10 @@ import MobileNavContainer from "../components/navigation/MobileNavContainer"
     </head>
     <body class="h-full relative">
         <header class="flex justify-between">
-            <NavToggleButton client:load  />
+            <NavToggleButton client:idle  />
             <SocialLinksNav />
         </header>
-        <MobileNavContainer client:load  />
+        <MobileNavContainer client:idle  />
         <slot />
         <footer
             id="footer" 

@@ -8,10 +8,7 @@ import HeroButtons from '@/components/landingpage/HeroButtons'
 import LatestProjects from '@/components/landingpage/LatestProjects'
 import DiamondBackgroundImages from "@/components/landingpage/DiamondBackgroundImages"
 import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar"
-import wireFrame from "../../src/astroImages/wireFrame.png"
 import GradientDivider from "@/components/ui/gradientDivider";
-
-
 
 ---
 
@@ -25,7 +22,7 @@ import GradientDivider from "@/components/ui/gradientDivider";
 	  Div flexes to the remaining space
 	-->
 
-	<SpaceForDesktopSidebar client:load/>
+	<SpaceForDesktopSidebar client:media="(min-width: 1024px)"/>
 	<div class="max-w-7xl">
 		<section class=" pt-10 px-4 sm:px-12 text-center" id="home">
 		
@@ -178,7 +175,8 @@ import GradientDivider from "@/components/ui/gradientDivider";
 			<li class="content background-tile">
 				<h3 class="heading-styling ">Step 2 : Proposal</h3>
 				<p class="mb-4"> A personalized wire-frame layout will be created on figma so you can visually preview the site and suggest adjustments.</p>
-				<Image src={wireFrame} alt="a wireframe of NourishedByKeto showing a color palette and a preview of the home page" height="600"/>
+				<img src="../../src/astroImages/wireFrame.png" alt="a wireframe of NourishedByKeto showing a color palette and a preview of the home page" height="600"  decoding="async"
+  loading="lazy"/>
 			</li>
 	
 			<li class="content background-tile">
