@@ -51,7 +51,7 @@ function SocialLinksNav() {
       <img
         src="/images/transparent-logo-bright.png"
         alt="logo for spellman's consulting its a blue code symbol </> with a wand in place of the slash"
-        class=" bg-violet-900 box-content absolute left-[10px] md:none"
+        className=" bg-violet-900 box-content absolute left-[10px] md:none"
         height="40"
         width="40"
       />

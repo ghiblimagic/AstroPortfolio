@@ -1,0 +1,9 @@
+---
+interface Props {
+  style?: string;
+}
+
+const { style = "" } = Astro.props;
+---
+
+<div class={`gradient-line border-2 border-b my-8 ${style}`}></div>

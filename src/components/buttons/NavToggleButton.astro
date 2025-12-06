@@ -1,0 +1,66 @@
+---
+// NavToggleButton.astro - Pure Astro + vanilla JS
+---
+
+<div class="bg-mainColor md:hidden flex justify-center">
+  <button
+    id="nav-toggle"
+    aria-expanded="false"
+    aria-controls="sidebar"
+    aria-label="Open Menu"
+    class="pl-2"
+  >
+    <img
+      id="nav-icon"
+      src="/images/icon-menu-hamburger.svg"
+      alt="menu icon"
+    />
+  </button>
+</div>
+
+<script>
+  // This runs as a lightweight vanilla JS module - no React!
+  const button = document.getElementById('nav-toggle') as HTMLButtonElement | null; //as HTMLButtonElement so we get access to .src
+  const icon = document.getElementById('nav-icon') as HTMLImageElement | null;
+  const sidebar = document.getElementById('sidebar') as HTMLElement | null;
+  let isOpen = false;
+
+  function updateNav() {
+    isOpen = !isOpen;
+    
+    // Update button state
+    button?.setAttribute('aria-expanded', String(isOpen));
+    button?.setAttribute('aria-label', isOpen ? 'Close Menu' : 'Open Menu');
+    
+    // Update icon
+    if (icon) {
+      icon.src = isOpen 
+        ? '/images/icon-menu-close.svg'
+        : '/images/icon-menu-hamburger.svg';
+      icon.alt = isOpen ? 'Close SideBar' : 'open menu';
+    }
+    
+    // Toggle sidebar (adjust this to match your sidebar logic)
+    sidebar?.classList.toggle('hidden', !isOpen);
+  }
+
+  // Click handler
+  button?.addEventListener('click', updateNav);
+
+  // Hover effects
+  icon?.addEventListener('mouseenter', () => {
+    if (icon) {
+      icon.src = isOpen
+        ? '/images/icon-menu-close-bright.svg'
+        : '/images/icon-menu-hamburger-bright.svg';
+    }
+  });
+
+  icon?.addEventListener('mouseleave', () => {
+    if (icon) {
+      icon.src = isOpen
+        ? '/images/icon-menu-close.svg'
+        : '/images/icon-menu-hamburger.svg';
+    }
+  });
+</script>

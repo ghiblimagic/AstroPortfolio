@@ -1,0 +1,55 @@
+
+<div class="flex items-center justify-center py-20">
+  <div class="spinner-container">
+    <div class="spinner"></div>
+    <p class="loading-text">Loading...</p>
+  </div>
+</div>
+
+<style>
+  .spinner-container {
+    position: relative;
+  }
+
+  .spinner {
+    display: block;
+    width: 3rem;
+    height: 3rem;
+    border: 2px solid transparent;
+    border-top-color: white;
+    border-bottom-color: white;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+  }
+
+  .loading-text {
+    display: none;
+    color: white;
+  }
+
+  /* Show text instead of spinner for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .spinner {
+      display: none;
+    }
+    
+    .loading-text {
+      display: block;
+    }
+  }
+
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  /* Disable animation for users who prefer reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    * {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+</style>

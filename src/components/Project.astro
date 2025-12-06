@@ -1,0 +1,114 @@
+---
+import GradientButton from "@/components/buttons/GradientButton.astro"
+
+interface Props {
+  webmsrc?: string;
+  mp4src?: string;
+  imgsrc?: string;
+  vidTitles?: string;
+  projectTitle: string;
+  projectLanguages: string;
+  projectDescription: string;
+  linkToCode?: string;
+  linkToLiveSite?: string;
+  loadingtype?: "eager" | "lazy";
+  readmeLink?: string;
+}
+
+const {
+  webmsrc,
+  mp4src,
+  imgsrc,
+  vidTitles,
+  projectTitle,
+  projectLanguages,
+  projectDescription,
+  linkToCode,
+  linkToLiveSite,
+  loadingtype = "lazy",
+  readmeLink,
+} = Astro.props;
+---
+
+<article>
+  {(webmsrc || mp4src) && (
+    <video
+      controls
+      autoplay
+      muted
+      loop
+    >
+      {webmsrc && (
+        <source
+          src={webmsrc}
+          title={vidTitles}
+          type="video/webm"
+        />
+      )}
+      {mp4src && (
+        <source
+          src={mp4src}
+          title={vidTitles}
+          type="video/mp4"
+        />
+      )}
+      Sorry, your browser doesn't support embedded videos.
+    </video>
+  )}
+  
+  {imgsrc && (
+    <img
+      src={imgsrc}
+      title={vidTitles}
+      class="h-48 md:h-64"
+      loading={loadingtype}
+      alt={vidTitles || projectTitle}
+    />
+  )}
+  
+  <div class="background-tile">
+    <h3 class="project-titles my-4">{projectTitle}</h3>
+    <span class="project-coding-languages">{projectLanguages}</span>
+    <p class="mt-5 project-description">{projectDescription}</p>
+    
+    <ul class="gap-4 my-10 flex justify-evenly">
+      {linkToCode && (
+        <li>
+          <GradientButton
+            text="Code"
+            aria="link to codebase"
+            link={linkToCode}
+            target="_blank"
+            rel="noopener noreferrer"
+            secondary
+          />
+        </li>
+      )}
+      
+      {linkToLiveSite && (
+        <li>
+          <GradientButton
+            text="View"
+            aria="View"
+            link={linkToLiveSite}
+            target="_blank"
+            rel="noopener noreferrer"
+            primary
+          />
+        </li>
+      )}
+      
+      {readmeLink && (
+        <li>
+          <GradientButton
+            text="ReadMe"
+            aria="readMe"
+            link={readmeLink}
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+        </li>
+      )}
+    </ul>
+  </div>
+</article>

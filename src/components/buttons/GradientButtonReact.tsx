@@ -7,21 +7,17 @@ interface GradientButtonProps {
   primary?: boolean;
   secondary?: boolean;
 }
-
 export default function GradientButton(props: GradientButtonProps) {
   const primaryButton = "bg-secondaryColor text-white";
   const secondaryButton = "border-2 text-blue-700 border-secondaryColor";
   const tertiaryButton =
     "underline underline-offset-4 decoration-secondaryColor text-blue-700 hover:no-underline";
-
   const styling = props.primary
     ? primaryButton
     : props.secondary
       ? secondaryButton
       : tertiaryButton;
-
   // *************** Download **************
-
   return (
     <a
       className={`inline-block px-4 py-2 m-1 rounded-2xl  ${styling}   hover:text-mainColor  animated-gradient hover:font-bold text-center not-prose`}

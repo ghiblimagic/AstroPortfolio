@@ -6,8 +6,8 @@ description: 'A comprehensive guide to help you "swipe right" on the right websi
 
 import ButtonALink from "@/components/buttons/ButtonALink.astro";
 import DownloadImage from "@/components/blog/DownloadImage.astro";
-import GradientDivider from "@/components/ui/gradientDivider";
-import GradientButton from "@/components/buttons/GradientButton";
+import GradientDivider from "@/components/ui/gradientDivider.astro";
+import GradientButtonReact from "@/components/buttons/GradientButtonReact";
 import WebsiteGuideButtons from "@/components/buttons/WebsiteGuideButtons";
 
 export const builders = [
@@ -58,7 +58,7 @@ Resist the urge to go crazy with plugins or customization. A one page Carrd webs
 ## Want to go straight to the flowchart?
 
 <div class=" text-center">
-  <GradientButton
+  <GradientButtonReact
     link="#flowchart"
     text="Skip to FlowChart"
     primary
@@ -80,7 +80,7 @@ Benefits of a website:
 For a more detailed answer I have a longer article here:
 
 <div class=" text-center">
-  <GradientButton
+  <GradientButtonReact
     link="/blog/need-a-website"
     text="Do you need a website"
   />
@@ -105,7 +105,7 @@ Short version: Site owners (you) will control most of SEO. However website build
 Longer version here (because this article's already long, and I don't want to torment your browser with rendering more than it has to).
 
 <div class=" text-center">
-  <GradientButton
+  <GradientButtonReact
     link="/blog/seo"
     text="Web Builder SEO Article"
   />
@@ -191,21 +191,23 @@ WPCHOICE -->|No| WPORG["<b>WordPress(.org)</b>"]
 
 ### Jump to a Section:
 
+<div class="flex flex-wrap gap-2">
 {builders.map(builder => (
 
-<GradientButton
+<GradientButtonReact
   link={builder.href}
   text={builder.label}
   secondary
 />
 ))}
+</div>
 
 ### Should built-in POS integration be a top priority?
 
 Alas this article was getting long, so I moved the native integration topic to a separate short article:
 
 <div class=" text-center">
-  <GradientButton
+  <GradientButtonReact
     link="/blog/pos"
     text="Native POS article"
   />

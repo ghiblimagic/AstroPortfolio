@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
-import LoadingSpinner from "../ui/loadingSpinner";
+import LoadingSpinner from "../ui/loadingSpinner.astro";
 import type { BlogComment } from "@/types/comments";
 
 interface CommentFormProps {
