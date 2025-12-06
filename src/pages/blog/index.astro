@@ -3,7 +3,7 @@ import Layout from '@/layouts/Layout.astro';
 import '@/styles/globals.css'
 import '@/styles/normalize.css'
 import { getCollection } from 'astro:content';
-import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar"
+import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar.astro"
 
 const posts = await getCollection('blog');
 const sorted = posts
@@ -14,7 +14,7 @@ const sorted = posts
 <Layout title="Janet Spellman's Blog.">
 
   <main class="min-h-screen h-full flex">
-    	<SpaceForDesktopSidebar  client:media="(min-width: 1024px)"/>
+    	<SpaceForDesktopSidebar />
         	<div >
  
                 <!-- ********************* HEADER ********************* -->

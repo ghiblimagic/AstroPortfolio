@@ -3,7 +3,7 @@ import '@/styles/globals.css'
 import '@/styles/normalize.css'
 
 import Layout from '@/layouts/Layout.astro';
-import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar"
+import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar.astro"
 import TableOfContents from "@/components/blog/TableOfContents.astro"
 import CommentsSection from "@/components/blog/CommentsSection"
 import GradientDivider from '@/components/ui/gradientDivider.astro'
@@ -21,7 +21,7 @@ const { title, date, description, headings } = Astro.props;
 <Layout title="Janet Spellman's Blog.">
   <main class="flex overflow-x-hidden">
   
-    <SpaceForDesktopSidebar client:media="(min-width: 1024px)"/>
+    <SpaceForDesktopSidebar/>
     <div class="w-full overflow-x-hidden ">
     
       <div class="min-h-screen h-full sm:px-12 max-w-4xl bg-white   text-black rounded-2xl pb-16 overflow-x-hidden">
@@ -55,7 +55,7 @@ const { title, date, description, headings } = Astro.props;
           
 <section>
 
-  <CommentsSection client:visible slug={slug} currentUserId={null} />
+  <CommentsSection slug={slug} currentUserId={null} />
 </section>
       </div>
     </div>

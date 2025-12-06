@@ -3,7 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import '@/styles/globals.css'
 import '@/styles/normalize.css'
 import OlderProjects from '@/components/landingpage/OlderProjects.astro'
-import SpaceForSidebar from "@/components/SpaceForDesktopSidebar"
+import SpaceForSidebar from "@/components/SpaceForDesktopSidebar.astro"
 
 ---
 
@@ -11,7 +11,7 @@ import SpaceForSidebar from "@/components/SpaceForDesktopSidebar"
 <Layout title="Janet Spellman's Other Projects">       
     
              <main class="flex">
-        <SpaceForSidebar  client:media="(min-width: 1024px)"/>
+        <SpaceForSidebar/>
 
       
         <section class="pt-10  px-4 sm:px-12" id="projects">

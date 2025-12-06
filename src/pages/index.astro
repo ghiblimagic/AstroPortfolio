@@ -6,7 +6,7 @@ import '@/styles/normalize.css'
 import HeroButtons from '@/components/landingpage/HeroButtons.astro'
 import LatestProjects from '@/components/landingpage/LatestProjects.astro'
 import DiamondBackgroundImages from "@/components/landingpage/DiamondBackgroundImages.astro"
-import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar"
+import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar.astro"
 import GradientDivider from "@/components/ui/gradientDivider.astro";
 
 ---
@@ -21,12 +21,12 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 	  Div flexes to the remaining space
 	-->
 
-	<SpaceForDesktopSidebar client:media="(min-width: 1024px)"/>
+	<SpaceForDesktopSidebar/>
 	<div class="max-w-7xl">
 		<section class=" pt-10 px-4 sm:px-12 text-center" id="home">
 		
 			
-				<h1 class="font-Dancing text-4xl mb-4">Hi there!
+				<h1 class="font-Dancing text-4xl mb-9">Hi there!
 
 					 <span class="wave" title="waving animated hand">&#128075; </span> I'm Janet, your next software engineer.
 				
@@ -48,8 +48,8 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 				</div>
 
 				
-			
-					<section class="flex justify-center">
+			   <section class="my-16">
+					<div class="flex justify-center ">
 						
 	                      	<h2 class="font-Dancing text-4xl"> My github activity</h2> 	
 
@@ -66,11 +66,11 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 							  title="github logo"
 							/>
 					</a>
-					</section>
+				</div>
                  <div class="h-32">
 					<img src="https://ghchart.rshah.org/2e1065/ghiblimagic" alt="Github chart" class="block mx-auto bg-violet-950 py-2 px-10 rounded-lg"/>
 				 </div>
-					
+				</section>
 					
 
 		</section>

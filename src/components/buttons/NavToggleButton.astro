@@ -1,14 +1,14 @@
 ---
 // NavToggleButton.astro - Pure Astro + vanilla JS
+import MobileNav from "../navigation/MobileNav.astro"
 ---
 
-<div class="bg-mainColor md:hidden flex justify-center">
+<div class="md:hidden justify-start items-center pl-2 bg-mainColor flex  z-50">
   <button
     id="nav-toggle"
     aria-expanded="false"
-    aria-controls="sidebar"
     aria-label="Open Menu"
-    class="pl-2"
+    class=" h-8 "
   >
     <img
       id="nav-icon"
@@ -17,6 +17,12 @@
     />
   </button>
 </div>
+
+<!-- Sidebar outside so it doesn't cover button -->
+<div  id="sidebar" class="hidden absolute top-[44px]  z-30 bg-yellow-300 w-full gradient-line border-t-2">
+  <MobileNav />
+</div>
+
 
 <script>
   // This runs as a lightweight vanilla JS module - no React!
@@ -63,4 +69,12 @@
         : '/images/icon-menu-hamburger.svg';
     }
   });
+
+  const mobileLinks = document.querySelectorAll('#sidebar a');
+mobileLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    if (isOpen) updateNav();
+  });
+});
 </script>
+
