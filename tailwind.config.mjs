@@ -36,6 +36,7 @@ module.exports = {
         foreground: "hsl(var(--foreground))",
         mainColor: "#4c1d95",
         mainAccents: "#c17efb",
+        secondaryColor: "#3c5dca",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",

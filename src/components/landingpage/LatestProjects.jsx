@@ -1,4 +1,4 @@
-import GradientNavigationButton from "../buttons/GradientNavigationButton";
+import GradientButton from "../buttons/GradientButton";
 import Project from "../Project";
 export default function LatestProjects() {
   return (
@@ -103,7 +103,7 @@ export default function LatestProjects() {
         {/* *********************** PROJECT THREE ************************** */}
       </div>
       <div className="flex align-middle justify-center">
-        <GradientNavigationButton
+        <GradientButton
           text="Other Projects"
           link="/otherprojects"
         />

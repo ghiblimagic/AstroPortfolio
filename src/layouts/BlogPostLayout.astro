@@ -9,7 +9,6 @@ import TableOfContents from "@/components/blog/TableOfContents.astro"
 import CommentsSection from "@/components/blog/CommentsSection"
 import GradientDivider from '@/components/ui/gradientDivider'
 
-
 const { slug } = Astro.params; // from the URL
 console.log("slug in blogPostLayout.astro",slug)
 
@@ -46,6 +45,7 @@ const { title, date, description, headings } = Astro.props;
           </aside>
           
           <div class="prose prose-lg prose-headings:font-bold prose-headings:text-center max-w-none overflow-x-hidden">
+            <!--- prose is a class from Tailwind Typography, it adds well-formatted typographic styles to markdown files -->
             <slot />
           </div>
         </article>

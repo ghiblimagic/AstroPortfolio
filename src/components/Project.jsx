@@ -1,4 +1,4 @@
-import GradientNavigationButton from "./buttons/GradientNavigationButton";
+import GradientButton from "./buttons/GradientButton";
 
 export default function Projects({
   webmsrc,
@@ -56,29 +56,31 @@ export default function Projects({
         <ul className="gap-4 my-10 flex justify-evenly">
           {linkToCode && (
             <li>
-              <GradientNavigationButton
+              <GradientButton
                 text={"Code"}
                 aria="link to codebase"
                 link={linkToCode}
                 target={"_blank"}
                 rel={"noopener noreferrer"}
+                secondary
               />
             </li>
           )}
           {linkToLiveSite && (
             <li>
-              <GradientNavigationButton
+              <GradientButton
                 text="View"
                 aria="View"
                 link={linkToLiveSite}
                 target={"_blank"}
                 rel={"noopener noreferrer"}
+                primary
               />
             </li>
           )}
           {readmeLink && (
             <li>
-              <GradientNavigationButton
+              <GradientButton
                 text="ReadMe"
                 aria="readMe"
                 link={readmeLink}

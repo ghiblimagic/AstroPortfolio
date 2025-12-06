@@ -7,6 +7,8 @@ description: 'A comprehensive guide to help you "swipe right" on the right websi
 import ButtonALink from "@/components/buttons/ButtonALink.astro";
 import DownloadImage from "@/components/blog/DownloadImage.astro";
 import GradientDivider from "@/components/ui/gradientDivider";
+import GradientButton from "@/components/buttons/GradientButton";
+import WebsiteGuideButtons from "@/components/buttons/WebsiteGuideButtons";
 
 export const builders = [
   { href: "#google-business-profile", label: "Google Business Profile" },
@@ -56,9 +58,10 @@ Resist the urge to go crazy with plugins or customization. A one page Carrd webs
 ## Want to go straight to the flowchart?
 
 <div class=" text-center">
-  <ButtonALink
-    href="#flowchart"
-    label="Skip to FlowChart"
+  <GradientButton
+    link="#flowchart"
+    text="Skip to FlowChart"
+    primary
   />
 </div>
 
@@ -77,10 +80,9 @@ Benefits of a website:
 For a more detailed answer I have a longer article here:
 
 <div class=" text-center">
-  <ButtonALink
-    href="/blog/need-a-website"
-    label="Do you need a website"
-    download={false}
+  <GradientButton
+    link="/blog/need-a-website"
+    text="Do you need a website"
   />
 </div>
 
@@ -103,10 +105,9 @@ Short version: Site owners (you) will control most of SEO. However website build
 Longer version here (because this article's already long, and I don't want to torment your browser with rendering more than it has to).
 
 <div class=" text-center">
-  <ButtonALink
-    href="/blog/seo"
-    label="Web Builder SEO Article"
-    download={false}
+  <GradientButton
+    link="/blog/seo"
+    text="Web Builder SEO Article"
   />
 </div>
 
@@ -192,9 +193,10 @@ WPCHOICE -->|No| WPORG["<b>WordPress(.org)</b>"]
 
 {builders.map(builder => (
 
-<ButtonALink
-  href={builder.href}
-  label={builder.label}
+<GradientButton
+  link={builder.href}
+  text={builder.label}
+  secondary
 />
 ))}
 
@@ -203,10 +205,9 @@ WPCHOICE -->|No| WPORG["<b>WordPress(.org)</b>"]
 Alas this article was getting long, so I moved the native integration topic to a separate short article:
 
 <div class=" text-center">
-  <ButtonALink
-    href="/blog/pos"
-    label="Native POS article"
-    download={false}
+  <GradientButton
+    link="/blog/pos"
+    text="Native POS article"
   />
 </div>
 
@@ -249,12 +250,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
 - Setup Guide:
   - 13 minute set up guide: [https://www.youtube.com/watch?v=KPfjzL9oPiE](https://www.youtube.com/watch?v=KPfjzL9oPiE)
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 ### **Google Sites**
 
@@ -338,12 +334,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - https://www.tunbridgehs.com/
   - https://www.shevingtonphotographicsocialclub.com/
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 ### **Carrd**
 
@@ -418,12 +409,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - “20 Inspiring Carrd Website Examples”: [SiteBuilderReport](https://www.sitebuilderreport.com/inspiration/carrd-websites)
   - Curated gallery of Carrd one-pagers: [Deck of Carrd](https://deckof.carrd.co/)
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 ### **Pixpa**
 
@@ -500,12 +486,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
 - Some of the templates:
   - https://www.pixpa.com/templates/blog
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 ### **Squarespace**
 
@@ -611,12 +592,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - Colorlib “21 Best Squarespace eCommerce Examples in 2025”
   - [https://colorlib.com/wp/squarespace-ecommerce-examples/](https://colorlib.com/wp/squarespace-ecommerce-examples/)
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 ### **Hostinger**
 
@@ -712,12 +688,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
 - Examples:
   - “20 Inspiring Hostinger Website Builder Examples” [https://www.sitebuilderreport.com/inspiration/hostinger-websites](https://www.sitebuilderreport.com/inspiration/hostinger-websites)
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 ### **Square**
 
@@ -816,12 +787,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
 - Examples:
   [10 Inspirational Square Online Store Examples](https://alvarotrigo.com/blog/square-online-store-examples/)
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 ### **Wix**
 
@@ -934,12 +900,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - Gallery of real-life Wix websites: [https://www.sitebuilderreport.com/wix-examples](https://www.sitebuilderreport.com/wix-examples)
   - Wix Review 2025: The Brutal Truth After Building 30+ Sites https://www.youtube.com/watch?v=FSpGyiRX3ck
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 ### **Siimple**
 
@@ -1041,12 +1002,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - No multi page support
   - Won't scale with your business if it grows past a one page site
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 ### **Shopify**
 
@@ -1185,12 +1141,7 @@ The cost listed below is for the plans without anything added. The **cost** **do
   - Official store examples: [https://www.shopify.com/examples](https://www.shopify.com/examples)
   - More detailed list: [https://www.sitebuilderreport.com/shopify-stores-examples](https://www.sitebuilderreport.com/shopify-stores-examples)
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 ### **Ecwid**
 
@@ -1363,12 +1314,7 @@ Both .com and .org versions run on the same underlying WordPress software, so th
   - Kinsta “130+ WordPress Site Examples” [https://kinsta.com/blog/wordpress-site-examples/](https://kinsta.com/blog/wordpress-site-examples/)
   - 10Web “26 WordPress Website Examples to Inspire You” [https://10web.io/blog/wordpress-websites/](https://10web.io/blog/wordpress-websites/)
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 ### **Wordpress**.org
 
@@ -1449,12 +1395,7 @@ Both .com and .org versions run on the same underlying WordPress software, so th
   - You have to use more care when choosing themes and plugins, as not all of them are good quality. Look at reviews, avoid ones with low reviews.
   - You’ll have to deal with more technical aspects of your website, especially if you don’t use “Managed WordPress Hosting”
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 ### **Wordpress.com**
 
@@ -1543,12 +1484,7 @@ Both .com and .org versions run on the same underlying WordPress software, so th
   - Can’t do deep backend customization
   - At high plan levels, WordPress.com almost matches WordPress.org but you pay for the convenience.
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 ### **Webflow**
 
@@ -1673,12 +1609,7 @@ Both .com and .org versions run on the same underlying WordPress software, so th
   - Blog article with top Webflow examples: [https://www.flux-academy.com/blog/12-stunning-webflow-examples-that-show-just-how-versatile-the-website-builder-is](https://www.flux-academy.com/blog/12-stunning-webflow-examples-that-show-just-how-versatile-the-website-builder-is)
   - Digidop “10 Great Company Websites Built on Webflow” [https://www.digidop.com/blog/large-enterprise-webflow-sites](https://www.digidop.com/blog/large-enterprise-webflow-sites)
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 ### GoDaddy
 
@@ -1758,12 +1689,7 @@ Both .com and .org versions run on the same underlying WordPress software, so th
   - basic analytics, you'd need to hook up to google analytics to get better data.
   - "If you're trying to sell anything, the site builder may or may not let you add any products! It's a crap shoot. I tried to alter & change a product for over 30 minutes and it won't do it!"
 
-  <div class=" text-center">
-    <ButtonALink
-      href="#jump-to-a-section"
-      label="Return to Website Quicklinks"
-    />
-  </div>
+<WebsiteGuideButtons />
 
 <GradientDivider />
 
