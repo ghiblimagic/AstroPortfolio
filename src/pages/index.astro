@@ -296,6 +296,35 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 
 <GradientDivider style="ml-10"/>
 
+<script is:inline>
+  // Intercept Netlify's auto-injected reCAPTCHA script
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (node.tagName === 'SCRIPT' && node.src && node.src.includes('recaptcha')) {
+          // Don't load it immediately - defer until form is visible
+          node.remove();
+          
+          const form = document.querySelector('form[name="contact"]');
+          if (form) {
+            const formObserver = new IntersectionObserver((entries) => {
+              if (entries[0].isIntersecting) {
+                document.head.appendChild(node);
+                formObserver.disconnect();
+                observer.disconnect();
+              }
+            }, { rootMargin: '200px' });
+            
+            formObserver.observe(form);
+          }
+        }
+      });
+    });
+  });
+
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+</script>
+
 <section class="my-12 py-8  px-8 bg-[#3c5dca] w-full  rounded-2xl max-w-4xl mx-auto " id="contact">
 
 	<h2 class="heading font-Dancing text-4xl text-center text-white ">  Get in Touch</h2>
