@@ -1,10 +1,13 @@
 ---
 import GradientButton from "@/components/buttons/GradientButton.astro"
+import { YouTube } from "@astro-community/astro-embed-youtube";
 
 interface Props {
   webmsrc?: string;
   mp4src?: string;
   imgsrc?: string;
+  youtube?: string;
+   youtubePoster?: string;
   vidTitles?: string;
   projectTitle: string;
   projectLanguages: string;
@@ -19,6 +22,8 @@ const {
   webmsrc,
   mp4src,
   imgsrc,
+  youtube,
+  youtubePoster,
   vidTitles,
   projectTitle,
   projectLanguages,
@@ -31,7 +36,10 @@ const {
 ---
 
 <article>
-  {(webmsrc || mp4src) && (
+  {youtube ?  (
+  <YouTube id={youtube} poster={youtubePoster}/>
+  )
+   :(webmsrc || mp4src) && (
     <video
       controls
       autoplay
@@ -55,6 +63,7 @@ const {
       Sorry, your browser doesn't support embedded videos.
     </video>
   )}
+
   
   {imgsrc && (
     <img
