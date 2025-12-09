@@ -79,8 +79,11 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 
 		</section>
    <!--  ******* Project Section ******** -->
-   <section class="gradient-line mt-8 border-t-4 pt-10 px-4 sm:px-12" id="projects">
-			<h2 class=" gradient-line font-Dancing text-4xl text-center"> Latest Projects </h2>
+
+   <GradientDivider style="ml-10"/>
+
+   <section class=" mt-8 pt-10 px-4 sm:px-12" id="projects">
+			<h2 class="font-Dancing text-4xl text-center"> Latest Projects </h2>
 
 		
 				 <LatestProjects>
@@ -89,8 +92,10 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 		</section>
 <!-- 		SERVICES SECTION -->
 
-		<section class="gradient-line mt-8 border-t-4 pt-10  px-4 sm:px-12 mb-20" id="services">
-			<h3 class="  gradient-line font-Dancing text-4xl text-center"> Services</h2>
+<GradientDivider style="ml-10"/>
+
+		<section class="mt-8  pt-10  px-4 sm:px-12 mb-20" id="services">
+			<h3 class="   font-Dancing text-4xl text-center"> Services</h2>
 
 		<div class="grid grid-cols-1 xl:grid-cols-2 gap-8 my-8 ml-4">
 
@@ -146,10 +151,13 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 	   </section>
 
 	   <!-- THE PROCESS SECTION -->
-	   <section class="gradient-line mt-8 border-t-4 pt-10  px-4 sm:px-12 " id="process">
+
+	   <GradientDivider style="ml-10"/>
+
+	   <section class="my-8  pt-10  px-4 sm:px-12 " id="process">
 	
 	
-		<h3 class=" gradient-line font-Dancing text-4xl text-center"> The Process</h2>
+		<h3 class="font-Dancing text-4xl text-center"> The Process</h2>
         
 		<ol class="grid grid-cols-1 xl:grid-cols-2 gap-8 my-8">
 
@@ -200,21 +208,13 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 
    <!-- LANGUAGES SECTION -->
 
-   <section class="gradient-line mt-8 border-t-4 pt-10  px-4 sm:px-12" id="skills">
+   <GradientDivider style="ml-10"/>
 
-	<h2 class=" gradient-line grid-none font-Dancing text-4xl text-center"> Skills</h2>
+   <section class="mt-8 pt-10  px-4 sm:px-12" id="skills">
+
+	<h2 class=" grid-none font-Dancing text-4xl text-center"> Skills</h2>
  <div class="grid grid-cols-2 md:grid-cols-3 gap-8 my-8 justify-items-center">
 	
-
-	<section class="background-tile w-full"> 
-		<h3 class="heading-styling"> Frameworks </h2>
-		<ul>
-			<li class="li-icons">Next JS 12-15</li>
-			<li class="li-icons">Astro</li>
-			<li class="li-icons">Gatsby</li>
-		
-		</ul>
-	</section>
 
 	<section class="background-tile w-full"> 
 
@@ -224,22 +224,33 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 			    <li class="li-icons">JavaScript</li>
 				<li class="li-icons">Python</li>
 				<li class="li-icons">GraphQL</li>
+				<li class="li-icons">EJS</li>
 			    <li class="li-icons">HTML</li>
 				<li class="li-icons">CSS</li>
+			
 		
 		</ul>
 	</section>
 
+		<section class="background-tile w-full"> 
+		<h3 class="heading-styling"> Frameworks & Libraries </h2>
+		<ul>
+			<li class="li-icons">Next JS 12-15</li>
+			<li class="li-icons">React</li>
+			<li class="li-icons">Astro</li>
+			<li class="li-icons">Gatsby</li>
+		
+		</ul>
+	</section>
 
 	<section class="background-tile w-full"> 
-		<h3 class="heading-styling"> Back-End </h2>
+		<h3 class="heading-styling"> Back-End And Platforms</h2>
 		<ul>
 				<li class="li-icons">Node.js</li>
 				<li class="li-icons">Express</li>
-				<li class="li-icons">MongoDB </li>
-			
-				<li class="li-icons">AppWrite</li>
-				<li class="li-icons">PostMan</li>
+				<li class="li-icons">MongoDB </li>			
+				<li class="li-icons">Appwrite</li>
+				<li class="li-icons">Supabase</li>
 				<li class="li-icons">Digital Ocean</li>
 			
 		</ul>
@@ -249,18 +260,16 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 	<section class="background-tile w-full"> 
 		<h3 class="heading-styling"> Tools/Other </h2>
 		<ul>
-				<li class="li-icons">React</li>
 				<li class="li-icons">TailwindCSS</li>
 				<li class="li-icons">Git</li>
 				<li class="li-icons">GitHub</li>
 				<li class="li-icons">Figma</li>
-				<li class="li-icons">Shopify</li>
+			
 				<li class="li-icons">Prettier</li>
 				<li class="li-icons">Disquis</li>
 				<li class="li-icons">Shadcn/ui</li>
 				<li class="li-icons">Headless UI</li>
 				<li class="li-icons">Daisy UI</li>
-				<li class="li-icons">EJS</li>
 				<li class="li-icons">GIMP</li>
 			
 				
@@ -271,6 +280,7 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 		<h3 class="heading-styling text-wrap"> CMS </h2>
 		<ul>
 			<li class="li-icons">WordPress</li>
+			<li class="li-icons">Shopify</li>
 			<li class="li-icons text-wrap">Decap cms</li>		
 			
 		</ul>
@@ -281,8 +291,8 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 		<ul>
 			<li class="li-icons">Open AI API</li>
 			<li class="li-icons">ChatGPT</li>		
-					<li class="li-icons">Claude</li>	
-					<li class="li-icons">Co-pilot</li>		
+			<li class="li-icons">Claude</li>	
+			<li class="li-icons">Copilot</li>		
 			
 		</ul>
 	</section>
