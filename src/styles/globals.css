@@ -7,7 +7,7 @@
   src: url("/fonts/DancingScript-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
-  font-display: swap; /* Prevents invisible text while loading */
+  font-display: swap;
 }
 
 @font-face {
@@ -15,7 +15,7 @@
   src: url("/fonts/OpenSans-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
-  font-display: swap; /* Prevents invisible text while loading */
+  font-display: swap;
 }
 
 @font-face {
@@ -23,7 +23,7 @@
   src: url("/fonts/OpenSans-Bold.woff2") format("woff2");
   font-weight: bold;
   font-style: normal;
-  font-display: swap; /* Prevents invisible text while loading */
+  font-display: swap; /* swap prevents invisible text while loading */
 }
 
 body {
