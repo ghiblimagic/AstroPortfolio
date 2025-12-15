@@ -28,14 +28,14 @@ function SocialLinksNav() {
     {
       href: "mailto:janetspellman13@gmail.com",
       icon: "icon-envelope",
-      title: "email link",
+      title: "email",
       alt: "Link to email",
     },
     {
       href: "https://wellfound.com/u/janet-spellmanmarsh",
       icon: "wellfound",
       title: "wellfound",
-      alt: "Link to email",
+      alt: "Link to wellfound",
     },
   ];
   //title used to make the font awesome icons accessible     https://fontawesome.com/v5/docs/web/other-topics/accessibility#svg-with-javascript-semantic-icons
@@ -51,9 +51,10 @@ function SocialLinksNav() {
       <img
         src="/images/transparent-logo-bright-small.png"
         alt="logo for spellman's consulting its a blue code symbol </> with a wand in place of the slash"
-        className=" bg-violet-900 box-content absolute left-[10px] md:none"
+        className=" bg-violet-900 box-content absolute left-[10px] md:none "
         height="40"
         width="40"
+        loading="eager"
       />
 
       <NavigationMenuList>
@@ -73,14 +74,16 @@ function SocialLinksNav() {
         </NavigationMenuItem>
         {SocialLinks.map((item) => (
           <NavigationMenuItem key={`${item.title} Nav Menu Item`}>
-            <NavigationMenuLink href={item.href}>
+            <NavigationMenuLink
+              href={item.href}
+              title={item.title}
+            >
               <img
-                className="mx-1 inline-block size-7
-                hover:border-4 hover:rounded-sm hover:border-violet-500 
+                className="mx-1 inline-block size-7 
+                hover:border-2 hover:rounded-sm hover:border-violet-500 
         md:size-8"
                 src={`/images/${item.icon}.svg`}
                 alt={item.alt}
-                title={item.title}
                 loading="eager"
               />
             </NavigationMenuLink>
