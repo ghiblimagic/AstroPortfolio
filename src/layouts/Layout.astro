@@ -16,7 +16,10 @@ import NavToggleButton from "@/components/buttons/NavToggleButton.astro"
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" fetchpriority="high" href="/images/transparent-logo-bright-small.png" />
         <link rel="sitemap" href="/sitemap-index.xml" />
+        
         <link rel="preload" fetchpriority="high" as="image" href="/images/dotsBackground.png" type="image/png"/>
+        <link rel="preload" href="/fonts/OpenSans-Regular.woff2" as="font" type="font/woff2" crossorigin />
+<link rel="preload" href="/fonts/OpenSans-Bold.woff2" as="font" type="font/woff2" crossorigin />
         <meta name="Janet Spellman's portfolio" content={Astro.generator} />
         <title>{title}</title>
     </head>
@@ -47,7 +50,7 @@ import NavToggleButton from "@/components/buttons/NavToggleButton.astro"
         );
     }
     html {
-        font-family: system-ui, sans-serif;
+         font-family: "Open Sans", Tahoma, Geneva, Verdana, sans-serif;
         background: #13151a;
         background-size: 224px;
     }
