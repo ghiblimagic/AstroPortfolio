@@ -74,11 +74,13 @@ function SocialLinksNav() {
           </NavigationMenuLink>
         </NavigationMenuItem>
 
-        <GradientButton
-          text="Contact Me"
-          link="/#contact"
-          primary
-        />
+        <div className="hidden md:block pr-4">
+          <GradientButton
+            text="Contact"
+            link="/#contact"
+            primary
+          />
+        </div>
 
         {SocialLinks.map((item) => (
           <NavigationMenuItem key={`${item.title} Nav Menu Item`}>

@@ -6,6 +6,7 @@ interface GradientButtonProps {
   text: string;
   primary?: boolean;
   secondary?: boolean;
+  styling?: string;
 }
 export default function GradientButton(props: GradientButtonProps) {
   const primaryButton = "bg-secondaryColor text-white";

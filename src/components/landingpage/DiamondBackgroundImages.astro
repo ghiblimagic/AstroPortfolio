@@ -6,7 +6,7 @@ interface Props {
 const { imgSrc } = Astro.props;
 ---
 
-<div class="my-auto mr-4 shadow-transition-effect icon gradient rotate-45">
+<div class="my-4 sm:my-auto sm:mr-2  shadow-transition-effect icon gradient rotate-45 max-w-[40vw] mx-auto">
   <!-- image needs to be in div, so the image centers in the y axis correctly when the div rotated into a diamond shape -->
   <img
     src={`/images/${imgSrc}.svg`}
