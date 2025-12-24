@@ -27,7 +27,7 @@ function SocialLinksNav() {
       alt: "Link to bluesky",
     },
     {
-      href: "https://twitter.com/Janetthedev",
+      href: "https://x.com/ghiblimagicdev",
       icon: "twitter",
       title: "twitter",
       alt: "Link to twitter",
