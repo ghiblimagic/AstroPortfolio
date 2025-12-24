@@ -327,6 +327,23 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 <GradientDivider style="ml-10"/>
 
+<!--  so recaptcha will shrink on small screen -->
+<style>
+  .recaptcha-container {
+    max-width: 100%;
+    overflow: hidden;
+    margin: 1rem 0;
+  }
+
+  @media (max-width: 320px) {
+    .recaptcha-container [data-netlify-recaptcha] > div > div {
+      transform: scale(0.77);
+      transform-origin: 0 0;
+      margin-bottom: -20px; /* Compensate for scaled height */
+    }
+  }
+</style>
+
 <script is:inline>
   // Intercept Netlify's auto-injected reCAPTCHA script
   const observer = new MutationObserver((mutations) => {
@@ -398,8 +415,10 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 			</div>
 		</div>					
 
+		<div class="recaptcha-container">
 		 <div data-netlify-recaptcha="true"></div>
-		
+		</div>
+
 		<div class="flex align-center justify-center  w-full mb-11">
 				<button
 				type="submit" 
