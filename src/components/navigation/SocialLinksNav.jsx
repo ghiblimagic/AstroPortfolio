@@ -27,16 +27,16 @@ function SocialLinksNav() {
       alt: "Link to github",
     },
     {
-      href: "mailto:janetspellman13@gmail.com",
-      icon: "icon-envelope",
-      title: "email",
-      alt: "Link to email",
+      href: "https://www.youtube.com/@ghiblimagicdev",
+      icon: "youtube",
+      title: "youtube",
+      alt: "Link to youtube",
     },
     {
-      href: "https://wellfound.com/u/janet-spellmanmarsh",
-      icon: "wellfound",
-      title: "wellfound",
-      alt: "Link to wellfound",
+      href: "https://www.twitch.tv/ghiblimagic",
+      icon: "twitch",
+      title: "twitch",
+      alt: "Link to twitch",
     },
   ];
   //title used to make the font awesome icons accessible     https://fontawesome.com/v5/docs/web/other-topics/accessibility#svg-with-javascript-semantic-icons
