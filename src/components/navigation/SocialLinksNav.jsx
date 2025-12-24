@@ -9,12 +9,6 @@ import GradientButton from "../buttons/GradientButtonReact";
 function SocialLinksNav() {
   let SocialLinks = [
     {
-      href: "https://twitter.com/Janetthedev",
-      icon: "twitter",
-      title: "twitter",
-      alt: "Link to twitter",
-    },
-    {
       href: "https://www.linkedin.com/in/janet-spellmanmarsh/",
       icon: "linkedIn",
       title: "LinkedIn",
@@ -25,6 +19,18 @@ function SocialLinksNav() {
       icon: "github",
       title: "github",
       alt: "Link to github",
+    },
+    {
+      href: "https://bsky.app/profile/ghiblimagic.bsky.social",
+      icon: "bluesky",
+      title: "bluesky",
+      alt: "Link to bluesky",
+    },
+    {
+      href: "https://twitter.com/Janetthedev",
+      icon: "twitter",
+      title: "twitter",
+      alt: "Link to twitter",
     },
     {
       href: "https://www.youtube.com/@ghiblimagicdev",
