@@ -8,6 +8,7 @@ import LatestProjects from '@/components/landingpage/LatestProjects.astro'
 import DiamondBackgroundImages from "@/components/landingpage/DiamondBackgroundImages.astro"
 import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar.astro"
 import GradientDivider from "@/components/ui/gradientDivider.astro";
+import GradientButton from "@/components/buttons/GradientButton.astro"
 
 ---
 
@@ -23,35 +24,55 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 
 	<SpaceForDesktopSidebar/>
 	<div class="max-w-7xl">
+
+	
 		<section class=" pt-10 px-4 sm:px-12 text-center" id="home">
 		
 			
-				<h1 class="font-Dancing text-4xl mb-9">Hi there!
+				<h1 class="font-Rancho text-4xl mb-9">Hi there!
 
 					 <span class="wave" title="waving animated hand">&#128075; </span> I'm Janet, your next software engineer.
 				
 				</h1>
 
-				<div class="background-tile mb-8 border-r-2 border-gray-300 ">
+		
+				<div class=" mb-8   ">
 
-                <p > I bring a little "spellman magic" to every project I touch, creating personalized and user-friendly websites and applications.</p>
+                <p class="pt-6"> I sprinkle a little "Spellman magic" on every website I build, making them: 
+					<ul class="list-disc list-inside mt-4"> 
+					    <li class="mb-2"> Memorable, 
+						<li class="mb-2">Easy to use,</li>
+						<li>And personalized to your goals!</li>
+					</ul>
+				
+				</p>
 
-				<p class="mt-4"> You pour your heart into your business, and your website should reflect that. Let’s make it welcoming, performant, and memorable so first-time visitors feel excited to stick around and become loyal fans!</p>
+				<p class="mt-8"> From apps that help pets find homes to tools that guide business owners, I combine creativity and code to make a real impact.</p>
 
-				<p class="mt-4"> If you'd rather try to build it yourself, I made a guide to choose the right website builder for your business!
+				<p class="mt-4"> Let’s make your website one visitors won’t forget!
+
+						<HeroButtons/>
+
+	       <GradientDivider/>
+
+				<p class="mt-8 mb-2"> If you'd rather build it yourself, I made an interactive guide to choose a website builder.
 
 				</p>
 			
-
-					<HeroButtons/>
+  <GradientButton
+    text="Guide"
+    link="https://guide.janetspellman.com/"
+  />
+				
 		
-				</div>
+					</div>
+				
 
 				
 			   <section class="my-16">
-					<div class="flex justify-center ">
+					<div class="flex justify-center  ">
 						
-	                      	<h2 class="font-Dancing text-4xl"> My github activity</h2> 	
+	                      	<h2 class="font-Rancho text-4xl"> My github activity</h2> 	
 
 								<a href="https://github.com/ghiblimagic"
 							  aria-label="link to github"
@@ -68,22 +89,23 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 							/>
 					</a>
 				</div>
-                 <div class="h-32">
-					<img src="https://ghchart.rshah.org/2e1065/ghiblimagic" alt="Github chart" 
+                 <div class="h-32 bg-secondaryColor py-6 rounded-2xl">
+					<img src="https://ghchart.rshah.org/3c5dca/ghiblimagic" alt="Github chart" 
 					 width="743"
 					 height="120"
-					class="block mx-auto bg-violet-950 py-2 px-10 rounded-lg"/>
+					class="block mx-auto py-2 px-10 rounded-lg bg-white border-secondaryColor border-x  shadow-md shadow-blue-400"/>
 				 </div>
 				</section>
 					
 
 		</section>
+
    <!--  ******* Project Section ******** -->
 
    <GradientDivider style="ml-10"/>
 
    <section class=" mt-8 pt-10 px-4 sm:px-12" id="projects">
-			<h2 class="font-Dancing text-4xl text-center"> Latest Projects </h2>
+			<h2 class="font-Rancho text-4xl text-center"> Latest Projects </h2>
 
 		
 				 <LatestProjects>
@@ -95,7 +117,7 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 <GradientDivider style="ml-10"/>
 
 		<section class="mt-8  pt-10  px-4 sm:px-12 mb-20" id="services">
-			<h3 class="   font-Dancing text-4xl text-center"> Services</h2>
+			<h3 class="   font-Rancho text-4xl text-center"> Services</h2>
 
 		<div class="grid grid-cols-1 xl:grid-cols-2 gap-8 my-8 ml-4">
 
@@ -157,7 +179,7 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 	   <section class="my-8  pt-10  px-4 sm:px-12 " id="process">
 	
 	
-		<h3 class="font-Dancing text-4xl text-center"> The Process</h2>
+		<h3 class="font-Rancho text-4xl text-center"> The Process</h2>
         
 		<ol class="grid grid-cols-1 xl:grid-cols-2 gap-8 my-8">
 
@@ -212,7 +234,7 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 
    <section class="mt-8 pt-10  px-4 sm:px-12" id="skills">
 
-	<h2 class=" grid-none font-Dancing text-4xl text-center"> Skills</h2>
+	<h2 class=" grid-none font-Rancho text-4xl text-center"> Skills</h2>
  <div class="grid grid-cols-2 md:grid-cols-3 gap-8 my-8 justify-items-center">
 	
 
@@ -334,9 +356,10 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
   observer.observe(document.documentElement, { childList: true, subtree: true });
 </script>
 
-<section class="my-12 py-8  px-8 bg-[#3c5dca] w-full  rounded-2xl max-w-4xl mx-auto " id="contact">
+<section class="my-12  w-full  max-w-4xl mx-auto " id="contact">
 
-	<h2 class="heading font-Dancing text-4xl text-center text-white ">  Get in Touch</h2>
+	<h2 class="heading font-Rancho text-4xl text-center ">  Get in Touch</h2>
+	<div class="bg-secondaryColor p-8 rounded-2xl "> 
 
 	<div class="flex flex-col items-center bg-white rounded-2xl shadow-lg shadow-blue-950  w-[95%] mx-auto max-w-xl">
 
@@ -392,6 +415,7 @@ import GradientDivider from "@/components/ui/gradientDivider.astro";
 
 	
 
+</div>
 </div>
 
 </section>

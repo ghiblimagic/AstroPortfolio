@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 @font-face {
-  font-family: "Dancing Script";
-  src: url("/fonts/DancingScript-Regular.woff2") format("woff2");
+  font-family: "Rancho Script";
+  src: url("/fonts/Rancho-Regular.woff2") format("woff2");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -114,7 +114,7 @@ video {
   display: inline-block;
   margin-bottom: 20px;
   padding-bottom: 10px;
-  font-family: "Dancing Script", cursive;
+  font-family: "Rancho Script", cursive;
 }
 
 .input-styling {
@@ -180,7 +180,7 @@ input::placeholder {
 }
 
 .background-tile {
-  background-color: #dbeafe;
+  background-color: #d6e8ff;
   border-radius: 1rem;
   padding: 1rem;
   margin-top: 1rem;

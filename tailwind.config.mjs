@@ -13,7 +13,7 @@ module.exports = {
   prefix: "",
   theme: {
     fontFamily: {
-      Dancing: ["Dancing Script", "sans-serif"],
+      Rancho: ["Rancho Script", "sans-serif"],
     },
     container: {
       center: true,
@@ -34,7 +34,7 @@ module.exports = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        mainColor: "#4c1d95",
+        mainColor: "#1334a0",
         mainAccents: "#c17efb",
         secondaryColor: "#3c5dca",
         primary: {
