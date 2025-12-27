@@ -385,7 +385,8 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 	<p class="my-6">All fields marked with  <span class="text-red-800">*</span> are required</p>
 	
-	<form name="contact" method="POST"  data-netlify="true" netlify-honeypot  data-netlify-recaptcha="true"  action="/success" class="w-[90%]"> 
+	<form name="contact" method="POST"  data-netlify="true" netlify-honeypot="bot-field" netlify-honeypot  data-netlify-recaptcha="true"  action="/success" class="w-[90%]"> 
+		  <input type="hidden" name="form-name" value="contact" />
 		<p class="hidden">
 			<label>
 			  Don’t fill this out if you’re human: <input name="bot-field" />
