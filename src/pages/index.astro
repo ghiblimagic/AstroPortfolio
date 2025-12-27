@@ -374,7 +374,35 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
   });
 
   observer.observe(document.documentElement, { childList: true, subtree: true });
+    // Handle form submission
+  document.addEventListener('DOMContentLoaded', () => {
+    const form = document.querySelector('form[name="contact"]');
+    
+    form?.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const email = formData.get('email');
+      
+      try {
+        // Submit to Netlify
+        await fetch('/', {
+          method: 'POST',
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData).toString()
+        });
+        
+        // Redirect with email
+        window.location.href = `/success?email=${encodeURIComponent(email)}`;
+      } catch (error) {
+        console.error('Form submission error:', error);
+        alert('There was an error submitting the form. Please try again.');
+      }
+    });
+  });
 </script>
+
+
 
 <section class="my-12  w-full  max-w-4xl mx-auto " id="contact">
 
@@ -385,7 +413,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 	<p class="my-6">All fields marked with  <span class="text-red-800">*</span> are required</p>
 	
-	<form name="contact" method="POST"  data-netlify="true" netlify-honeypot="bot-field" netlify-honeypot  data-netlify-recaptcha="true"  action="/success" class="w-[90%]"> 
+	<form name="contact" method="POST"  data-netlify="true" netlify-honeypot="bot-field" netlify-honeypot  data-netlify-recaptcha="true"  class="w-[90%]"> 
 		  <input type="hidden" name="form-name" value="contact" />
 		<p class="hidden">
 			<label>
