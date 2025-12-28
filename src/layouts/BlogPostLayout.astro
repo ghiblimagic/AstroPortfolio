@@ -55,7 +55,7 @@ const { title, date, description, headings } = Astro.props;
           
 <section>
 
-  <CommentsSection slug={slug} currentUserId={null} />
+  <CommentsSection slug={slug} currentUserId={null} client:load/>
 </section>
       </div>
     </div>

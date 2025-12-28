@@ -21,6 +21,7 @@ export default function CommentsSection({
   useEffect(() => {
     async function fetchComments() {
       try {
+        console.log("fetch comments ran");
         const response = await fetch(`/api/comments/${slug}`);
         const data = await response.json();
         if (data.error) {
