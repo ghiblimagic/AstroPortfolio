@@ -12,17 +12,19 @@ const { list } = Astro.props;
 ---
 
 <div class="mx-auto">
-  <ul class="list-disc w-full pl-6 md:pl-0">
+  <ul class="list-disc list-inside w-full pl-6 md:pl-0">
     {list.map((item) => (
-      <li class="mb-2">
+      <li class="mb-4">
+        <p class="text-lg inline-block mb-2">
         {item.description}
+        </p>
         <div>
           <a href={item.href}>
-            <span>
+            <span class="block">
               Click <strong>here 👈 </strong>
             </span>
           </a>
-          {` or copy: ${item.href}`}
+          {` Or copy: ${item.href}`}
         </div>
       </li>
     ))}
