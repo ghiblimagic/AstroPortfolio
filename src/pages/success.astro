@@ -4,7 +4,11 @@ import '@/styles/globals.css'
 import '@/styles/normalize.css'
 
 import SpaceForSidebar from "@/components/SpaceForDesktopSidebar.astro"
-const email = Astro.url.searchParams.get('email');
+
+// Handle both /success?email= and /success/?email=
+const url = Astro.url.href;
+const email = Astro.url.searchParams.get('email') || 
+              new URLSearchParams(url.split('?')[1]).get('email');
 ---
 
 <Layout title="Message Sent Successfully">
