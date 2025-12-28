@@ -1,0 +1,42 @@
+.spinner-container {
+  position: relative;
+}
+
+.spinner {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid transparent;
+  border-top-color: white;
+  border-bottom-color: white;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+.loading-text {
+  display: none;
+  color: white;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Reduced motion users */
+@media (prefers-reduced-motion: reduce) {
+  .spinner {
+    display: none;
+  }
+
+  .loading-text {
+    display: block;
+  }
+
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
