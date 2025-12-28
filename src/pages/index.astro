@@ -447,11 +447,20 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
   // Argument of type 'Element' is not assignable to parameter of type 'HTMLFormElement'.  Type 'Element' is missing the following properties from type 'HTMLFormElement': acceptCharset, action, autocomplete, elements, and 148 more.
   
   if (form) {
+
+	  const submitButton = form.querySelector('button[type="submit"]');
+
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
       
       const formData = new FormData(form);
       const email = formData.get('email') as string;
+
+	      // Disable button and show loading state
+      if (submitButton) {
+        submitButton.textContent = 'Sending...';
+        submitButton.setAttribute('disabled', 'true');
+      }
       
       try {
         const response = await fetch('/', {
@@ -471,6 +480,13 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
       } catch (error) {
         console.error('Form submission error:', error);
         alert('There was an error submitting the form. Please try again.');
+
+		  
+        // Re-enable button
+        if (submitButton) {
+          submitButton.textContent = 'Send';
+          submitButton.removeAttribute('disabled');
+        }
       }
     });
   }
