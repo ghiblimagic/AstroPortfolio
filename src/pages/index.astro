@@ -461,7 +461,10 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
         });
         
         if (response.ok) {
-          window.location.href = `/success?email=${encodeURIComponent(email)}`;
+             // Using absolute URL to avoid trailing slash issues, 
+			 // aka avoiding success/?email=f%40gmail.com and getting the correct success?email=f%40gmail.com 
+          window.location.href = `${window.location.origin}/success?email=${encodeURIComponent(email)}`;
+    
         } else {
           throw new Error('Form submission failed');
         }
