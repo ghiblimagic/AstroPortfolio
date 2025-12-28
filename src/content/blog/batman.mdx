@@ -1,0 +1,143 @@
+---
+title: "Eli5 (Explain Like I'm 5): MVC the Batman Edition"
+date: "2022-08-25"
+description: "Explaining what Model View Controller means"
+---
+
+Let's set the stage, you are the person who the services of the bat-signal is for. The _client_ of the bat-signal if you will:
+
+**BATMAN**
+
+![Gif of batman looking up as the bat-signal turns on](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459730784/bBOUjRMZn.gif)
+
+With that out of the way, let's start explaining what MVC is.
+
+## What is MVC
+
+MVC stands for Model, View, and Controller. It is not a language; it is a way to organize your code. All of these three objects have different jobs but they work together to solve the same problem.
+
+## MVC Explained (with Batman)
+
+### Client: Batman
+
+![Gif of batman dancing](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459732584/9oWXncHMP.gif)
+
+### View: Bat-signal
+
+Is what the user visually interacts with, such as a website.
+
+![Gif of the bat-signal in the sky](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459734820/WEGHsl4lO.gif)
+
+### Controller: Gordon
+
+The controller receives requests and gathers data and sends the data to the view. The controller is the middleman between the model and the view.
+
+So Gordon (the controller) receives batman's request "Gordon. I want to be informed about the latest, juiciest crimes, especially if they involve Joker". Gordon then gathers data (such as police reports about active crimes) and passes the data to the view (the bat-signal).
+
+> "(The) View and Controller are specifically designed to work together." -Steve Burbeck, Ph.D.
+
+The bat-signal and Gordon are designed to work together to tell batman its time to fight crime!
+
+![Gif of Gordon looking up](https://24.media.tumblr.com/92a3b2219150b95b748a3f052a81a096/tumblr_mhkde8n9Dp1rt52goo1_500.gif)
+
+In real life, the controller would listen for the user clicking on the mouse or typing on the keyboard and update the model and view (website) about these changes.
+
+### Model: Concerned Citizens
+
+The model is responsible for managing the information/data and requests for this information/data.
+
+In our example, this is a concerned citizen who has witnessed a crime (data) in action and now wants to talk to the controller to explain what is happening.
+
+The model (concerned citizens) directly interacts with the database, which in this case is the crime's environment.
+
+![Gif of Oswald Cobblepot/Penguin talking on a cellphone](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459739422/hYviief-n.gif)
+
+### Database: Crime's Environment
+
+When the model (concerned citizen) needs more information, it looks to the database to get more information.
+
+So if the police/Gordon (controller) was asking the citizen (model) for more information about the crime, the citizen (model) would look around their environment (database).
+
+![image of amusement mile theme park image.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459742033/rN2hMv0Ih.png)
+
+## Example of MVC in the Batman Universe
+
+Now lets bring it all together with an example:
+
+> Batman (Client/user) : "Gordon. I want to be informed about the latest, juiciest crimes, especially if they involve Joker"
+>
+> Gordon (Controller)" On it batman!"
+>
+> (Phone rings)
+>
+> Gordon (Controller): "Hello this is the crime line, tell me what's happening"
+>
+> Citizen( model): (Citizen says they heard screams and explosions at the Amusement Mile)
+
+> Gordon (Controller): "Is this crime related to the Joker?"
+>
+> Citizen (Model): "Well, let's see!"
+>
+> Citizen looks and listens (Model is looking in the database)
+>
+> Citizen (Model): "Why yes, that laughter I hear must mean its that loony sod again!"
+>
+> Gordon (Controller): "Okay, thank you anonymous citizen (Model) for your time"
+>
+> Gordon (controller): _Turns on bat-signal_
+>
+> Bat-Signal (view): _Visually informs batman that a crime is happening_
+
+![flow chart of Batman as a MVC image.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459743789/h3ejoyN_M.png)
+
+## PsuedoCode Example
+
+![coding snippet image.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459745165/4AICoOuIX.png)
+
+In this section of code, Batman is asking for information about crimes, especially if they involve Joker.
+
+![Gif of batman smiling but it comes off as deranged](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459746443/UgJ3qWmk2.gif)
+
+![coding snippet image.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459748185/5PkBraP3o.png)
+
+Gordon is keeping an eye out for crimes that involve Joker by talking to concerned citizens.
+
+![gordon putting his head down on his desk as a man sits on the chair across from his desk image.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459749664/jMa3KYCx4.png)
+
+![coding snippet image.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459751121/998Qqueo4O.png)
+
+Concerned citizens are reporting crimes and in this case Gordon is trying to "select" a crime which involves Joker.
+
+![Gif of Oswald Cobblepot/penguin talking on a cellphone](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459752732/ZycNHgxKG.gif)
+
+![Gif of joker appearing in the spotlight](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459755845/nSqYgcJTo.gif)
+
+![coding snippet image.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459757746/soWaWEzl6.png)
+
+Gordon turning on the bat-signal, which batman sees and runs to.
+
+![Gif of batman looking up as the bat-signal turns on](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459758914/tXFPtSmJt.gif)
+
+Gordon transmitting the data (crime information) to batman.
+
+![Gif of gordon turning on the bat-signal and talking to batman](https://cdn.hashnode.com/res/hashnode/image/upload/v1661459760603/XyI760meH.gif)
+
+## Why use MVC?
+
+Using MVC allows you to make easily reusable section of code, makes it easier to edit, and helps you keep your code organized. So it takes less time to make changes to your code.
+
+## Sources
+
+Steve Burbeck, Ph.D. https://web.archive.org/web/20120729161926/http://st-www.cs.illinois.edu/users/smarch/st-docs/mvc.html
+
+https://medium.com/@ormrepo/what-is-the-model-view-controller-design-pattern-e951816217d9
+
+https://www.codecademy.com/article/mvc
+
+The code example is adapted from the coding snippet given here:
+
+https://www.youtube.com/watch?v=pCvZtjoRq1I&ab_channel=TraversyMedia
+
+Inspired by this fantastic MVC lecture:
+
+https://www.youtube.com/watch?v=MrbNsnuxJ6g&ab_channel=Tch4lla

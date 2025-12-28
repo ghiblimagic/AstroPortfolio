@@ -1,0 +1,241 @@
+---
+title: "Learning Notes: Learning about SEO (Canonical URLs)"
+date: "2022-07-20"
+description: "Learning notes on canonical URLs and SEO best practices"
+---
+
+**About My Learning Notes Series:**
+
+Learning in public and teaching others is a great way to solidify information, so I decided to write articles about discoveries I make while learning. I will add links so you can investigate my resources and to of course, give credit.
+
+However I'm not an expert. Also, standards change fast in the coding world, so think of this as the starting ground for your own research. Best of luck with your learning!
+
+Please feel welcome to add corrections or comments.
+
+## Learning More About SEO
+
+Disclaimer: canonicalizing urls can lead to problems if you're not careful. Read more here at at https://moz.com/blog/complete-guide-to-rel-canonical-how-to-and-why-not
+
+### What is SEO?
+
+> "Search engine optimization (SEO) is the process of improving a website or web page so it increases organic traffic quality and quantity from search engines. Successful SEO means a web page will be more likely to appear higher on a search engine results page (SERP)."
+> https://www.webopedia.com/definitions/seo/
+
+![Gif from the office where he says i want your undivided attention please](https://c.tenor.com/Bs87zJ1Pn1YAAAAC/the-office-michael-scott.gif)
+
+### Introducing the Problem
+
+![Gif of doctor strange duplicating himself while Thanos tries to spot the real one](https://c.tenor.com/5Vjtm9u7OlYAAAAd/dr-stranger.gif)
+
+To start off, lets say we have 8 links. Each of these links send us to pages that visually look exactly the same:
+
+>     1. https://www.website.com/category/product-a/
+>     2. https://www.website.com/product-a/
+>     3. https://website.com/product-a/
+>     4. http://www.website.com/product-a/
+>     5. http://website.com/product-a/
+>     6. https://m.website.com/product-a/
+>     7. https://www.website.com/product-a
+>     8. https://www.website.com/product-A/ (https://www.semrush.com/blog/canonical-url-guide/)
+
+To a search engine these are EIGHT different pages instead of one, so the search engine gets confused about which one is most important. So you get a lower SEO ranking.
+
+### How to fix this with a canonical tag:
+
+![Gif hercules gif where he's shouting use your head at hercules](https://c.tenor.com/IipC2uXfAE8AAAAC/hercules-use-your-head.gif)
+
+Choose one url which is the best representation of your page. Such as
+
+https://www.example.com/mainpage.html
+
+Place this url in the rel=”canonical” tag in the head of your page
+
+> ![image.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1658294284395/4KXxKtc0P.png align="left")https://moz.com/blog/complete-guide-to-rel-canonical-how-to-and-why-not
+
+if you use CMS platforms like:
+
+- shopify
+- Wix
+- wordpress (with Yoast or RankMath plugins)
+- Magneto 1 or 2
+
+this article gives you detailed steps about how to create a canonical tag: https://www.semrush.com/blog/canonical-url-guide/#how-to-correctly-implement-the-rel=canonical-tag
+
+### Four other ways to specify canonical URLs
+
+![Gif of toy story with them getting ready to ram his head into the grate so they can all escape, while he shouts he doesn't want to use his head](https://c.tenor.com/67pFp6_mApYAAAAC/toystory-toystory2.gif)
+
+Putting it in the head is the most common option to specify canonical URLs. But other options are described here: https://ahrefs.com/blog/canonical-tags/
+
+- HTTP header
+- Sitemap
+- 301 redirect
+- Internal links
+
+### Tips:
+
+#### 1 Use absolute links:
+
+```js
+<link
+  rel="canonical"
+  href="https://www.website.com/page-a/"
+/>
+```
+
+Not relative links:
+
+```js
+<link
+  rel="canonical"
+  href="/page-a/"
+/>
+```
+
+![Gif a gif of a man saying its an absolute must](https://c.tenor.com/rIanq3-LCaYAAAAd/its-an-absolutely-mess-dj-slope.gif)
+
+#### 2 Use only **one** rel=”canonical” tag **per page**.
+
+![highlander gif of a man shouting there can be only one as he raises a sword above his head](https://c.tenor.com/UCBaOVHmcwoAAAAC/one-highlander.gif)
+
+If there's multiple canonical tags then google will likely ignore it and make it useless.
+
+> Special note: " This happens frequently in conjunction with SEO plugins that often insert a default rel=canonical link, possibly unbeknownst to the webmaster who installed the plugin" - Allan Scott @ https://developers.google.com/search/blog/2013/04/5-common-mistakes-with-relcanonical
+
+#### 3 Only put it in the head of a page.
+
+If you put it in the body, it will be ignored.
+
+![gif Mr potato head from toy story has his body parts put on wrong, his hands are out because he's expecting the pig to laugh. But the pig walks away and says I don't get it](https://c.tenor.com/tqNIrpVdskwAAAAC/toy-story-hamm.gif)
+
+#### 4 Use a good link
+
+![Gif](https://c.tenor.com/k2HZzO6T59YAAAAC/sephiroth-minor-spelling-mistake.gif)
+
+- Watch out for spelling mistakes (ex: http when you mean https)
+- Don't Canonicalize a 301 redirect.
+
+#### 5 Don't try to be sneaky
+
+By canonicalizing a specific article to try to increase its google ranking. It will backfire on you.
+
+![gif man saying that wouldn't be wise](https://c.tenor.com/AriTJhIn664AAAAC/that-wouldnt-be-wise-i-wouldnt-do-that.gif)
+
+#### 6 If your page has multiple pages (pagination)
+
+![gif of batman and robin on a paperairplane](https://c.tenor.com/MdZuDWyNzPUAAAAM/batman-robin.gif)
+
+You have two choices
+
+- 1 canonicalize the "view all" page
+
+**Not the root page**. So the view counts for page 1, page 2, page 3, ect is counting as the "view all" pages views.
+
+![image.png](https://cdn.hashnode.com/res/hashnode/image/upload/v1658300306788/gy8zfug79.png)
+
+Source: https://www.searchenginejournal.com/technical-seo/pagination/
+
+- 2 Give each page in its own canonical URL.
+
+So a four page series would look like this:
+
+Page 1
+
+>     link rel="next" href="https://www.example.com/category?page=2″
+
+>       **link rel="canonical" href="https://www.example.com/category"'**
+
+Page 2
+
+>         link rel="prev" href="https://www.example.com/category"
+
+>         link rel="next" href="https://www.example.com/category?page=3″
+
+>         **link rel="canonical" href="https://www.example.com/category?page=2"**
+
+Page 3
+
+>         link rel="prev" href="https://www.example.com/category?page=2″
+
+>         link rel="next" href="https://www.example.com/category?page=4″
+
+>       **link rel="canonical" href="https://www.example.com/category?page=3"**
+
+Page 4
+
+>         link rel="prev" href="https://www.example.com/category?page=3"
+
+>       **link rel="canonical" href="https://www.example.com/category?page=4"**
+
+code source : https://www.searchenginejournal.com/technical-seo/pagination/
+
+#### Extra: Why do we not canonicalize the root page for paginated pages?
+
+![gif will smith from fresh prince of bel air shrugging on the couch with the text why not appearing](https://c.tenor.com/G-HEGVYg-YEAAAAC/will-smith-why-not.gif)
+
+It makes search engines think you only have one page and it won't index the content on the 2nd, 3rd, 4th ect page.
+
+> "You don’t want your detailed content pages dropping out of the index because of poor pagination handling." - https://www.searchenginejournal.com/technical-seo/pagination/
+
+#### 7 If you have duplicated content such as
+
+- HTTP and HTTPS
+- Non-WWW and WWW
+- Trailing-Slash and Non-Trailing Slash URLs
+
+```js
+http://example.com/foo/ (with trailing slash, conventionally a directory)
+http://example.com/foo (without trailing slash, conventionally a file)
+```
+
+> code source: https://developers.google.com/search/blog/2010/04/to-slash-or-not-to-slash
+
+Have the duplicate(s) redirect to the canonical url with a 301 redirect
+
+> Warning: "Let's be clear, however, that if you use 301 redirects, only the canonical URL will actually exist. The other duplicate versions will redirect to this." https://www.semrush.com/blog/canonical-url-guide/#using-301-redirects-to-specify-canonical-urls
+
+![gif of a man sitting in a chair and throwing a paper airplane, which appears to come back to him](https://c.tenor.com/rCrQJiFpPYMAAAAd/%EC%A0%95%EC%84%B8%EC%9A%B4-%EC%A2%85%EC%9D%B4%EB%B9%84%ED%96%89%EA%B8%B0.gif)
+
+#### 8 Check your robots.txt file (if you have one)
+
+robots.txt can be helpful, but if you accidentally told it to block your canonicalized URL, it will block the web crawlers from seeing your page. Which is exactly the situation you want to avoid.
+
+![gif Futurama gif of a robot gif crying and saying hopes deleted](https://c.tenor.com/jBuSCNOrISUAAAAC/futurama-hopes-deleted.gif)
+
+### Why is the search engine ignoring my canonical tag?
+
+Although canonical tags can help try to convince a search engine to pay attention to that specific site link, it can be ignored. In other words, it is essentially just a suggestion.
+
+Why Does this happen? Some possibilities are:
+
+1. conflicting url in a sitemap
+
+https://www.semrush.com/blog/canonical-url-guide/#canonical-urls-in-sitemaps
+
+2. Pages aren’t a close enough match
+
+So the search engine ignores the suggestion
+
+(https://searchengineland.com/canonical-tags-easy-right-whats-worst-happen-274635)
+
+https://moz.com/blog/catastrophic-canonicalization
+
+### Links to learn more:
+
+https://ahrefs.com/blog/canonical-tags/
+
+https://searchengineland.com/canonical-tags-easy-right-whats-worst-happen-274635
+
+https://www.searchenginejournal.com/technical-seo/pagination/
+
+https://searchengineland.com/canonical-tags-easy-right-whats-worst-happen-274635
+
+https://www.semrush.com/blog/canonical-url-guide/
+
+https://developers.google.com/search/blog/2013/04/5-common-mistakes-with-relcanonical
+
+https://developers.google.com/search/docs/advanced/ecommerce/pagination-and-incremental-page-loading
+
+https://moz.com/learn/seo/canonicalization
+
+https://moz.com/blog/complete-guide-to-rel-canonical-how-to-and-why-not
