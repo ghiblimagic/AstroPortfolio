@@ -348,7 +348,8 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 </style>
 
 <script is:inline>
-  // Intercept Netlify's auto-injected reCAPTCHA script
+  // is:inline is needed to Intercept Netlify's auto-injected reCAPTCHA script
+  // because we need the script to run immediately during HTML parsing 
   const observer = new MutationObserver((mutations) => {
     mutations.forEach((mutation) => {
       mutation.addedNodes.forEach((node) => {
@@ -374,32 +375,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
   });
 
   observer.observe(document.documentElement, { childList: true, subtree: true });
-    // Handle form submission
-  document.addEventListener('DOMContentLoaded', () => {
-    const form = document.querySelector('form[name="contact"]');
-    
-    form?.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      const formData = new FormData(form);
-      const email = formData.get('email');
-      
-      try {
-        // Submit to Netlify
-        await fetch('/', {
-          method: 'POST',
-          headers: { "Content-Type": "application/x-www-form-urlencoded" },
-          body: new URLSearchParams(formData).toString()
-        });
-        
-        // Redirect with email
-        window.location.href = `/success?email=${encodeURIComponent(email)}`;
-      } catch (error) {
-        console.error('Form submission error:', error);
-        alert('There was an error submitting the form. Please try again.');
-      }
-    });
-  });
+ 
 </script>
 
 
@@ -413,7 +389,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 	<p class="my-6">All fields marked with  <span class="text-red-800">*</span> are required</p>
 	
-	<form name="contact" method="POST"  data-netlify="true" netlify-honeypot="bot-field" netlify-honeypot  data-netlify-recaptcha="true"  class="w-[90%]"> 
+	<form name="contact" method="POST"  data-netlify="true" netlify-honeypot="bot-field"  data-netlify-recaptcha="true"  class="w-[90%]"> 
 		  <input type="hidden" name="form-name" value="contact" />
 		<p class="hidden">
 			<label>
@@ -464,6 +440,38 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 	
 	</form>
 
+	<script>
+  // Handle form submission - runs after form is in DOM
+  const form = document.querySelector('form[name="contact"]') as HTMLFormElement;
+  //  tells TypeScript the form element is a form, so it won't give this error when we tell it new FormData(form)
+  // Argument of type 'Element' is not assignable to parameter of type 'HTMLFormElement'.  Type 'Element' is missing the following properties from type 'HTMLFormElement': acceptCharset, action, autocomplete, elements, and 148 more.
+  
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      
+      const formData = new FormData(form);
+      const email = formData.get('email') as string;
+      
+      try {
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData as any).toString()
+        });
+        
+        if (response.ok) {
+          window.location.href = `/success?email=${encodeURIComponent(email)}`;
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+        alert('There was an error submitting the form. Please try again.');
+      }
+    });
+  }
+</script>
 	
 
 </div>
