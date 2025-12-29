@@ -57,7 +57,7 @@ a:focus,
 input:focus,
 textarea:focus,
 button:focus {
-  outline: 2px solid blue;
+  outline: 4px solid rgb(164, 170, 250);
 }
 
 /* reduces layout shift of videos */
