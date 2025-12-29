@@ -57,19 +57,21 @@ const SocialLinks = [
 ];
 ---
 
-<div class="grid grid-cols-1 w-fit lg:w-full mx-auto lg:grid-cols-2 xl:grid-cols-3 mb-5">
+
+
+<div class="grid grid-cols-3 sm:grid-cols-9 gap-10 w-fit mx-auto">
   {SocialLinks.map((item) => (
-    <div class="mb-4">
-      <a href={item.href}>
-        <img
-          class="mx-1 size-7 hover:border-4 hover:rounded-sm hover:border-violet-500 md:size-8 inline-block"
-          src={`/images/${item.icon}.svg`}
-          alt={item.alt}
-          title={item.title}
-          loading="eager"
-        />
-      </a>
-      <span class="pl-2 text-violet-9">{item.href}</span>
-    </div>
+    <a 
+      href={item.href} 
+      class="flex items-center justify-center aspect-square hover:text-mainColor hover:font-bold"
+    >
+      <img
+        class="size-7 hover:border-4 hover:rounded-sm md:size-8"
+        src={`/images/${item.icon}.svg`}
+        alt={item.alt}
+        title={item.title}
+        loading="eager"
+      />
+    </a>
   ))}
 </div>

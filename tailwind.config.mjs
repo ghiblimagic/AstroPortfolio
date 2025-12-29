@@ -13,7 +13,7 @@ module.exports = {
   prefix: "",
   theme: {
     fontFamily: {
-      Rancho: ["Rancho Script", "sans-serif"],
+      Akaya: ["AkayaKanadaka Script", "sans-serif"],
     },
     container: {
       center: true,
