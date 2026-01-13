@@ -27,7 +27,6 @@
 }
 
 body {
-  background-image: url("/images/background.jpg");
   background-color: #e1f5ff;
   background-size: contain;
   color: #220749;
@@ -80,13 +79,13 @@ video {
   background-size: 200% auto;
   color: white;
 
-  box-shadow: 0 2px 10px #612186;
+  box-shadow: 0 2px 2px #212386;
   border-radius: 10px;
   background-image: linear-gradient(
-    to right,
-    #fbc2eb 0%,
-    #a6c1ee 51%,
-    #fbc2eb 100%
+    to bottom,
+    rgb(99, 107, 219),
+    rgb(63, 103, 224),
+    rgb(146, 153, 250)
   );
 
   /* COLORING for form square when its clicked */
@@ -254,9 +253,9 @@ input::placeholder {
   /* gradient bottom border color effect */
   border-image: linear-gradient(
     0.25turn,
-    rgba(255, 153, 230),
-    rgba(245, 156, 251),
-    rgba(193, 126, 251),
+    rgb(104, 172, 250),
+    rgb(159, 148, 255),
+    rgb(134, 126, 251),
     rgba(181, 166, 249),
     rgba(134, 158, 244)
   ); /* COLORING */
@@ -269,9 +268,9 @@ input::placeholder {
   /* gradient bottom border color effect */
   border-image: linear-gradient(
     0.25turn,
-    rgba(255, 153, 230),
-    rgba(245, 156, 251),
-    rgba(193, 126, 251),
+    rgb(81, 126, 248),
+    rgb(159, 148, 255),
+    rgb(134, 126, 251),
     rgba(181, 166, 249),
     rgba(134, 158, 244)
   ); /* COLORING */

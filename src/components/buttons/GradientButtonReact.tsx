@@ -21,7 +21,7 @@ export default function GradientButton(props: GradientButtonProps) {
   // *************** Download **************
   return (
     <a
-      className={`inline-block px-4 py-2 m-1 rounded-2xl  ${styling}   hover:text-mainColor  animated-gradient hover:font-bold text-center not-prose`}
+      className={`inline-block px-4 py-2 m-1 rounded-2xl  ${styling}    animated-gradient hover:font-bold text-center not-prose`}
       // not-prose because the blog content is wrapped in tailwind Typography, so it would add underlines to all button types
       aria-label={props.aria}
       href={props.link}
