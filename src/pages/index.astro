@@ -26,38 +26,58 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 	<div class="max-w-7xl">
 
 	
-		<section class=" pt-10 px-4 sm:px-12 text-center" id="home">
-		
-			
-				<h1 class="font-Ayaka text-4xl mb-9">Hi there!
+		<section class=" pt-5 px-4 sm:px-12 text-center" id="home">
+		     
 
-					 <span class="wave" title="waving animated hand">&#128075; </span> I'm Janet, your next software engineer.
+                   
+			<section class="flex flex-col xl:flex-row-reverse sm:my-10 xl:my-24 items-center gap-6 "> 
+				 <!-- ***************  HERO **********************-->
+
+				 	<div>
+				<!------ **************** HERO IMAGE ************ -->
+			   <img class="max-w-[400px] xl:max-w-[600px] my-6 sm:my-0 mx-auto w-full rounded-full"src="/images/me.jpg"/>
+			</div>
+
+				<div class="max-w-md">
+					<!---- ******** Text of hero ******** -->
+				<h1 class="font-Ayaka text-4xl mb-8">  <span class="text-5xl block"> Hi there! I'm Janet.</span>
+
+					Your future Software Engineer.
 				
 				</h1>
 
-		
-				<div class=" mb-8   ">
-
-                <p class="pt-6"> I sprinkle a little "Spellman magic" on every website I build, making them: 
-					<ul class="list-disc list-inside mt-4"> 
-					    <li class="mb-2"> Memorable, 
-						<li class="mb-2">Easy to use,</li>
-						<li>And personalized to your goals!</li>
-					</ul>
-				
-				</p>
-
-				<p class="mt-8"> From apps that help pets find homes to tools that guide business owners, I combine creativity and code to make a real impact.</p>
+				     
+              
+				<p class=""> From tools that guide business owners, to storefronts, to apps that help pets find homes, I combine creativity and code to make a real impact.</p>
 
 				<p class="mt-4"> Let’s make your website one visitors won’t forget!
 
 						<HeroButtons/>
 
-	       <GradientDivider/>
+			
+				
+		  
+			   
+					</div>
+					</section>
 
-		          	<h2 class="font-Ayaka text-4xl tracking-widest"> Website Builder Guide</h2> 	
+					     <GradientDivider/>
+					<!-- **************** Website Builder Guide ************** -->
+			
+					<section class="my-16">
 
-				<p class="mt-8 mb-2"> If you'd rather build it yourself, I made an interactive guide to choose a website builder.
+				    	<h2 class="font-Ayaka text-4xl tracking-widest"> Website Builder Finder</h2> 	
+
+						<img 
+						
+						src="/images/website-builder.webp"
+						
+						srcset="/images/website-builder.webp 800w, 
+						/images/website-builder-retina.webp 1586w, 
+						/images/website-builder-mobile.png 300w, 
+						/images/website-builder-mobile-retina.png 600w"     alt="Website builder screenshot" sizes="(max-width: 640px) 300px, 800px" class="w-full max-w-[800px] mx-auto" loading="lazy">
+
+				<p class="mt-10 mb-4"> If you have the time and energy to build a website yourself, I made an interactive guide to choose a website builder. It lets you filter through 15 popular website builders.
 
 				</p>
 			
@@ -65,38 +85,30 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
     text="Guide"
     link="https://guide.janetspellman.com/"
   />
-				
-		       <GradientDivider/>
-			   
-					</div>
-				
 
-				
+			</section>
+        <GradientDivider/>
+
+<!-- 				**********************	GITHUB   **********************-->
 			   <section class="my-16">
-					<div class="flex justify-center  ">
-						
-	                      	<h2 class="font-Ayaka text-4xl"> My github activity</h2> 	
+			
+ 
+      
+      	   <section class="my-16">
+			<h2 class="font-Ayaka text-4xl inline-flex items-center gap-2 justify-center w-full">
+  Github
+  <a href="https://github.com/ghiblimagic" aria-label="link to github">
+    <img class="size-7 md:size-8" src="images/github.svg" alt="" />
+  </a>
+</h2>
+   
 
-								<a href="https://github.com/ghiblimagic"
-							  aria-label="link to github"
-							 
-							  >
-							  <img
-							  class="mx-1 inline-block size-7
-							  hover:border-4 hover:rounded-sm hover:border-violet-500 md:size-8"
-							  loading="eager"
-							  
-							  src={`images/github.svg`}
-							  alt="github logo"
-							  title="github logo"
-							/>
-					</a>
-				</div>
-                 <div class="h-32 bg-secondaryColor py-6 rounded-2xl">
+                 <div class="min-h-32 bg-secondaryColor py-6 rounded-2xl">
 					<img src="https://ghchart.rshah.org/3c5dca/ghiblimagic" alt="Github chart" 
 					 width="743"
 					 height="120"
-					class="block mx-auto py-2 px-10 rounded-lg bg-white border-secondaryColor border-x  shadow-md shadow-blue-400"/>
+				  class="block mx-auto w-full max-w-[743px] h-auto py-2 px-4 sm:px-10 rounded-lg bg-white border-secondaryColor border-x shadow-md shadow-blue-400"
+>
 				 </div>
 				</section>
 					
@@ -105,9 +117,9 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
    <!--  ******* Project Section ******** -->
 
-   <GradientDivider style="ml-10"/>
+   <GradientDivider style="sm:ml-10"/>
 
-   <section class=" mt-8 pt-10 px-4 sm:px-12" id="projects">
+   <section class="px-4 sm:px-12 my-16" id="projects">
 			<h2 class="font-Ayaka text-4xl text-center"> Latest Projects </h2>
 
 		
@@ -117,19 +129,19 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 		</section>
 <!-- 		SERVICES SECTION -->
 
-<GradientDivider style="ml-10"/>
+<GradientDivider style="sm:ml-10"/>
 
-		<section class="mt-8  pt-10  px-4 sm:px-12 mb-20" id="services">
+		<section class="  px-4 sm:px-12 " id="services">
 			<h3 class="   font-Ayaka text-4xl text-center"> Services</h2>
 
-		<div class="grid grid-cols-1 xl:grid-cols-2 gap-8 my-8 ml-4">
+		<div class="grid grid-cols-1 xl:grid-cols-2 gap-8 my-8">
 
 			<section class="flex flex-col sm:flex-row mb-4">
 
 <DiamondBackgroundImages imgSrc="service-palette"/>
 
 					
-				<div class="ml-6 background-tile">
+				<div class="sm:ml-6 background-tile">
 					<h3 class="heading-styling ">Website Development </h3>
 					<p > Your project deserves a tailored approach. I’ll begin by creating a wireframe shaped around your preferences, then bring it to life as a responsive website that feels right at home on phones, tablets, and big screens.</p>
 				</div>
@@ -140,7 +152,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 	
 			<DiamondBackgroundImages imgSrc="responsive"/>
 			
-				<div class="ml-6 background-tile">
+				<div class="sm:ml-6 background-tile">
 					<h3 class="heading-styling">Responsive Design</h3>
 					<p>Keeping clients means giving them a smooth experience on any device. With responsive design, your website automatically adjusts to desktops, tablets, and mobile phones so your audience can navigate and purchase without frustration..</p>
 				</div>
@@ -150,7 +162,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 				<DiamondBackgroundImages imgSrc="accessiblity"/>
 
-				<div class="ml-6 background-tile">
+				<div class="sm:ml-6 background-tile">
 					<h3 class="heading-styling">Accessiblity </h3>
 					<p> An accessible website creates a smoother experience for everyone.I build websites that are easy to navigate and inclusive, so every potential client can interact with your content without barriers.</p>
 				</div>
@@ -162,7 +174,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 				
 						<DiamondBackgroundImages imgSrc="diamond"/>
-				<div class="ml-6 background-tile">
+				<div class="sm:ml-6 background-tile">
 					<h3 class="heading-styling border-b-0">Search Engine Optimization (SEO) </h3>
 					<p> Strong SEO makes it easier for clients to find you. I optimize your site so it shows up higher in search results and brings more traffic your way. </p>
 				</div>
@@ -177,9 +189,9 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 	   <!-- THE PROCESS SECTION -->
 
-	   <GradientDivider style="ml-10"/>
+	   <GradientDivider style="sm:ml-10"/>
 
-	   <section class="my-8  pt-10  px-4 sm:px-12 " id="process">
+	   <section class="my-16  px-4 sm:px-12 " id="process">
 	
 	
 		<h3 class="font-Ayaka text-4xl text-center"> The Process</h2>
@@ -233,12 +245,12 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
    <!-- LANGUAGES SECTION -->
 
-   <GradientDivider style="ml-10"/>
+   <GradientDivider style="sm:ml-10"/>
 
-   <section class="mt-8 pt-10  px-4 sm:px-12" id="skills">
+   <section class="my-16 px-4 sm:px-12" id="skills">
 
 	<h2 class=" grid-none font-Ayaka text-4xl text-center"> Skills</h2>
- <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8 my-8 justify-items-center">
+ <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 my-8 justify-items-center">
 	
 
 	<section class="background-tile w-full"> 
@@ -328,7 +340,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 </div>
 </section>
 
-<GradientDivider style="ml-10"/>
+<GradientDivider style="sm:ml-10"/>
 
 <!--  so recaptcha will shrink on small screen -->
 <style>
@@ -382,7 +394,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 
 
-<section class="my-12  w-full  max-w-4xl mx-auto " id="contact">
+<section class="my-16 pb-6  w-full  max-w-4xl mx-auto " id="contact">
 
 	<h2 class="heading font-Ayaka text-4xl text-center ">  Get in Touch</h2>
 	<div class="bg-secondaryColor   sm:px-8 py-8 rounded-2xl max-w-2xl mx-auto "> 
@@ -398,12 +410,12 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 			  Don’t fill this out if you’re human: <input name="bot-field" />
 			</label>
 		  </p>
-		<div class="fields">
+		<div class="fields text-left">
 			<div class="field">
 				<label for="name" class="block font-bold">Name  <span class="text-red-800">*</span></label>
 				<input type="text" name="name" id="name" required class="w-full input-styling"/>
 			</div>
-			<div class="field">
+			<div class="field ">
 				<label for="email" class="block font-bold">Email  <span class="text-red-800">*</span></label>
 				<input type="text" name="email" id="email" required class="w-full input-styling"/>
 			</div>
