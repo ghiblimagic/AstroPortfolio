@@ -78,7 +78,9 @@ const { title, date, description, headings } = Astro.props;
     }
  
 
-
+// fade observer needed here because of timing
+// the one in the main layout has already been ran
+// so we're running it again after we're grabbed all the prose/ markdown
  initFadeInObserver()
   });
 </script>
