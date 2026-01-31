@@ -20,7 +20,7 @@ const sorted = posts
                 <!-- ********************* HEADER ********************* -->
 
         <div class=" rounded-2xl mx-auto  " >
-    <h1 class=" text-6xl text-mainColor font-bold  text-center font-Ayaka py-3 pt-10">Blog</h1>
+    <h1 class=" text-4xl xl:text-6xl text-mainColor font-bold  text-center font-Ayaka py-3 pt-10">Blog</h1>
         </div>
 
 <!-- ********************* BLOG LIST *********************** -->
@@ -29,7 +29,7 @@ const sorted = posts
     <ul class="space-y-8">
       {sorted.map(post => (
         <li class=" p-4 bg-white rounded-2xl shadow-lg fade-in">
-          <a href={`/blog/${post.slug}`} class="text-2xl font-semibold text-mainColor hover:text-blue-800 group w-full">
+          <a href={`/blog/${post.slug}`} class=" text-xl xl:text-2xl font-semibold text-mainColor hover:text-blue-800 group w-full">
 
             {post.data.title}
        
