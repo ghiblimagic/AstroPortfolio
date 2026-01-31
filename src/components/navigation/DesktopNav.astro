@@ -7,11 +7,11 @@ import logo from '../../../public/images/transparent-logo-bright-small.webp'
 
 <div>
   {/* ********************    MAIN NAV, DOTTED BACKGROUND*****************  */}
-  <div
-    id="sidebar"
-    class="fixed left-0 top-0 w-[250px] h-screen bg-[#1334a0] pt-14 p-6 z-51 text-white border-r-4 gradient-line"
-    style="background-image: url('/images/dotsBackground.png')"
-  >
+<div
+  id="sidebar"
+  class="fixed left-0 top-0 w-[250px] h-screen bg-[#1334a0] pt-14 p-6 lg:p-6 md:p-4 z-51 text-white border-r-4 gradient-line overflow-y-auto"
+  style="background-image: url('/images/dotsBackground.png')"
+>
     <div class="flex  items-center gap-4 bg-secondaryColor gradient-line border-y-2 py-4 glow ">
   <Image
   src={logo}
@@ -23,32 +23,32 @@ import logo from '../../../public/images/transparent-logo-bright-small.webp'
   class="bg-secondaryColor ml-2 box-content  rounded-full hover:border-white hover:rounded-full hover:bg-white "
 />
       <p class="font-Akaya ">
-        <span class="inline-block text-white text-2xl text-end"> Spellman's </span>
-        <span class="inline-block text-white text-2xl"> Consulting</span>
+        <span class="inline-block text-white text-lg xl:text-xl text-end"> Spellman's </span>
+        <span class="inline-block text-white text-lg xl:text-xl"> Consulting</span>
       </p>
     </div>
     
-    <ul class="flex flex-col space-y-3 pt-6 bg-secondaryColor text-center font-Akaya text-2xl">
-      <li class="glow gradient-line border-b-2 pb-1">
+  <ul class="flex flex-col gap-3 md:gap-2 pt-3 bg-secondaryColor text-center font-Akaya text-lg xl:text-xl">
+      <li class="glow gradient-line border-b-2">
         <a href="/#home">
-          <span class="text-center">Home</span>
+        Home
         </a>
       </li>
       
-      <li class="glow gradient-line border-b-2 pb-1">
+      <li class="glow gradient-line border-b-2">
         <a href="/#projects">
-          <span>Projects</span>
+         Projects
         </a>
       </li>
       
       
-      <li class="glow gradient-line border-b-2 pb-1">
+      <li class="glow gradient-line border-b-2">
         <a href="/about/">About</a>
       </li>
       
-      <li class="glow gradient-line border-b-2 pb-1">
+      <li class="glow gradient-line border-b-2">
         <a href="/#services">
-          <span>Services</span>
+          Services
         </a>
       </li>
       
