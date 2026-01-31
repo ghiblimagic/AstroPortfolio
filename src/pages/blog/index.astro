@@ -13,23 +13,23 @@ const sorted = posts
 
 <Layout title="Janet Spellman's Blog.">
 
-  <main class="min-h-screen h-full flex">
+  <main class="min-h-screen h-full flex pb-24">
     	<SpaceForDesktopSidebar />
         	<div >
  
                 <!-- ********************* HEADER ********************* -->
 
         <div class=" rounded-2xl mx-auto  " >
-    <h1 class=" text-6xl text-mainColor font-bold  text-center font-Ayaka py-3">Blog</h1>
+    <h1 class=" text-6xl text-mainColor font-bold  text-center font-Ayaka py-3 pt-10">Blog</h1>
         </div>
 
 <!-- ********************* BLOG LIST *********************** -->
 
     <div class=" pt-10 px-4 sm:px-12 text-center">
-    <ul class="space-y-6">
+    <ul class="space-y-8">
       {sorted.map(post => (
-        <li class=" p-4 bg-white rounded-2xl shadow-lg ">
-          <a href={`/blog/${post.slug}`} class="text-2xl font-semibold text-purple-950 hover:text-blue-800 group w-full">
+        <li class=" p-4 bg-white rounded-2xl shadow-lg fade-in">
+          <a href={`/blog/${post.slug}`} class="text-2xl font-semibold text-mainColor hover:text-blue-800 group w-full">
 
             {post.data.title}
        

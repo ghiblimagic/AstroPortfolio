@@ -15,16 +15,16 @@ const { list } = Astro.props;
   <ul class="list-disc list-inside w-full pl-6 md:pl-0">
     {list.map((item) => (
       <li class="mb-4">
-        <p class="text-lg inline-block mb-2">
+        <p class="inline-block mb-2">
         {item.description}
         </p>
         <div>
           <a href={item.href}>
             <span class="block">
-              Click <strong>here 👈 </strong>
+              Click <strong>here </strong>
             </span>
           </a>
-          {` Or copy: ${item.href}`}
+       
         </div>
       </li>
     ))}

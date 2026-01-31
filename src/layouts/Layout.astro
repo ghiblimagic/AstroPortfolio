@@ -6,6 +6,7 @@ const { title } = Astro.props;
 import SocialLinksNav from "../components/navigation/SocialLinksNav"
 import NavToggleButton from "@/components/buttons/NavToggleButton.astro"
 
+
 ---
 <!doctype html>
 <html lang="en">
@@ -33,12 +34,43 @@ import NavToggleButton from "@/components/buttons/NavToggleButton.astro"
             <SocialLinksNav />
         </header>
     
-        <slot />
+        <slot/>
         <footer
             id="footer" 
             class="absolute bottom-0 bg-[#1334a0] w-full border-t-2 gradient-line">
             <small class="pl-8 text-white">&copy; Janet Spellman. All rights reserved.</small>
         </footer>
+<script is:inline>
+(() => {
+  const prefersReducedMotion = window.matchMedia(
+    "(prefers-reduced-motion: reduce)"
+  ).matches;
+
+  if (prefersReducedMotion) {
+    // Just show everything immediately
+    document.querySelectorAll(".fade-in").forEach((el) => {
+      el.classList.add("visible");
+    });
+    return;
+  }
+
+  const fadeObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          fadeObserver.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  document.querySelectorAll(".fade-in").forEach((el) =>
+    fadeObserver.observe(el)
+  );
+})();
+</script>
     </body>
 </html>
 <style is:global>

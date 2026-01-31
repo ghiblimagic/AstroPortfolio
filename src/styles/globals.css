@@ -26,10 +26,18 @@
   font-display: swap; /* swap prevents invisible text while loading */
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .fade-in {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
 body {
   background-color: #e1f5ff;
   background-size: contain;
-  color: #220749;
+  color: #040221;
   font-weight: 500;
   font-family: "Open Sans", Tahoma, Geneva, Verdana, sans-serif;
   font-size: 1rem;
@@ -136,7 +144,7 @@ h6 {
 }
 
 input::placeholder {
-  color: #220749;
+  color: #040221;
   opacity: 0.6;
 }
 .project-titles {
@@ -354,4 +362,28 @@ article img {
   margin-left: auto;
   margin-right: auto;
   display: block;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 600ms ease,
+    transform 600ms ease;
+}
+
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* stagger children */
+.fade-in > * {
+  transition-delay: 0.1s;
+}
+.fade-in > *:nth-child(2) {
+  transition-delay: 0.2s;
+}
+.fade-in > *:nth-child(3) {
+  transition-delay: 0.3s;
 }
