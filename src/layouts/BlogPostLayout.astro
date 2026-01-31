@@ -27,7 +27,7 @@ const { title, date, description, headings } = Astro.props;
       <div class="min-h-screen h-full sm:px-12 max-w-4xl bg-white   text-black rounded-2xl pb-16 overflow-x-hidden">
         <article class="mx-4 overflow-x-hidden">
           <header class="mb-8">
-            <h1 class="text-4xl font-bold my-6 pt-6 text-center">{title}</h1>
+            <h1 class="text-4xl font-bold my-6 pt-6 text-center text-mainColor">{title}</h1>
             <span class="text-white text-base mx-auto bg-mainColor group-hover:bg-blue-800 w-fit py-1 px-4 rounded-2xl my-6 block">
               <time datetime={date}>
                 {new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
@@ -43,7 +43,7 @@ const { title, date, description, headings } = Astro.props;
             <TableOfContents headings={headings} />
           </aside>
           
-          <div class="prose prose-lg prose-headings:font-bold prose-headings:text-center max-w-none overflow-x-hidden">
+          <div class="prose prose-lg prose-headings:font-bold prose-headings:text-center max-w-none overflow-hidden">
             <!--- prose is a class from Tailwind Typography, it adds well-formatted typographic styles to markdown files -->
             <slot />
           </div>
@@ -63,16 +63,23 @@ const { title, date, description, headings } = Astro.props;
 </Layout>
 
 <script>
+     import { initFadeInObserver } from "@/utils/fadeInObserver"
+
   document.addEventListener('DOMContentLoaded', () => {
     const proseContent = document.querySelector('.prose');
     if (proseContent) {
-      // Target specific elements you want to fade in
-      const elements = proseContent.querySelectorAll('h2, h3, h4, p, ul, ol, blockquote, pre');
-      
+     // Get all direct children of prose (any element type)
+      const elements = proseContent.querySelectorAll(':scope > *');
       elements.forEach((el) => {
         el.classList.add('fade-in');
       });
+    
+   
     }
+ 
+
+
+ initFadeInObserver()
   });
 </script>
 
