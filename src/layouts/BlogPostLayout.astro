@@ -62,6 +62,20 @@ const { title, date, description, headings } = Astro.props;
   </main>
 </Layout>
 
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const proseContent = document.querySelector('.prose');
+    if (proseContent) {
+      // Target specific elements you want to fade in
+      const elements = proseContent.querySelectorAll('h2, h3, h4, p, ul, ol, blockquote, pre');
+      
+      elements.forEach((el) => {
+        el.classList.add('fade-in');
+      });
+    }
+  });
+</script>
+
 <style>
   /* Ensure no horizontal overflow anywhere */
   :global(body) {
