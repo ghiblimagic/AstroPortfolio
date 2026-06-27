@@ -5,6 +5,38 @@ import Project from "../Project.astro"; // You'll need to convert this too
 ---
 
 <div class="grid grid-cols-1 lg:grid-cols-2 2xl:grid-cols-3 gap-12">
+
+    <Project
+
+   
+    vidTitles="Video of Be BiteSmart"
+    projectTitle="Be BiteSmart"
+    projectLanguages="Wordpress, PHP, Playwright, Plausible Analytics, Github Actions"
+    projectDescription={`Be BiteSmart is a nonprofit whose goal is to provie free educational videos and resources to help children and families prevent dog bite injuries through safer interactions.
+
+Saved $100–150/yr in licensing costs by creating a custom Gutenberg block plugin (PHP, Node.js) over paid tools
+(ACF Pro, Elementor). This plugin contained 17 custom blocks, allowing the organization to easily add more content without breaking the current styling or logic.
+      
+Built and maintained a 110-test Playwright suite validating accessibility, security, SEO, broken links, and custom
+analytics, gating every pull request via GitHub Actions against an isolated staging environment before production
+deployment.
+
+Architected a secure CI/CD pipeline for a WordPress site on shared hosting: automated nightly database and
+media synchronization via WP-CLI, environment-scoped SSH deploy keys, and manual approval gates protecting
+production releases
+
+Built custom Plausible analytics events to track engagement across videos, articles, and downloads, enabling
+data-backed reporting for fundraising
+
+      .`}
+    linkToCode="https://github.com/ghiblimagic/be-bite-smart/"
+    linkToLiveSite="https://www.bebitesmart.org/"
+    loadingtype="lazy"
+    readmeLink="https://github.com/ghiblimagic/be-bite-smart/blob/main/README.md"
+  />
+
+
+
   <Project
     youtube="https://youtu.be/J_oG8zlepLU"
    
@@ -36,7 +68,7 @@ import Project from "../Project.astro"; // You'll need to convert this too
       
       Logged in users can save favorites, sort through their liked and submitted posts, flag contents and submit content.`}
     linkToCode="https://github.com/ghiblimagic/only-bangers"
-    linkToLiveSite="https://www.onlytechbangers.com"
+    linkToLiveSite="https://onlytechbangers.vercel.app/"
     loadingtype="lazy"
     readmeLink="https://github.com/ghiblimagic/only-bangers/blob/main/README.md"
   />
