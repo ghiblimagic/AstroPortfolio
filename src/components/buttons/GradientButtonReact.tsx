@@ -9,10 +9,10 @@ interface GradientButtonProps {
   styling?: string;
 }
 export default function GradientButton(props: GradientButtonProps) {
-  const primaryButton = "bg-secondaryColor text-white";
-  const secondaryButton = "border-2 text-blue-700 border-secondaryColor";
+  const primaryButton = "bg-mainColor text-white";
+  const secondaryButton = "border-2 text-blue-700 border-mainColor";
   const tertiaryButton =
-    "underline underline-offset-4 decoration-secondaryColor text-blue-700 hover:no-underline";
+    "underline underline-offset-4 decoration-mainColor text-blue-700 hover:no-underline";
   const styling = props.primary
     ? primaryButton
     : props.secondary

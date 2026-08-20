@@ -7,7 +7,6 @@ import HeroButtons from '@/components/landingpage/HeroButtons.astro'
 import LatestProjects from '@/components/landingpage/LatestProjects.astro'
 import DiamondBackgroundImages from "@/components/landingpage/DiamondBackgroundImages.astro"
 import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar.astro"
-import GradientDivider from "@/components/ui/gradientDivider.astro";
 import GradientButton from "@/components/buttons/GradientButton.astro"
 
 ---
@@ -23,14 +22,14 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 	-->
 
 	<SpaceForDesktopSidebar/>
-	<div class="max-w-7xl">
+	<div class="min-w-0 flex-1">
 
 	
-		<section class=" pt-5 px-4 sm:px-12 text-center" id="home">
+		<section class="pt-5 text-center w-full" id="home">
 		     
 
                    
-			<section class="flex flex-col xl:flex-row-reverse sm:my-10 xl:my-24 items-center gap-6 "> 
+			<section class="max-w-7xl mx-auto px-4 sm:px-12 flex flex-col xl:flex-row-reverse sm:my-10 xl:my-24 items-center gap-6"> 
 				 <!-- ***************  HERO **********************-->
 
 				 	<div>
@@ -61,10 +60,37 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 					</div>
 					</section>
 
-					     <GradientDivider/>
+					<!-- 				**********************	GITHUB   **********************-->
+			   <section class="my-16 py-12 bg-white">
+					<div class="max-w-7xl mx-auto px-4 sm:px-12">
+			
+ 
+      
+		   <section class="fade-in">
+			<h2 class="font-Ayaka text-4xl inline-flex items-center gap-2 justify-center w-full">
+  Github
+  <a href="https://github.com/ghiblimagic" aria-label="link to github">
+    <img class="size-7 md:size-8" src="images/github.svg" alt="" />
+  </a>
+</h2>
+   
+
+                 <div class="min-h-32 bg-mainColor py-6 rounded-2xl">
+					<img src="https://ghchart.rshah.org/3c5dca/ghiblimagic" alt="Github chart" 
+					 width="743"
+					 height="120"
+				  class="block mx-auto w-full max-w-[743px] h-auto py-2 px-4 sm:px-10 rounded-lg bg-white border-mainColor border-x shadow-md shadow-blue-400"
+>
+				 </div>
+				</section>
+					
+					</div>
+				</section>
+					   
 					<!-- **************** Website Builder Guide ************** -->
 			
-					<section class="my-16 ">
+					<section class="py-12">
+						<div class="max-w-7xl mx-auto px-4 sm:px-12">
 
 				    	<h2 class="font-Ayaka text-4xl tracking-widest fade-in"> Website Builder Finder</h2> 	
 
@@ -97,62 +123,40 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
   />
 				</div>
 
+						</div>
 			</section>
-        <GradientDivider/>
+        
 
-<!-- 				**********************	GITHUB   **********************-->
-			   <section class="my-16">
-			
- 
-      
-      	   <section class="my-16 fade-in">
-			<h2 class="font-Ayaka text-4xl inline-flex items-center gap-2 justify-center w-full">
-  Github
-  <a href="https://github.com/ghiblimagic" aria-label="link to github">
-    <img class="size-7 md:size-8" src="images/github.svg" alt="" />
-  </a>
-</h2>
-   
 
-                 <div class="min-h-32 bg-secondaryColor py-6 rounded-2xl">
-					<img src="https://ghchart.rshah.org/3c5dca/ghiblimagic" alt="Github chart" 
-					 width="743"
-					 height="120"
-				  class="block mx-auto w-full max-w-[743px] h-auto py-2 px-4 sm:px-10 rounded-lg bg-white border-secondaryColor border-x shadow-md shadow-blue-400"
->
-				 </div>
-				</section>
-					
-
-		</section>
 
    <!--  ******* Project Section ******** -->
 
-   <GradientDivider style="sm:ml-10"/>
 
-   <section class="px-4 sm:px-12 my-16" id="projects">
+
+	<section class="my-16 py-12 bg-white" id="projects">
+		<div class="max-w-7xl mx-auto px-4 sm:px-12">
 			<h2 class="font-Ayaka text-4xl text-center fade-in"> Latest Projects </h2>
 
 		
 				 <LatestProjects>
 
 
-		</section>
+		</div>
+	</section>
 <!-- 		SERVICES SECTION -->
 
-<GradientDivider style="sm:ml-10"/>
 
-		<section class="  px-4 sm:px-12 fade-in" id="services">
+		<section class="max-w-7xl mx-auto px-4 sm:px-12 fade-in" id="services">
 			<h3 class="   font-Ayaka text-4xl text-center"> Services</h2>
 
-		<div class="grid grid-cols-1 xl:grid-cols-2 gap-8 my-8">
+		<div class="grid grid-cols-1 xl:grid-cols-2 gap-x-12 gap-y-8 my-8">
 
 			<section class="flex flex-col sm:flex-row mb-4">
 
 <DiamondBackgroundImages imgSrc="service-palette"/>
 
 					
-				<div class="sm:ml-6 background-tile fade-in">
+				<div class="portfolio-card portfolio-card--padded sm:ml-6 flex-1 fade-in">
 					<h3 class="heading-styling ">Website Development </h3>
 					<p > Your project deserves a tailored approach. I’ll begin by creating a wireframe shaped around your preferences, then bring it to life as a responsive website that feels right at home on phones, tablets, and big screens.</p>
 				</div>
@@ -163,7 +167,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 	
 			<DiamondBackgroundImages imgSrc="responsive"/>
 			
-				<div class="sm:ml-6 background-tile ">
+				<div class="portfolio-card portfolio-card--padded sm:ml-6 flex-1">
 					<h3 class="heading-styling">Responsive Design</h3>
 					<p>Keeping clients means giving them a smooth experience on any device. With responsive design, your website automatically adjusts to desktops, tablets, and mobile phones so your audience can navigate and purchase without frustration..</p>
 				</div>
@@ -173,7 +177,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 				<DiamondBackgroundImages imgSrc="accessiblity"/>
 
-				<div class="sm:ml-6 background-tile ">
+				<div class="portfolio-card portfolio-card--padded sm:ml-6 flex-1">
 					<h3 class="heading-styling">Accessiblity </h3>
 					<p> An accessible website creates a smoother experience for everyone.I build websites that are easy to navigate and inclusive, so every potential client can interact with your content without barriers.</p>
 				</div>
@@ -185,7 +189,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 				
 						<DiamondBackgroundImages imgSrc="diamond"/>
-				<div class="sm:ml-6 background-tile">
+				<div class="portfolio-card portfolio-card--padded sm:ml-6 flex-1">
 					<h3 class="heading-styling border-b-0">Search Engine Optimization (SEO) </h3>
 					<p> Strong SEO makes it easier for clients to find you. I optimize your site so it shows up higher in search results and brings more traffic your way. </p>
 				</div>
@@ -200,16 +204,16 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 	   <!-- THE PROCESS SECTION -->
 
-	   <GradientDivider style="sm:ml-10"/>
 
-	   <section class="my-16  px-4 sm:px-12 " id="process">
+	   <section class="my-16 py-12 bg-white" id="process">
+			<div class="max-w-7xl mx-auto px-4 sm:px-12">
 	
 	
 		<h3 class="font-Ayaka text-4xl text-center fade-in"> The Process</h2>
         
 		<ol class="grid grid-cols-1 xl:grid-cols-2 gap-8 my-8">
 
-			<li class="background-tile fade-in">
+			<li class="portfolio-card portfolio-card--padded fade-in">
 				<h3 class="heading-styling"> Step 1 : Consultation</h3>
 
 				<p class="mb-2"> We will chat about your vision, needs, and expectations.</p>
@@ -231,19 +235,19 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 			</li>
 	
 		
-			<li class="content background-tile fade-in">
+			<li class="content portfolio-card portfolio-card--padded fade-in">
 				<h3 class="heading-styling ">Step 2 : Proposal</h3>
 				<p class="mb-4"> A personalized wire-frame layout will be created on figma so you can visually preview the site and suggest adjustments.</p>
 				<img src="images/wireFrame.png" alt="a wireframe of NourishedByKeto showing a color palette and a preview of the home page" height="600"  decoding="async"
   loading="lazy"/>
 			</li>
 	
-			<li class="content background-tile fade-in">
+			<li class="content portfolio-card portfolio-card--padded fade-in">
 				<h3 class="heading-styling ">Step 3 : Creation and Adjustments </h3>
 				<p> You will receive regular updates as the site is created, edited and tested. </p>
 			</li>
 	
-			<li class="content background-tile fade-in">
+			<li class="content portfolio-card portfolio-card--padded fade-in">
 				<h3 class="heading-styling"> Step 4 : Deployment</h3>
 				<p> Your site will be deployed on a webhost (a webhost takes the code I write and turns it into a site). Congratulations, your site is now live!</p>
 
@@ -251,96 +255,96 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 			</li>
 		
 		
-
+			</div>
    </section>
 
    <!-- LANGUAGES SECTION -->
 
-   <GradientDivider style="sm:ml-10"/>
 
-   <section class="my-16 px-4 sm:px-12" id="skills">
+
+	<section class="max-w-7xl mx-auto my-16 px-4 sm:px-12" id="skills">
 
 	<h2 class=" grid-none font-Ayaka text-4xl text-center fade-in"> Skills</h2>
  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 my-8 justify-items-center">
 	
 
-	<section class="background-tile w-full fade-in"> 
+	<section class="portfolio-card portfolio-card--padded w-full fade-in"> 
 
 		<h3 class="heading-styling "> Languages</h2>
 		<ul>
-				<li class="li-icons">TypeScript</li>
-			    <li class="li-icons">JavaScript</li>
-				<li class="li-icons">Python</li>
-				<li class="li-icons">GraphQL</li>
-				<li class="li-icons">EJS</li>
-			    <li class="li-icons">HTML</li>
-				<li class="li-icons">CSS</li>
+				<li >TypeScript</li>
+			    <li >JavaScript</li>
+				<li >Python</li>
+				<li >GraphQL</li>
+				<li >EJS</li>
+			    <li >HTML</li>
+				<li >CSS</li>
 			
 		
 		</ul>
 	</section>
 
-		<section class="background-tile w-full fade-in"> 
+		<section class="portfolio-card portfolio-card--padded w-full fade-in"> 
 		<h3 class="heading-styling"> Frameworks & Libraries </h2>
 		<ul>
-			<li class="li-icons">Next JS 12-15</li>
-			<li class="li-icons">React</li>
-			<li class="li-icons">Astro</li>
-			<li class="li-icons">Gatsby</li>
+			<li >Next JS 12-15</li>
+			<li >React</li>
+			<li >Astro</li>
+			<li >Gatsby</li>
 		
 		</ul>
 	</section>
 
-	<section class="background-tile w-full fade-in"> 
+	<section class="portfolio-card portfolio-card--padded w-full fade-in"> 
 		<h3 class="heading-styling"> Back-End And Platforms</h2>
 		<ul>
-				<li class="li-icons">Node.js</li>
-				<li class="li-icons">Express</li>
-				<li class="li-icons">MongoDB </li>			
-				<li class="li-icons">Appwrite</li>
-				<li class="li-icons">Supabase</li>
-				<li class="li-icons">Digital Ocean</li>
+				<li >Node.js</li>
+				<li >Express</li>
+				<li >MongoDB </li>			
+				<li >Appwrite</li>
+				<li >Supabase</li>
+				<li >Digital Ocean</li>
 			
 		</ul>
 	</section>
 
 
-	<section class="background-tile w-full fade-in"> 
+	<section class="portfolio-card portfolio-card--padded w-full fade-in"> 
 		<h3 class="heading-styling"> Tools/Other </h2>
 		<ul>
-				<li class="li-icons">TailwindCSS</li>
-				<li class="li-icons">Git</li>
-				<li class="li-icons">GitHub</li>
-				<li class="li-icons">Figma</li>
+				<li >TailwindCSS</li>
+				<li >Git</li>
+				<li >GitHub</li>
+				<li >Figma</li>
 			
-				<li class="li-icons">Prettier</li>
-				<li class="li-icons">Disquis</li>
-				<li class="li-icons">Shadcn/ui</li>
-				<li class="li-icons">Headless UI</li>
-				<li class="li-icons">Daisy UI</li>
-				<li class="li-icons">GIMP</li>
+				<li >Prettier</li>
+				<li >Disquis</li>
+				<li >Shadcn/ui</li>
+				<li >Headless UI</li>
+				<li >Daisy UI</li>
+				<li >GIMP</li>
 			
 				
 		</ul>
 	</section>
 
-	<section class="background-tile w-full fade-in"> 
+	<section class="portfolio-card portfolio-card--padded w-full fade-in"> 
 		<h3 class="heading-styling text-wrap"> CMS </h2>
 		<ul>
-			<li class="li-icons">WordPress</li>
-			<li class="li-icons">Shopify</li>
-			<li class="li-icons text-wrap">Decap cms</li>		
+			<li >WordPress</li>
+			<li >Shopify</li>
+			<li class="text-wrap">Decap cms</li>		
 			
 		</ul>
 	</section>
 
-		<section class="background-tile w-full fade-in"> 
+		<section class="portfolio-card portfolio-card--padded w-full fade-in"> 
 		<h3 class="heading-styling"> AI </h2>
 		<ul>
-			<li class="li-icons">Open AI API</li>
-			<li class="li-icons">ChatGPT</li>		
-			<li class="li-icons">Claude</li>	
-			<li class="li-icons">Copilot</li>		
+			<li >Open AI API</li>
+			<li >ChatGPT</li>		
+			<li >Claude</li>	
+			<li >Copilot</li>		
 			
 		</ul>
 	</section>
@@ -351,7 +355,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 </div>
 </section>
 
-<GradientDivider style="sm:ml-10"/>
+
 
 <!--  so recaptcha will shrink on small screen -->
 <style>
@@ -405,10 +409,11 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 
 
-<section class="my-16 pb-6  w-full  max-w-4xl mx-auto" id="contact">
+<section class="my-16 py-12 w-full bg-white" id="contact">
+	<div class="max-w-4xl mx-auto px-4 sm:px-12">
 
 	<h2 class="heading font-Ayaka text-4xl text-center fade-in">  Get in Touch</h2>
-	<div class="bg-secondaryColor   sm:px-8 py-8 rounded-2xl max-w-2xl mx-auto fade-in"> 
+	<div class="bg-mainColor   sm:px-8 py-8 rounded-2xl max-w-2xl mx-auto fade-in"> 
 
 	<div class="flex flex-col items-center bg-white rounded-2xl shadow-lg shadow-blue-950  sm:w-[95%] mx-auto max-w-xl fade-in">
 
@@ -521,6 +526,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 </div>
 </div>
 
+</div>
 </section>
 
 <div>

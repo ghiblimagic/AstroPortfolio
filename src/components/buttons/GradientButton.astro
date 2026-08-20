@@ -11,9 +11,9 @@ interface Props {
 
 const { aria, link, target = "", rel = "", text, primary, secondary } = Astro.props;
 
-const primaryButton = "bg-secondaryColor text-white";
-const secondaryButton = "border-2 text-blue-700 border-secondaryColor";
-const tertiaryButton = "underline underline-offset-4 decoration-secondaryColor text-blue-700 hover:no-underline";
+const primaryButton = "bg-mainColor text-white";
+const secondaryButton = "border-2 text-blue-700 border-mainColor";
+const tertiaryButton = "underline underline-offset-4 decoration-mainColor text-blue-700 hover:no-underline";
 
 const styling = primary 
   ? primaryButton 

@@ -50,7 +50,7 @@ function SocialLinksNav() {
   // https://stackoverflow.com/questions/69911071/mapping-and-displaying-fontawesome-icons had to change icon name to a non string value
   return (
     <NavigationMenu
-      className="md:pr-10 py-2 bg-mainColor"
+      className="md:pr-10 py-2 bg-white"
       id="social"
     >
       {/* //23:53:04 [WARN] [vite] Files in the public directory are served at the root path.
@@ -58,7 +58,7 @@ function SocialLinksNav() {
       <img
         src="/images/transparent-logo-bright-small.webp"
         alt="logo for spellman's consulting its a blue code symbol </> with a wand in place of the slash"
-        className=" bg-mainColor box-content absolute left-[10px] md:none "
+        className="  box-content absolute left-[10px] md:none "
         height="40"
         width="40"
         loading="eager"
@@ -74,7 +74,7 @@ function SocialLinksNav() {
         <NavigationMenuItem key={`Skip Link For Social Links Nav`}>
           <NavigationMenuLink
             href="#home"
-            className="skip-link right-5 top-5 p-3 bg-mainColor text-white"
+            className="skip-link right-5 top-5 p-3 bg-mainColor text-white rounded-2xl"
           >
             Skip to content
           </NavigationMenuLink>

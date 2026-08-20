@@ -1,5 +1,4 @@
 ---
-import GradientButton from "@/components/buttons/GradientButton.astro"
 import { YouTube } from "@astro-community/astro-embed-youtube";
 
 interface Props {
@@ -37,99 +36,164 @@ const {
 } = Astro.props;
 ---
 
-<article class="fade-in">
-  {youtube ?  (
-  <YouTube id={youtube} poster={youtubePoster}/>
-  )
-   :(webmsrc || mp4src) && (
-    <video
-      controls
-      autoplay
-      muted
-      loop
-    >
-      {webmsrc && (
-        <source
-          src={webmsrc}
+<article class="portfolio-card project-card fade-in">
+  {(youtube || webmsrc || mp4src || imgsrc) && (
+    <div class="project-thumbnail">
+      {youtube ? (
+        <YouTube id={youtube} poster={youtubePoster}/>
+      ) : (webmsrc || mp4src) ? (
+        <video controls autoplay muted loop>
+          {webmsrc && <source src={webmsrc} title={vidTitles} type="video/webm" />}
+          {mp4src && <source src={mp4src} title={vidTitles} type="video/mp4" />}
+          Sorry, your browser doesn't support embedded videos.
+        </video>
+      ) : (
+        <img
+          src={imgsrc}
           title={vidTitles}
-          type="video/webm"
+          loading={loadingtype}
+          alt={vidTitles || projectTitle}
         />
       )}
-      {mp4src && (
-        <source
-          src={mp4src}
-          title={vidTitles}
-          type="video/mp4"
-        />
-      )}
-      Sorry, your browser doesn't support embedded videos.
-    </video>
+    </div>
   )}
 
-  
-  {imgsrc && (
-    <img
-      src={imgsrc}
-      title={vidTitles}
-      class="h-48 md:h-64"
-      loading={loadingtype}
-      alt={vidTitles || projectTitle}
-    />
-  )}
-  
-  <div class="background-tile">
-    <h3 class="project-titles my-4">{projectTitle}</h3>
-    <span class="project-coding-languages">{projectLanguages}</span>
-    <p class="mt-5 project-description">{projectDescription}</p>
+  <div class="project-card-content">
+    <h3 class="project-titles">{projectTitle}</h3>
+    <ul class="project-tech-tags" aria-label="Technologies used">
+      {projectLanguages.split(",").map((language) => language.trim()).filter(Boolean).map((language) => (
+        <li>{language}</li>
+      ))}
+    </ul>
+    <p class="project-description">{projectDescription}</p>
     
-    <ul class="gap-4 my-10 flex justify-evenly">
+    <ul class="project-actions">
       {linkToCode && (
         <li>
-          <GradientButton
-            text="Code"
-            aria="link to codebase"
-            link={linkToCode}
-            target="_blank"
-            rel="noopener noreferrer"
-            secondary
-          />
+          <a class="project-action project-action-code" href={linkToCode} aria-label="Link to codebase" target="_blank" rel="noopener noreferrer">Code</a>
         </li>
       )}
       
       {linkToLiveSite && (
         <li>
-          <GradientButton
-            text="View"
-            aria="View"
-            link={linkToLiveSite}
-            target="_blank"
-            rel="noopener noreferrer"
-            primary
-          />
+          <a class="project-action project-action-view" href={linkToLiveSite} aria-label={`View ${projectTitle}`} target="_blank" rel="noopener noreferrer">View</a>
         </li>
       )}
       
       {readmeLink && (
         <li>
-          <GradientButton
-            text="ReadMe"
-            aria="readMe"
-            link={readmeLink}
-            target="_blank"
-            rel="noopener noreferrer"
-          />
+          <a class="project-action project-action-readme" href={readmeLink} aria-label={`Read ${projectTitle} README`} target="_blank" rel="noopener noreferrer">ReadMe</a>
         </li>
       )}
 
       {decisionLogLink && (
         <li>
-          <GradientButton
-            text="Decision Log"
-            aria="link to a technical writeup of coding decisions for this project"
-            link={decisionLogLink}
-          />
+          <a class="project-action project-action-readme" href={decisionLogLink} aria-label={`Read ${projectTitle} decision log`}>Decision Log</a>
         </li>
       )}
     </ul>
   </div>
 </article>
+
+<style>
+  .project-card {
+    overflow: hidden;
+  }
+
+  .project-thumbnail {
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+  }
+
+  .project-thumbnail :global(video),
+  .project-thumbnail :global(img),
+  .project-thumbnail :global(iframe) {
+    display: block;
+    width: 100%;
+    height: 190px;
+    object-fit: cover;
+    border: 0;
+  }
+
+  .project-card-content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    padding: 28px 26px 24px;
+  }
+
+  .project-titles {
+    margin: 0 0 14px;
+    color: oklch(0.22 0.02 260);
+    font-family: "Fraunces", Georgia, serif;
+    font-size: 22px;
+    font-weight: 600;
+    line-height: 1.25;
+  }
+
+  .project-tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin: 0 0 18px;
+    padding: 0;
+    list-style: none;
+    font-family: "Inter", sans-serif;
+    font-size: 11.5px;
+    font-weight: 600;
+  }
+
+  .project-tech-tags li {
+    padding: 5px 10px;
+    color: oklch(0.5 0.14 255);
+    background: oklch(0.94 0.03 255);
+    border-radius: 999px;
+  }
+
+  .project-description {
+    flex: 1;
+    margin: 0;
+    color: oklch(0.4 0.015 260);
+    font-family: "Inter", sans-serif;
+    font-size: 14.5px;
+    line-height: 1.6;
+    white-space: pre-line;
+  }
+
+  .project-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 24px 0 0;
+    padding: 20px 0 0;
+    list-style: none;
+    border-top: 1px solid oklch(0.93 0.006 260);
+    font-family: "Inter", sans-serif;
+  }
+
+  .project-action {
+    display: inline-block;
+    border-radius: 9px;
+    padding: 9px 18px;
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .project-action-code {
+    color: oklch(0.3 0.02 260);
+    border: 1.5px solid oklch(0.85 0.01 260);
+  }
+
+  .project-action-view {
+    color: white;
+    background: oklch(0.3 0.09 258);
+  }
+
+  .project-action-readme {
+    margin-left: auto;
+    color: oklch(0.5 0.14 255);
+  }
+
+</style>
