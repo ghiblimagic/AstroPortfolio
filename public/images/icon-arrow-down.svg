@@ -1,11 +1,11 @@
 <svg width="20" height="12" xmlns="http://www.w3.org/2000/svg">
 
   <linearGradient id="gradientLine">
-        <stop offset="0" stop-color="#FF99E6"/>
-        <stop offset="0.25" stop-color="#F59CFB"/>
-          <stop offset="0.50" stop-color="#C17EFB"/>
-        <stop offset="0.75" stop-color="#B5A6F9"/>
-        <stop offset="1" stop-color="#869EF4"/>
+        <stop offset="0" stop-color="#1334a0"/>
+        <stop offset="0.25" stop-color="#1b2f70"/>
+          <stop offset="0.50" stop-color="#6b8edb"/>
+        <stop offset="0.75" stop-color="#3459a5"/>
+        <stop offset="1" stop-color="#0d1738"/>
       </linearGradient>
     
 <path stroke="#686868"  fill="url(#gradientLine)" d="m1 1 4 4 4-4"/></svg>

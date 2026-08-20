@@ -44,7 +44,7 @@ export default function CommentItem({
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-lg shadow-violet-950 p-3 mb-2">
+    <div className="portfolio-card portfolio-card--padded mb-4">
       <div className="flex justify-between items-center">
         <strong>{comment.author || "Anonymous"}</strong>
         <span className="text-gray-900 text-sm">
@@ -63,13 +63,13 @@ export default function CommentItem({
           <div className="flex gap-2">
             <button
               onClick={handleEdit}
-              className="bg-green-600 p-1 rounded text-white"
+              className="portfolio-button portfolio-button--view"
             >
               Save
             </button>
             <button
               onClick={() => setIsEditing(false)}
-              className="bg-gray-500 p-1 rounded text-white"
+              className="portfolio-button portfolio-button--code"
             >
               Cancel
             </button>

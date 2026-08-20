@@ -55,10 +55,8 @@ export default function CommentsSection({
         appendTo: "body",
       }}
     >
-      <div className="mt-12 py-8 border-t gradient-line mx-4 px-4 bg-[#3C5DCA] w-full rounded-2xl">
-        <h2 className="text-2xl font-bold text-white mb-6 text-center">
-          Comments
-        </h2>
+      <div className="portfolio-card portfolio-card--padded mt-12 mx-4 w-full">
+        <h2 className="text-2xl font-bold mb-6 text-center">Comments</h2>
 
         <CommentForm
           slug={slug}
@@ -66,7 +64,7 @@ export default function CommentsSection({
         />
 
         {message && (
-          <p className="bg-white my-6 rounded-2xl pl-4 py-2 border-4 border-yellow-400">
+          <p className="bg-white my-6 rounded-lg pl-4 py-2 border border-yellow-400">
             {" "}
             {message}{" "}
           </p>

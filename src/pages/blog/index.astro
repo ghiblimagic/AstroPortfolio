@@ -28,7 +28,7 @@ const sorted = posts
     <div class=" pt-10 px-4 sm:px-12 text-center">
     <ul class="space-y-8">
       {sorted.map(post => (
-        <li class=" p-4 bg-white rounded-2xl shadow-lg fade-in">
+        <li class=" px-4 py-10 bg-white rounded-2xl shadow-lg fade-in">
           <a href={`/blog/${post.slug}`} class=" text-xl xl:text-2xl font-semibold text-mainColor hover:text-blue-800 group w-full">
 
             {post.data.title}

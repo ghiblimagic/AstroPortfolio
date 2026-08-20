@@ -11,9 +11,9 @@ interface Props {
 
 const { aria, link, target = "", rel = "", text, primary, secondary } = Astro.props;
 
-const primaryButton = "bg-mainColor text-white";
-const secondaryButton = "border-2 text-blue-700 border-mainColor";
-const tertiaryButton = "underline underline-offset-4 decoration-mainColor text-blue-700 hover:no-underline";
+const primaryButton = "portfolio-button--view";
+const secondaryButton = "portfolio-button--code";
+const tertiaryButton = "portfolio-button--link";
 
 const styling = primary 
   ? primaryButton 
@@ -23,7 +23,7 @@ const styling = primary
 ---
 
 <a
-  class={`inline-block px-4 py-2 m-1 rounded-2xl ${styling} my-auto  animated-gradient hover:font-bold text-center not-prose`}
+  class={`portfolio-button ${styling} my-auto text-center not-prose`}
   aria-label={aria}
   href={link}
   target={target}

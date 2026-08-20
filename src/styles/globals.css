@@ -4,6 +4,14 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --navy-deep: #0d1738;
+  --navy-start: #1334a0;
+  --navy: #1b2f70;
+  --navy-mid: #3459a5;
+  --navy-light: #6b8edb;
+}
+
 @font-face {
   font-family: "AkayaKanadaka Script";
   src: url("/fonts/AkayaKanadaka-Regular.woff2") format("woff2");
@@ -66,7 +74,9 @@ a:focus,
 input:focus,
 textarea:focus,
 button:focus {
-  outline: 4px solid rgb(164, 170, 250);
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 6px var(--navy-deep);
 }
 
 /* reduces layout shift of videos */
@@ -93,9 +103,9 @@ video {
   border-radius: 10px;
   background-image: linear-gradient(
     to bottom,
-    rgb(99, 107, 219),
-    rgb(63, 103, 224),
-    rgb(146, 153, 250)
+    var(--navy),
+    var(--navy-mid),
+    var(--navy)
   );
 
   /* COLORING for form square when its clicked */
@@ -173,9 +183,9 @@ input::placeholder {
 .gradient {
   background-image: linear-gradient(
     to right,
-    #fbc2eb 0%,
-    #a6c1ee 51%,
-    #fbc2eb 100%
+    var(--navy-start) 0%,
+    var(--navy-light) 51%,
+    var(--navy) 100%
   );
 }
 
@@ -213,15 +223,96 @@ input::placeholder {
   padding: 28px 26px 24px;
 }
 
+.portfolio-button {
+  display: inline-block;
+  border-radius: 9px;
+  padding: 9px 18px;
+  font-family: "Inter", sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-decoration: none;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.portfolio-button--code {
+  color: oklch(0.3 0.02 260);
+  border: 1.5px solid oklch(0.85 0.01 260);
+  background: #ffffff;
+}
+
+.portfolio-button--code:hover {
+  border-color: oklch(0.3 0.09 258);
+  color: oklch(0.3 0.09 258);
+}
+
+.portfolio-button--view {
+  color: #ffffff;
+  background: oklch(0.3 0.09 258);
+}
+
+.portfolio-button--view:hover {
+  background: var(--navy-mid);
+}
+
+.portfolio-button--view:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.portfolio-button--link {
+  padding-right: 0;
+  padding-left: 0;
+  color: oklch(0.5 0.14 255);
+}
+
+.portfolio-button--link:hover {
+  color: var(--navy-mid);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+#services .icon img {
+  filter: brightness(0) invert(1);
+}
+
+#nav-toggle {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  line-height: 0;
+  border-radius: 0.5rem;
+  transition:
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+#nav-toggle:hover {
+  background-color: #dbeafe;
+  transform: scale(1.05);
+}
+
+#nav-icon {
+  display: block;
+  width: 32px;
+  height: 30px;
+  object-fit: contain;
+}
+
+.nav-link-active {
+  background: rgb(255 255 255 / 0.18);
+}
+
 .project-description {
   white-space: pre-line;
 }
 .wave {
   animation-name: wave-animation; /* Refers to the name of your @keyframes element below */
-  animation-duration: 2.5s; /* Change to speed up or slow down */
-  animation-iteration-count: infinite; /* Never stop waving :) */
-  transform-origin: 70% 70%; /* Pivot around the bottom-left palm */
-  display: inline-block;
 }
 
 @keyframes wave-animation {
@@ -255,11 +346,11 @@ input::placeholder {
   /* gradient bottom border color effect */
   border-image: linear-gradient(
     0.25turn,
-    rgb(104, 172, 250),
-    rgb(159, 148, 255),
-    rgb(134, 126, 251),
-    rgba(181, 166, 249),
-    rgba(134, 158, 244)
+    var(--navy-start),
+    var(--navy-mid),
+    var(--navy),
+    var(--navy-mid),
+    var(--navy-deep)
   ); /* COLORING */
   border-image-slice: 1;
 
@@ -270,11 +361,11 @@ input::placeholder {
   /* gradient bottom border color effect */
   border-image: linear-gradient(
     0.25turn,
-    rgb(81, 126, 248),
-    rgb(159, 148, 255),
-    rgb(134, 126, 251),
-    rgba(181, 166, 249),
-    rgba(134, 158, 244)
+    var(--navy-start),
+    var(--navy-mid),
+    var(--navy),
+    var(--navy-mid),
+    var(--navy-deep)
   ); /* COLORING */
 }
 

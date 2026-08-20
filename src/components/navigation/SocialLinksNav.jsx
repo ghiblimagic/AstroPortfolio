@@ -50,7 +50,7 @@ function SocialLinksNav() {
   // https://stackoverflow.com/questions/69911071/mapping-and-displaying-fontawesome-icons had to change icon name to a non string value
   return (
     <NavigationMenu
-      className="md:pr-10 py-2 bg-white"
+      className="md:pr-10 py-2 "
       id="social"
     >
       {/* //23:53:04 [WARN] [vite] Files in the public directory are served at the root path.

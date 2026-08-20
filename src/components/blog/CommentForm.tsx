@@ -135,7 +135,7 @@ export default function CommentForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-2 p-4 rounded-2xl bg-white  shadow-lg shadow-violet-950"
+      className="flex flex-col gap-2 p-4"
     >
       <label htmlFor="name-comment-submission">Name (optional)</label>
       <input
@@ -171,7 +171,7 @@ export default function CommentForm({
           <button
             type="button"
             onClick={() => setShowV2(true)}
-            className="text-blue-500 underline text-sm"
+            className="portfolio-button portfolio-button--link text-sm"
           >
             Use backup verification instead
           </button>
@@ -203,7 +203,7 @@ export default function CommentForm({
       <button
         type="submit"
         disabled={isSubmitting || recaptchaLoading}
-        className={`block px-4 py-2 m-1 rounded-2xl text-white no-underline w-fit bg-blue-600 mx-auto hover:bg-mainColor hover:text-white text-lg ${isSubmitting && "bg-slate-700"}`}
+        className={`portfolio-button portfolio-button--view mx-auto ${isSubmitting ? "opacity-60" : ""}`}
       >
         {isSubmitting ? "Posting..." : "Post Comment"}
       </button>

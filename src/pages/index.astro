@@ -25,16 +25,24 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 	<div class="min-w-0 flex-1">
 
 	
-		<section class="pt-5 text-center w-full" id="home">
+		<section class="text-center w-full" id="home">
 		     
 
                    
 			<section class="max-w-7xl mx-auto px-4 sm:px-12 flex flex-col xl:flex-row-reverse sm:my-10 xl:my-24 items-center gap-6"> 
 				 <!-- ***************  HERO **********************-->
 
-				 	<div>
+				 	<div class="w-full max-w-[280px] sm:max-w-[400px] xl:max-w-[400px] mx-auto aspect-square">
 				<!------ **************** HERO IMAGE ************ -->
-			   <img class="max-w-[400px] xl:max-w-[600px] my-6 sm:my-0 mx-auto w-full rounded-full"src="/images/me.jpg"/>
+			   <img
+					src="/images/me.jpg"
+					width="1000"
+					height="999"
+					class="w-full h-full object-cover rounded-full"
+					alt="Janet Spellman"
+					loading="eager"
+					fetchpriority="high"
+				/>
 			</div>
 
 				<div class="max-w-md">
@@ -92,7 +100,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 					<section class="py-12">
 						<div class="max-w-7xl mx-auto px-4 sm:px-12">
 
-				    	<h2 class="font-Ayaka text-4xl tracking-widest fade-in"> Website Builder Finder</h2> 	
+				    	<h2 class="font-Ayaka text-4xl tracking-widest fade-in"> Website Builder Finder</h2>
 
 						<img 
 						
@@ -103,24 +111,29 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 						/images/website-builder-mobile.png 300w, 
 						/images/website-builder-mobile-retina.png 600w"     alt="Website builder screenshot" sizes="(max-width: 640px) 300px, 800px" class="w-full max-w-[800px] mx-auto fade-in" loading="lazy">
 
-				<p class="mt-10 mb-4 fade-in"> I built an interactive guide to help with one of the most painful parts of building a website yourself: choosing a website builder. It lets you filter through 15 popular options to find the right fit.
+				<div class="max-w-5xl mx-auto mt-10">
+
+				<p class="my-2 fade-in"> <strong>I built an interactive guide </strong> to help with one of the most painful parts of building a website yourself: choosing a website builder. It lets you filter through 15 popular options to find the right fit.
 
 				</p>
 
-					<p class="mt-10 mb-4 fade-in"> However, most business owners find it makes more business sense to pay a developer to build their website, freeing them up to spend that time running their business instead. Getting a site that's accessible, fast-loading, visible in Google search results, and reliably functional across devices takes skills that take time to develop, and getting any one of these wrong can cost you customers.
+					<p class="mt-2 mb-2 fade-in"> However, most business owners find it makes more business sense to pay a developer to build their website, freeing them up to spend that time running their business instead. Getting a site that's accessible, fast-loading, visible in Google search results, and reliably functional across devices takes skills that take time to develop, and getting any one of these wrong can cost you customers.
 
 				</p>
 
-				<p class="mt-10 mb-4 fade-in"> 
+				<p class="mt-2 mb-6 fade-in">
 					If you just need something temporary up fast, or something genuinely simple, building it yourself with a website builder is a reasonable option. Just know you'll need to put in real research time if you want the site to reach its full potential.
 
 						</p>
 			
 				<div class="fade-in">
   <GradientButton
-    text="Guide"
+    text="View Guide"
+	  secondary
     link="https://guide.janetspellman.com/"
   />
+				</div>
+
 				</div>
 
 						</div>
@@ -409,13 +422,13 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 
 
-<section class="my-16 py-12 w-full bg-white" id="contact">
+<section class="mt-16 p-12 pb-32 w-full bg-white" id="contact">
 	<div class="max-w-4xl mx-auto px-4 sm:px-12">
 
 	<h2 class="heading font-Ayaka text-4xl text-center fade-in">  Get in Touch</h2>
-	<div class="bg-mainColor   sm:px-8 py-8 rounded-2xl max-w-2xl mx-auto fade-in"> 
+	<div class="portfolio-card portfolio-card--padded max-w-2xl mx-auto fade-in">
 
-	<div class="flex flex-col items-center bg-white rounded-2xl shadow-lg shadow-blue-950  sm:w-[95%] mx-auto max-w-xl fade-in">
+	<div class="flex flex-col items-center sm:w-[95%] mx-auto max-w-xl fade-in">
 
 	<p class="my-6 fade-in">All fields marked with  <span class="text-red-800">*</span> are required</p>
 	
@@ -461,7 +474,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 				<button
 				type="submit" 
 				title="click after filling out all required fields to submit contact request"			
-				class="px-4 py-2 rounded-lg bg-[#3C5DCA] text-white   animated-gradient hover:font-bold"
+				class="portfolio-button portfolio-button--view"
 				>
 				Send
 		</button>

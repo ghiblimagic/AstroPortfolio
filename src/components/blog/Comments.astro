@@ -100,7 +100,7 @@ const { data: initialComments } = await supabase
         ></textarea>
 
         <button id="submit-comment"
-          class="mt-2 px-3 py-2 bg-blue-700 rounded text-white hover:bg-blue-600">
+          class="portfolio-button portfolio-button--view mt-2">
           Post Comment
         </button>
       </div>
@@ -120,8 +120,8 @@ const { data: initialComments } = await supabase
                 ${
                   isOwner
                     ? `
-                  <button class="mt-1 text-yellow-400 edit" data-id="${c.id}">Edit</button>
-                  <button class="mt-1 text-red-400 delete" data-id="${c.id}">Delete</button>
+                  <button class="portfolio-button portfolio-button--view edit" data-id="${c.id}">Edit</button>
+                  <button class="portfolio-button portfolio-button--code delete" data-id="${c.id}">Delete</button>
                 `
                     : ""
                 }

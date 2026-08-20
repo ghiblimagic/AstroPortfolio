@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><!--! Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2023 Fonticons, Inc. -->
 
   <linearGradient id="gradientLine">
-        <stop offset="0" stop-color="#FF99E6"/>
-        <stop offset="0.25" stop-color="#F59CFB"/>
-          <stop offset="0.50" stop-color="#C17EFB"/>
-        <stop offset="0.75" stop-color="#B5A6F9"/>
-        <stop offset="1" stop-color="#869EF4"/>
+        <stop offset="0" stop-color="#1334a0"/>
+        <stop offset="0.25" stop-color="#1b2f70"/>
+          <stop offset="0.50" stop-color="#6b8edb"/>
+        <stop offset="0.75" stop-color="#3459a5"/>
+        <stop offset="1" stop-color="#0d1738"/>
       </linearGradient>
 
 

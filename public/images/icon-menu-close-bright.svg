@@ -6,11 +6,13 @@
               
                 <path
                   d="M.98 23.607 23.609.979l1.414 1.414L2.395 25.021z"
-                 fill="white"
+                  transform="translate(3.5 2.5)"
+                 fill="#1334a0"
                 />
                 <path
                   d="m2.393.98 22.628 22.628-1.414 1.414L.979 2.395z"
-                  fill="white"
+                  transform="translate(3.5 2.5)"
+                  fill="#1334a0"
 
                 />
               </svg>

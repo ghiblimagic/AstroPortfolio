@@ -13,13 +13,13 @@ export default function CommentList({
   currentUserId,
 }: CommentListProps) {
   if (loading) {
-    return <p className="text-white text-center mt-8">Loading comments...</p>;
+    return <p className="text-center mt-8">Loading comments...</p>;
   }
 
   return (
     <div className="flex flex-col gap-4 mt-11">
       {comments.length === 0 && (
-        <p className="text-white text-center">No comments yet. Be the first!</p>
+        <p className="text-center">No comments yet. Be the first!</p>
       )}
       {comments.length > 0 &&
         comments.map((comment) => (

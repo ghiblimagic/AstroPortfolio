@@ -12,23 +12,23 @@
                   >
                     <stop
                       offset="0"
-                      stop-color="#FF99E6"
+                      stop-color="#1334a0"
                     />
                     <stop
                       offset="0.25"
-                      stop-color="#F59CFB"
+                      stop-color="#1b2f70"
                     />
                     <stop
                       offset="0.50"
-                      stop-color="#C17EFB"
+                      stop-color="#6b8edb"
                     />
                     <stop
                       offset="0.75"
-                      stop-color="#B5A6F9"
+                      stop-color="#3459a5"
                     />
                     <stop
                       offset="1"
-                      stop-color="#869EF4"
+                      stop-color="#0d1738"
                     />
                   </linearGradient>
              
@@ -36,10 +36,12 @@
 
                 <path
                   d="M.98 23.607 23.609.979l1.414 1.414L2.395 25.021z"
+                  transform="translate(3.5 2.5)"
                   fill="url(#gradientLine)"
                 />
                 <path
                   d="m2.393.98 22.628 22.628-1.414 1.414L.979 2.395z"
+                  transform="translate(3.5 2.5)"
                   fill="url(#gradientLine)"
 
                 />

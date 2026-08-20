@@ -1,4 +1,9 @@
 
+    ---
+    const currentPath = Astro.url.pathname;
+    const isActive = (path: string) => currentPath === path || (path === '/blog' && currentPath.startsWith('/blog/'));
+    ---
+
       {/*  ********************    MAIN NAV, DOTTED BACKGROUND*****************  */}
       <div
         id="sidebar"
@@ -7,48 +12,48 @@
       >
         <ul class="flex flex-col bg-mainColor text-center text-white font-Ayaka text-lg [&>li]:py-3">
           {/* ************************** FIRST ITEM ***********************  */}
-          <li class="glow border-b-2">
-            <a href="/">
+          <li class="glow ">
+            <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/') }]} href="/">
               <span class="text-center">Home </span>
             </a>
           </li>
 
-          <li class="glow border-b-2">
+          <li class="glow ">
             <a href="/#projects">
               {" "}
               <span class="text-center">Projects </span>
             </a>
           </li>
 
-          <li class="glow border-b-2">
-            <a href="/about/">About</a>
+          <li class="glow ">
+            <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/about/') }]} href="/about/">About</a>
           </li>
 
-          <li class="glow border-b-2">
+          <li class="glow ">
             <a href="/#services">
               <span>Services</span>
             </a>
           </li>
 
-          <li class="glow border-b-2 ">
+          <li class="glow  ">
             <a href="/#process">The Process</a>
           </li>
 
-          <li class="glow border-b-2 ">
+          <li class="glow  ">
             <a href="/#skills">Skills</a>
           </li>
 
-          <li class="glow border-b-2 ">
+          <li class="glow  ">
             <a href="/#contact">Contact</a>
           </li>
 
    
-          <li class="glow border-b-2 ">
-            <a href="/blog">Blog</a>
+          <li class="glow  ">
+            <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/blog') }]} href="/blog">Blog</a>
           </li>
 
-          <li class="glow border-b-2 ">
-            <a href="/torc">Torc</a>
+          <li class="glow  ">
+            <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/torc') }]} href="/torc">Torc</a>
           </li>
         </ul>
 

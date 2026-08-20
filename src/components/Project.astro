@@ -70,28 +70,29 @@ const {
     <ul class="project-actions">
       {linkToCode && (
         <li>
-          <a class="project-action project-action-code" href={linkToCode} aria-label="Link to codebase" target="_blank" rel="noopener noreferrer">Code</a>
+          <a class="portfolio-button portfolio-button--code" href={linkToCode} aria-label="Link to codebase" target="_blank" rel="noopener noreferrer">Code</a>
         </li>
       )}
       
       {linkToLiveSite && (
         <li>
-          <a class="project-action project-action-view" href={linkToLiveSite} aria-label={`View ${projectTitle}`} target="_blank" rel="noopener noreferrer">View</a>
+          <a class="portfolio-button portfolio-button--view" href={linkToLiveSite} aria-label={`View ${projectTitle}`} target="_blank" rel="noopener noreferrer">View</a>
         </li>
       )}
       
       {readmeLink && (
         <li>
-          <a class="project-action project-action-readme" href={readmeLink} aria-label={`Read ${projectTitle} README`} target="_blank" rel="noopener noreferrer">ReadMe</a>
+          <a class="portfolio-button portfolio-button--link" href={readmeLink} aria-label={`Read ${projectTitle} README`} target="_blank" rel="noopener noreferrer">ReadMe</a>
         </li>
       )}
 
-      {decisionLogLink && (
-        <li>
-          <a class="project-action project-action-readme" href={decisionLogLink} aria-label={`Read ${projectTitle} decision log`}>Decision Log</a>
-        </li>
-      )}
     </ul>
+
+    {decisionLogLink && (
+      <div class="project-decision-action mx-auto">
+        <a class="portfolio-button portfolio-button--link" href={decisionLogLink} aria-label={`Read ${projectTitle} decision log`}>Decision Log</a>
+      </div>
+    )}
   </div>
 </article>
 
@@ -135,6 +136,7 @@ const {
   .project-tech-tags {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 6px;
     margin: 0 0 18px;
     padding: 0;
@@ -146,23 +148,15 @@ const {
 
   .project-tech-tags li {
     padding: 5px 10px;
-    color: oklch(0.5 0.14 255);
+    color: var(--navy-deep);
     background: oklch(0.94 0.03 255);
     border-radius: 999px;
   }
 
-  .project-description {
-    flex: 1;
-    margin: 0;
-    color: oklch(0.4 0.015 260);
-    font-family: "Inter", sans-serif;
-    font-size: 14.5px;
-    line-height: 1.6;
-    white-space: pre-line;
-  }
-
   .project-actions {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     align-items: center;
     gap: 10px;
     margin: 24px 0 0;
@@ -172,28 +166,12 @@ const {
     font-family: "Inter", sans-serif;
   }
 
-  .project-action {
-    display: inline-block;
-    border-radius: 9px;
-    padding: 9px 18px;
-    font-size: 13.5px;
-    font-weight: 600;
-    text-decoration: none;
+  .project-actions > li {
+    flex: 0 0 auto;
   }
 
-  .project-action-code {
-    color: oklch(0.3 0.02 260);
-    border: 1.5px solid oklch(0.85 0.01 260);
+  .project-decision-action {
+    margin-top: 10px;
+    text-align: center;
   }
-
-  .project-action-view {
-    color: white;
-    background: oklch(0.3 0.09 258);
-  }
-
-  .project-action-readme {
-    margin-left: auto;
-    color: oklch(0.5 0.14 255);
-  }
-
 </style>
