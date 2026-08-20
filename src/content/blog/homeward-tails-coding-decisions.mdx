@@ -1,0 +1,1092 @@
+---
+title: "Homeward Tails: Coding Decisions & Tradeoffs"
+date: "2026-08-18"
+description: "A look back at real coding decisions, tradeoffs, and bugs from building Homeward Tails — testing/CI, architecture, security, and more."
+draft: true
+---
+
+Raw material for interview prep, pulled from the actual git history of **shelter-next** (product name "Homeward Tails," originally "PetProfileTailor"). This isn't a script — it's the facts of what happened, so you can build your own first-person answer on the spot instead of trying to remember it cold.
+
+**The project, in one paragraph:** A solo-built Next.js app that helps animal shelter volunteers write adoption-listing pet names and descriptions. It started from Create Next App in 2023 and grew through Pages Router → App Router, JavaScript → TypeScript, MongoDB/Mongoose, NextAuth, SWR, Tailwind, Cloudinary, Resend, and a Jest → Vitest + Playwright test stack. 874 of 890 commits are yours. `CHANGES.md` and `TESTING.md` in the repo are unusually detailed running engineering journals if you want to go deeper on any of these before an interview.
+
+**How to use this:** skim the theme headers, find the one closest to whatever you were just asked, then read that story's four lines and talk it through in your own words. Commit hashes and file names are there so you can pull up the real diff if you want to refresh your memory before a specific interview.
+
+---
+
+## Quick index — "tell me about a time…" → story
+
+- **A fix that didn't work the first time** → #1 (Playwright strict-mode) or #16 (like double-click)
+- **A bug that only showed up in CI, not locally** → #3 (E2E hang) or #4 (replica-set failures)
+- **A recurring problem you eventually solved for good** → #15 (Mongoose populate, 3 recurrences over 3 years)
+- **A technical tradeoff and its real consequences** → #9 (likes schema v1→v2, self-flagged risk)
+- **Balancing correctness against shipping speed** → #14 (staged TypeScript strict-mode rollout)
+- **A security-relevant decision** → #19 (magic-link enumeration), #18 (session invalidation on ban), #12 (no echoing user input in errors)
+- **Debugging with almost no information** → #22 (2023 populate bug, prod-only 500s) or #17 (double-POST root cause)
+- **A one-character bug** → #24 (CORS/backslash)
+- **A domain-knowledge-driven product decision** → #23 (dropping accented characters for shelter database compatibility)
+- **Solved a problem in a genuinely unique way** → #11 (Trie-based blocklist) or #27 (recursive type mirroring a recursive function)
+- **An API decision that affected the UI** → #9 (likes schema change caused a UI flash-of-wrong-state) or #17 (client/server rate limiting designed together so the UI never lies)
+
+---
+
+## Theme 1 — Testing & CI reliability
+
+*The richest theme here — several of these are actually the same underlying lesson (state assumptions that don't hold under reruns, or environments that differ between local and CI) hit from different angles.*
+
+### 1. Playwright strict-mode violation — fixed twice before it stuck
+
+**Where:** `1a2302d`, `8ebffe2` — `e2e/adddescriptions.spec.ts`
+
+**Situation:** A blocklist-rejection test used a loose text regex that matched two elements on the page — the textarea's own echoed value and the warning banner — so Playwright's strict mode flagged it as ambiguous.
+
+**Decision & tradeoff:** First pass narrowed the regex to the exact expected message text — quick, but fragile, because it hard-coded an assumption about API wording. Second pass went deeper: realized the flagged word was actually hitting a *different* blocklist rule than assumed, so the real API message didn't match either. Rewrote the test to wait for the actual 403 response and assert on the structured `blockedBy` field, then scoped the UI check to the specific warning-banner element instead of a loose page-wide text search.
+
+**Outcome:** Root cause eliminated rather than patched around; the pattern (assert on structured API response + scoped locator) is one you'd now reuse on any flaky text-matching test.
+
+```ts
+// First pass — narrower regex, still fragile (assumes API wording, still page-wide)
+await expect(
+  page.getByText(/any content containing the phrase wank is not allowed/i),
+).toBeVisible({ timeout: 15_000 });
+
+// Second pass — assert on the actual response instead of guessing the text
+const blockResponse = page.waitForResponse(
+  (res) =>
+    res.url().includes("/api/description") &&
+    res.request().method() === "POST" &&
+    res.status() === 403,
+);
+await submitDescriptionForm(page);
+const body = (await (await blockResponse).json()) as {
+  message: string;
+  blockedBy: string;
+};
+expect(body.blockedBy).toBe("wank");
+
+// WarningMessage banner only — textarea still contains "wank"
+await expect(
+  page.locator("p.bg-red-900").getByText(body.message),
+).toBeVisible({ timeout: 15_000 });
+```
+
+**Possible angle:** "a fix that didn't hold the first time."
+
+### 2. Duplicate-row strict-mode violations from serial reruns
+
+**Where:** `e2e/helpers/notifications-ui.ts`
+
+**Situation:** Rerunning the notifications-UI suite against a shared, seeded test database left multiple rows for the same content, so a locator meant to find one row matched two.
+
+**Decision & tradeoff:** Rather than forcing a clean DB before every run (slower, more moving parts for a solo project), built a helper that filters to the relevant rows and takes `.first()`, then documented duplicate rows as an *expected, handled* condition in TESTING.md.
+
+**Outcome:** Tests became robust to cumulative state instead of demanding pristine state every time.
+
+```ts
+// e2e/helpers/notifications-ui.ts
+/** First matching notification row (serial E2E reruns append duplicate rows in test DB). */
+export function notificationRow(
+  page: Page,
+  actionText: RegExp,
+  contentSnippet: string,
+) {
+  return page
+    .locator("div")
+    .filter({ hasText: actionText })
+    .filter({ hasText: contentSnippet })
+    .first();
+}
+```
+
+**Possible angle:** "deciding what a test should and shouldn't assume about environment state."
+
+### 3. E2E hang on CI: a listener registered after the fact
+
+**Where:** `492d6e1`
+
+**Situation:** A helper called `page.waitForResponse()` *after* `page.goto()` had already fired navigation — sometimes the API call finished before the listener attached, so the promise never resolved and the test hung until the 60s timeout. A missing CI env var compounded it, producing malformed fetch URLs.
+
+**Decision & tradeoff:** Reordered so the response-wait promises start before `goto()`; added a 15s per-fetch timeout with a graceful fallback instead of an unbounded wait; scoped an ambiguous button locator to `main`; bumped the spec's own timeout to 90s.
+
+**Outcome:** Fixed CI-only flakiness that never reproduced locally.
+
+```ts
+// e2e/helpers/moderation-ui.ts
+
+// Before — waits registered AFTER navigation already settled; API call can
+// finish before the listener attaches, so the promise never resolves.
+export async function gotoNameDetailForModeration(page: Page, name: string) {
+  await gotoNameDetail(page, name);
+  await expect(listingMoreOptionsButton(page)).toBeVisible({ timeout: 30_000 });
+  await waitForModerationContextFetches(page);
+}
+
+// After — register the wait BEFORE goto(), with its own timeout + fallback
+/** Register before navigation — SuggestionsProvider/ReportsProvider fetch on mount. */
+function startModerationContextFetchWaits(page: Page): Promise<void> {
+  return Promise.all([
+    page
+      .waitForResponse(
+        (r) => r.url().includes("/api/user/suggestions") && r.request().method() === "GET",
+        { timeout: MODERATION_FETCH_TIMEOUT },
+      )
+      .catch(() => undefined),
+    page
+      .waitForResponse(
+        (r) => r.url().includes("/api/user/reports") && r.request().method() === "GET",
+        { timeout: MODERATION_FETCH_TIMEOUT },
+      )
+      .catch(() => undefined),
+  ]).then(() => undefined);
+}
+
+export async function gotoNameDetailForModeration(page: Page, name: string) {
+  const fetches = startModerationContextFetchWaits(page);
+  await page.goto(`/name/${name}`);
+  await expect(page.getByText(name, { exact: false })).toBeVisible({ timeout: 15_000 });
+  await expect(listingMoreOptionsButton(page)).toBeVisible({ timeout: 15_000 });
+  await fetches;
+}
+```
+
+**Possible angle:** "debugging something invisible in dev, visible only in the real environment."
+
+### 4. CI-only failures traced to a missing MongoDB replica set
+
+**Where:** `232d657`, `922d997`
+
+**Situation:** Routes using Mongoose transactions worked fine locally (Atlas is always a replica set) but failed only in CI, where the plain Docker `mongo:7` service container is a standalone instance.
+
+**Decision & tradeoff:** Added a CI step that runs `rs.initiate()` in a retry loop until a primary is elected, and pointed both URIs at `?replicaSet=rs0` — worked around GitHub Actions' inability to pass Mongo startup flags directly by launching a second init container.
+
+**Outcome:** Also surfaced and fixed a too-low rate-limit cap that was tripping under full-suite load.
+
+```yaml
+# .github/workflows/ci.yml
+env:
+  MONGODB_URI: mongodb://127.0.0.1:27017/homeward_tails_ci_build?replicaSet=rs0
+  MONGODB_URI_TEST: mongodb://127.0.0.1:27017/homeward_tails_e2e?replicaSet=rs0
+
+services:
+  mongodb:
+    image: mongo:7
+    ports:
+      - 27017:27017
+    options: >-
+      --replSet rs0
+
+steps:
+  - name: Init MongoDB replica set
+    run: |
+      for i in $(seq 1 30); do
+        if docker run --rm --network host mongo:7 mongosh "mongodb://127.0.0.1:27017" --quiet --eval "db.adminCommand({ ping: 1 })"; then
+          break
+        fi
+        sleep 2
+      done
+      docker run --rm --network host mongo:7 mongosh "mongodb://127.0.0.1:27017" --eval '
+        try { rs.status(); } catch (e) {
+          rs.initiate({ _id: "rs0", members: [{ _id: 0, host: "127.0.0.1:27017" }] });
+        }
+      '
+      for i in $(seq 1 30); do
+        if docker run --rm --network host mongo:7 mongosh "mongodb://127.0.0.1:27017/?replicaSet=rs0" --quiet --eval "rs.isMaster().ismaster" | grep -q true; then
+          exit 0
+        fi
+        sleep 2
+      done
+      echo "MongoDB replica set did not become primary in time"
+      exit 1
+```
+
+**Possible angle:** "a bug caused by an environment difference you had to go dig up."
+
+### 5. Full-suite run surfaced cross-test state bugs invisible in isolation
+
+**Where:** repo history region around "enhance E2E testing framework with new reset hooks"
+
+**Situation:** Running the whole suite together (156 pass / 3 fail / 2 flaky) exposed problems that never showed up running specs individually: a per-content "thanks" cap getting hit by repeat runs, rate-limit state leaking across tests, a timing-based hack flaking under React re-renders, and — the interesting one — a rate limiter that turned out to have *two separate in-memory instances* because of how `next start` isolates modules between a server action and an API route.
+
+**Decision & tradeoff:** Added dedicated E2E-only reset endpoints (404'd outside test mode) so tests can clear shared state without a full re-seed; replaced a flaky timing hack with a real, deterministic wait; fixed the split rate-limiter with a `globalThis`-based singleton so both code paths share one instance in production builds.
+
+**Outcome:** Each failure was traced to a specific root cause and fixed individually rather than papering over with retries.
+
+```ts
+// app/api/test/e2e/reset-thanks/route.ts
+// E2E-only reset endpoint — 404s outside test mode, no full re-seed needed.
+export async function POST(req: Request) {
+  if (!isE2eServerMode()) {
+    return new Response(null, { status: 404 });
+  }
+  const { contentType, contentId } = (await req.json()) as ResetThanksBody;
+  await dbConnect.connect();
+  const filter =
+    contentType === "names" ? { nameId: contentId } : { descriptionId: contentId };
+  const result = await Thanks.deleteMany(filter);
+  return Response.json({ deletedCount: result.deletedCount });
+}
+```
+
+```ts
+// utils/api/rateLimiter.ts
+
+// Before — a fresh instance per module graph; server actions and route
+// handlers each ended up with their own copy under `next start`.
+export const rateLimiter = new RateLimiter();
+
+// After — one in-memory limiter per Node process, shared across entry points
+const globalForRateLimiter = globalThis as typeof globalThis & {
+  __shelterRateLimiter?: RateLimiter;
+};
+
+export const rateLimiter =
+  globalForRateLimiter.__shelterRateLimiter ?? new RateLimiter();
+globalForRateLimiter.__shelterRateLimiter = rateLimiter;
+```
+
+**Possible angle:** "isolation vs. integration testing — bugs that only exist when things run together."
+
+### 6. A rate-limit test that has to run last, and why that's fine
+
+**Where:** `e2e/contact.spec.ts`, `utils/api/contactRateLimit.ts`
+
+**Situation:** A contact-form rate-limit test needed to run last in its file because earlier tests in the same serial spec consumed some of the allowed request budget for that IP.
+
+**Decision & tradeoff:** Documented the ordering dependency explicitly instead of engineering per-test IP isolation — a deliberate simplicity-over-purity call for a solo project.
+
+```ts
+// e2e/contact.spec.ts (original version)
+test.describe("Contact page", () => {
+  // Rate-limit test shares server IP budget with other contact submits in this file.
+  test.describe.configure({ mode: "serial" });
+  ...
+```
+
+Later hardened further with a dedicated E2E reset hook (`resetE2eContactRateLimit`, added alongside story #5's reset endpoints) instead of relying only on the ordering comment.
+
+**Possible angle:** "when you chose the simple fix over the 'correct' one, on purpose."
+
+### 7. Test framework choice, then a second look at that choice
+
+**Where:** repo history regions "Testing setup (Jest + RTL + Playwright)" and "Jest → Vitest migration"
+
+**Situation/decision 1:** Chose Jest over Vitest early on, explicitly for maturity and fit with the existing codebase at the time.
+
+**Situation/decision 2:** Once the codebase had matured into a Vite/ESM/TypeScript-native Next 15 app, migrated unit/component tests to Vitest because it now fit the toolchain better — left Playwright E2E untouched since it wasn't affected either way.
+
+```json5
+// package.json
+{
+  "scripts": {
+    // Before
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:ci": "jest --ci --coverage",
+    // After
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "test:ci": "vitest run --coverage",
+  },
+  "devDependencies": {
+    // out: jest, jest-environment-jsdom, @types/jest
+    // in:  vitest, @vitest/coverage-v8, @vitejs/plugin-react, jsdom
+  },
+}
+```
+
+**Possible angle:** "revisiting an earlier tooling decision instead of staying married to it."
+
+### 8. CI design: split fast checks from slow E2E
+
+**Where:** `cabc647`, `b7a4369`, `addda36`, `fd95892`
+
+**Situation:** Needed CI that gives fast feedback on every push without every push paying for a full E2E run.
+
+**Decision & tradeoff:** Split into a `fast` job (lint, unit tests with coverage, build) on every push/PR, and a slower `e2e` job (full Playwright suite against an ephemeral Mongo replica set) gated to `main` and PRs — explicitly framed as solo-dev friendly. Along the way: pinned Node 24 ahead of a runner deprecation, added dummy env vars so an SDK constructor didn't throw at build-import time, resolved a package-manager version conflict.
+
+**Also:** chose to always upload CI artifacts rather than gate on failure, and controlled artifact size through Playwright config (screenshots/video/traces only on failure or retry) instead — reasoning that green runs still need a baseline to compare against, with retention windows controlling storage cost.
+
+```yaml
+# .github/workflows/ci.yml
+jobs:
+  fast:
+    name: fast
+    runs-on: ubuntu-latest
+    steps:
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm lint
+      - run: pnpm test
+      - run: pnpm build
+
+  e2e:
+    name: e2e
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main'
+    services:
+      mongodb:
+        image: mongo:7
+        ports: ["27017:27017"]
+    steps:
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:e2e:ci
+      - name: Upload Playwright trace on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-traces
+          path: test-results/
+          retention-days: 7
+```
+
+```ts
+// playwright.config.ts — artifacts kept small without gating the upload step
+trace: "on-first-retry",
+screenshot: "only-on-failure",
+video: "retain-on-failure",
+```
+
+**Possible angle:** "designing a CI pipeline around your actual constraints (solo dev, fast feedback) rather than a generic template."
+
+---
+
+## Theme 2 — Architecture, schema & framework decisions
+
+### 9. Likes schema redesign — embedded array vs. normalized join collection
+
+**Where:** README.md "Trade Offs" section, `NameLike.ts` / `DescriptionLike.ts`
+
+**Situation:** v1 embedded a `likedby` array of user IDs directly on each `Name` document. Simple, but checking "does this user like this?" across a page of 50 names meant scanning arrays, and "show me everything I've liked" meant a full collection scan.
+
+**Decision & tradeoff:** Migrated to a separate join collection of small `{userId, nameId}` documents. Made "my liked names" a trivial indexed query, and made heart-rendering an O(1) set-membership check after fetching a user's likes once. Explicitly reasoned in the README that this is fine at the app's actual scale (max ~200 likes per user) but wouldn't scale to tens of thousands — and explicitly flagged the new risk that this state could drift out of sync if updates aren't handled carefully.
+
+**Follow-up:** Later found that signed-in users briefly saw the *wrong* heart state until a client fetch resolved — fixed by prefetching likes server-side and seeding context on first paint, rather than living with the flash of incorrect state.
+
+```js
+// README.md — Trade Offs
+
+// Schema v1: attach likes to the name document
+const NameSchema = new mongoose.Schema({
+  //...
+  likedby: [{ type: mongoose.Schema.Types.ObjectId, default: [], ref: "User" }],
+  likedbylength: { type: Number, default: 0 },
+});
+
+// Schema v2: small documents in a Likes collection
+const LikesSchema = new mongoose.Schema(
+  {
+    userId: { type: ObjectId, ref: "Users", required: true },
+    nameId: { type: ObjectId, ref: "Names", required: true },
+  },
+  { timestamps: true },
+);
+```
+
+```js
+// migrations/migrationLikesToLikesCollection.js — the actual v1 → v2 migration
+async function migrate() {
+  const names = await Names.find({});
+  for (const name of names) {
+    if (!name.likedby || name.likedby.length === 0) continue;
+
+    const docs = name.likedby.map((userId) => ({ nameId: name._id, userId }));
+
+    await NameLikes.insertMany(docs, { ordered: false }).catch((err) => {
+      if (err.code === 11000) console.warn("Duplicate entries skipped");
+      else throw err;
+    });
+  }
+}
+```
+
+Heart-rendering stayed O(1) after the migration by pre-fetching a user's likes into a `Set` once, per the README's own reasoning:
+
+```js
+const likedSet = new Set(userLikes.map((l) => l.nameId.toString()));
+const liked = likedSet.has(name._id.toString()); // O(1) lookup
+```
+
+**Possible angle:** "a tradeoff you made with eyes open, including naming its own risk." Also good for "what would you do differently at 10x scale."
+
+### 10. Follow relationships — consistency over convenience
+
+**Where:** repo history region "Follow API: use Follow model (not User.followers)"
+
+**Situation:** A `followers` array had been added directly onto the `User` model, breaking from the join-collection pattern already established for Likes.
+
+**Decision & tradeoff:** Reverted it in favor of a dedicated `Follow` collection, matching the established pattern rather than letting two different relationship models coexist for no reason.
+
+```js
+// models/User.js — removed
+followers: {
+  type: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }],
+  default: [],
+},
+```
+
+```js
+// migrations/followersIntoFollowDb.js — backfilled into the Follows collection instead
+const users = await User.find({}, "_id followers").lean();
+
+for (const user of users) {
+  const followsToInsert = (user.followers || []).map((followerId) => ({
+    userId: user._id, // the user being followed
+    followedBy: followerId, // the follower
+  }));
+
+  if (followsToInsert.length > 0) {
+    await Follows.insertMany(followsToInsert, { ordered: false });
+  }
+}
+```
+
+**Possible angle:** "catching and undoing your own inconsistency before it compounded."
+
+### 11. Blocklist rebuilt around a Trie for substring matching
+
+**Where:** `5ddc274` — `lib/checkBlocklist`
+
+**Situation:** Original substring-blocking logic checked content against a list, effectively a repeated linear scan per substring.
+
+**Decision & tradeoff:** Converting to TypeScript, redesigned it as a three-pass system: a whole-word "banned everywhere" set, an exact-match blocklist (bounded to short strings, to avoid false positives on long content), and substring matching via a Trie built once from the substring list — turning "substrings × content length" scans into a single pass over the content.
+
+**Outcome:** Documented in a dedicated design note, backed by 56 unit tests.
+
+```ts
+// lib/checkBlocklist.ts — the three-pass check
+export function checkBlocklists(input: string): BlocklistResult {
+  const normalizedInput = input.toLowerCase();
+
+  // 1. whole-word "banned everywhere" set
+  const words = normalizedInput.split(/\s+/);
+  for (const word of words) {
+    if (blockedEverywhereSet.has(word)) {
+      return { allowed: false, blockedBy: word, type: "banned-everywhere" };
+    }
+  }
+
+  // 2. exact-match blocklist, bounded to short strings
+  if (normalizedInput.length < 100 && exactWordBlocklistSet.has(normalizedInput)) {
+    return { allowed: false, blockedBy: normalizedInput, type: "exact-name" };
+  }
+
+  // 3. substring blocklist — single pass over the input via a Trie built once
+  const substringMatch = substringTrie.searchInString(normalizedInput);
+  if (substringMatch) {
+    return { allowed: false, blockedBy: substringMatch, type: "substring" };
+  }
+
+  return { allowed: true, blockedBy: null, type: null };
+}
+
+// Trie: insert every blocklist substring once, then scan the input a single
+// time instead of testing "does this string contain X" for every substring.
+class Trie {
+  private root = new TrieNode();
+
+  insert(word: string): void {
+    let node = this.root;
+    for (const char of word.toLowerCase()) {
+      if (!node.children[char]) node.children[char] = new TrieNode();
+      node = node.children[char];
+    }
+    node.isEnd = true;
+  }
+
+  searchInString(str: string): string | null {
+    const lower = str.toLowerCase();
+    for (let i = 0; i < lower.length; i++) {
+      let node = this.root;
+      let j = i;
+      while (j < lower.length && node.children[lower[j]]) {
+        node = node.children[lower[j]];
+        if (node.isEnd) return lower.slice(i, j + 1);
+        j++;
+      }
+    }
+    return null;
+  }
+}
+```
+
+**Possible angle:** "picking a data structure once you actually understood the access pattern, instead of the naive version."
+
+### 12. A blocklist false positive, and a defensive-copy decision alongside it
+
+**Where:** `5e236be`
+
+**Situation:** "genital" was on the substring blocklist, which meant "congenital" — a legitimate word for shelter-animal descriptions — was also getting blocked.
+
+**Decision & tradeoff:** Changed the term to the plural "genitals" with an inline comment explaining exactly why. In the same commit, also stopped echoing the user's submitted content back into rejection messages, switching to a generic message instead — avoids reflecting arbitrary user input back into the UI.
+
+```diff
+// data/blockList.js
+- "genital",
++ "genitals", //since congenital would be blocked with genital
+```
+
+```diff
+// utils/api/bannedWordsMessage.js
+- return `Ruh Roh! ${content} could not be added to ${fieldName} because any content containing the phrase ${blockedBy} is not allowed.`;
++ return `Ruh Roh! This content could not be added to ${fieldName} because any content containing the phrase ${blockedBy} is not allowed.`;
+```
+
+**Possible angle:** "a specific, narrow false positive and how you reasoned about substring containment." Also: "a defensive choice you made without being explicitly asked to."
+
+### 13. Contact-form spam detection — three iterations toward a deliberate limit
+
+**Where:** `utils/api/detectBotPatterns.ts`
+
+**Situation 1 (bug):** A validation helper silently ignored its second argument at runtime, so the message field was never actually checked — gibberish spam slipped through.
+
+**Decision 1:** Split into field-specific validators with an explicit two-argument API so both fields are forced to validate.
+
+**Situation 2 (over-fix):** The English word-count heuristic rejected legitimate Japanese/Chinese messages, which don't use spaces between words.
+
+**Decision 2, iteration 1:** Added a narrow bypass for text that's primarily CJK.
+
+**Decision 2, iteration 2:** Realized the same false positive hit Russian, Thai, and other non-Latin scripts — generalized to "word-count heuristics only apply when the text is primarily Latin."
+
+**Situation 3 (product decision, not a bug):** For a U.S. shelter-focused product, decided non-Latin-script messages should be explicitly rejected rather than silently passed through, to keep moderation tractable.
+
+**Decision 3:** Narrowed final policy to English-or-Spanish-by-script, with the tradeoff written down directly in the changelog: other Latin-alphabet languages may pass; CJK, Cyrillic, Arabic, Thai, etc. are blocked. A related scoring bug was fixed along the way — a gibberish-detection rule scored below its own threshold after an unrelated tuning change, silently stopped catching spam.
+
+```ts
+// utils/api/detectBotPatterns.ts — final language gate
+/** Basic Latin + Latin-1 supplement — covers English and Spanish (including á, ñ, ¿, etc.). */
+const LATIN_LETTER_REGEX = /[A-Za-zÀ-ÿ]/g;
+
+/** English and Spanish both use Latin script; other languages are rejected at the contact form. */
+export function isEnglishOrSpanishScript(text: string): boolean {
+  const nonSpace = text.replace(/\s/g, "");
+  if (!nonSpace) return false;
+
+  const latinCount = nonSpace.match(LATIN_LETTER_REGEX)?.length ?? 0;
+  return latinCount / nonSpace.length >= 0.5;
+}
+```
+
+```ts
+// The gibberish check moved from a single-match bail-out to a scored system,
+// since some signals (a URL) are fine alone but suspicious in combination.
+const rules: { pattern: RegExp; score: number }[] = [
+  { pattern: /(.)\1{8,}/, score: 3 },              // "aaaaaaaaa"
+  { pattern: /^[A-Z]{15,}$/, score: 2 },            // all-caps 15+ chars
+  { pattern: /^[A-Za-z]{19,}$/, score: 3 },         // one unbroken 19+ char string
+  { pattern: /\b(viagra|cialis|casino|...)\b/i, score: 3 },
+  { pattern: /(https?:\/\/|www\.)/i, score: 1 },    // URL alone — low score
+  { pattern: /<script|<iframe|javascript:/i, score: 5 },
+];
+const THRESHOLD = 3;
+const score = rules.reduce((t, { pattern, score }) => t + (pattern.test(text) ? score : 0), 0);
+return score >= THRESHOLD;
+```
+
+**Possible angle:** the strongest multi-part story in the whole log — bug, then an over-broad patch, then recognizing the general principle, then a deliberate, written-down, scope-limiting product decision.
+
+### 14. Staged TypeScript migration — strict mode as a gated rollout, not a rewrite
+
+**Where:** `67e5d13`, CHANGES.md "TypeScript migration wave 1"
+
+**Situation:** Needed to introduce TypeScript into a ~95%-JavaScript codebase without a big-bang rewrite.
+
+**Decision & tradeoff:** Kept `strict: false` and `allowJs: true` deliberately, with a documented rationale for every tsconfig flag — two low-risk flags (`noFallthroughCasesInSwitch`, `noImplicitReturns`) turned on immediately because they catch real bugs without needing type annotations on untouched JS; `strict` deferred until roughly 70%+ of files were converted, specifically to avoid one big fix-everything-at-once pass.
+
+**Outcome:** Followed through — flipped `strict: true` once the app/components/hooks layers were converted, fixed the ~21 resulting errors (Mongoose generics, SWR signatures, a UI library's typing), all documented with before/after. Paired with a formalized "convert → add unit tests for pure logic → add E2E only where stable" workflow applied across roughly 80 individual conversion commits.
+
+```diff
+// tsconfig.json
+- "strict": false,
++ "strict": true,
+```
+
+**Possible angle:** "how you approach a large migration" — a genuinely staged, risk-managed plan with a written reason for every gate, not a rewrite branch that sat unmerged for months.
+
+### 15. The Mongoose `populate()` bug that came back three times
+
+**Where:** 2023: `ff0c067` → `e051014` → `10d0a76` → `0db269b`; 2026: three separate remediation passes in CHANGES.md
+
+**Situation (original, 2023):** An API route returned no data — only in production on Vercel, never locally. Root cause: `.populate()` against the `User` model requires that model to have been registered in-process first; locally some unrelated import path happened to register it as a side effect, but the production serverless bundle never triggered that path, so the populate silently failed.
+
+**Decision (original):** Added explicit side-effect imports of the referenced model in every route that populates against it, even though nothing in the file directly uses the import.
+
+**Situation (recurrence, 2026):** During the TypeScript migration, ESLint's "unused import" rule flagged those exact side-effect-only imports and they got stripped — silently reintroducing the same bug, three separate times across different route groups.
+
+**Decision (final):** Standardized on a documented convention — a bare `import "@/models/ModelName"` side-effect import that linters won't flag as unused — and ran a full audit of every `.populate()` call site against git history to catch every place the pattern had been lost.
+
+```js
+// pages/api/names/swr/swr.js — the original 2023 diagnosis, commit by commit
+
+// ff0c067: confirmed no data is returning; stripped the populate to isolate it
+const individualNames = await Names.find().skip((page - 1) * limit).limit(limit);
+// .populate({ path: "createdby", select: [...] })
+// .populate({ path: "tags", select: ["tag"] });
+
+// e051014: added the populate back — still broken until the model import came with it
+import Users from "../../../../models/User"; // <- this import was the actual fix
+individualNames = await Names.find()...limit(limit)
+  .populate({ path: "createdby", select: ["name", "profilename", "profileimage"] });
+```
+
+```js
+// app/(protected)/dashboard/page.js — the 2025 recurrence, same root cause
+import dbConnect from "@utils/db";
+// although not directly used, needed for populate to work since it uses these tags models
+import NameTag from "@/models/NameTag";
+import DescriptionTag from "@/models/DescriptionTag";
+import Names from "@models/Name";
+```
+
+```ts
+// app/(protected)/dashboard/page.tsx — 2026 final convention, ESLint-proof
+import "@/models/NameTag";
+import "@/models/DescriptionTag";
+```
+
+**Possible angle:** the best "recurring problem, fixed systemically" story here — same root cause, three years apart, ultimately closed with both a code convention and a documented audit process, not just a one-off patch.
+
+---
+
+## Theme 3 — Concurrency, debounce & rate-limit bugs (the likes feature)
+
+### 16. Double-click sent two requests — two different bugs, two fixes
+
+**Where:** repo history region "Fix like double-click E2E" and "Fix useToggleState flush on every optimistic re-render"
+
+**Situation 1 (decoy):** Playwright's built-in `.dblclick()` uses the OS double-click interval, which happened to line up with the app's own debounce window — so the *test* itself was sending two separate debounce-committed requests instead of exercising the coalescing it meant to test.
+
+**Situation 2 (the real bug):** A flush effect (for save-on-unmount/tab-close) listed a function in its dependency array whose identity changed on every render — so every optimistic UI update re-ran the effect's cleanup, which force-flushed the debounce early. A quick like-then-unlike within the debounce window fired two POSTs instead of the intended one.
+
+**Decision & tradeoff:** Fixed the test harness first (a two-click helper with no artificial delay), then found and fixed the real cause — switched to refs for reading current values instead of unstable function identities, narrowed the effect's dependencies, and added both a unit test and an E2E helper specifically for "toggle twice within the debounce window."
+
+```ts
+// hooks/useToggleState.ts
+
+// Before — canSend/registerSend are new function identities every render,
+// so this effect's cleanup re-runs on every optimistic UI update and can
+// force-flush the debounce mid-window.
+useEffect(() => {
+  const flush = () => {
+    if (!canSend()) return;
+    debouncedCommit.flush();
+  };
+  window.addEventListener("beforeunload", flush);
+  return () => {
+    flush();
+    window.removeEventListener("beforeunload", flush);
+  };
+}, [debouncedCommit, canSend]);
+
+// After — read current values through refs, narrow the dependency array
+const canSendRef = useRef(canSend);
+canSendRef.current = canSend;
+
+useEffect(() => {
+  const flush = () => {
+    if (!canSendRef.current()) return;
+    debouncedCommit.flush();
+  };
+  window.addEventListener("beforeunload", flush);
+  return () => {
+    window.removeEventListener("beforeunload", flush);
+    flush();
+  };
+}, [debouncedCommit]);
+```
+
+**Possible angle:** "a bug with a decoy cause" — the surface symptom (flaky E2E) had an obvious-looking explanation that wasn't the real one.
+
+### 17. Rate limiting on both sides, on purpose
+
+**Where:** `a9c8c0c`
+
+**Situation:** Needed to harden the like-toggle feature against abuse without the UI ever showing a state that then silently rolls back.
+
+**Decision & tradeoff:** Client blocks the click *before* the optimistic UI update fires, so the UI never lies; server independently enforces the same limit and returns a 429 with a retry time for anyone bypassing the client (multiple tabs, direct API calls). Both sides import the same limit constant so the numbers can't drift apart. Reused an existing "please wait N seconds" cooldown pattern already built for pagination rate limiting, rather than inventing a new one.
+
+```ts
+// hooks/useToggleState.ts — client blocks before the optimistic update, not after
+const toggle = async () => {
+  if (isProcessing || !canSend()) {
+    return; // UI never shows a state it has to roll back
+  }
+  const newState = !active;
+  latestStateRef.current = newState;
+  setActive(newState);
+  rollbackRef.current = onApplyOptimistic?.(newState);
+  debouncedCommit();
+};
+```
+
+```ts
+// utils/api/likeToggleRateLimit.ts — server enforces the same shared constant
+import { rateLimiter, rateLimitPresets, LIKE_TOGGLE_RATE_LIMIT } from "./rateLimiter";
+
+export function checkLikeToggleRateLimit(userId: string) {
+  return rateLimiter.check(`like-toggle:${userId}`, rateLimitPresets.likeToggle);
+}
+
+export function likeToggleRateLimitResponse(resetTime: number): Response {
+  const retryAfterSeconds = Math.max(1, Math.ceil((resetTime - Date.now()) / 1000));
+  return Response.json(
+    { message: "Too many like updates. Please try again soon.", retryAfterSeconds },
+    { status: 429 },
+  );
+}
+```
+
+**Possible angle:** "defense in depth, and reusing an existing pattern instead of building a parallel one."
+
+---
+
+## Theme 4 — Auth & security decisions
+
+### 18. Banning a user mid-session didn't actually end their session
+
+**Where:** `a606412`, `aaec12a`
+
+**Situation:** The NextAuth session callback only invalidated the session when `session.user` was missing outright — not when the underlying token's user data had been explicitly cleared by a ban. So a ban could clear the token, but `GET /api/auth/session` kept returning the old cached session shape.
+
+**Decision & tradeoff:** Changed the callback to check the token's user field first and return a fully null session when it's absent; forced session revalidation in E2E mode instead of trusting a cached cookie window; added a client-side check that force-signs-out a user whose status flips to banned.
+
+**Outcome:** Covered with an E2E test that bans a logged-in user mid-session and confirms the session goes null and they get redirected, plus 18 new unit tests for the banned/null branches.
+
+```ts
+// lib/auth.ts — session callback
+
+// Before — only invalidated when session.user was already missing outright
+async session({ session, token }) {
+  if (token.user) {
+    session.user = token.user;
+  }
+  if (!session.user) {
+    return null as unknown as typeof session;
+  }
+  return session;
+}
+
+// After — checks the token's user field FIRST; a ban clears token.user,
+// so the session goes fully null instead of returning a stale cached shape
+async session({ session, token }) {
+  if (!token.user) {
+    return null as unknown as typeof session;
+  }
+  session.user = token.user;
+  return session;
+}
+```
+
+**Possible angle:** "a security bug where the fix touches both the server contract and the client's trust in a cached value."
+
+### 19. Magic links restricted to existing users only
+
+**Where:** `4ff0be8`
+
+**Situation:** NextAuth's email/magic-link provider can auto-create a new account for *any* email that requests a link — not desired here, since new accounts should go through the credentials flow with its own validation.
+
+**Decision & tradeoff:** Added a custom sign-in callback that rejects magic-link sign-in for emails without an existing account, later extracted into its own testable function during the TypeScript migration.
+
+```js
+// pages/api/auth/[...nextauth].js — 2023 original
+async signIn({ user, account, email }) {
+  await db.connect();
+  const userExists = await User.findOne({ email: user.email });
+  if (userExists) {
+    return true;
+  } else {
+    // Return false to display a default error message
+    return "/register";
+  }
+}
+```
+
+```ts
+// lib/send-verification-request.ts — 2026, where the "existing users only"
+// rule actually lives now: don't even send the magic-link email to an
+// address with no account, so no account ever gets silently auto-created
+export const sendVerificationRequest = async (params) => {
+  const { identifier: email, url } = params;
+  await db.connect();
+
+  const userExists = await User.findOne({ email });
+  if (!userExists) {
+    console.log(`[MagicLink] No user found for ${email}, skipping email.`);
+    return; // exit silently — no email sent, no account created
+  }
+
+  await resend.emails.send({
+    to: email,
+    subject: "Login Link to your Account",
+    react: MagicLinkTemplate({ magicLink: url, email }),
+  });
+};
+```
+
+```ts
+// lib/resolveSignInCallback.ts — the signIn callback itself, extracted into
+// a pure function (no DB / NextAuth imports) so the branching is unit-testable
+export function resolveSignInCallback({
+  userExists,
+  provider,
+}: {
+  userExists: { status: UserStatus } | null;
+  provider: string;
+}): boolean | string {
+  if (userExists?.status === "banned") {
+    return "/login?error=Banned";
+  }
+  if (provider === "credentials") {
+    return userExists ? true : "/login?error=UserNotFound";
+  }
+  return true;
+}
+```
+
+**Possible angle:** "a security decision that wasn't a bug fix — anticipating an abuse path in a third-party library's default behavior."
+
+### 20. An ownership check that read data before verifying access
+
+**Where:** CHANGES.md "TypeScript migration wave 2"
+
+**Situation:** While adding types to an ownership-check function during migration, noticed it read `session.user` *before* confirming the session lookup itself had actually succeeded — an unauthenticated request could throw instead of cleanly returning 401/403.
+
+**Decision & tradeoff:** Reordered to check the success flag before touching the session payload.
+
+```js
+// utils/authorizeUser.js — before (the .js version being converted)
+export async function checkOwnership({ req, res, resourceCreatorId }) {
+  const { ok, session } = await getSessionForApis({ req, res });
+  const { user } = session; // <- throws if session is null/undefined
+
+  if (!ok) {
+    return;
+  }
+  const isTheCreator = resourceCreatorId.toString() === user.id;
+  // ...
+}
+```
+
+```ts
+// utils/api/checkOwnership.ts — after, adding types surfaced the ordering bug
+export async function checkOwnership({
+  resourceCreatorId,
+}: CheckOwnershipParams): Promise<CheckOwnershipResult> {
+  const auth = await getSessionForApis();
+
+  if (!auth.ok) {
+    return { ok: false }; // checked BEFORE touching auth.session
+  }
+
+  const user = auth.session.user as AppUser;
+  const isTheCreator = resourceCreatorId.toString() === user.id;
+  const isActiveAdmin = user.role === "admin" && user.status === "active";
+
+  return isTheCreator || isActiveAdmin ? { ok: true, session: auth.session } : { ok: false };
+}
+```
+
+**Possible angle:** "a real bug caught by 'boring' migration work, not a dedicated security audit" — good for describing how type systems surface logic errors incidentally.
+
+---
+
+## Theme 5 — Build, deploy & tooling decisions
+
+### 21. The lockfile mismatch that blocked every production deploy
+
+**Where:** `2eee3cd`
+
+**Situation:** Every Vercel deploy failed at install, before even reaching the build step. Root cause: `package.json` pinned exact versions for two dependencies via `pnpm.overrides`, but the committed lockfile had been generated without those overrides — pnpm's strict consistency check failed on Vercel's clean install, while local machines had stale caches that happened to mask it.
+
+**Decision & tradeoff:** Removed the overrides entirely in favor of normal version ranges that matched the lockfile; pinned an exact package-manager version so Vercel/CI/local all resolve identically; allow-listed the packages that need native build scripts under pnpm's newer security policy.
+
+**Outcome:** Documented the exact verification command used to confirm the fix, plus an explicit note-to-self not to reintroduce overrides without regenerating the lockfile.
+
+```diff
+// package.json
+  "pnpm": {
+-   "overrides": {
+-     "prettier": "2.8.4",
+-     "@types/bcryptjs": "2.4.6"
+-   }
++   "onlyBuiltDependencies": [
++     "core-js",
++     "esbuild",
++     "sharp",
++     "unrs-resolver"
++   ]
+  },
+  ...
++ "packageManager": "pnpm@9.15.9+sha512.68046141893c66fad01c079231128e9afb89ef87e2691d69e4d40eee228988295fd4682181bae55b58418c3a253bde65a505ec7c5f9403ece5cc3cd37dcf2531"
+```
+
+**Possible angle:** "a deploy blocker where 'works on my machine' was the whole problem, and the fix included a guardrail against it recurring."
+
+### 22. Line-ending chaos on Windows, fixed at three layers
+
+**Where:** repo history regions "Restore .gitattributes," "VS Code: save files with LF line endings," "One-time CRLF → LF normalize"
+
+**Situation:** Developing on Windows without enforced line-ending rules led to constant Git CRLF noise, eventually with 344 tracked files actually carrying CRLF.
+
+**Decision & tradeoff:** Fixed it at three layers instead of one: repo-level (`.gitattributes`), editor-level (VS Code LF setting, which only affects new saves), and a one-time bulk normalization of the already-affected files — plus an `.editorconfig` for any other editor. Verified with a zero-result check across all tracked files afterward.
+
+```gitattributes
+# .gitattributes — repo layer
+# Normalize text files to LF in the repo and working tree (cross-platform).
+* text=auto eol=lf
+
+# Windows scripts keep CRLF when present on disk.
+*.bat text eol=crlf
+*.cmd text eol=crlf
+
+# Binary assets — no EOL conversion.
+*.png binary
+*.svg binary
+*.woff2 binary
+```
+
+**Possible angle:** "fixing the symptom, the cause, and the backlog, all three, instead of just one."
+
+---
+
+## Theme 6 — Early debugging (2023) — less polished, still real
+
+### 23. Dropping accented characters from name validation — a domain-knowledge call
+
+**Where:** `7bc26f3`
+
+**Situation:** Name validation initially allowed accented Spanish characters. Based on real shelter-industry experience, many downstream shelter-management databases can't reliably handle non-ASCII characters.
+
+**Decision & tradeoff:** Restricted the regex to drop them — trading some input flexibility for compatibility with systems the data would actually flow into.
+
+```diff
+// components/AddingNewData/addingName.jsx
+function regexInvalidInput(stringToCheck) {
+-  let regexForInvalidCharacters = /[^a-z\d&'-áéíóúñü]+/;
++  let regexForInvalidCharacters = /[^a-z\d&'-]+/;
+   return stringToCheck.match(regexForInvalidCharacters);
+}
+```
+
+**Possible angle:** "a decision driven by domain knowledge outside the code itself, not a general best practice."
+
+### 24. A CORS error caused by one extra backslash
+
+**Where:** `b8d6dca`
+
+**Situation:** A fetch call was failing on a CORS error that had nothing to do with CORS configuration — an extra backslash in a URL string was the actual cause.
+
+```diff
+// pages/fetchnames.js
+- return `${process.env.NEXT_PUBLIC_BASE_FETCH_URL}/api/names/swr/swr?page=${pageIndex + 1}...`;
++ return `${process.env.NEXT_PUBLIC_BASE_FETCH_URL}api/names/swr/swr?page=${pageIndex + 1}...`;
+```
+
+The env var already ended in a trailing slash, so the literal `/api/...` doubled it up — Next.js reported it as a CORS failure, not a 404/malformed-URL error, which is what made it misleading.
+
+**Possible angle:** good short "smallest root cause" anecdote if a question calls for something quick and concrete.
+
+### 25. Reverting an async/await refactor under production pressure
+
+**Where:** `a4d66cb`
+
+**Situation:** An async/await rewrite of the database-connection helper started causing 500s in production.
+
+**Decision & tradeoff:** Rather than debugging forward under time pressure with users affected, rolled back to the known-working version and revisited later.
+
+```diff
+// pages/api/auth/lib/mongodb.js
+- const mongoConnect = async () => {
+-   try {
+-     clientPromise = await client.connect();
+-   } catch (err) {
+-     console.log(err);
+-     throw err;
+-   }
+- };
+  ...
+  client = new MongoClient(uri, options);
+- mongoConnect();
++ clientPromise = client.connect(); // reverted to the plain promise, no async wrapper
+```
+
+**Possible angle:** "choosing to revert instead of push through, and why that was the right call in the moment."
+
+### 26. Duplicate DOM ids breaking a form
+
+**Where:** `b56867d`
+
+**Situation:** The login page had two inputs both using `id="email"`, breaking label association.
+
+```diff
+// pages/login.js
+  {/* sign-in form */}
+- <label htmlFor="email">Email</label>
+- <input type="email" id="email" ... />
++ <label htmlFor="signinemail">Email</label>
++ <input type="email" id="signinemail" ... />
+
+  {/* magic-link form, further down the same page */}
+- <input type="email" id="email" name="email" ... />
++ <input type="email" id="magiclinkemail" name="email" ... />
+```
+
+**Possible angle:** smallest example here of a markup/accessibility bug — useful if asked about accessibility specifically.
+
+---
+
+## Bonus — unique problem-solving
+
+### 27. mongoDataCleanup — a recursive type that mirrors a recursive function
+
+**Where:** `utils/mongoDataCleanup.ts`, documented in `docs/notes/utils/mongoDataCleanup.md`
+
+**Situation:** Mongoose `.lean()` queries return plain objects, but they aren't safe to hand to the client as-is — `ObjectId` fields aren't strings, `__v` version keys leak through, and the shape is arbitrarily nested (subdocuments, arrays of subdocuments, refs), so you can't know ahead of time what needs transforming.
+
+**The obvious options, both rejected:** `JSON.parse(JSON.stringify(doc))` looks like the standard hack, but it silently turns `Date` objects into strings and `ObjectId`s into `{ id: "..." }` blobs instead of clean strings. Mongoose schema-level `toJSON`/`toObject` transforms were the other obvious route, but those only apply to full Mongoose documents, not `.lean()` results — and they'd scatter the cleanup logic across every schema file instead of keeping it in one place.
+
+**Decision & tradeoff:** Wrote a small recursive runtime function (`deepTransform`) that walks any shape — stringify ObjectIds, leave Dates alone, recurse into arrays and objects, drop `__v` — paired with a **recursive conditional TypeScript type** (`MongoCleanupResult<T>`) that mirrors the exact same branching logic at the type level. TypeScript infers the input shape directly off whatever Mongoose query gets passed in, so the output type stays correct without ever hand-writing an interface for it.
+
+**Outcome:** One recursive definition (the type) is now structurally forced to track the other (the function), instead of a hand-maintained interface that could silently drift out of sync as the schema changes.
+
+```ts
+// utils/mongoDataCleanup.ts
+type OmitV<T> = T extends object ? Omit<T, "__v"> : T;
+
+export type MongoCleanupResult<T> = T extends mongoose.Types.ObjectId
+  ? string
+  : T extends mongoose.Types.ObjectId[]
+    ? string[]
+    : T extends Date
+      ? Date
+      : T extends readonly (infer U)[]
+        ? MongoCleanupResult<U>[]
+        : T extends object
+          ? { [K in keyof OmitV<T>]: MongoCleanupResult<OmitV<T>[K]> }
+          : T;
+
+// the runtime function this type mirrors, branch for branch
+function deepTransform<T>(obj: T): MongoCleanupResult<T> {
+  if (obj instanceof mongoose.Types.ObjectId) {
+    return obj.toString() as MongoCleanupResult<T>;
+  }
+  if (obj instanceof Date) {
+    return obj as MongoCleanupResult<T>;
+  }
+  if (Array.isArray(obj)) {
+    return obj.map((item) => deepTransform(item)) as MongoCleanupResult<T>;
+  }
+  if (obj && typeof obj === "object") {
+    const newObj: Record<string, unknown> = {};
+    for (const [key, value] of Object.entries(obj)) {
+      if (key === "__v") continue;
+      newObj[key] = deepTransform(value);
+    }
+    return newObj as MongoCleanupResult<T>;
+  }
+  return obj as MongoCleanupResult<T>;
+}
+```
+
+**Possible angle:** the interesting part isn't the cleanup itself — plenty of people write a `deepClean` helper — it's building the *type* as a structural twin of the *function*. Good answer for "solved a problem in a way most people wouldn't reach for," especially paired with the two rejected options and why each falls short.
+
+---
+
+*Source: full repo history of shelter-next, researched 2026-08-18. Nothing above is invented — every situation/decision/outcome is drawn from actual commit messages, diffs, or the project's own CHANGES.md / TESTING.md / README.md.*
