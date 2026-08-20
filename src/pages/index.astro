@@ -422,17 +422,17 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 
 
-<section class="mt-16 p-12 pb-32 w-full bg-white" id="contact">
-	<div class="max-w-4xl mx-auto px-4 sm:px-12">
+<section class="mt-16 p-4 sm:p-12 pb-20 sm:pb-32 w-full bg-white" id="contact">
+	<div class="max-w-4xl mx-auto px-2 sm:px-12">
 
-	<h2 class="heading font-Ayaka text-4xl text-center fade-in">  Get in Touch</h2>
+	<h2 class="heading font-Ayaka text-3xl sm:text-4xl text-center fade-in">  Get in Touch</h2>
 	<div class="portfolio-card portfolio-card--padded max-w-2xl mx-auto fade-in">
 
-	<div class="flex flex-col items-center sm:w-[95%] mx-auto max-w-xl fade-in">
+	<div class="flex flex-col items-center w-full sm:w-[95%] mx-auto max-w-xl fade-in">
 
 	<p class="my-6 fade-in">All fields marked with  <span class="text-red-800">*</span> are required</p>
-	
-	<form name="contact" method="POST"  data-netlify="true" netlify-honeypot="bot-field"  data-netlify-recaptcha="true"  class="w-[90%]"> 
+
+	<form name="contact" method="POST"  data-netlify="true" netlify-honeypot="bot-field"  data-netlify-recaptcha="true"  class="w-full sm:w-[90%]">
 		  <input type="hidden" name="form-name" value="contact" />
 		<p class="hidden">
 			<label>
@@ -451,11 +451,7 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 			<div class="field">
 				<label for="phone" class="block font-bold"> Phone:</label>
-				<input type="tel" name="phone" id="phone" class="w-full input-styling" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" 
-				
-				
-				class="mr-2 input-styling"> 
-				</input>
+				<input type="tel" name="phone" id="phone" class="w-full input-styling" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
 				<span class="block ">Format: 111-222-3333 </span>
 			</div>
 			

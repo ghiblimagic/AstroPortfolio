@@ -223,6 +223,12 @@ input::placeholder {
   padding: 28px 26px 24px;
 }
 
+@media (max-width: 480px) {
+  .portfolio-card--padded {
+    padding: 20px 14px 18px;
+  }
+}
+
 .portfolio-button {
   display: inline-block;
   border-radius: 9px;
