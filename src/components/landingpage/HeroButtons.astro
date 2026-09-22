@@ -1,17 +1,45 @@
 ---
-import GradientButton from "@/components/buttons/GradientButton.astro"
 ---
 
 <div class="pt-10 pb-4 flex space-x-4 justify-center">
-  <GradientButton
-    text="About"
-    link="/about/"
-    secondary
-  />
-  <GradientButton
-    text="Free Consultation"
-    link="/#contact"
-    primary
-  />
-
+  <a class="hero-btn hero-btn--primary" href="/#projects">See My Work</a>
+  <a class="hero-btn hero-btn--secondary" href="/#contact">Free Consultation</a>
 </div>
+
+<style>
+  .hero-btn {
+    display: inline-block;
+    border-radius: 9px;
+    padding: 9px 20px;
+    font-family: "Inter", sans-serif;
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: none;
+    text-align: center;
+    transition:
+      background-color 180ms ease,
+      border-color 180ms ease,
+      color 180ms ease;
+  }
+
+  .hero-btn--primary {
+    background: var(--midnight-lavender);
+    color: var(--midnight-navy);
+    border: 2px solid var(--midnight-lavender);
+  }
+
+  .hero-btn--primary:hover {
+    background: var(--midnight-white);
+    border-color: var(--midnight-white);
+  }
+
+  .hero-btn--secondary {
+    background: transparent;
+    color: var(--midnight-white);
+    border: 2px solid var(--midnight-white);
+  }
+
+  .hero-btn--secondary:hover {
+    background: rgb(255 255 255 / 0.12);
+  }
+</style>

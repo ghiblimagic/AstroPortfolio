@@ -70,19 +70,19 @@ const {
     <ul class="project-actions">
       {linkToCode && (
         <li>
-          <a class="portfolio-button portfolio-button--code" href={linkToCode} aria-label="Link to codebase" target="_blank" rel="noopener noreferrer">Code</a>
+          <a class="project-link" href={linkToCode} aria-label="Link to codebase" target="_blank" rel="noopener noreferrer">Code</a>
         </li>
       )}
-      
+
       {linkToLiveSite && (
         <li>
-          <a class="portfolio-button portfolio-button--view" href={linkToLiveSite} aria-label={`View ${projectTitle}`} target="_blank" rel="noopener noreferrer">View</a>
+          <a class="project-link" href={linkToLiveSite} aria-label={`View ${projectTitle}`} target="_blank" rel="noopener noreferrer">View</a>
         </li>
       )}
-      
+
       {readmeLink && (
         <li>
-          <a class="portfolio-button portfolio-button--link" href={readmeLink} aria-label={`Read ${projectTitle} README`} target="_blank" rel="noopener noreferrer">ReadMe</a>
+          <a class="project-link" href={readmeLink} aria-label={`Read ${projectTitle} README`} target="_blank" rel="noopener noreferrer">ReadMe</a>
         </li>
       )}
 
@@ -90,7 +90,7 @@ const {
 
     {decisionLogLink && (
       <div class="project-decision-action mx-auto">
-        <a class="portfolio-button portfolio-button--link" href={decisionLogLink} aria-label={`Read ${projectTitle} decision log`}>Decision Log</a>
+        <a class="project-link" href={decisionLogLink} aria-label={`Read ${projectTitle} decision log`}>Decision Log</a>
       </div>
     )}
   </div>
@@ -99,6 +99,9 @@ const {
 <style>
   .project-card {
     overflow: hidden;
+    border-radius: 20px;
+    border: 1px solid #e6e8f2;
+    box-shadow: 0 12px 32px rgba(20, 27, 77, 0.08);
   }
 
   .project-thumbnail {
@@ -126,8 +129,8 @@ const {
 
   .project-titles {
     margin: 0 0 14px;
-    color: oklch(0.22 0.02 260);
-    font-family: "Fraunces", Georgia, serif;
+    color: var(--midnight-navy);
+    font-family: "AkayaKanadaka Script", serif;
     font-size: 22px;
     font-weight: 600;
     line-height: 1.25;
@@ -148,8 +151,9 @@ const {
 
   .project-tech-tags li {
     padding: 5px 10px;
-    color: var(--navy-deep);
-    background: oklch(0.94 0.03 255);
+    color: var(--midnight-navy);
+    background: #ffffff;
+    border: 1.5px solid #7b84c4;
     border-radius: 999px;
   }
 
@@ -168,6 +172,17 @@ const {
 
   .project-actions > li {
     flex: 0 0 auto;
+  }
+
+  .project-link {
+    display: inline-block;
+    color: var(--midnight-navy);
+    font-size: 13.5px;
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--midnight-lavender);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 3px;
   }
 
   .project-decision-action {

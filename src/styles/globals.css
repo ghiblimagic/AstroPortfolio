@@ -10,6 +10,27 @@
   --navy: #1b2f70;
   --navy-mid: #3459a5;
   --navy-light: #6b8edb;
+
+  /* Midnight palette (namespaced to avoid colliding with the vars above,
+     which are still used by .gradient-line, button hovers, and the global
+     focus ring across the whole site) */
+  --midnight-navy: #141b4d;
+  --midnight-navy-deep: #0e1438;
+  --midnight-navy-input: #1d2560;
+  --midnight-navy-line: #3a4585;
+  --midnight-lavender: #b3aeea;
+  --midnight-lavender-pale: #e9eefa;
+  --midnight-lavender-mid: #d3dcf3;
+  --midnight-lavender-border: #d5ddf2;
+  --midnight-text-light: #c8d3ef;
+  --midnight-text-body: #3a3f58;
+  --midnight-white: #ffffff;
+  --diamond-gradient: linear-gradient(
+    135deg,
+    #141b4d 0%,
+    #3a4a9e 50%,
+    #8fa7ea 100%
+  );
 }
 
 @font-face {
@@ -144,6 +165,7 @@ h6 {
   margin-bottom: 20px;
   padding-bottom: 10px;
   font-family: "AkayaKanadaka Script", serif;
+  color: var(--midnight-navy);
 }
 
 .input-styling {
@@ -197,15 +219,8 @@ input::placeholder {
 .skip-link:focus {
   transform: translateY(0%);
 }
-.shadow-transition-effect:hover {
-  /* gradient bottom border color effect */
-
-  filter: drop-shadow(1mm 3mm 1mm #889bcc);
-  transition: 1s;
-  /*
-  ); */
-
-  /* end of gradient code */
+.shadow-transition-effect {
+  transition: filter 1s ease;
 }
 
 .portfolio-card {
@@ -299,8 +314,43 @@ input::placeholder {
 }
 
 #nav-toggle:hover {
-  background-color: #dbeafe;
+  background-color: rgba(255, 255, 255, 0.15);
   transform: scale(1.05);
+}
+
+.social-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  transition:
+    opacity 150ms ease,
+    transform 150ms ease;
+}
+
+.social-icon-link:hover,
+.social-icon-link:focus-visible {
+  opacity: 0.85;
+  transform: scale(1.05);
+}
+
+.social-icon-link:focus-visible {
+  outline: 2px solid var(--midnight-lavender);
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+.social-icon-svg {
+  width: 28px;
+  height: 28px;
+  fill: url(#social-gradient);
+}
+
+.social-icon-link:hover .social-icon-svg,
+.social-icon-link:focus-visible .social-icon-svg {
+  fill: url(#social-gradient-hover);
 }
 
 #nav-icon {
@@ -466,6 +516,64 @@ article img {
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.35;
+    transform: scale(0.8);
+  }
+}
+
+.twinkle {
+  animation: twinkle 4s ease-in-out infinite;
+  transform-origin: center;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .twinkle {
+    animation: none;
+  }
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  padding: 0;
+  margin: -1px;
+}
+
+.section-heading {
+  text-align: center;
+  color: var(--midnight-navy);
+  font-size: 42px;
+  line-height: 1.2;
+}
+
+.section-py {
+  padding-top: 100px;
+  padding-bottom: 100px;
+}
+
+@media (max-width: 640px) {
+  .section-heading {
+    font-size: 32px;
+  }
+
+  .section-py {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
 }
 
 /* stagger children */

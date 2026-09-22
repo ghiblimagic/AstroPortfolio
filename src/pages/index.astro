@@ -7,7 +7,7 @@ import HeroButtons from '@/components/landingpage/HeroButtons.astro'
 import LatestProjects from '@/components/landingpage/LatestProjects.astro'
 import DiamondBackgroundImages from "@/components/landingpage/DiamondBackgroundImages.astro"
 import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar.astro"
-import GradientButton from "@/components/buttons/GradientButton.astro"
+import SectionDivider from "@/components/SectionDivider.astro"
 
 ---
 
@@ -26,68 +26,77 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 	
 		<section class="text-center w-full" id="home">
-		     
 
-                   
-			<section class="max-w-7xl mx-auto px-4 sm:px-12 flex flex-col xl:flex-row-reverse sm:my-10 xl:my-24 items-center gap-6"> 
+
+
+			<div class="w-full relative flow-root bg-[var(--midnight-navy)]">
+			<section class="max-w-7xl mx-auto px-4 sm:px-12 flex flex-col xl:flex-row-reverse sm:my-10 xl:my-24 items-center gap-6">
 				 <!-- ***************  HERO **********************-->
 
-				 	<div class="w-full max-w-[280px] sm:max-w-[400px] xl:max-w-[400px] mx-auto aspect-square">
+				 	<div class="relative w-full max-w-[280px] sm:max-w-[400px] xl:max-w-[400px] mx-auto aspect-square">
 				<!------ **************** HERO IMAGE ************ -->
+					<div class="absolute inset-0 rounded-full bg-[var(--midnight-lavender)] translate-x-[14px] translate-y-[14px]" aria-hidden="true"></div>
 			   <img
 					src="/images/me.jpg"
 					width="1000"
 					height="999"
-					class="w-full h-full object-cover rounded-full"
+					class="relative w-full h-full object-cover rounded-full border-[6px] border-white"
 					alt="Janet Spellman"
 					loading="eager"
 					fetchpriority="high"
 				/>
 			</div>
 
-				<div class="max-w-md">
+				<div class="relative max-w-md">
 					<!---- ******** Text of hero ******** -->
-				<h1 class="font-Ayaka text-4xl mb-8">  <span class="text-5xl block"> Hi there! I'm Janet.</span>
 
-					Your future Software Engineer.
-				
+				<h1 class="font-Ayaka text-4xl mb-8 text-[var(--midnight-white)]">  <span class="text-5xl block"> Hi there! I'm Janet.</span>
+
+					<span class="block text-2xl italic mt-2" style="color:#C9C6F2;">Software Engineer &amp; Web Developer</span>
+
 				</h1>
 
-				     
-              
-				<p class=""> From tools that guide business owners, to storefronts, to apps that help pets find homes, I combine creativity and code to make a real impact.</p>
+				<div class="hero-stars" aria-hidden="true">
+					<svg class="hero-star twinkle" style="top:-38px; left:8%; width:16px; height:16px; animation-delay:0.3s; animation-duration:3.6s;" viewBox="0 0 24 24" fill="var(--midnight-lavender)"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+					<svg class="hero-star twinkle" style="top:10px; left:90%; width:20px; height:20px; animation-delay:1.4s; animation-duration:4.4s;" viewBox="0 0 24 24" fill="var(--midnight-lavender)"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+					<svg class="hero-star twinkle" style="top:120px; left:0%; width:14px; height:14px; animation-delay:2.6s; animation-duration:3.9s;" viewBox="0 0 24 24" fill="var(--midnight-lavender)"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+				</div>
 
-				<p class="mt-4"> Let’s make your website one visitors won’t forget!
+				<p class="text-[var(--midnight-text-light)]"> I build features for engineering teams and custom sites for businesses. From tools that guide business owners, to storefronts, to apps that help pets find homes, I combine creativity and code to bring ideas to life.
+</p>
 
 						<HeroButtons/>
 
-			
-				
-		  
-			   
+
+
+
+
 					</div>
 					</section>
+					</div>
+
+					<SectionDivider variant="clouds" stars fromColor="var(--midnight-navy)" toColor="var(--midnight-lavender-pale)" />
 
 					<!-- 				**********************	GITHUB   **********************-->
-			   <section class="my-16 py-12 bg-white">
+			   <section class="section-py bg-[var(--midnight-lavender-pale)]" style="margin-top:-2px;">
 					<div class="max-w-7xl mx-auto px-4 sm:px-12">
 			
  
       
 		   <section class="fade-in">
-			<h2 class="font-Ayaka text-4xl inline-flex items-center gap-2 justify-center w-full">
+			<h2 class="font-Ayaka section-heading inline-flex items-center gap-2 justify-center w-full">
   Github
   <a href="https://github.com/ghiblimagic" aria-label="link to github">
     <img class="size-7 md:size-8" src="images/github.svg" alt="" />
   </a>
 </h2>
-   
 
-                 <div class="min-h-32 bg-mainColor py-6 rounded-2xl">
-					<img src="https://ghchart.rshah.org/3c5dca/ghiblimagic" alt="Github chart" 
+
+                 <div class="github-chart-card">
+					<img src="https://ghchart.rshah.org/8e8fd8/ghiblimagic" alt="Github chart"
 					 width="743"
 					 height="120"
-				  class="block mx-auto w-full max-w-[743px] h-auto py-2 px-4 sm:px-10 rounded-lg bg-white border-mainColor border-x shadow-md shadow-blue-400"
+				  class="block mx-auto w-full max-w-[743px] h-auto"
 >
 				 </div>
 				</section>
@@ -95,60 +104,13 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 					</div>
 				</section>
 					   
-					<!-- **************** Website Builder Guide ************** -->
-			
-					<section class="py-12">
-						<div class="max-w-7xl mx-auto px-4 sm:px-12">
-
-				    	<h2 class="font-Ayaka text-4xl tracking-widest fade-in"> Website Builder Finder</h2>
-
-						<img 
-						
-						src="/images/website-builder.webp"
-						
-						srcset="/images/website-builder.webp 800w, 
-						/images/website-builder-retina.webp 1586w, 
-						/images/website-builder-mobile.png 300w, 
-						/images/website-builder-mobile-retina.png 600w"     alt="Website builder screenshot" sizes="(max-width: 640px) 300px, 800px" class="w-full max-w-[800px] mx-auto fade-in" loading="lazy">
-
-				<div class="max-w-5xl mx-auto mt-10">
-
-				<p class="my-2 fade-in"> <strong>I built an interactive guide </strong> to help with one of the most painful parts of building a website yourself: choosing a website builder. It lets you filter through 15 popular options to find the right fit.
-
-				</p>
-
-					<p class="mt-2 mb-2 fade-in"> However, most business owners find it makes more business sense to pay a developer to build their website, freeing them up to spend that time running their business instead. Getting a site that's accessible, fast-loading, visible in Google search results, and reliably functional across devices takes skills that take time to develop, and getting any one of these wrong can cost you customers.
-
-				</p>
-
-				<p class="mt-2 mb-6 fade-in">
-					If you just need something temporary up fast, or something genuinely simple, building it yourself with a website builder is a reasonable option. Just know you'll need to put in real research time if you want the site to reach its full potential.
-
-						</p>
-			
-				<div class="fade-in">
-  <GradientButton
-    text="View Guide"
-	  secondary
-    link="https://guide.janetspellman.com/"
-  />
-				</div>
-
-				</div>
-
-						</div>
-			</section>
-        
-
-
-
    <!--  ******* Project Section ******** -->
 
 
 
-	<section class="my-16 py-12 bg-white" id="projects">
+	<section class="section-py bg-[var(--midnight-white)]" id="projects">
 		<div class="max-w-7xl mx-auto px-4 sm:px-12">
-			<h2 class="font-Ayaka text-4xl text-center fade-in"> Latest Projects </h2>
+			<h2 class="font-Ayaka section-heading fade-in"> Latest Projects </h2>
 
 		
 				 <LatestProjects>
@@ -156,82 +118,62 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 		</div>
 	</section>
+
 <!-- 		SERVICES SECTION -->
 
 
-		<section class="max-w-7xl mx-auto px-4 sm:px-12 fade-in" id="services">
-			<h3 class="   font-Ayaka text-4xl text-center"> Services</h2>
+		<section class="section-py bg-[var(--midnight-lavender-pale)]" id="services">
+			<div class="max-w-7xl mx-auto px-4 sm:px-12">
+			<h2 class="font-Ayaka section-heading fade-in"> Services</h2>
 
-		<div class="grid grid-cols-1 xl:grid-cols-2 gap-x-12 gap-y-8 my-8">
+		<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-14 my-8">
 
-			<section class="flex flex-col sm:flex-row mb-4">
+			<div class="service-card fade-in">
+				<DiamondBackgroundImages imgSrc="service-palette"/>
+				<h3 class="heading-styling">Website Development </h3>
+				<p> Your project deserves a tailored approach. I’ll begin by creating a wireframe shaped around your preferences, then bring it to life as a responsive website that feels right at home on phones, tablets, and big screens.</p>
+			</div>
 
-<DiamondBackgroundImages imgSrc="service-palette"/>
+			<div class="service-card fade-in">
+				<DiamondBackgroundImages imgSrc="responsive"/>
+				<h3 class="heading-styling">Responsive Design</h3>
+				<p>Keeping clients means giving them a smooth experience on any device. With responsive design, your website automatically adjusts to desktops, tablets, and mobile phones so your audience can navigate and purchase without frustration.</p>
+			</div>
 
-					
-				<div class="portfolio-card portfolio-card--padded sm:ml-6 flex-1 fade-in">
-					<h3 class="heading-styling ">Website Development </h3>
-					<p > Your project deserves a tailored approach. I’ll begin by creating a wireframe shaped around your preferences, then bring it to life as a responsive website that feels right at home on phones, tablets, and big screens.</p>
-				</div>
-			</section>
-
-			<section class="flex flex-col sm:flex-row mb-4 fade-in ">
-			
-	
-			<DiamondBackgroundImages imgSrc="responsive"/>
-			
-				<div class="portfolio-card portfolio-card--padded sm:ml-6 flex-1">
-					<h3 class="heading-styling">Responsive Design</h3>
-					<p>Keeping clients means giving them a smooth experience on any device. With responsive design, your website automatically adjusts to desktops, tablets, and mobile phones so your audience can navigate and purchase without frustration..</p>
-				</div>
-			</section>
-
-	<section class="flex flex-col sm:flex-row mb-4 fade-in">
-
+			<div class="service-card fade-in">
 				<DiamondBackgroundImages imgSrc="accessiblity"/>
+				<h3 class="heading-styling">Accessibility </h3>
+				<p> An accessible website creates a smoother experience for everyone. I build websites that are easy to navigate and inclusive, so every potential client can interact with your content without barriers.</p>
+			</div>
 
-				<div class="portfolio-card portfolio-card--padded sm:ml-6 flex-1">
-					<h3 class="heading-styling">Accessiblity </h3>
-					<p> An accessible website creates a smoother experience for everyone.I build websites that are easy to navigate and inclusive, so every potential client can interact with your content without barriers.</p>
-				</div>
-			</section>
-
-			
-
-			<section class="flex flex-col sm:flex-row mb-4 fade-in">
-
-				
-						<DiamondBackgroundImages imgSrc="diamond"/>
-				<div class="portfolio-card portfolio-card--padded sm:ml-6 flex-1">
-					<h3 class="heading-styling border-b-0">Search Engine Optimization (SEO) </h3>
-					<p> Strong SEO makes it easier for clients to find you. I optimize your site so it shows up higher in search results and brings more traffic your way. </p>
-				</div>
-			</section>
-
-			
-
+			<div class="service-card fade-in">
+				<DiamondBackgroundImages imgSrc="diamond"/>
+				<h3 class="heading-styling border-b-0">Search Engine Optimization (SEO) </h3>
+				<p> Strong SEO makes it easier for clients to find you. I optimize your site so it shows up higher in search results and brings more traffic your way. </p>
+			</div>
 
 		</div>
-
+		</div>
 	   </section>
 
 	   <!-- THE PROCESS SECTION -->
 
 
-	   <section class="my-16 py-12 bg-white" id="process">
+	   <section class="section-py bg-[var(--midnight-white)]" id="process">
 			<div class="max-w-7xl mx-auto px-4 sm:px-12">
-	
-	
-		<h3 class="font-Ayaka text-4xl text-center fade-in"> The Process</h2>
-        
-		<ol class="grid grid-cols-1 xl:grid-cols-2 gap-8 my-8">
 
-			<li class="portfolio-card portfolio-card--padded fade-in">
+
+		<h2 class="font-Ayaka section-heading fade-in"> The Process</h2>
+
+		<ol class="process-steps">
+
+			<li class="process-step fade-in">
+				<span class="process-step__circle" aria-hidden="true">1</span>
 				<h3 class="heading-styling"> Step 1 : Consultation</h3>
 
 				<p class="mb-2"> We will chat about your vision, needs, and expectations.</p>
 
-				<p class=my-4"> We can either: 
+				<p class=my-4"> We can either:
 					<ol>
 					<li class="my-2 ml-2">
 						1. Use a site builder so its easier for you to edit later (ex: Wix, Squarespace, Wordpress)
@@ -241,33 +183,33 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 					</li>
 				</ol>
 						 </p>
-
-				
-
-				
 			</li>
-	
-		
-			<li class="content portfolio-card portfolio-card--padded fade-in">
+
+
+			<li class="process-step fade-in">
+				<span class="process-step__circle" aria-hidden="true">2</span>
 				<h3 class="heading-styling ">Step 2 : Proposal</h3>
 				<p class="mb-4"> A personalized wire-frame layout will be created on figma so you can visually preview the site and suggest adjustments.</p>
-				<img src="images/wireFrame.png" alt="a wireframe of NourishedByKeto showing a color palette and a preview of the home page" height="600"  decoding="async"
-  loading="lazy"/>
 			</li>
-	
-			<li class="content portfolio-card portfolio-card--padded fade-in">
+
+			<li class="process-step fade-in">
+				<span class="process-step__circle" aria-hidden="true">3</span>
 				<h3 class="heading-styling ">Step 3 : Creation and Adjustments </h3>
 				<p> You will receive regular updates as the site is created, edited and tested. </p>
 			</li>
-	
-			<li class="content portfolio-card portfolio-card--padded fade-in">
+
+			<li class="process-step fade-in">
+				<span class="process-step__circle" aria-hidden="true">4</span>
 				<h3 class="heading-styling"> Step 4 : Deployment</h3>
 				<p> Your site will be deployed on a webhost (a webhost takes the code I write and turns it into a site). Congratulations, your site is now live!</p>
-
-				
 			</li>
-		
-		
+		</ol>
+
+		<div class="process-wireframe fade-in">
+			<img src="images/wireFrame.png" alt="a wireframe of NourishedByKeto showing a color palette and a preview of the home page" height="600"  decoding="async"
+  loading="lazy"/>
+		</div>
+
 			</div>
    </section>
 
@@ -275,16 +217,17 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 
 
-	<section class="max-w-7xl mx-auto my-16 px-4 sm:px-12" id="skills">
+	<section class="skills-section section-py bg-[var(--midnight-lavender-pale)]" id="skills">
+	<div class="max-w-7xl mx-auto px-4 sm:px-12">
 
-	<h2 class=" grid-none font-Ayaka text-4xl text-center fade-in"> Skills</h2>
+	<h2 class=" grid-none font-Ayaka section-heading fade-in"> Skills</h2>
  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8 my-8 justify-items-center">
-	
 
-	<section class="portfolio-card portfolio-card--padded w-full fade-in"> 
 
-		<h3 class="heading-styling "> Languages</h2>
-		<ul>
+	<section class="portfolio-card portfolio-card--padded w-full fade-in">
+
+		<h3 class="heading-styling "> Languages</h3>
+		<ul class="skill-pills">
 				<li >TypeScript</li>
 			    <li >JavaScript</li>
 				<li >Python</li>
@@ -292,73 +235,73 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 				<li >EJS</li>
 			    <li >HTML</li>
 				<li >CSS</li>
-			
-		
+
+
 		</ul>
 	</section>
 
-		<section class="portfolio-card portfolio-card--padded w-full fade-in"> 
-		<h3 class="heading-styling"> Frameworks & Libraries </h2>
-		<ul>
+		<section class="portfolio-card portfolio-card--padded w-full fade-in">
+		<h3 class="heading-styling"> Frameworks & Libraries </h3>
+		<ul class="skill-pills">
 			<li >Next JS 12-15</li>
 			<li >React</li>
 			<li >Astro</li>
 			<li >Gatsby</li>
-		
+
 		</ul>
 	</section>
 
-	<section class="portfolio-card portfolio-card--padded w-full fade-in"> 
-		<h3 class="heading-styling"> Back-End And Platforms</h2>
-		<ul>
+	<section class="portfolio-card portfolio-card--padded w-full fade-in">
+		<h3 class="heading-styling"> Back-End And Platforms</h3>
+		<ul class="skill-pills">
 				<li >Node.js</li>
 				<li >Express</li>
-				<li >MongoDB </li>			
+				<li >MongoDB </li>
 				<li >Appwrite</li>
 				<li >Supabase</li>
 				<li >Digital Ocean</li>
-			
+
 		</ul>
 	</section>
 
 
-	<section class="portfolio-card portfolio-card--padded w-full fade-in"> 
-		<h3 class="heading-styling"> Tools/Other </h2>
-		<ul>
+	<section class="portfolio-card portfolio-card--padded w-full fade-in">
+		<h3 class="heading-styling"> Tools/Other </h3>
+		<ul class="skill-pills">
 				<li >TailwindCSS</li>
 				<li >Git</li>
 				<li >GitHub</li>
 				<li >Figma</li>
-			
+
 				<li >Prettier</li>
 				<li >Disquis</li>
 				<li >Shadcn/ui</li>
 				<li >Headless UI</li>
 				<li >Daisy UI</li>
 				<li >GIMP</li>
-			
-				
+
+
 		</ul>
 	</section>
 
-	<section class="portfolio-card portfolio-card--padded w-full fade-in"> 
-		<h3 class="heading-styling text-wrap"> CMS </h2>
-		<ul>
+	<section class="portfolio-card portfolio-card--padded w-full fade-in">
+		<h3 class="heading-styling text-wrap"> CMS </h3>
+		<ul class="skill-pills">
 			<li >WordPress</li>
 			<li >Shopify</li>
-			<li class="text-wrap">Decap cms</li>		
-			
+			<li class="text-wrap">Decap cms</li>
+
 		</ul>
 	</section>
 
-		<section class="portfolio-card portfolio-card--padded w-full fade-in"> 
-		<h3 class="heading-styling"> AI </h2>
-		<ul>
+		<section class="portfolio-card portfolio-card--padded w-full fade-in">
+		<h3 class="heading-styling"> AI </h3>
+		<ul class="skill-pills">
 			<li >Open AI API</li>
-			<li >ChatGPT</li>		
-			<li >Claude</li>	
-			<li >Copilot</li>		
-			
+			<li >ChatGPT</li>
+			<li >Claude</li>
+			<li >Copilot</li>
+
 		</ul>
 	</section>
 
@@ -366,9 +309,10 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 
 </div>
+</div>
 </section>
 
-
+<SectionDivider variant="hills" fromColor="var(--midnight-lavender-pale)" toColor="var(--midnight-navy)" midColor="var(--midnight-lavender)" />
 
 <!--  so recaptcha will shrink on small screen -->
 <style>
@@ -386,6 +330,236 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
       transform-origin: 0 0;
       margin-bottom: -20px; /* Compensate for scaled height */
     }
+  }
+
+  /* ---- Hero ---- */
+  .hero-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .hero-star {
+    position: absolute;
+  }
+
+  /* ---- GitHub chart card ---- */
+  .github-chart-card {
+    background: var(--midnight-white);
+    border: 1px solid var(--midnight-lavender-border);
+    border-radius: 18px;
+    box-shadow: 0 12px 32px rgba(20, 27, 77, 0.08);
+    padding: 24px 16px;
+  }
+
+  @media (min-width: 640px) {
+    .github-chart-card {
+      padding: 24px 40px;
+    }
+  }
+
+  /* ---- Services ---- */
+  .service-card {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 4px;
+    background: var(--midnight-white);
+    border: 1px solid var(--midnight-lavender-border);
+    border-radius: 18px;
+    padding: 74px 22px 24px;
+    box-shadow: 0 12px 32px rgba(20, 27, 77, 0.08);
+  }
+
+  .service-card p {
+    color: var(--midnight-text-body);
+  }
+
+  /* ---- Process ---- */
+  .process-steps {
+    position: relative;
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 24px;
+    margin: 32px 0;
+    list-style: none;
+    padding: 0;
+  }
+
+  .process-steps::before {
+    content: "";
+    position: absolute;
+    top: 28px;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: var(--midnight-lavender-mid);
+    z-index: 0;
+  }
+
+  @media (max-width: 1023px) {
+    .process-steps::before {
+      display: none;
+    }
+  }
+
+  .process-step {
+    position: relative;
+    z-index: 1;
+  }
+
+  .process-step p {
+    color: var(--midnight-text-body);
+  }
+
+  .process-step__circle {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    margin-bottom: 12px;
+    border-radius: 999px;
+    background: var(--midnight-navy);
+    color: var(--midnight-white);
+    font-family: "AkayaKanadaka Script", serif;
+    font-size: 24px;
+  }
+
+  .process-wireframe {
+    margin-top: 32px;
+    text-align: center;
+  }
+
+  .process-wireframe img {
+    margin: 0 auto;
+  }
+
+  @media (max-width: 1023px) {
+    .process-steps {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (max-width: 639px) {
+    .process-steps {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* ---- Skills ---- */
+  .skills-section {
+    padding-bottom: 230px;
+  }
+
+  @media (max-width: 640px) {
+    .skills-section {
+      padding-bottom: 140px;
+    }
+  }
+
+  .skill-pills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    list-style: none;
+    padding: 0;
+  }
+
+  .skill-pills li {
+    padding: 5px 12px;
+    background: var(--midnight-white);
+    border: 1px solid var(--midnight-lavender-border);
+    border-radius: 999px;
+    color: var(--midnight-navy);
+    font-size: 14px;
+  }
+
+  /* ---- Contact ---- */
+  .contact-section {
+    position: relative;
+  }
+
+  .contact-stars {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .contact-star {
+    position: absolute;
+  }
+
+  .contact-form-wrap {
+    max-width: 620px;
+    margin: 0 auto;
+  }
+
+  .contact-fields-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  @media (min-width: 640px) {
+    .contact-fields-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .contact-field--full {
+      grid-column: 1 / -1;
+    }
+  }
+
+  .contact-label {
+    display: block;
+    margin-bottom: 4px;
+    color: var(--midnight-text-light);
+    font-size: 14px;
+    font-weight: 600;
+  }
+
+  .contact-input {
+    background: var(--midnight-navy-input);
+    border: 1px solid var(--midnight-navy-line);
+    border-radius: 10px;
+    min-height: 48px;
+    padding: 0 14px;
+    color: var(--midnight-white);
+  }
+
+  .contact-textarea {
+    min-height: 140px;
+    padding: 12px 14px;
+  }
+
+  #contact input:focus,
+  #contact textarea:focus,
+  #contact button:focus {
+    outline: 2px solid var(--midnight-lavender);
+    outline-offset: 2px;
+  }
+
+  .contact-submit-btn {
+    display: inline-block;
+    border-radius: 10px;
+    padding: 10px 28px;
+    background: var(--midnight-lavender);
+    color: var(--midnight-navy);
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+  }
+
+  .contact-submit-btn:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
   }
 </style>
 
@@ -422,45 +596,50 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 
 
-<section class="mt-16 p-4 sm:p-12 pb-20 sm:pb-32 w-full bg-white" id="contact">
+<section class="contact-section mt-[-2px] p-4 sm:p-12 pb-20 sm:pb-32 w-full bg-[var(--midnight-navy)]" id="contact">
+	<div class="contact-stars" aria-hidden="true">
+		<svg class="contact-star twinkle" style="top:6%; left:5%; width:14px; height:14px; animation-delay:0.4s; animation-duration:4s;" viewBox="0 0 24 24" fill="#8A8FD0"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+		<svg class="contact-star twinkle" style="top:8%; right:6%; width:18px; height:18px; animation-delay:1.7s; animation-duration:4.6s;" viewBox="0 0 24 24" fill="#8A8FD0"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+		<svg class="contact-star twinkle" style="bottom:8%; left:8%; width:12px; height:12px; animation-delay:2.9s; animation-duration:3.7s;" viewBox="0 0 24 24" fill="#8A8FD0"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+	</div>
 	<div class="max-w-4xl mx-auto px-2 sm:px-12">
 
-	<h2 class="heading font-Ayaka text-3xl sm:text-4xl text-center fade-in">  Get in Touch</h2>
-	<div class="portfolio-card portfolio-card--padded max-w-2xl mx-auto fade-in">
+	<h2 class="heading font-Ayaka text-3xl sm:text-4xl text-center fade-in" style="color:var(--midnight-white);">  Get in Touch</h2>
+	<p class="text-center fade-in" style="color:var(--midnight-text-light);">Hiring for a role or need a site built? Either way, I'd love to hear from you.</p>
 
-	<div class="flex flex-col items-center w-full sm:w-[95%] mx-auto max-w-xl fade-in">
+	<div class="contact-form-wrap fade-in">
 
-	<p class="my-6 fade-in">All fields marked with  <span class="text-red-800">*</span> are required</p>
+	<p class="my-6 fade-in" style="color:var(--midnight-text-light);">All fields marked with  <span class="text-red-300">*</span> are required</p>
 
-	<form name="contact" method="POST"  data-netlify="true" netlify-honeypot="bot-field"  data-netlify-recaptcha="true"  class="w-full sm:w-[90%]">
+	<form name="contact" method="POST"  data-netlify="true" netlify-honeypot="bot-field"  data-netlify-recaptcha="true"  class="w-full">
 		  <input type="hidden" name="form-name" value="contact" />
-		<p class="hidden">
+		<p class="visually-hidden" aria-hidden="true">
 			<label>
-			  Don’t fill this out if you’re human: <input name="bot-field" />
+			  Don’t fill this out if you’re human: <input name="bot-field" tabindex="-1" autocomplete="off" />
 			</label>
 		  </p>
-		<div class="fields text-left fade-in">
+		<div class="fields text-left fade-in contact-fields-grid">
 			<div class="field">
-				<label for="name" class="block font-bold">Name  <span class="text-red-800">*</span></label>
-				<input type="text" name="name" id="name" required class="w-full input-styling"/>
+				<label for="name" class="contact-label">Name  <span class="text-red-300">*</span></label>
+				<input type="text" name="name" id="name" required class="w-full contact-input"/>
 			</div>
 			<div class="field ">
-				<label for="email" class="block font-bold">Email  <span class="text-red-800">*</span></label>
-				<input type="text" name="email" id="email" required class="w-full input-styling"/>
+				<label for="email" class="contact-label">Email  <span class="text-red-300">*</span></label>
+				<input type="text" name="email" id="email" required class="w-full contact-input"/>
 			</div>
 
-			<div class="field">
-				<label for="phone" class="block font-bold"> Phone:</label>
-				<input type="tel" name="phone" id="phone" class="w-full input-styling" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-				<span class="block ">Format: 111-222-3333 </span>
+			<div class="field contact-field--full">
+				<label for="phone" class="contact-label"> Phone:</label>
+				<input type="tel" name="phone" id="phone" class="w-full contact-input" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+				<span class="block" style="color:var(--midnight-text-light);">Format: 111-222-3333 </span>
 			</div>
-			
 
-			<div class="field">
-				<label for="message" class="block font-bold">Message <span class="text-red-800">*</span></label>
-				<textarea name="message" id="message" rows="3" required class="input-styling w-full "></textarea>
+
+			<div class="field contact-field--full">
+				<label for="message" class="contact-label">Message <span class="text-red-300">*</span></label>
+				<textarea name="message" id="message" rows="5" required class="contact-input contact-textarea w-full "></textarea>
 			</div>
-		</div>					
+		</div>
 
 		<div class="recaptcha-container fade-in">
 		 <div data-netlify-recaptcha="true"></div>
@@ -468,15 +647,15 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
 
 		<div class="flex align-center justify-center  w-full mb-11 fade-in">
 				<button
-				type="submit" 
-				title="click after filling out all required fields to submit contact request"			
-				class="portfolio-button portfolio-button--view"
+				type="submit"
+				title="click after filling out all required fields to submit contact request"
+				class="contact-submit-btn"
 				>
 				Send
 		</button>
-	
+
 		</div>
-	
+
 	</form>
 
 	<script>
@@ -530,9 +709,8 @@ import GradientButton from "@/components/buttons/GradientButton.astro"
     });
   }
 </script>
-	
 
-</div>
+
 </div>
 
 </div>

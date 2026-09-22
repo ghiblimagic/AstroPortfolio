@@ -4,47 +4,9 @@ import {
   NavigationMenuLink,
   NavigationMenuList,
 } from "@/components/ui/navigation-menu";
-import GradientButton from "../buttons/GradientButtonReact";
+import { socialIcons } from "@/data/socialIcons";
 
 function SocialLinksNav() {
-  let SocialLinks = [
-    {
-      href: "https://www.linkedin.com/in/janet-spellmanmarsh/",
-      icon: "linkedIn",
-      title: "LinkedIn",
-      alt: "Link to LinkedIn",
-    },
-    {
-      href: "https://github.com/ghiblimagic",
-      icon: "github",
-      title: "github",
-      alt: "Link to github",
-    },
-    {
-      href: "https://bsky.app/profile/ghiblimagic.bsky.social",
-      icon: "bluesky",
-      title: "bluesky",
-      alt: "Link to bluesky",
-    },
-    {
-      href: "https://x.com/ghiblimagicdev",
-      icon: "twitter",
-      title: "twitter",
-      alt: "Link to twitter",
-    },
-    {
-      href: "https://www.youtube.com/@ghiblimagicdev",
-      icon: "youtube",
-      title: "youtube",
-      alt: "Link to youtube",
-    },
-    {
-      href: "https://www.twitch.tv/ghiblimagic",
-      icon: "twitch",
-      title: "twitch",
-      alt: "Link to twitch",
-    },
-  ];
   //title used to make the font awesome icons accessible     https://fontawesome.com/v5/docs/web/other-topics/accessibility#svg-with-javascript-semantic-icons
 
   // https://stackoverflow.com/questions/69911071/mapping-and-displaying-fontawesome-icons had to change icon name to a non string value
@@ -81,27 +43,33 @@ function SocialLinksNav() {
         </NavigationMenuItem>
 
         <div className="hidden md:block pr-4">
-          <GradientButton
-            text="Contact"
-            link="/#contact"
-            primary
-          />
+          <a
+            href="/#contact"
+            className="inline-block rounded-[9px] px-[18px] py-[9px] text-[13.5px] font-semibold no-underline"
+            style={{
+              background: "var(--midnight-lavender)",
+              color: "var(--midnight-navy)",
+              fontFamily: "Inter, sans-serif",
+            }}
+          >
+            Contact
+          </a>
         </div>
 
-        {SocialLinks.map((item) => (
-          <NavigationMenuItem key={`${item.title} Nav Menu Item`}>
+        {socialIcons.map((item) => (
+          <NavigationMenuItem key={`${item.name} Nav Menu Item`}>
             <NavigationMenuLink
               href={item.href}
-              title={item.title}
+              aria-label={`Janet on ${item.label}`}
+              className="social-icon-link mx-1"
             >
-              <img
-                className="mx-1 inline-block size-7 
-                hover:border-2 hover:rounded-sm hover:border-violet-500 
-        md:size-8"
-                src={`/images/${item.icon}.svg`}
-                alt={item.alt}
-                loading="eager"
-              />
+              <svg
+                className="social-icon-svg"
+                viewBox={item.viewBox}
+                aria-hidden="true"
+              >
+                <path d={item.path} />
+              </svg>
             </NavigationMenuLink>
           </NavigationMenuItem>
         ))}

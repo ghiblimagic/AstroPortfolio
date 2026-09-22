@@ -12,7 +12,8 @@ const isActive = (path: string) => currentPath === path || (path === '/blog' && 
   {/* ********************    MAIN NAV, DOTTED BACKGROUND*****************  */}
 <div
   id="sidebar"
-  class="fixed left-0 top-0 w-[250px] h-screen bg-[#1334a0] px-6 pt-16 z-51 text-white border-r-4 overflow-y-auto"
+  class="fixed left-0 top-0 w-[250px] h-screen bg-[var(--midnight-navy)] px-6 pt-16 z-51 text-white border-r-4 overflow-y-auto"
+  style="border-right: 1px solid rgba(255,255,255,0.10);"
 
 >
     <div class="flex  items-center gap-4 py-4 glow ">
@@ -73,10 +74,21 @@ const isActive = (path: string) => currentPath === path || (path === '/blog' && 
 
       
       <li class="glow ">
-        <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/torc') }]} href="/torc">Torc</a>
+        <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/torc') }]} href="/torc">Join Torc</a>
       </li>
     </ul>
-    
+
     <div class="flex flex-col space-y-5 items-center justify-items-center pt-8"></div>
   </div>
 </div>
+
+<style>
+  #sidebar ul a {
+    color: var(--midnight-text-light);
+  }
+
+  #sidebar ul a.nav-link-active {
+    background: rgba(179, 174, 234, 0.22);
+    color: var(--midnight-white);
+  }
+</style>

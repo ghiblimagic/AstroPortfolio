@@ -5,6 +5,7 @@ interface Props {
 const { title } = Astro.props;
 import SocialLinksNav from "../components/navigation/SocialLinksNav"
 import NavToggleButton from "@/components/buttons/NavToggleButton.astro"
+import { socialIcons } from "@/data/socialIcons.js"
 
 
 
@@ -30,16 +31,42 @@ import NavToggleButton from "@/components/buttons/NavToggleButton.astro"
  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cfc795e13ebd438698757185c698ac69"}'></script><!-- End Cloudflare Web Analytics -->
     </head>
     <body class="h-full relative">
-        <header class="flex justify-between">
+        <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+          <defs>
+            <linearGradient id="social-gradient" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#D6D3F7"/>
+              <stop offset="1" stop-color="#8FA7EA"/>
+            </linearGradient>
+            <linearGradient id="social-gradient-hover" x1="0" y1="0" x2="1" y2="1">
+              <stop offset="0" stop-color="#FFFFFF"/>
+              <stop offset="1" stop-color="#D6D3F7"/>
+            </linearGradient>
+          </defs>
+        </svg>
+        <header class="flex justify-between" style="background: var(--midnight-navy);">
             <NavToggleButton />
             <SocialLinksNav />
         </header>
-    
+
         <slot/>
         <footer
-            id="footer" 
-            class="absolute bottom-0 bg-[#1334a0] w-full border-t-2 gradient-line">
-            <small class="pl-8 text-white">&copy; Janet Spellman. All rights reserved.</small>
+            id="footer"
+            class="absolute bottom-0 w-full border-t-2 gradient-line flex items-center justify-between flex-wrap gap-2 pr-4"
+            style="background: var(--midnight-navy-deep);">
+            <small class="pl-8" style="color: #9AA6CF;">&copy; Janet Spellman. All rights reserved.</small>
+            <div class="flex items-center">
+                {socialIcons.map((item) => (
+                    <a
+                        href={item.href}
+                        aria-label={`Janet on ${item.label}`}
+                        class="social-icon-link"
+                    >
+                        <svg class="social-icon-svg" viewBox={item.viewBox} aria-hidden="true">
+                            <path d={item.path} />
+                        </svg>
+                    </a>
+                ))}
+            </div>
         </footer>
 <script> 
 import { initFadeInObserver } from "@/utils/fadeInObserver"
@@ -79,4 +106,5 @@ import { initFadeInObserver } from "@/utils/fadeInObserver"
             Courier New,
             monospace;
     }
+
 </style>
