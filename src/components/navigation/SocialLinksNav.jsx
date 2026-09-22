@@ -43,15 +43,7 @@ function SocialLinksNav() {
         </NavigationMenuItem>
 
         <div className="hidden md:block pr-4">
-          <a
-            href="/#contact"
-            className="inline-block rounded-[9px] px-[18px] py-[9px] text-[13.5px] font-semibold no-underline"
-            style={{
-              background: "var(--midnight-lavender)",
-              color: "var(--midnight-navy)",
-              fontFamily: "Inter, sans-serif",
-            }}
-          >
+          <a href="/#contact" className="btn-primary">
             Contact
           </a>
         </div>

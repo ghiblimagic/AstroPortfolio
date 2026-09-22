@@ -1,0 +1,154 @@
+---
+---
+
+<!--  so recaptcha will shrink on small screen -->
+<script is:inline>
+  // is:inline is needed to Intercept Netlify's auto-injected reCAPTCHA script
+  // because we need the script to run immediately during HTML parsing
+  const observer = new MutationObserver((mutations) => {
+    mutations.forEach((mutation) => {
+      mutation.addedNodes.forEach((node) => {
+        if (node.tagName === 'SCRIPT' && node.src && node.src.includes('recaptcha')) {
+          // Don't load it immediately - defer until form is visible
+          node.remove();
+
+          const form = document.querySelector('form[name="contact"]');
+          if (form) {
+            const formObserver = new IntersectionObserver((entries) => {
+              if (entries[0].isIntersecting) {
+                document.head.appendChild(node);
+                formObserver.disconnect();
+                observer.disconnect();
+              }
+            }, { rootMargin: '200px' });
+
+            formObserver.observe(form);
+          }
+        }
+      });
+    });
+  });
+
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+
+</script>
+
+<section class="contact-section mt-[-2px] p-4 sm:p-12 pb-20 sm:pb-32 w-full bg-[var(--midnight-navy)]" id="contact">
+	<div class="contact-stars" aria-hidden="true">
+		<svg class="contact-star twinkle" style="top:6%; left:5%; width:14px; height:14px; animation-delay:0.4s; animation-duration:4s;" viewBox="0 0 24 24" fill="#8A8FD0"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+		<svg class="contact-star twinkle" style="top:8%; right:6%; width:18px; height:18px; animation-delay:1.7s; animation-duration:4.6s;" viewBox="0 0 24 24" fill="#8A8FD0"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+		<svg class="contact-star twinkle" style="bottom:8%; left:8%; width:12px; height:12px; animation-delay:2.9s; animation-duration:3.7s;" viewBox="0 0 24 24" fill="#8A8FD0"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+	</div>
+	<div class="max-w-4xl mx-auto px-2 sm:px-12">
+
+	<h2 class="heading font-Ayaka text-3xl sm:text-4xl text-center fade-in" style="color:var(--midnight-white);">  Get in Touch</h2>
+	<p class="text-center fade-in" style="color:var(--midnight-white);">Hiring for a role or need a site built? Either way, I'd love to hear from you.</p>
+
+	<div class="contact-form-wrap fade-in">
+
+	<p class="my-6 fade-in" style="color:var(--midnight-white);">All fields marked with  <span class="text-red-300">*</span> are required</p>
+
+	<form name="contact" method="POST"  data-netlify="true" netlify-honeypot="bot-field"  data-netlify-recaptcha="true"  class="w-full">
+		  <input type="hidden" name="form-name" value="contact" />
+		<p class="visually-hidden" aria-hidden="true">
+			<label>
+			  Don’t fill this out if you’re human: <input name="bot-field" tabindex="-1" autocomplete="off" />
+			</label>
+		  </p>
+		<div class="fields text-left fade-in contact-fields-grid">
+			<div class="field">
+				<label for="name" class="contact-label">Name  <span class="text-red-300">*</span></label>
+				<input type="text" name="name" id="name" required class="w-full contact-input"/>
+			</div>
+			<div class="field ">
+				<label for="email" class="contact-label">Email  <span class="text-red-300">*</span></label>
+				<input type="text" name="email" id="email" required class="w-full contact-input"/>
+			</div>
+
+			<div class="field contact-field--full">
+				<label for="phone" class="contact-label"> Phone:</label>
+				<input type="tel" name="phone" id="phone" class="w-full contact-input" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
+				<span class="block" style="color:var(--midnight-white);">Format: 111-222-3333 </span>
+			</div>
+
+
+			<div class="field contact-field--full">
+				<label for="message" class="contact-label">Message <span class="text-red-300">*</span></label>
+				<textarea name="message" id="message" rows="5" required class="contact-input contact-textarea w-full "></textarea>
+			</div>
+		</div>
+
+		<div class="recaptcha-container fade-in">
+		 <div data-netlify-recaptcha="true"></div>
+		</div>
+
+		<div class="flex align-center justify-center  w-full mb-11 fade-in">
+				<button
+				type="submit"
+				title="click after filling out all required fields to submit contact request"
+				class="btn-primary"
+				>
+				Send
+		</button>
+
+		</div>
+
+	</form>
+
+	<script>
+  // Handle form submission - runs after form is in DOM
+  const form = document.querySelector('form[name="contact"]') as HTMLFormElement;
+  //  tells TypeScript the form element is a form, so it won't give this error when we tell it new FormData(form)
+  // Argument of type 'Element' is not assignable to parameter of type 'HTMLFormElement'.  Type 'Element' is missing the following properties from type 'HTMLFormElement': acceptCharset, action, autocomplete, elements, and 148 more.
+
+  if (form) {
+
+	  const submitButton = form.querySelector('button[type="submit"]');
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(form);
+      const email = formData.get('email') as string;
+
+	      // Disable button and show loading state
+      if (submitButton) {
+        submitButton.textContent = 'Sending...';
+        submitButton.setAttribute('disabled', 'true');
+      }
+
+      try {
+        const response = await fetch('/', {
+          method: 'POST',
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: new URLSearchParams(formData as any).toString()
+        });
+
+        if (response.ok) {
+             // Using absolute URL to avoid trailing slash issues,
+			 // aka avoiding success/?email=f%40gmail.com and getting the correct success?email=f%40gmail.com
+          window.location.href = `${window.location.origin}/success?email=${encodeURIComponent(email)}`;
+
+        } else {
+          throw new Error('Form submission failed');
+        }
+      } catch (error) {
+        console.error('Form submission error:', error);
+        alert('There was an error submitting the form. Please try again.');
+
+
+        // Re-enable button
+        if (submitButton) {
+          submitButton.textContent = 'Send';
+          submitButton.removeAttribute('disabled');
+        }
+      }
+    });
+  }
+</script>
+
+
+</div>
+
+</div>
+</section>

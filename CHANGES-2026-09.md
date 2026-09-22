@@ -386,3 +386,423 @@ turns and unchanged since.
 the new color: 8.55:1.
 
 Diff: uncommitted on `hero-redesign` branch (not yet committed).
+
+### 2026-09-22 — Follow-up: move the extracted section CSS into globals.css
+
+Follow-up on the section-extraction below: after seeing the six new
+components each carrying their own scoped `<style>` block, the user asked
+that the CSS instead live in `src/styles/`. Reversed just that part —
+removed the `<style>` tag from each of `Hero.astro`, `GithubActivity.astro`,
+`ServicesGrid.astro`, `ProcessSteps.astro`, `SkillsGrid.astro`, and
+`ContactSection.astro`, and appended the same rules verbatim to
+`globals.css` (new section right after `.skills-section`, same comment
+headers/order as the original `index.astro` style block had). The
+component split itself (markup per section) was kept — only the CSS moved.
+
+**Verification:** `pnpm astro check` → 0 errors. `pnpm astro build`
+confirmed the same classes still render in `dist/index.html`, and spot-checked
+the built CSS bundle (`_astro/_slug_.*.css`) to confirm `.contact-submit-btn`
+etc. now compile without an `data-astro-cid-*` scoping attribute — i.e.
+they're genuinely global now, not component-scoped. Removed the
+verification `dist/` output afterward.
+
+Diff: uncommitted on `hero-redesign` branch (not yet committed).
+
+### 2026-09-22 — Extract homepage sections out of index.astro's inline <style>
+
+`index.astro` had accumulated a single ~250-line `<style>` block covering
+the Hero stars, GitHub chart card, Services cards, Process steps, Skills
+pills, and the Contact form — all CSS that had been added directly to the
+page instead of following the project's existing pattern (seen in
+`HeroButtons.astro`, `SectionDivider.astro`, `DiamondBackgroundImages.astro`,
+`LatestProjects.astro`) of colocating a section's markup with its own
+scoped `<style>` in a dedicated component.
+
+**What and why:** User flagged the CSS-in-page-file drift and asked for a
+cleanup following best practices. Given two options (move the CSS alone
+into `globals.css`, or extract each section into its own component to
+match the established pattern), the user chose full component extraction.
+
+**Changes:**
+- New `src/components/landingpage/` components, each with its markup +
+  scoped `<style>` moved out of `index.astro`: `Hero.astro`,
+  `GithubActivity.astro`, `ServicesGrid.astro`, `ProcessSteps.astro`,
+  `SkillsGrid.astro`, `ContactSection.astro` (including both of its
+  inline scripts — the Netlify reCAPTCHA interceptor and the form submit
+  handler — since they're tightly coupled to that form).
+- `index.astro`'s `<style>` block is now gone entirely. Following the
+  same pattern already used for `LatestProjects`/Projects, the outer
+  `<section class="section-py ...">` wrapper + `<h2>` for GitHub,
+  Services, Process, and Skills stay in `index.astro`; only each
+  section's inner content moved into its component.
+- `.skills-section`'s padding-bottom override is the one rule that
+  couldn't move into a child component (it's on the outer `<section
+  id="skills">`, which stays in `index.astro`) — moved to
+  `globals.css` instead, alongside the sibling `.section-py` rule it
+  overrides.
+
+**Key decisions:**
+- Extracted Hero too (previously only `HeroButtons` was split out), for
+  consistency with the rest of the page now being composed of section
+  components.
+- Preserved two pre-existing bugs verbatim rather than fixing them
+  as a drive-by, since neither is CSS-related: the malformed
+  `<p class=my-4">` (missing opening quote) in the Process section's
+  first step, now inside `ProcessSteps.astro`; and the page's unclosed
+  `<section id="home">` / trailing `<div>` before `</main>` (browsers
+  tolerate both) — left in `index.astro` exactly as before so no DOM
+  structure changed as a side effect of this refactor.
+- Picked up the user's concurrent manual edits to the hero (two star
+  position tweaks, reworded intro paragraph) mid-refactor by re-reading
+  the file before finalizing `Hero.astro`, so nothing from that edit was
+  lost.
+
+**Verification:** `pnpm astro check` → 0 errors (only pre-existing
+warnings/hints unrelated to this change). `pnpm astro build` completed
+successfully; confirmed via the built `dist/index.html` that all
+extracted classes (hero-stars, github-chart-card, service-card,
+process-steps, skills-section, skill-pills, contact-submit-btn) render
+the expected number of times. Removed the verification `dist/` output
+afterward.
+
+Diff: uncommitted on `hero-redesign` branch (not yet committed).
+
+### 2026-09-22 — Primary button restyle (pressable/tactile)
+
+Replaced the color-only work in progress on the primary buttons — the
+"Contact" header link, hero "See My Work", and the Contact form's "Send"
+button — with a shared `.btn-primary` class that reads as clearly
+clickable: a bottom-edge box-shadow that makes it look raised, and a
+`:active` state that depresses it (translateY + compressed shadow).
+Explicit instruction that this superseded any earlier button-color work,
+so the contrast fixes I'd started on the previous focus-ring/box-shadow
+issue were left as-is rather than continued — not relevant to which
+class these three buttons now use.
+
+- Added `.btn-primary` to `globals.css`, kept every property from the
+  given spec exactly (background/color/border/border-radius/font-weight/
+  box-shadow/transition/cursor, plus the `:hover`, `:active`/`.is-pressed`,
+  and `:focus-visible` rules verbatim), and additionally folded in the
+  layout/typography properties (padding, font-size, font-family, display,
+  text-align, text-decoration) so the class is fully self-sufficient
+  across three call sites that previously supplied those three different
+  ways (a scoped `.hero-btn` class, ad-hoc Tailwind utility classes, and
+  `.contact-submit-btn`). Also added `.btn-primary:disabled` to preserve
+  the existing "Sending…" disabled state's cursor/opacity behavior.
+- All three targets were already real `<a>`/`<button>` elements, so no
+  conversion from a `<div>` was needed.
+- Removed the now-dead `.hero-btn--primary` rule (HeroButtons.astro) and
+  `.contact-submit-btn` rule (globals.css) — both fully superseded by
+  `.btn-primary`, no longer referenced anywhere. Left `.hero-btn` and
+  `.hero-btn--secondary` untouched, since "Free Consultation" explicitly
+  stays the outlined secondary style.
+- Codebase context: since the last turn, `index.astro` was refactored
+  (apparently outside this session, given a new commit `3e6480b` appeared
+  on this branch) from one large file into separate components
+  (`Hero.astro`, `GithubActivity.astro`, `ServicesGrid.astro`,
+  `ProcessSteps.astro`, `SkillsGrid.astro`, `ContactSection.astro`) with
+  the page-scoped `<style>` block moved into `globals.css`. Content is
+  otherwise unchanged (one exception noticed in passing: `Hero.astro`'s
+  body paragraph reverted to older copy — flagging this, not fixing it,
+  since it's unrelated to the button task actually asked for here).
+
+**Verification:** `pnpm astro check` → 0 errors. Confirmed via rendered
+CSS that all `.btn-primary` states (base box-shadow, `:hover` background,
+`:active` transform/box-shadow, `:focus-visible` outline, `:disabled`)
+are present with the exact spec values, and that all three target
+elements carry the class. Confirmed the given 11.2:1 contrast claim
+(`#141B4D` on `#D6D3F7`) independently.
+
+Diff: uncommitted on `hero-redesign` branch (not yet committed).
+
+### 2026-09-22 — Fix hero button vertical misalignment
+
+User caught "See My Work" looking slightly off relative to "Free
+Consultation" next to it and asked whether it was a real issue or an
+optical illusion — it was real. The wrapping flex row
+(`HeroButtons.astro`) never set `align-items`, so it defaulted to
+`stretch`: since `.btn-primary` has `border: none` while
+`.hero-btn--secondary` has a 2px border (4px taller total), the shorter
+borderless button was getting stretched to match, and the extra height
+landed entirely below its single line of text rather than split evenly
+above and below — shifting the text up within its own box relative to
+its neighbor. Fixed by adding `items-center` to the flex container: each
+button now keeps its own natural height and is centered on the line, so
+the small (4px) height difference from the border shows as even
+symmetric spacing rather than an internal text shift.
+
+**Verification:** `pnpm astro check` → 0 errors; confirmed `items-center`
+present in rendered markup.
+
+Diff: uncommitted on `hero-redesign` branch (not yet committed).
+
+## 2026-09-22 — Copy fixes, homepage reorder, and project card outcomes
+
+Content/copy cleanup requested independently of the visual redesign in
+progress on this same branch — kept scoped to text and two component
+changes only, no styling/layout changes beyond what's described below.
+
+- **Typo sweep across the whole site**, not just the homepage: "provie" →
+  "provide" and "misison" → "mission" (both in `LatestProjects.astro`,
+  fixed as part of the project-card copy rewrite below), "Disquis" →
+  "Disqus" (`SkillsGrid.astro`, plus `gatsby-plugin-disquis` →
+  `gatsby-plugin-disqus`, a real npm package name, in
+  `LatestProjects.astro`), "mySQL turner" → "MySQL tuner" and "Independent
+  Analyics" → "Independent Analytics" (`LatestProjects.astro`, same tech
+  tag string), "theres" → "there's" (`OlderProjects.astro`), and
+  "Wordpress" → "WordPress" case fixes in `LatestProjects.astro`,
+  `ProcessSteps.astro`, `need-a-website.mdx`, and `notes.jsx`'s Mermaid
+  diagram label. The "Accessiblity" heading, "frustration.." double
+  period, and "everyone.I" missing-space items were already fixed in an
+  earlier session (`ServicesGrid.astro`, see 2026-09-21 entry above) —
+  re-verified still fixed, no action needed.
+
+- **Homepage section reorder**: swapped the GitHub contribution-graph
+  section and the Projects section in `index.astro` so real project work
+  now appears right after the hero, with the GitHub graph after it —
+  actual work is a stronger first impression than a contribution graph.
+  Confirmed via rendered HTML byte-offset check that the new order is
+  Hero → Projects → GitHub → Services → Process → Skills → Contact, and
+  that all nav/hero anchor links (`#projects`, `#services`, `#process`,
+  `#skills`, `#contact`) still resolve correctly — none of them depend on
+  DOM order, only on the `id` attributes, which moved with their
+  sections. There is no `#github` anchor anywhere in the codebase, so
+  nothing pointed at that section by id to begin with.
+
+- **Project cards lead with a bolded outcome line**: added optional
+  `outcomeLine` and `descriptionBullets` props to `Project.astro`,
+  rendered as `<p class="project-outcome"><strong>` under the title and a
+  real `<ul>` list (previously the description was always a single `<p>`
+  with no dedicated CSS, so blank-line-separated "bullet" content in the
+  template literal was collapsing into one dense block of text in the
+  browser — the bug behind the "wall of text" look). Applied to the three
+  requested cards (Be BiteSmart, Wipe Right, Homeward Tails) only; the
+  other three cards keep the original single-paragraph rendering
+  unchanged via a fallback branch. Outcome-line content sourced from the
+  resume: **Be BiteSmart** and the resume disagreed with the site's
+  existing copy on two numbers (cost savings and Playwright test count);
+  user confirmed using the resume's numbers ($207/yr, 129 tests) and the
+  card body was rewritten to match, so nothing on the page contradicts
+  itself. **Wipe Right**: the site said "6 team members," the resume says
+  "7-member team" — left the specific number out of the trimmed bullets
+  entirely rather than guessing, since it wasn't the headline metric.
+
+- **Contact form honeypot field — audited, no change made.**
+  `ContactSection.astro`'s `bot-field` input already follows accessible
+  honeypot practice: `aria-hidden="true"` on the wrapping element, class
+  `.visually-hidden` (a clip-rect technique, not `display:none`),
+  `tabindex="-1"` and `autocomplete="off"` on the input itself, and
+  `netlify-honeypot="bot-field"` on the `<form>` so Netlify's backend
+  rejects any submission where it's non-empty — no custom JS reads the
+  field. Confirmed via rendered HTML that the markup matches this
+  description exactly.
+
+**Verification:** `pnpm exec astro check` → 0 errors (pre-existing
+warnings/hints only, none from these changes). Ran `pnpm dev`, fetched the
+rendered homepage HTML, and confirmed by byte-offset comparison that
+Projects now precedes GitHub in the DOM; confirmed all three outcome
+lines and their bullet text render; confirmed the honeypot markup is
+present and unchanged. Re-grepped the whole `src/` tree for every typo
+string post-fix — zero remaining hits. Dev server stopped after
+verification.
+
+Diff: uncommitted on `hero-redesign` branch (not yet committed) —
+alongside pre-existing unrelated uncommitted redesign work already on
+this branch; not committed here to avoid bundling unrelated changes.
+
+### 2026-09-22 — Process step circle centering + gradient
+
+Two small follow-ups on the Process section's numbered circles
+(`globals.css`, `.process-step__circle`):
+
+- **Centering on wrap:** the circle is a fixed 56px block with no
+  auto-centering, so it sits left-aligned within its grid cell by
+  default — not obvious in the single-row 4-column desktop layout, but
+  visible once the grid wraps to 2 columns (tablet) or 1 (mobile) and
+  each cell gets much wider. Added `margin-left/right: auto` inside the
+  existing `@media (max-width: 1023px)` block (which already handles
+  both the tablet and mobile wrap breakpoints), rather than touching the
+  desktop layout at all.
+- **Gradient to match the Services diamonds:** background changed from
+  solid `--midnight-navy` to `var(--diamond-gradient)` (the same
+  135°-diagonal navy→periwinkle gradient used on the Services section's
+  diamond icons), per request. Flagging a real contrast risk this
+  introduces: white digit text on the gradient's brightest stop
+  (`#8FA7EA`) computes to only 2.36:1 — the diamonds don't hit this
+  problem since they show a small icon glyph, not a bold centered digit
+  that can visually land on the bright corner. Added a text-shadow
+  (`0 1px 3px rgba(0,0,0,0.6)`) for practical legibility, but a
+  text-shadow isn't something a WCAG contrast checker credits, so this
+  is a real, known trade-off rather than a fix — worth a manual look at
+  all four circles before treating this as done.
+
+**Verification:** `pnpm astro check` → 0 errors. Confirmed both the
+centering rule and the gradient/text-shadow are present in rendered CSS.
+
+Diff: uncommitted on `hero-redesign` branch (not yet committed).
+
+### 2026-09-22 — Fix inconsistent sidebar focus outline size
+
+User noticed the focus outline while tabbing through the sidebar was a
+different size for different items — a pre-existing structural
+inconsistency in `DesktopNav.astro`, not something introduced this
+session. Path-based routes (Home, About, Blog, Torc) already had
+`class:list={['block rounded-lg px-3 py-1', {...}]}` on their `<a>` for
+the active-state background pill, making them a padded block element.
+The hash-link items (Projects, Services, The Process, Skills, Contact)
+were plain `<a href="...">` with no such class, so the browser's focus
+outline hugged just the bare inline text instead of a padded box — this
+is what made some outlines look "smaller."
+
+Fixed by adding the same `block rounded-lg px-3 py-1` class to all five
+hash-link anchors, so every sidebar item now presents the same size/
+shape focus target and hover/active area, regardless of whether it also
+carries active-route logic.
+
+**Verification:** `pnpm astro check` → 0 errors. Confirmed via rendered
+HTML that all 9 desktop sidebar links (previously only 4 of 9) now carry
+the padded class.
+
+Diff: uncommitted on `hero-redesign` branch (not yet committed).
+
+### 2026-09-22 — Sidebar link text back to plain white
+
+User noticed inactive sidebar links looked "slightly faded" rather than
+white — that was the intentional muted-inactive/bright-active design
+from earlier in this project (`--midnight-text-light` for inactive,
+white + background pill for active). Asked whether to keep that
+distinction (lightened) or simplify to all-white; user chose all-white,
+reasoning that the active pill's background already signals "current
+page" on its own, so the dimmed text was redundant with it.
+
+Changed `#sidebar ul a` in `DesktopNav.astro` from
+`color: var(--midnight-text-light)` to `color: var(--midnight-white)`.
+The active-item rule is unchanged (still sets white explicitly plus the
+background pill), so no visual regression there — just no more
+brightness gap between active and inactive text.
+
+**Verification:** `pnpm astro check` → 0 errors. Confirmed via rendered
+CSS that the base sidebar link rule now resolves to
+`var(--midnight-white)`.
+
+Diff: uncommitted on `hero-redesign` branch (not yet committed).
+
+### 2026-09-22 — Center process step circles on desktop too
+
+Follow-up: the previous centering fix for `.process-step__circle` was
+scoped to the `@media (max-width: 1023px)` wrap breakpoint only. User
+wanted it centered on full desktop screens (the single-row 4-column
+layout) as well, not just once it wraps. Moved `margin-left/right: auto`
+into the base (unconditional) rule and removed the now-redundant
+media-query duplicate — the circle centers at every width now, one rule
+instead of two.
+
+**Verification:** `pnpm astro check` → 0 errors. Confirmed via rendered
+CSS that the base rule carries the centering margins.
+
+Diff: uncommitted on `hero-redesign` branch (not yet committed).
+
+### 2026-09-22 — Process connecting line inset, text-light cleanup, other-page body bg
+
+Three more small fixes:
+
+- **Process connecting line:** it spanned the full grid width (`left:0;
+  right:0`), so it stuck out past circle 1 on the left and past circle 4
+  on the right instead of just connecting them. Inset both sides by
+  `calc((100% - 3 * 24px) / 8)` — half a column's width, accounting for
+  the grid's 3 gaps of 24px — so it now starts and ends at the first and
+  last circles' centers.
+- **Text-light → white (Hero body text, Contact subtitle/required-note/
+  phone-hint/labels):** asked to "update the other pages to just use
+  white by itself" — initially guessed this meant the remaining
+  `--midnight-text-light` spots on the homepage (Hero.astro's body
+  paragraph, and four spots in ContactSection.astro/`.contact-label`),
+  since literal other pages (About, Torc) have zero navy-background text
+  to begin with, confirmed via grep. Flagged this guess to the user
+  rather than assuming silently. Implemented it regardless since it's a
+  harmless, reasonable change either way (matches the sidebar's
+  all-white decision from two turns ago) — user can ask for a revert if
+  it wasn't wanted. `--midnight-text-light` is now fully unused (still
+  defined in `:root` in case it's wanted again later; not deleted since
+  removing it wasn't asked for).
+- **Other pages' body background:** user clarified the actual ask —
+  About/Torc (and likely Blog) still alternate `bg-white` sections with
+  plain sections that fall through to the global `body` background,
+  which was `#e1f5ff` (pale blue) — the same light-blue/white pattern
+  the homepage used before the Midnight redesign. Since every homepage
+  section now has an explicit opaque background covering it edge-to-edge
+  (confirmed no visible body-bg gaps remain there), changing the global
+  `body { background-color }` to `#ffffff` fixes the other pages without
+  touching the homepage's appearance at all — one change instead of
+  editing About/Torc/Blog individually. Grepped for `e1f5ff` afterward;
+  no other references existed to clean up.
+
+**Verification:** `pnpm astro check` → 0 errors. Confirmed via rendered
+HTML that body background is `#ffffff` on both `/` and `/about`.
+
+Diff: uncommitted on `hero-redesign` branch (not yet committed).
+
+### 2026-09-22 — Restore Project card border/shadow visibility
+
+User noticed the Project cards had lost their "card" look. Root cause:
+the border color (`#E6E8F2`, from the user's own original spec several
+turns back) computes to only 1.22:1 contrast against the Projects
+section's white background — essentially invisible — and the box-shadow
+was a subtle single 8%-opacity shadow. GitHub and Services cards get
+away with a similarly faint border (`--midnight-lavender-border`,
+~1.2–1.4:1 either way) because they sit on a tinted lavender-pale
+section (some hue distinction) and each has a strong visual anchor of
+its own (the chart image; the diamond badge overlapping the top edge) —
+neither of which Project cards have, since their thumbnail fills flush
+to the card edge with no gap and nothing overlaps the boundary.
+
+First pass: darkened the border to `#A6B2DE` and added a dual shadow.
+User then asked to use the GitHub/Services cards' border and shadow as
+the guide instead of a one-off value, so reverted to
+`border: 1px solid var(--midnight-lavender-border)` and the same single
+`box-shadow: 0 12px 32px rgba(20,27,77,0.08)` they use — kept the 20px
+border-radius, since that was the user's own original Projects-specific
+choice (18px for GitHub/Services) and only border/shadow were named as
+the guide. Flagging: this reintroduces a similarly faint border in
+absolute terms, just now consistent with the other two card types
+rather than uniquely weak — worth a visual check since Projects' white-
+on-white section is the one case without a hue difference or content
+anchor to help compensate.
+
+Also noticed in passing (not fixed, not asked about): the Projects and
+GitHub sections' order was swapped at some point outside this session's
+edits, so the clouds divider's `toColor="var(--midnight-lavender-pale)"`
+now lands on the white Projects section instead of GitHub, which could
+produce a visible seam. Flagging only.
+
+**Verification:** `pnpm astro check` → 0 errors both times. Confirmed
+via rendered CSS that `.project-card` now matches the exact border/
+shadow values used by `.github-chart-card`/`.service-card`.
+
+Diff: uncommitted on `hero-redesign` branch (not yet committed).
+
+### 2026-09-22 — Fix Project card shadow being clipped invisible
+
+User reloaded and the shadow still wasn't showing — a real rendering
+bug my earlier CSS-text verification couldn't catch. `.project-card`
+had `overflow: hidden` (needed so the thumbnail image/video's square
+corners get clipped to match the card's rounded shape), but
+`overflow: hidden` also clips a `box-shadow`, since a shadow paints
+outside the border box by definition. The shadow property was correctly
+set and winning the cascade (as verified), it was just being rendered
+and then immediately clipped away by the same element's own overflow
+rule. Neither `.service-card` nor `.github-chart-card` have this
+problem since neither needs `overflow: hidden` at all.
+
+Fixed by moving the corner-clipping responsibility down to
+`.project-thumbnail` (which already had its own `overflow: hidden` for
+the image/video's `object-fit: cover`) — added `border-radius: 20px
+20px 0 0` there to match the card's top corners, and removed
+`overflow: hidden` from `.project-card` entirely so its shadow can now
+render outside the card unclipped.
+
+**Verification:** `pnpm astro check` → 0 errors. Confirmed via rendered
+CSS that `.project-card` no longer has `overflow: hidden` and
+`.project-thumbnail` now carries it plus the matching top radius.
+
+Diff: uncommitted on `hero-redesign` branch (not yet committed).

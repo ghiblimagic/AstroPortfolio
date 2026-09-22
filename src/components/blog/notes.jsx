@@ -32,7 +32,7 @@
 // (E-commerce thats usually integrated in a website like Wix, though you can use their free but very basic website builder)<br><br>
 
 // <b>Pixpa</b><br> (For creatives that want a website & simple shop to sell prints, ect)"]
-// FEW -->|No| SHOPIFY["<b>Shopify</b> <br> (best for full online stores) <br> <br> <b>Wordpress</b> <br> (with e-commerce plugins like BigCommerce WooCommerce)  <br> <br> <b>Industry specific website builders</b> <br> (for large businesses)"]
+// FEW -->|No| SHOPIFY["<b>Shopify</b> <br> (best for full online stores) <br> <br> <b>WordPress</b> <br> (with e-commerce plugins like BigCommerce WooCommerce)  <br> <br> <b>Industry specific website builders</b> <br> (for large businesses)"]
 
 // %% POS CHECK
 // SMALLSHOP --> POS["Is built-in POS integration the top priority? <br><br> (read the article below this flowchart <br> if you are confused why you might want this)"]

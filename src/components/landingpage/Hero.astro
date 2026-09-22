@@ -1,0 +1,44 @@
+---
+import HeroButtons from "./HeroButtons.astro"
+---
+
+<div class="w-full relative flow-root bg-[var(--midnight-navy)]">
+	<section class="max-w-7xl mx-auto px-4 sm:px-12 flex flex-col xl:flex-row-reverse sm:my-10 xl:my-24 items-center gap-6">
+		 <!-- ***************  HERO **********************-->
+
+		<div class="relative w-full max-w-[280px] sm:max-w-[400px] xl:max-w-[400px] mx-auto aspect-square">
+			<!------ **************** HERO IMAGE ************ -->
+			<div class="absolute inset-0 rounded-full bg-[var(--midnight-lavender)] translate-x-[14px] translate-y-[14px]" aria-hidden="true"></div>
+			<img
+				src="/images/me.jpg"
+				width="1000"
+				height="999"
+				class="relative w-full h-full object-cover rounded-full border-[6px] border-white"
+				alt="Janet Spellman"
+				loading="eager"
+				fetchpriority="high"
+			/>
+		</div>
+
+		<div class="relative max-w-md">
+			<!---- ******** Text of hero ******** -->
+
+			<h1 class="font-Ayaka text-4xl mb-8 text-[var(--midnight-white)]">  <span class="text-5xl block"> Hi there! I'm Janet.</span>
+
+				<span class="block text-2xl italic mt-2" style="color:#C9C6F2;">Software Engineer &amp; Web Developer</span>
+
+			</h1>
+
+			<div class="hero-stars" aria-hidden="true">
+				<svg class="hero-star twinkle" style="top:-38px; left:8%; width:16px; height:16px; animation-delay:0.3s; animation-duration:3.6s;" viewBox="0 0 24 24" fill="var(--midnight-lavender)"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+				<svg class="hero-star twinkle" style="top:10px; left:90%; width:20px; height:20px; animation-delay:1.4s; animation-duration:4.4s;" viewBox="0 0 24 24" fill="var(--midnight-lavender)"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+				<svg class="hero-star twinkle" style="top:120px; left:0%; width:14px; height:14px; animation-delay:2.6s; animation-duration:3.9s;" viewBox="0 0 24 24" fill="var(--midnight-lavender)"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+			</div>
+
+			<p class="text-[var(--midnight-white)]"> I build features for engineering teams and custom sites for businesses. From tools that guide business owners, to storefronts, to apps that help pets find homes, I combine creativity and code to bring ideas to life.
+</p>
+
+			<HeroButtons/>
+		</div>
+	</section>
+</div>
