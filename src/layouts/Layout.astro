@@ -14,6 +14,7 @@ import { socialIcons } from "@/data/socialIcons.js"
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
+        <script is:inline>document.documentElement.classList.add("js");</script>
         <meta name="description" content="Software developer portfolio covering Janet Spellman's website building services, previous projects and skills" />
         <meta property="og:image" content="https://janetspellman.com/images/thumbnail.png" />
         <meta name="viewport" content="width=device-width" />
@@ -53,7 +54,7 @@ import { socialIcons } from "@/data/socialIcons.js"
             id="footer"
             class="absolute bottom-0 w-full border-t-2 gradient-line flex items-center justify-between flex-wrap gap-2 pr-4"
             style="background: var(--midnight-navy-deep);">
-            <small class="pl-8" style="color: #9AA6CF;">&copy; Janet Spellman. All rights reserved.</small>
+            <small class="pl-8 text-white">&copy; Janet Spellman. All rights reserved.</small>
             <div class="flex items-center">
                 {socialIcons.map((item) => (
                     <a

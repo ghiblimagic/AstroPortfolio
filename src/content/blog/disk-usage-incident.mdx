@@ -1,14 +1,14 @@
 ---
 title: "Email alert: WordPress Droplet at Disk Utilization 95%+"
 date: "2026-09-07"
-description: "How I found the cause of high disk usage, cleared the stale data, prevented it from happening again, and reclaimed 11GB without downtime."
+description: "How I found the cause of high disk usage, cleared the stale data, prevented it from happening again, and reclaimed 11GB."
 ---
 
 I recently received a monitoring alert from a Digital Ocean WordPress droplet:
 
 "Disk Utilization Percent is currently at 95.19%, above setting of 95.00% for the last 1h"
 
-But I reduced this to 59% disk space in roughly 15 minutes with zero downtime. This is important because if the disk space fills up, the site will go down.
+But I reduced this to 59% disk space in roughly 15 minutes. This is important because if the disk space fills up, the site will go down.
 
 <img
   src="/blog/images/disk-usage.webp"
@@ -404,5 +404,3 @@ The key lesson is this:
 | Unexpired MySQL binary logs | ~9GB            |
 | systemd journal cleanup     | ~2.1GB          |
 | Total recovered             | ~11GB           |
-
-The site stayed up through the incident, and the root cause was resolved without downtime.

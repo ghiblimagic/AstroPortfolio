@@ -15,7 +15,7 @@ const filteredHeadings = headings.filter(h => h.depth <= 4);
       <h2 class="text-xl font-bold">Table of Contents</h2>
       <button 
         id="toc-toggle" 
-        class="text-blue-600 hover:text-blue-800 font-semibold transition-transform"
+        class="text-[var(--midnight-navy)] hover:text-[var(--midnight-navy-deep)] font-semibold transition-transform"
         aria-label="Toggle table of contents"
         aria-expanded="true"
       >
@@ -38,7 +38,7 @@ const filteredHeadings = headings.filter(h => h.depth <= 4);
         >
           <a 
             href={`#${heading.slug}`}
-            class={`text-blue-600 hover:text-blue-800 hover:underline block transition-colors ${
+            class={`text-[var(--midnight-navy)] hover:text-[var(--midnight-navy-deep)] hover:underline block transition-colors ${
               heading.depth === 2 ? 'font-semibold' : ''
             }`}
           >

@@ -7,6 +7,7 @@ import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar.astro"
 import TableOfContents from "@/components/blog/TableOfContents.astro"
 import CommentsSection from "@/components/blog/CommentsSection"
 import GradientDivider from '@/components/ui/gradientDivider.astro'
+import SectionDivider from "@/components/SectionDivider.astro"
 
 const { slug } = Astro.params; // from the URL
 console.log("slug in blogPostLayout.astro",slug)
@@ -19,16 +20,16 @@ const { title, date, description, headings } = Astro.props;
 
 ---
 <Layout title="Janet Spellman's Blog.">
-  <main class="flex overflow-x-hidden">
+  <main id="main-content" tabindex="-1" class="flex overflow-x-hidden bg-[var(--midnight-lavender-pale)]">
   
     <SpaceForDesktopSidebar/>
     <div class="w-full overflow-x-hidden ">
     
-      <div class="min-h-screen h-full sm:px-12 max-w-4xl bg-white   text-black rounded-2xl pb-16 overflow-x-hidden">
+      <div class="sm:px-12 max-w-4xl mx-auto bg-white   text-black rounded-2xl pb-16 overflow-x-hidden">
         <article class="mx-4 overflow-x-hidden">
           <header class="mb-8">
-            <h1 class="text-4xl font-bold my-6 pt-6 text-center text-mainColor">{title}</h1>
-            <span class="text-white text-base mx-auto bg-mainColor group-hover:bg-blue-800 w-fit py-1 px-4 rounded-2xl my-6 block">
+            <h1 class="text-4xl font-bold my-6 pt-6 text-center text-[var(--midnight-navy)]">{title}</h1>
+            <span class="text-white text-base mx-auto bg-[var(--midnight-navy)] group-hover:bg-[var(--midnight-navy-deep)] w-fit py-1 px-4 rounded-2xl my-6 block">
               <time datetime={date}>
                 {new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
               </time>
@@ -48,16 +49,17 @@ const { title, date, description, headings } = Astro.props;
             <slot />
           </div>
         </article>
-        
-          <!-- ****************** COMMMENTS ***************** -->
-
-          <GradientDivider />
-          
-<section>
-
-  <CommentsSection slug={slug} currentUserId={null} client:load/>
-</section>
       </div>
+
+      <!-- ****************** COMMMENTS ***************** -->
+      <!-- Full-width navy band with the wavy hills divider on top, matching the
+           homepage's Contact section at the bottom of the landing page -->
+
+      <SectionDivider variant="hills" fromColor="var(--midnight-lavender-pale)" toColor="var(--midnight-navy)" midColor="var(--midnight-lavender)" />
+
+      <section id="comments" class="mt-[-2px] p-4 sm:p-12 pb-20 w-full bg-[var(--midnight-navy)]">
+        <CommentsSection slug={slug} currentUserId={null} client:load/>
+      </section>
     </div>
   </main>
 </Layout>

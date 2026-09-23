@@ -44,7 +44,7 @@ export default function CommentItem({
   }
 
   return (
-    <div className="portfolio-card portfolio-card--padded mb-4">
+    <div className="portfolio-card portfolio-card--padded mb-4 text-[var(--midnight-navy)]">
       <div className="flex justify-between items-center">
         <strong>{comment.author || "Anonymous"}</strong>
         <span className="text-gray-900 text-sm">

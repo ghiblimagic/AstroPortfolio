@@ -169,12 +169,19 @@ h6 {
 }
 
 .input-styling {
-  background: #dbeafe;
+  background: var(--midnight-navy-input);
+  border: 1px solid var(--midnight-navy-line);
+  color: var(--midnight-white);
   border-radius: 0.5rem;
   margin-top: 7px;
   padding-left: 10px;
   padding-top: 6px;
   padding-bottom: 6px;
+}
+
+.input-styling:focus {
+  outline: 2px solid var(--midnight-lavender);
+  outline-offset: 2px;
 }
 
 input::placeholder {
@@ -216,6 +223,12 @@ input::placeholder {
   transform: translateY(-300%);
   transition: transform 0.3s;
 }
+
+/* Skip-link target. Focused programmatically on fragment navigation, never
+   tabbed to, so the global focus ring would be noise. */
+#main-content:focus {
+  outline: none;
+}
 .skip-link:focus {
   transform: translateY(0%);
 }
@@ -238,15 +251,64 @@ input::placeholder {
   padding: 28px 26px 24px;
 }
 
+/* Skill cards continue CloudCap's silhouette down the sides and around the
+   bottom. Geometry matches the cap's front (white) layer at desktop width:
+   a 45px circle sunk 33px behind the edge leaves a 61px-wide, 12px-deep
+   roll. Bumps cut inward from the card box rather than protruding out, so
+   the roll tips stay flush with the cap's full-width edge above. */
 .portfolio-card--capped {
-  border: 1px solid var(--midnight-lavender-border);
-  border-top: none;
-  border-radius: 0 0 16px 16px;
+  --cloud-r: 45px;
+  --cloud-depth: 12px;
+  --cloud-span: 61px;
+  --cloud-sink: 33px; /* --cloud-r minus --cloud-depth */
+
+  border: none;
+  border-radius: 0;
+  /* bumps eat --cloud-depth off each scalloped edge; keep text clear of them */
+  padding: 28px 34px 32px;
+
+  /* box-shadow would be clipped by the mask into a broken outline */
+  box-shadow: none;
+  filter:
+    drop-shadow(0 1px 1px oklch(0.2 0.02 260 / 0.06))
+    drop-shadow(0 8px 18px oklch(0.2 0.02 260 / 0.08));
+
+  --cloud-mask:
+    radial-gradient(
+        var(--cloud-r) at 50% calc(-1 * var(--cloud-sink)),
+        #000 99%,
+        #0000 100%
+      )
+      0 100% / var(--cloud-span) var(--cloud-depth) repeat-x,
+    radial-gradient(
+        var(--cloud-r) at calc(100% + var(--cloud-sink)) 50%,
+        #000 99%,
+        #0000 100%
+      )
+      0 calc(var(--cloud-span) / -2) / var(--cloud-depth) var(--cloud-span)
+      repeat-y,
+    radial-gradient(
+        var(--cloud-r) at calc(-1 * var(--cloud-sink)) 50%,
+        #000 99%,
+        #0000 100%
+      )
+      100% calc(var(--cloud-span) / -2) / var(--cloud-depth) var(--cloud-span)
+      repeat-y,
+    linear-gradient(#000 0 0) var(--cloud-depth) 0 /
+      calc(100% - 2 * var(--cloud-depth)) calc(100% - var(--cloud-depth))
+      no-repeat;
+
+  -webkit-mask: var(--cloud-mask);
+  mask: var(--cloud-mask);
 }
 
 @media (max-width: 480px) {
   .portfolio-card--padded {
     padding: 20px 14px 18px;
+  }
+
+  .portfolio-card--capped {
+    padding: 20px 22px 26px;
   }
 }
 
@@ -266,7 +328,7 @@ input::placeholder {
 
 .portfolio-button--code {
   color: oklch(0.3 0.02 260);
-  border: 1.5px solid oklch(0.85 0.01 260);
+  border: 1.5px solid oklch(0.65 0.01 260);
   background: #ffffff;
 }
 
@@ -277,11 +339,28 @@ input::placeholder {
 
 .portfolio-button--view {
   color: #ffffff;
-  background: oklch(0.3 0.09 258);
+  background: var(--midnight-navy);
+  border: 1.5px solid var(--midnight-lavender);
+  box-shadow:
+    0 4px 0 #8f89ce,
+    0 6px 14px rgba(20, 27, 77, 0.22);
+  transition:
+    transform 0.15s ease,
+    box-shadow 0.15s ease,
+    background 0.15s ease,
+    color 0.15s ease;
 }
 
 .portfolio-button--view:hover {
   background: var(--navy-mid);
+}
+
+.portfolio-button--view:active,
+.portfolio-button--view.is-pressed {
+  transform: translateY(3px);
+  box-shadow:
+    0 1px 0 #8f89ce,
+    0 3px 8px rgba(20, 27, 77, 0.22);
 }
 
 .portfolio-button--view:disabled {
@@ -511,7 +590,9 @@ article img {
   display: block;
 }
 
-.fade-in {
+/* Gated on .js (set in <head>): with no JS nothing ever adds .visible, so the
+   reveal state must never be the default or the page renders blank. */
+.js .fade-in {
   opacity: 0;
   transform: translateY(16px);
   transition:
@@ -542,8 +623,12 @@ article img {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  /* !important because every star sets animation-delay and animation-duration
+     inline; those longhands already outrank this rule, and without it any
+     future inline or scoped `animation` would silently restore the twinkle.
+     Matches how the .fade-in override above is written. */
   .twinkle {
-    animation: none;
+    animation: none !important;
   }
 }
 
@@ -567,12 +652,12 @@ article img {
 }
 
 .section-py {
-  padding-top: 100px;
-  padding-bottom: 100px;
+  padding-top: 72px;
+  padding-bottom: 72px;
 }
 
 .skills-section {
-  padding-bottom: 230px;
+  padding-bottom: 50px;
 }
 
 @media (max-width: 640px) {
@@ -581,12 +666,12 @@ article img {
   }
 
   .section-py {
-    padding-top: 64px;
-    padding-bottom: 64px;
+    padding-top: 48px;
+    padding-bottom: 48px;
   }
 
   .skills-section {
-    padding-bottom: 140px;
+    padding-bottom: 110px;
   }
 }
 
@@ -663,45 +748,61 @@ article img {
   padding: 0;
 }
 
-.process-steps::before {
-  content: "";
-  position: absolute;
-  top: 28px;
-  /* inset by half a column's width so the line starts at circle 1's
-     center and ends at circle 4's center, instead of the grid's edges */
-  left: calc((100% - 3 * 24px) / 8);
-  right: calc((100% - 3 * 24px) / 8);
-  height: 2px;
-  background: var(--midnight-lavender-mid);
-  z-index: 0;
-}
-
-@media (max-width: 1023px) {
-  .process-steps::before {
-    display: none;
-  }
-}
-
+/* Same card language as .service-card: white surface, bordered, shadowed,
+   with a circular badge overlapping the top edge (here the step number,
+   there the diamond icon) via padding-top + absolute positioning. */
 .process-step {
   position: relative;
   z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 4px;
+  background: var(--midnight-white);
+  border: 1px solid var(--midnight-lavender-border);
+  border-radius: 18px;
+  padding: 52px 22px 24px;
+  box-shadow: 0 12px 32px rgba(20, 27, 77, 0.08);
 }
 
-.process-step p {
+.process-step p,
+.process-step__sublist {
   color: var(--midnight-text-body);
 }
 
+.process-step__sublist {
+  list-style: none;
+  padding: 0;
+}
+
+/* Offset lavender companion behind the number badge, matching the services
+   diamond's .diamond-shadow-shape (same 8px down-right offset and fill), so
+   the two badge treatments read as one system. */
+.process-step::after {
+  content: "";
+  position: absolute;
+  top: 8px;
+  left: calc(50% + 8px);
+  z-index: 0;
+  width: 56px;
+  height: 56px;
+  transform: translate(-50%, -50%);
+  border-radius: 999px;
+  background: var(--midnight-lavender);
+}
+
 .process-step__circle {
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, -50%);
   z-index: 1;
   display: flex;
   align-items: center;
   justify-content: center;
   width: 56px;
   height: 56px;
-  margin-left: auto;
-  margin-right: auto;
-  margin-bottom: 12px;
   border-radius: 999px;
   background: var(--diamond-gradient);
   color: var(--midnight-white);
@@ -735,6 +836,7 @@ article img {
 .skill-pills {
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 9px;
   list-style: none;
   padding: 0;
@@ -742,14 +844,15 @@ article img {
 
 .skill-pills li {
   display: inline-block;
-  background: #d3daf3;
-  color: #141b4d;
+  padding: 5px 10px;
+  color: var(--midnight-navy);
+  background: #ffffff;
+  border: 1.5px solid #7b84c4;
+  border-radius: 999px;
+
   font-size: 14px;
   font-weight: 500;
   line-height: 1.2;
-  padding: 8px 15px;
-  border-radius: 999px;
-  border: none;
 }
 
 /* ---- Contact ---- */
@@ -857,13 +960,30 @@ article img {
   outline-offset: 3px;
 }
 
-.btn-primary:disabled {
+.btn-primary:disabled,
+.btn-primary[aria-disabled="true"] {
   cursor: not-allowed;
   opacity: 0.6;
 }
 
+/* Contact form live region. Focused on error, never tabbed to, so the global
+   focus ring would be noise. */
+.contact-status {
+  margin: 0 0 12px;
+  text-align: center;
+  color: var(--midnight-white);
+}
+
+.contact-status:empty {
+  display: none;
+}
+
+.contact-status:focus {
+  outline: none;
+}
+
 /* stagger children */
-.prose > * {
+.js .prose > * {
   opacity: 0;
   transform: translateY(20px);
   transition:

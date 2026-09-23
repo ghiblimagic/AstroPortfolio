@@ -10,8 +10,9 @@ const isActive = (path: string) => currentPath === path || (path === '/blog' && 
 
 <div>
   {/* ********************    MAIN NAV, DOTTED BACKGROUND*****************  */}
-<div
-  id="sidebar"
+<nav
+  id="desktop-nav"
+  aria-label="Main"
   class="fixed left-0 top-0 w-[250px] h-screen bg-[var(--midnight-navy)] px-6 pt-16 z-51 text-white border-r-4 overflow-y-auto"
   style="border-right: 1px solid rgba(255,255,255,0.10);"
 
@@ -34,7 +35,7 @@ const isActive = (path: string) => currentPath === path || (path === '/blog' && 
     
   <ul class="flex flex-col text-center font-Akaya text-xl lg:text-xl xl:text-2xl [&>li]:py-1 xl:[&>li]:py-2">
       <li class="glow  my-auto">
-        <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/') }]} href="/">
+        <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/') }]} aria-current={isActive('/') ? 'page' : undefined} href="/">
         Home
         </a>
       </li>
@@ -47,7 +48,7 @@ const isActive = (path: string) => currentPath === path || (path === '/blog' && 
       
       
       <li class="glow ">
-        <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/about/') }]} href="/about/">About</a>
+        <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/about/') }]} aria-current={isActive('/about/') ? 'page' : undefined} href="/about/">About</a>
       </li>
       
       <li class="glow ">
@@ -66,28 +67,28 @@ const isActive = (path: string) => currentPath === path || (path === '/blog' && 
 
       <li class="glow ">
         <a class="block rounded-lg px-3 py-1" href="/#contact">Contact</a>
-   
-      
+      </li>
+
       <li class="glow ">
-        <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/blog') }]} href="/blog">Blog</a>
+        <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/blog') }]} aria-current={isActive('/blog') ? 'page' : undefined} href="/blog">Blog</a>
       </li>
 
       
       <li class="glow ">
-        <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/torc') }]} href="/torc">Join Torc</a>
+        <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/torc') }]} aria-current={isActive('/torc') ? 'page' : undefined} href="/torc">Join Torc (Free Tech Community)</a>
       </li>
     </ul>
 
     <div class="flex flex-col space-y-5 items-center justify-items-center pt-8"></div>
-  </div>
+  </nav>
 </div>
 
 <style>
-  #sidebar ul a {
+  #desktop-nav ul a {
     color: var(--midnight-white);
   }
 
-  #sidebar ul a.nav-link-active {
+  #desktop-nav ul a.nav-link-active {
     background: rgba(179, 174, 234, 0.22);
     color: var(--midnight-white);
   }

@@ -10,6 +10,8 @@ interface Props {
   vidTitles?: string;
   projectTitle: string;
   projectLanguages: string;
+  extraTech?: string;
+  extraTechLabel?: string;
   projectDescription?: string;
   outcomeLine?: string;
   descriptionBullets?: string[];
@@ -18,6 +20,9 @@ interface Props {
   loadingtype?: "eager" | "lazy";
   readmeLink?: string;
   decisionLogLink?: string;
+  /** Card titles sit under whatever heading introduces the list, which is an
+   * <h2> on the homepage but the page <h1> on /otherprojects. */
+  headingLevel?: 2 | 3;
 }
 
 const {
@@ -29,6 +34,8 @@ const {
   vidTitles,
   projectTitle,
   projectLanguages,
+  extraTech,
+  extraTechLabel,
   projectDescription,
   outcomeLine,
   descriptionBullets,
@@ -37,7 +44,10 @@ const {
   loadingtype = "lazy",
   readmeLink,
   decisionLogLink,
+  headingLevel = 3,
 } = Astro.props;
+
+const HeadingTag = `h${headingLevel}` as const;
 ---
 
 <article class="portfolio-card project-card fade-in">
@@ -46,7 +56,13 @@ const {
       {youtube ? (
         <YouTube id={youtube} poster={youtubePoster}/>
       ) : (webmsrc || mp4src) ? (
-        <video controls autoplay muted loop>
+        <video
+          controls
+          muted
+          playsinline
+          data-autoplay
+          aria-label={`Demo video: ${vidTitles || projectTitle}`}
+        >
           {webmsrc && <source src={webmsrc} title={vidTitles} type="video/webm" />}
           {mp4src && <source src={mp4src} title={vidTitles} type="video/mp4" />}
           Sorry, your browser doesn't support embedded videos.
@@ -63,13 +79,25 @@ const {
   )}
 
   <div class="project-card-content">
-    <h3 class="project-titles">{projectTitle}</h3>
+    <HeadingTag class="project-titles">{projectTitle}</HeadingTag>
     {outcomeLine && <p class="project-outcome"><strong>{outcomeLine}</strong></p>}
     <ul class="project-tech-tags" aria-label="Technologies used">
       {projectLanguages.split(",").map((language) => language.trim()).filter(Boolean).map((language) => (
         <li>{language}</li>
       ))}
     </ul>
+
+    {extraTech && (
+      <details class="project-extra-tech">
+        <summary class="project-link project-extra-tech-toggle">{extraTechLabel ?? "See additional tools used"}</summary>
+        <ul class="project-tech-tags" aria-label={extraTechLabel ?? "Additional technologies used"}>
+          {extraTech.split(",").map((tech) => tech.trim()).filter(Boolean).map((tech) => (
+            <li>{tech}</li>
+          ))}
+        </ul>
+      </details>
+    )}
+
     {descriptionBullets ? (
       <ul class="project-description-list">
         {descriptionBullets.map((point) => <li>{point}</li>)}
@@ -190,6 +218,28 @@ const {
     border-radius: 999px;
   }
 
+  .project-extra-tech {
+    margin: 0 0 18px;
+    text-align: center;
+  }
+
+  .project-extra-tech-toggle {
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .project-extra-tech-toggle::-webkit-details-marker {
+    display: none;
+  }
+
+  .project-extra-tech[open] .project-extra-tech-toggle {
+    margin-bottom: 10px;
+  }
+
+  .project-extra-tech .project-tech-tags {
+    margin: 0;
+  }
+
   .project-actions {
     display: flex;
     flex-wrap: wrap;
@@ -223,3 +273,30 @@ const {
     text-align: center;
   }
 </style>
+
+<script>
+  // autoplay/loop are set here rather than in the markup so they can be skipped
+  // under prefers-reduced-motion. As attributes they would take effect before
+  // any script could intervene, flashing motion at users who asked for none.
+  const motionOk = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  function applyMotionPreference() {
+    const videos =
+      document.querySelectorAll<HTMLVideoElement>("video[data-autoplay]");
+
+    videos.forEach((video) => {
+      if (motionOk.matches) {
+        video.loop = false;
+        video.pause();
+      } else {
+        video.loop = true;
+        // a rejected play() is fine: browsers block autoplay in some contexts
+        // and the controls are still there
+        video.play().catch(() => {});
+      }
+    });
+  }
+
+  applyMotionPreference();
+  motionOk.addEventListener("change", applyMotionPreference);
+</script>

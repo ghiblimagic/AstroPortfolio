@@ -203,7 +203,7 @@ export default function CommentForm({
       <button
         type="submit"
         disabled={isSubmitting || recaptchaLoading}
-        className={`portfolio-button portfolio-button--view mx-auto ${isSubmitting ? "opacity-60" : ""}`}
+        className={`btn-primary mx-auto mt-4 ${isSubmitting ? "opacity-60" : ""}`}
       >
         {isSubmitting ? "Posting..." : "Post Comment"}
       </button>

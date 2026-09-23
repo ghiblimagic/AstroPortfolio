@@ -55,8 +55,10 @@ export default function CommentsSection({
         appendTo: "body",
       }}
     >
-      <div className="portfolio-card portfolio-card--padded mt-12 mx-4 w-full">
-        <h2 className="text-2xl font-bold mb-6 text-center">Comments</h2>
+      <div className="max-w-4xl mx-auto px-2 sm:px-12 w-full text-white">
+        <h2 className="font-Ayaka text-3xl sm:text-4xl mb-6 text-center">
+          Comments
+        </h2>
 
         <CommentForm
           slug={slug}

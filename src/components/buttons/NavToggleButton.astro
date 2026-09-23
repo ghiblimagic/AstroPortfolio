@@ -7,20 +7,21 @@ import MobileNav from "../navigation/MobileNav.astro"
   <button
     id="nav-toggle"
     aria-expanded="false"
+    aria-controls="mobile-menu"
     aria-label="Open Menu"
     class=" h-8 "
   >
     <img
       id="nav-icon"
       src="/images/icon-menu-hamburger.svg"
-      alt="menu icon"
+      alt=""
       style="filter: brightness(0) invert(1);"
     />
   </button>
 </div>
 
 <!-- Sidebar outside so it doesn't cover button -->
-<div  id="sidebar" class="hidden absolute top-[44px]  z-30 bg-yellow-300 w-full gradient-line border-t-2">
+<div  id="mobile-menu" class="hidden absolute top-[44px]  z-30 bg-yellow-300 w-full gradient-line border-t-2">
   <MobileNav />
 </div>
 
@@ -29,7 +30,7 @@ import MobileNav from "../navigation/MobileNav.astro"
   // This runs as a lightweight vanilla JS module - no React!
   const button = document.getElementById('nav-toggle') as HTMLButtonElement | null; //as HTMLButtonElement so we get access to .src
   const icon = document.getElementById('nav-icon') as HTMLImageElement | null;
-  const sidebar = document.getElementById('sidebar') as HTMLElement | null;
+  const sidebar = document.getElementById('mobile-menu') as HTMLElement | null;
   let isOpen = false;
 
   function updateNav() {
@@ -44,7 +45,6 @@ import MobileNav from "../navigation/MobileNav.astro"
       icon.src = isOpen 
         ? '/images/icon-menu-close.svg'
         : '/images/icon-menu-hamburger.svg';
-      icon.alt = isOpen ? 'Close SideBar' : 'open menu';
     }
     
     // Toggle sidebar (adjust this to match your sidebar logic)
@@ -53,6 +53,15 @@ import MobileNav from "../navigation/MobileNav.astro"
 
   // Click handler
   button?.addEventListener('click', updateNav);
+
+  // Escape closes the menu and puts focus back on the trigger, so keyboard
+  // users are not stranded inside a closed menu's former position.
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && isOpen) {
+      updateNav();
+      button?.focus();
+    }
+  });
 
   // Hover effects
   icon?.addEventListener('mouseenter', () => {
@@ -71,7 +80,7 @@ import MobileNav from "../navigation/MobileNav.astro"
     }
   });
 
-  const mobileLinks = document.querySelectorAll('#sidebar a');
+  const mobileLinks = document.querySelectorAll('#mobile-menu a');
 mobileLinks.forEach(link => {
   link.addEventListener('click', () => {
     if (isOpen) updateNav();

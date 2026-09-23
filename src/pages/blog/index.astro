@@ -13,14 +13,14 @@ const sorted = posts
 
 <Layout title="Janet Spellman's Blog.">
 
-  <main class="min-h-screen h-full flex pb-24">
+  <main id="main-content" tabindex="-1" class="min-h-screen h-full flex pb-24 bg-[var(--midnight-lavender-pale)]">
     	<SpaceForDesktopSidebar />
-        	<div >
- 
+        	<div class="max-w-7xl mx-auto w-full">
+
                 <!-- ********************* HEADER ********************* -->
 
         <div class=" rounded-2xl mx-auto  " >
-    <h1 class=" text-4xl xl:text-6xl text-mainColor font-bold  text-center font-Ayaka py-3 pt-10">Blog</h1>
+    <h1 class=" text-4xl xl:text-6xl text-[var(--midnight-navy)] font-bold  text-center font-Ayaka py-3 pt-10">Blog</h1>
         </div>
 
 <!-- ********************* BLOG LIST *********************** -->
@@ -29,11 +29,11 @@ const sorted = posts
     <ul class="space-y-8">
       {sorted.map(post => (
         <li class=" px-4 py-10 bg-white rounded-2xl shadow-lg fade-in">
-          <a href={`/blog/${post.slug}`} class=" text-xl xl:text-2xl font-semibold text-mainColor hover:text-blue-800 group w-full">
+          <a href={`/blog/${post.slug}`} class=" text-xl xl:text-2xl font-semibold text-[var(--midnight-navy)] hover:text-[var(--midnight-navy-deep)] group w-full">
 
             {post.data.title}
-       
-          <div class="text-white text-base mx-auto bg-mainColor group-hover:bg-blue-800  w-fit py-1 px-4 rounded-2xl my-4">
+
+          <div class="text-white text-base mx-auto bg-[var(--midnight-navy)] group-hover:bg-[var(--midnight-navy-deep)]  w-fit py-1 px-4 rounded-2xl my-4">
             {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
           </div>
           {post.data.description && (

@@ -1,22 +1,30 @@
 ---
-// Two-layer cloud cap, same construction as the hero's SectionDivider (variant="clouds"):
-// a back layer of large overlapping circles, a front layer of large overlapping circles plus
-// a flat rect that turns their lower halves into a solid band (half-dome-on-a-band look).
+// Two-layer cloud cap, built the same way as the hero's SectionDivider (variant="clouds"):
+// each layer is a row of overlapping circles plus a rect that fills everything below the
+// layer's band line.
 //
-// The hero's own circle data is tuned for a page-wide divider (~25 small circles spread over
-// 1200 units) -- at card width that reads as a fine, busy texture rather than distinct cloud
-// lumps. This is a purpose-built pattern instead: fewer, larger circles (6 back, 7 front)
-// sized for a 368x74 cap. Positions were generated once with the same spacing rule as the
-// original design spec (center-to-center spacing = 0.6 * (r + prevR), then spacing rescaled
-// so the first circle's left edge lands exactly on x=0 and the last circle's right edge lands
-// exactly on x=368) and hardcoded here, so every card renders the identical pattern with
-// nothing clipped at the sides or top.
+// The shape of a bump depends on how deeply its circle is buried under that band line. A
+// circle centered ON the line shows a full half-disc, and one centered ABOVE it shows more
+// than half -- the silhouette then curves back inward between neighbours and reads as a row
+// of bubbles. Both layers here instead use a large radius with the center well BELOW the
+// band line (back: r 59-67, center 40 below; front: r 42-48, center 33 below), so only a
+// shallow cap of each circle clears the line. That yields low, wide rolls (width:height
+// roughly 4:1 to 5.8:1) that never pinch -- the cloud-like texture of the hero divider.
+//
+// Positions were generated once and hardcoded, so every card renders the identical pattern.
+// Spacing is 0.62 * (visible half-width + previous visible half-width), rescaled so the first
+// bump's visible left edge lands on x=0 and the last bump's visible right edge on x=368 --
+// nothing is clipped at the sides, and every circle's top is well inside the cap.
+//
+// Colors: midColor (back) = --midnight-lavender-mid, matching the hero's own SectionDivider
+// clouds instance. The front layer uses white instead of the hero's --midnight-lavender-pale
+// so it blends seamlessly into the white card body it sits on.
 ---
 
 <div class="cloud-cap" aria-hidden="true">
   <svg class="cloud-cap__svg" viewBox="0 0 368 74" width="100%" height="74" preserveAspectRatio="none">
-    <g fill="var(--midnight-lavender)"><circle cx="34" cy="48" r="34"/><circle cx="98.1" cy="42" r="40"/><circle cx="157.9" cy="51" r="29"/><circle cx="215.1" cy="43" r="37"/><circle cx="274" cy="50" r="31"/><circle cx="332" cy="41" r="36"/></g>
-    <g fill="var(--midnight-navy)"><circle cx="26" cy="61" r="26"/><circle cx="79.9" cy="69" r="32"/><circle cx="131" cy="59" r="23"/><circle cx="180.2" cy="66" r="30"/><circle cx="231.4" cy="60" r="25"/><circle cx="285.2" cy="68" r="33"/><circle cx="341" cy="62" r="27"/><rect x="0" y="64" width="368" height="10"/></g>
+    <g fill="var(--midnight-lavender)"><circle cx="47.4" cy="78" r="62"/><circle cx="95" cy="78" r="67"/><circle cx="140.7" cy="78" r="59"/><circle cx="185.3" cy="78" r="65"/><circle cx="231.1" cy="78" r="61"/><circle cx="277.5" cy="78" r="66"/><circle cx="323.3" cy="78" r="60"/><rect x="0" y="38" width="368" height="36"/></g>
+    <g fill="var(--midnight-white)"><circle cx="29.1" cy="91" r="44"/><circle cx="69.9" cy="91" r="47"/><circle cx="108.6" cy="91" r="42"/><circle cx="146.5" cy="91" r="46"/><circle cx="185.3" cy="91" r="43"/><circle cx="226" cy="91" r="48"/><circle cx="265.6" cy="91" r="42"/><circle cx="302.5" cy="91" r="45"/><circle cx="340.4" cy="91" r="43"/><rect x="0" y="58" width="368" height="16"/></g>
   </svg>
 </div>
 

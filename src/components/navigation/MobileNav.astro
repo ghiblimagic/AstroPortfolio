@@ -5,15 +5,14 @@
     ---
 
       {/*  ********************    MAIN NAV, DOTTED BACKGROUND*****************  */}
-      <div
-        id="sidebar"
+      <nav
+        aria-label="Main"
         class={` w-full bg-[var(--midnight-navy)]`}
-
       >
         <ul class="flex flex-col bg-[var(--midnight-navy)] text-center text-white font-Ayaka text-lg [&>li]:py-3">
           {/* ************************** FIRST ITEM ***********************  */}
           <li class="glow ">
-            <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/') }]} href="/">
+            <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/') }]} aria-current={isActive('/') ? 'page' : undefined} href="/">
               <span class="text-center">Home </span>
             </a>
           </li>
@@ -26,7 +25,7 @@
           </li>
 
           <li class="glow ">
-            <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/about/') }]} href="/about/">About</a>
+            <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/about/') }]} aria-current={isActive('/about/') ? 'page' : undefined} href="/about/">About</a>
           </li>
 
           <li class="glow ">
@@ -49,15 +48,15 @@
 
    
           <li class="glow  ">
-            <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/blog') }]} href="/blog">Blog</a>
+            <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/blog') }]} aria-current={isActive('/blog') ? 'page' : undefined} href="/blog">Blog</a>
           </li>
 
           <li class="glow  ">
-            <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/torc') }]} href="/torc">Torc</a>
+            <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/torc') }]} aria-current={isActive('/torc') ? 'page' : undefined} href="/torc">Torc</a>
           </li>
         </ul>
 
         <div class="flex flex-col space-y-5 items-center justify-items-center pt-8"></div>
-      </div>
+      </nav>
     </>
  

@@ -14,6 +14,7 @@ function SocialLinksNav() {
     <NavigationMenu
       className="md:pr-10 py-2 "
       id="social"
+      aria-label="Site and social links"
     >
       {/* //23:53:04 [WARN] [vite] Files in the public directory are served at the root path.
       Instead of /public/images/logo-purple.png, use /images/logo-purple.png. */}
@@ -29,13 +30,13 @@ function SocialLinksNav() {
       <NavigationMenuList>
         {/* <a
           className="skip-link right-5 top-5 p-3 bg-mainColor text-white"
-          href="#home"
+          href="#main-content"
         >
           Skip to content
         </a> */}
         <NavigationMenuItem key={`Skip Link For Social Links Nav`}>
           <NavigationMenuLink
-            href="#home"
+            href="#main-content"
             className="skip-link right-5 top-5 p-3 bg-mainColor text-white rounded-2xl"
           >
             Skip to content

@@ -50,30 +50,33 @@
 
 	<form name="contact" method="POST"  data-netlify="true" netlify-honeypot="bot-field"  data-netlify-recaptcha="true"  class="w-full">
 		  <input type="hidden" name="form-name" value="contact" />
-		<p class="visually-hidden" aria-hidden="true">
+		<p class="visually-hidden">
 			<label>
 			  Don’t fill this out if you’re human: <input name="bot-field" tabindex="-1" autocomplete="off" />
 			</label>
 		  </p>
 		<div class="fields text-left fade-in contact-fields-grid">
 			<div class="field">
-				<label for="name" class="contact-label">Name  <span class="text-red-300">*</span></label>
+				<label for="name" class="contact-label">Name  <span class="text-red-300" aria-hidden="true">*</span></label>
 				<input type="text" name="name" id="name" required class="w-full contact-input"/>
 			</div>
 			<div class="field ">
-				<label for="email" class="contact-label">Email  <span class="text-red-300">*</span></label>
-				<input type="text" name="email" id="email" required class="w-full contact-input"/>
+				<label for="email" class="contact-label">Email  <span class="text-red-300" aria-hidden="true">*</span></label>
+				<input type="email" name="email" id="email" required class="w-full contact-input"/>
 			</div>
 
 			<div class="field contact-field--full">
 				<label for="phone" class="contact-label"> Phone:</label>
-				<input type="tel" name="phone" id="phone" class="w-full contact-input" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}">
-				<span class="block" style="color:var(--midnight-white);">Format: 111-222-3333 </span>
+				<input type="tel" name="phone" id="phone" class="w-full contact-input"
+					pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}"
+					aria-describedby="phone-format"
+					title="Use the format 111-222-3333">
+				<span id="phone-format" class="block mt-2" style="color:var(--midnight-white);">Format: 111-222-3333 </span>
 			</div>
 
 
 			<div class="field contact-field--full">
-				<label for="message" class="contact-label">Message <span class="text-red-300">*</span></label>
+				<label for="message" class="contact-label">Message <span class="text-red-300" aria-hidden="true">*</span></label>
 				<textarea name="message" id="message" rows="5" required class="contact-input contact-textarea w-full "></textarea>
 			</div>
 		</div>
@@ -81,6 +84,8 @@
 		<div class="recaptcha-container fade-in">
 		 <div data-netlify-recaptcha="true"></div>
 		</div>
+
+		<p id="form-status" class="contact-status" role="status" aria-live="polite" tabindex="-1"></p>
 
 		<div class="flex align-center justify-center  w-full mb-11 fade-in">
 				<button
@@ -104,18 +109,25 @@
   if (form) {
 
 	  const submitButton = form.querySelector('button[type="submit"]');
+	  const status = document.getElementById('form-status');
+	  let submitting = false;
 
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
+      if (submitting) return;
+      submitting = true;
 
       const formData = new FormData(form);
       const email = formData.get('email') as string;
 
-	      // Disable button and show loading state
+      // aria-disabled rather than disabled: disabling a focused button drops
+      // focus to <body>, so a keyboard user loses their place mid-submit.
+      // The `submitting` guard is what actually blocks a double submit.
       if (submitButton) {
         submitButton.textContent = 'Sending...';
-        submitButton.setAttribute('disabled', 'true');
+        submitButton.setAttribute('aria-disabled', 'true');
       }
+      if (status) status.textContent = 'Sending your message...';
 
       try {
         const response = await fetch('/', {
@@ -134,14 +146,20 @@
         }
       } catch (error) {
         console.error('Form submission error:', error);
-        alert('There was an error submitting the form. Please try again.');
 
+        if (status) {
+          status.textContent =
+            'There was an error submitting the form. Please try again.';
+          // focus as well as announce, so the message is reachable however the
+          // live region happens to be handled
+          status.focus();
+        }
 
-        // Re-enable button
         if (submitButton) {
           submitButton.textContent = 'Send';
-          submitButton.removeAttribute('disabled');
+          submitButton.removeAttribute('aria-disabled');
         }
+        submitting = false;
       }
     });
   }

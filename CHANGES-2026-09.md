@@ -806,3 +806,274 @@ CSS that `.project-card` no longer has `overflow: hidden` and
 `.project-thumbnail` now carries it plus the matching top radius.
 
 Diff: uncommitted on `hero-redesign` branch (not yet committed).
+
+## 2026-09-22 — Homepage section spacing and dark button styling
+
+Two small visual-consistency passes on the landing page.
+
+**Section spacing.** The homepage sections felt too airy, so `.section-py`
+dropped from 100px to 72px top/bottom on desktop and 64px to 48px on
+mobile — a more standard 4.5rem/3rem rhythm. `.skills-section`'s extra
+bottom padding (which stacks on top of `.section-py` for clearance above
+the hills divider) was scaled down proportionally, 230px to 180px desktop
+and 140px to 110px mobile, so the divider keeps the same relative breathing
+room rather than suddenly sitting closer to the skills grid.
+
+**Dark button.** `.portfolio-button--view` was using a one-off flat navy
+(`oklch(0.3 0.09 258)`) that predated the midnight palette and belonged to
+no token, which is why it read as a slightly different theme from the
+light `--code` button beside it. Repointed to `var(--midnight-navy)` and
+added a 1.5px `--midnight-lavender` border. Initially bottom-only, then
+widened to all four sides so the two buttons are now geometrically
+identical — same 1.5px border box, padding, radius and font — and differ
+only in color.
+
+Considered and rejected: giving the dark button `--diamond-gradient` to
+match the diamonds and process-step circles. The gradient's pale
+`#8fa7ea` end would push white label text below AA contrast on an element
+that small, and using the site's signature gradient on ordinary buttons
+dilutes its role as the diamonds' distinguishing treatment. User chose
+flat.
+
+Also still outstanding from before: `.portfolio-button--view:hover` uses
+`var(--navy-mid)` from the older pre-midnight palette rather than a
+`--midnight-*` token. Left alone as out of scope.
+
+**Bottom edge.** The 1.5px lavender border was applied and confirmed live
+via devtools computed styles, but browsers round a 1.5px border down to a
+1px hairline, so it read as no change at all. What the user actually
+wanted was the raised bottom edge the hero's "See My Work" button has,
+which is not a border but `.btn-primary`'s hard drop shadow
+(`0 4px 0 #8f89ce`). Gave `.portfolio-button--view` the same lip plus a
+matching `:active` press (`translateY(3px)` with the lip collapsed to
+1px), so the 3D affordance actually responds when clicked rather than
+being decorative. Softened the ambient shadow relative to
+`.btn-primary`'s (`0 6px 14px rgba(20, 27, 77, 0.22)` vs
+`0 8px 18px rgba(0,0,0,0.3)`) because this button sits on the pale
+lavender section rather than the dark hero, where the heavier black
+shadow would look muddy.
+
+Note: this breaks the geometric parity with `.portfolio-button--code`
+established above, since the dark button now carries a shadow lip the
+light one does not. Flagged to the user as a tradeoff of matching the
+hero button instead.
+
+Debugging note for future reference: when a CSS change "doesn't show up",
+check the computed border width before assuming a stale cache. Verified
+source, dev-server response, rendered HTML class and production build all
+carried the rule correctly — the change was live the whole time and the
+sub-pixel rounding was the actual cause.
+
+**Skills chips.** Added `justify-content: center` to `.skill-pills`. The
+card headings already appeared centered because `#home` carries Tailwind's
+`text-center` and `.heading-styling` is an inline-block that inherits it,
+but `text-align` has no effect on flex item placement, so the chip rows
+stayed left-aligned under centered headings. Setting `justify-content`
+brings them in line with the rest of the card.
+
+**Skills card cloud silhouette.** `CloudCap` only capped the top of each
+skill card; the body below was a plain rounded rectangle. Continued the
+cloud silhouette down both sides and around the bottom so the whole card
+reads as one cloud.
+
+Implemented as a CSS `mask` of three repeating radial-gradients (one per
+scalloped edge) unioned with a linear-gradient covering the card's
+interior, rather than as more SVG. The cap's SVG uses
+`preserveAspectRatio="none"` and stretches with the card, which is fine
+for a fixed-height strip but would distort circles into ellipses down a
+variable-height side. Gradient bumps stay circular at any card height.
+
+Geometry is derived from the cap's front white layer at desktop width so
+the two read as the same cloud: a 45px circle sunk 33px behind the edge
+clears a 61px-wide, 12px-deep roll. Bumps cut inward from the card box
+instead of protruding outward, so the roll crests stay flush with the
+cap's full-width edge above rather than the card growing 12px wider than
+its own cap. The side masks are offset by `--cloud-span / -2` to put a
+crest exactly at y=0, otherwise the card pinched inward immediately under
+the cap and left a visible step at the junction.
+
+Consequences handled: the `--capped` border was removed (a mask clips the
+border into a broken partial outline), and `.portfolio-card`'s
+`box-shadow` was swapped for equivalent `drop-shadow()` filters, since
+box-shadow is drawn on the unmasked box and gets clipped while
+`drop-shadow` follows the masked silhouette. Padding grew to
+`28px 34px 32px` (and a mobile override at =<480px) because the bumps eat
+12px off each scalloped edge and the previous 26px/24px would have left
+text almost touching them.
+
+Not done: the cap's two-tone effect (a `--midnight-lavender-mid` layer
+peeking out behind the white one) stops at the top edge, so the sides and
+bottom are white-only. Extending it would need a second masked layer
+behind the card; flagged to the user rather than assumed.
+
+**Process step badges.** The numbered circles carried
+`--diamond-gradient` but not the offset lavender companion shape the
+services diamonds have, so the two badge treatments didn't match. Added
+`.process-step::after` reusing `.diamond-shadow-shape`'s exact values
+(56px, 8px down-right offset, `--midnight-lavender`), differing only in
+`border-radius: 999px` instead of the diamond's rotated square.
+
+Put on `.process-step` rather than as a `::before` on the badge itself:
+`.process-step__circle` is absolutely positioned with `z-index: 1`, which
+makes it a stacking context, so a pseudo-element inside it could not paint
+behind its own gradient background no matter the z-index. As a sibling
+under the step's stacking context it sits cleanly between the white card
+surface and the badge. Did not extract a shared class — the services
+version lives in `DiamondBackgroundImages.astro`'s scoped styles and the
+two differ in shape and positioning context, so a shared abstraction would
+have been mostly overrides.
+
+**Verification:** `pnpm astro check` → 0 errors. Confirmed the dev server
+at :4321 serves the updated rule and that the rendered button carries
+`portfolio-button--view`.
+
+Diff: uncommitted on `hero-redesign` branch (not yet committed).
+
+## 2026-09-22 — Accessibility audit and high-severity fixes
+
+Audited markup, ARIA, keyboard/focus, contrast and motion across the site,
+then fixed the five high-severity findings. Medium and low findings were
+reported but deliberately left for a follow-up.
+
+**Duplicate `id="sidebar"`.** The id appeared three times on every page —
+the mobile menu wrapper, the mobile nav inside it, and the desktop
+sidebar. Invalid HTML, and `getElementById('sidebar')` in the toggle
+script only resolved to the right element because that one happened to
+come first in document order. Renamed to `mobile-menu` and `desktop-nav`,
+dropped the unreferenced id on `MobileNav`, and added `aria-controls` to
+the toggle button now that its target has a stable id.
+
+**Broken skip link.** It pointed at `#home`, which only exists on the
+homepage, so the skip link went nowhere on all six other pages (WCAG
+2.4.1). Added `id="main-content" tabindex="-1"` to every page's `<main>`
+and retargeted the link. The `tabindex` matters: without it browsers vary
+in whether focus actually moves to the fragment target, so the link can
+appear to do nothing for keyboard users even when the target exists.
+Suppressed the global focus ring on that target since it is only ever
+focused programmatically, never tabbed to.
+
+**Missing nav landmark.** The primary sidebar navigation was a plain
+`<div>`, while the only `<nav aria-label="Main">` on the page was the
+social links bar — Radix's `NavigationMenu.Root` supplies that label by
+default. So screen-reader users navigating by landmark were sent to the
+social icons instead of the site nav. Made both `DesktopNav` and
+`MobileNav` `<nav aria-label="Main">` and gave the social bar its own
+label. Both main navs share the label, which is correct here: each is
+`display: none` at the other's breakpoint, so only one is ever in the
+accessibility tree. Also closed the Contact `<li>` in `DesktopNav`, which
+was unterminated and left Blog and Torc nested inside it.
+
+**Page blank without JS.** `.fade-in` and `.prose > *` defaulted to
+`opacity: 0` and relied on an IntersectionObserver to add `.visible`, so a
+blocked or failed script left every page visually empty. Gated both rules
+behind a `.js` class set by an inline `<head>` script, so the hidden state
+only ever applies when JS is running. Chose this over a `<noscript>`
+style block because `<noscript>` does not help when JS is enabled but the
+script errors or fails to load, which is the more common failure. Rule
+order matters and was verified: `.js .fade-in` and `.fade-in.visible` have
+equal specificity, so `.visible` must stay later in the file to win.
+
+**Missing `<h1>`.** `/otherprojects` and `/torc` both started at `<h2>`.
+Promoted each page's title to `<h1>`. On `/torc` the whole tree shifted up
+one level (h2/h3/h4 to h1/h2/h3) so promoting the title did not leave a
+gap. On `/otherprojects` the project card headings come from the shared
+`Project.astro`, which is correctly `<h3>` under the homepage's "Latest
+Projects" `<h2>`; parameterizing the level for one call site was more
+churn than the benefit, so that page now skips h1 to h3. Noted as a
+remaining low-severity item.
+
+Medium findings were fixed in a follow-up pass, below.
+
+**Alt text and input types.** Added the missing `alt` to `about.astro`'s
+photo (matching the hero's "Janet Spellman") and a missing space before
+its `src`. Contact email input was `type="text"`; now `type="email"`, so
+mobile keyboards and native validation behave.
+
+**Button border contrast.** `.portfolio-button--code`'s border was
+`oklch(0.85 0.01 260)` — 1.58:1 against white, well under WCAG 1.4.11's
+3:1 for UI boundaries, and it is the only thing defining that button's
+shape. Solved for the lightest lightness that clears 3:1 and landed on
+`oklch(0.65 0.01 260)` (~3.24:1), keeping the border as unobtrusive as the
+requirement allows rather than reaching for a darker gray.
+
+**Phone field description.** The visible "Format: 111-222-3333" hint was
+not programmatically associated with the input, so a screen-reader user
+hitting the `pattern` validation got a generic browser message with no
+format given. Added `id`/`aria-describedby` and a `title` on the input.
+
+**Form status and focus.** Submission errors used `alert()` and the
+"Sending..." state was never announced. Added a `role="status"`
+`aria-live="polite"` region; errors now write there and also take focus,
+so the message is reachable however the live region is handled. Switched
+the submit button from `disabled` to `aria-disabled` with a `submitting`
+guard doing the actual double-submit prevention: disabling a focused
+button moves focus to `<body>`, so a keyboard user loses their place
+mid-submit. Styled `[aria-disabled="true"]` to match the existing
+`:disabled` rule.
+
+**Active nav state.** `.nav-link-active` conveyed the current page by
+background color alone. Added `aria-current="page"` alongside it in both
+`DesktopNav` and `MobileNav`.
+
+**Video motion.** Project videos carried `autoplay loop` as markup
+attributes, which take effect before any script can intervene — so a
+reduced-motion user would see a flash of motion regardless. Moved both to
+a script that sets them only when `prefers-reduced-motion` is not
+`reduce`, and that re-applies on preference change. Dropped `autoplay`
+from the markup entirely: if the script fails, the videos simply do not
+autoplay, which is the safe direction. Also gave each `<video>` an
+`aria-label` (a low-severity finding, folded in since the element was
+being rewritten) — the `title` on `<source>` never surfaced anywhere.
+
+Low findings were then cleared in a third pass.
+
+**Nav toggle keyboard handling.** Added Escape-to-close that also returns
+focus to the trigger, so a keyboard user is not stranded at the position
+of a menu that no longer exists. Set the icon's `alt=""`: the button
+already carries an `aria-label` that the script keeps in sync, so the
+icon is decorative, and its own alt was both redundant and being swapped
+to inconsistent casing ("Close SideBar" / "open menu") on every toggle.
+
+**Honeypot.** `aria-hidden="true"` wrapped a focusable input, which ARIA
+forbids. Removed it and kept the `visually-hidden` class and
+`tabindex="-1"`. Chose this over `display: none`, which would also have
+resolved the violation but defeats the honeypot's purpose, since the
+naive bots it targets skip fields hidden that way. The label text is
+self-explanatory when read aloud.
+
+**Required asterisks.** Marked the three per-label `*` spans
+`aria-hidden="true"` — `required` already conveys the state
+programmatically, so they were duplicate announcements at every field.
+Deliberately left the legend's asterisk readable: that sentence explains
+the visual convention and is the one place the symbol carries meaning.
+
+**Heading level on /otherprojects.** Rather than leave the h1-to-h3 skip,
+gave `Project.astro` a `headingLevel` prop (default 3) rendered via a
+dynamic tag, and passed 2 from `OlderProjects`, which is only used on that
+page. The card titles sit under the homepage's "Latest Projects" `<h2>`
+but under the page `<h1>` on /otherprojects, so the level genuinely
+depends on context and could not be fixed in the component alone.
+/otherprojects is now h1 + 7 h2s; the homepage is unchanged.
+
+**Twinkle reduced-motion check.** Asked to make the star twinkle respect
+`prefers-reduced-motion`; on inspection it already did, via a
+`@media (prefers-reduced-motion: reduce) { .twinkle { animation: none } }`
+that correctly wins the cascade. The stars set `animation-delay` and
+`animation-duration` inline, but not `animation-name`, so the shorthand
+reset in the media query still takes effect. Verified the override ships
+in the served CSS and that no scoped style in `SectionDivider`, `Hero` or
+`ContactSection` redefines it. Added `!important` anyway to match how the
+`.fade-in` override is written: at equal specificity with inline longhands
+already in play, any future inline or scoped `animation` would silently
+restore the twinkle for users who asked for no motion.
+
+**Verification:** `pnpm astro check` → 0 errors; `pnpm build` succeeds.
+Confirmed against the running dev server that no page has duplicate ids,
+that `id="main-content"` resolves on all seven pages, that the three nav
+landmarks carry distinct and correct labels, that both previously
+headless pages now expose exactly one `<h1>`, and that the `.js` flag
+ships in the document head. After the low-severity pass, re-confirmed
+heading counts on both project pages, the asterisk and honeypot markup,
+and a clean `pnpm build`.
+
+Diff: uncommitted on `hero-redesign` branch (not yet committed).
