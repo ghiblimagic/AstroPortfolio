@@ -1170,3 +1170,13 @@ relies on the existing `.twinkle` rule in globals.css).
 behind the nav background); unrelated uncommitted `ContactSection.astro`,
 `CatConstellation.astro` and a `globals.css` container-type line were not
 touched or committed.
+
+**Follow-up (same day): homepage scroll-spy.** Clicking Services/Process/etc.
+kept "Home" highlighted because the active state was decided server-side from
+the pathname, and every homepage section shares `/`. `ConstellationNav.astro`
+now has a small scroll listener (homepage only) that marks the section
+nearest the top 35% of the viewport as current (Home above Projects, Contact
+at page bottom) and toggles `aria-current`, the big star and the pill. Chose a
+scroll-position check over IntersectionObserver because `#home` wraps the
+whole page and the sections are uneven heights. Verified in Chromium by
+clicking each link.

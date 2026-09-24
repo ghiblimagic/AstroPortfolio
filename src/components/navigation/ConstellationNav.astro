@@ -31,6 +31,7 @@ const items = [
           class="c-link"
           href={item.href}
           aria-current={active ? "page" : undefined}
+          data-spy={item.href === "/" ? "home" : item.href.startsWith("/#") ? item.href.slice(2) : undefined}
         >
           <svg
             class:list={["c-star", { active, twinkle: active }]}
@@ -49,6 +50,59 @@ const items = [
     );
   })}
 </ul>
+
+<script>
+  // Scroll-spy for the homepage: pathname alone can't tell sections apart
+  // (all of /#projects, /#services, ... are the "/" page), so highlight
+  // whichever section the reader has scrolled to. Other pages keep the
+  // server-rendered aria-current.
+  if (location.pathname === "/") {
+    const lists = document.querySelectorAll<HTMLElement>(".constellation");
+    const links = document.querySelectorAll<HTMLAnchorElement>(".c-link[data-spy]");
+    const ids = ["projects", "services", "process", "skills", "contact"];
+    let current = "";
+
+    const setActive = (id: string) => {
+      if (id === current) return;
+      current = id;
+      links.forEach((link) => {
+        const on = link.dataset.spy === id;
+        if (on) link.setAttribute("aria-current", "page");
+        else link.removeAttribute("aria-current");
+        link.querySelector(".c-star")?.classList.toggle("active", on);
+        link.querySelector(".c-star")?.classList.toggle("twinkle", on);
+        link.querySelector(".c-label")?.classList.toggle("c-label-active", on);
+      });
+    };
+
+    const update = () => {
+      const line = window.innerHeight * 0.35;
+      let id = "home";
+      for (const s of ids) {
+        const el = document.getElementById(s);
+        if (el && el.getBoundingClientRect().top <= line) id = s;
+      }
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+      setActive(atBottom ? "contact" : id);
+    };
+
+    let queued = false;
+    window.addEventListener(
+      "scroll",
+      () => {
+        if (queued) return;
+        queued = true;
+        requestAnimationFrame(() => {
+          queued = false;
+          update();
+        });
+      },
+      { passive: true },
+    );
+    if (lists.length) update();
+  }
+</script>
 
 <style>
   .constellation {
