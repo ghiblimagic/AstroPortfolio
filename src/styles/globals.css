@@ -858,6 +858,8 @@ article img {
 /* ---- Contact ---- */
 .contact-section {
   position: relative;
+  /* lets CatConstellation size itself to the section, not the viewport */
+  container-type: inline-size;
 }
 
 .contact-stars {

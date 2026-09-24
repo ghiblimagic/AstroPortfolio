@@ -1077,3 +1077,35 @@ heading counts on both project pages, the asterisk and honeypot markup,
 and a clean `pnpm build`.
 
 Diff: uncommitted on `hero-redesign` branch (not yet committed).
+
+## 2026-09-23 — Contact section cat constellation
+
+Added `src/components/landingpage/CatConstellation.astro`, a decorative
+star-and-line constellation of a sitting cat with a curled tail, placed in the
+empty space right of the contact form. Branch `contact-cat-constellation`.
+
+**Key decisions:**
+- Each star's position/size is on a wrapping `<g transform>`; the inner
+  `<path>` only carries `.twinkle`. The keyframes animate CSS `transform`,
+  which would otherwise replace the SVG transform attribute and throw stars
+  off their vertices. `.cstar` sets `transform-box: fill-box` so each star
+  scales about its own centre. Verified in Chromium: 0.000 viewBox-unit drift
+  across animation samples.
+- Reused the global `.twinkle` keyframes and its reduced-motion override
+  (`animation: none !important`), so no new motion rule was needed.
+- Sized against the Contact section with a container query
+  (`container-type: inline-size` added to `.contact-section`) instead of
+  `vw` media queries. The first version used `50vw`, but the desktop sidebar
+  makes the section ~250px narrower than the viewport, so the SVG box
+  overlapped the textarea by 19px at 1440px. Width formula:
+  `clamp(160px, 50cqw - 320px, 270px)`, which keeps a 24px gap from the
+  620px form column.
+- Per review feedback, the cat shrinks (270px -> 160px) to stay beside the
+  form rather than dropping below it as soon as full size stops fitting.
+  Under a 960px section content width (about a 1420px viewport with the
+  sidebar) it sits centred below the Send button at 144x180px.
+- Existing contact sparkles left in place; nearest is >= 74px from the cat at
+  every tested width (375-1920px).
+
+**Noted, not fixed:** the homepage already has a 1px horizontal overflow at
+375px wide (present with the cat hidden too).

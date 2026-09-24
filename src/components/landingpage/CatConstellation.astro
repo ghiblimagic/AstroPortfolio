@@ -1,0 +1,106 @@
+---
+// Decorative sitting-cat constellation for the Contact section. Each star's
+// position/size lives on a wrapping <g>; the <path> inside only twinkles.
+// Putting both on one element breaks: the animation's CSS `transform`
+// replaces the SVG `transform` attribute and the star jumps off its vertex.
+const sparkle = "M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z";
+---
+
+<svg
+  class="cat-constellation"
+  viewBox="0 0 240 300"
+  aria-hidden="true"
+  focusable="false"
+>
+  <g fill="none" stroke="#B3AEEA" stroke-opacity="0.55" stroke-width="1.4" stroke-linejoin="round">
+    <polyline points="50,262 46,170 38,108 46,62 58,22 76,44 98,26 104,64 90,90 122,116 152,164 168,218 162,262 50,262" />
+    <polyline points="162,262 206,256 230,224 216,190" />
+  </g>
+
+  <g fill="#D6D3F7" opacity="0.8">
+    <circle cx="42" cy="140" r="1.8" />
+    <circle cx="42" cy="85" r="1.8" />
+    <circle cx="67" cy="33" r="1.8" />
+    <circle cx="87" cy="35" r="1.8" />
+    <circle cx="97" cy="78" r="1.8" />
+    <circle cx="106" cy="103" r="1.8" />
+    <circle cx="137" cy="140" r="1.8" />
+    <circle cx="160" cy="191" r="1.8" />
+    <circle cx="165" cy="240" r="1.8" />
+    <circle cx="106" cy="262" r="1.8" />
+    <circle cx="184" cy="259" r="1.8" />
+    <circle cx="221" cy="240" r="1.8" />
+    <circle cx="223" cy="207" r="1.8" />
+  </g>
+
+  <!-- Stars: translate(X - size/2, Y - size/2) scale(size/24) -->
+  <!-- 50,262 (12) -->
+  <g transform="translate(44 256) scale(0.5)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 0.3s; animation-duration: 4.2s;" /></g>
+  <!-- 46,170 (8) -->
+  <g transform="translate(42 166) scale(0.3333)"><path class="twinkle cstar" d={sparkle} fill="#D6D3F7" style="animation-delay: 2.1s; animation-duration: 3.4s;" /></g>
+  <!-- 38,108 (11) -->
+  <g transform="translate(32.5 102.5) scale(0.4583)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 1.2s; animation-duration: 4.7s;" /></g>
+  <!-- 46,62 (12) -->
+  <g transform="translate(40 56) scale(0.5)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 3.3s; animation-duration: 3.8s;" /></g>
+  <!-- 58,22 left ear tip (15) -->
+  <g transform="translate(50.5 14.5) scale(0.625)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 0.8s; animation-duration: 4.4s;" /></g>
+  <!-- 76,44 (8) -->
+  <g transform="translate(72 40) scale(0.3333)"><path class="twinkle cstar" d={sparkle} fill="#D6D3F7" style="animation-delay: 2.7s; animation-duration: 3.1s;" /></g>
+  <!-- 98,26 right ear tip (15) -->
+  <g transform="translate(90.5 18.5) scale(0.625)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 1.9s; animation-duration: 4.9s;" /></g>
+  <!-- 104,64 (8) -->
+  <g transform="translate(100 60) scale(0.3333)"><path class="twinkle cstar" d={sparkle} fill="#D6D3F7" style="animation-delay: 3.8s; animation-duration: 3.6s;" /></g>
+  <!-- 90,90 (8) -->
+  <g transform="translate(86 86) scale(0.3333)"><path class="twinkle cstar" d={sparkle} fill="#D6D3F7" style="animation-delay: 0.5s; animation-duration: 4.1s;" /></g>
+  <!-- 122,116 (10) -->
+  <g transform="translate(117 111) scale(0.4167)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 2.4s; animation-duration: 3.3s;" /></g>
+  <!-- 152,164 (12) -->
+  <g transform="translate(146 158) scale(0.5)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 1.5s; animation-duration: 4.6s;" /></g>
+  <!-- 168,218 (13) -->
+  <g transform="translate(161.5 211.5) scale(0.5417)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 3.1s; animation-duration: 3.9s;" /></g>
+  <!-- 162,262 (12) -->
+  <g transform="translate(156 256) scale(0.5)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 0.1s; animation-duration: 3.5s;" /></g>
+  <!-- 206,256 (8) -->
+  <g transform="translate(202 252) scale(0.3333)"><path class="twinkle cstar" d={sparkle} fill="#D6D3F7" style="animation-delay: 2.9s; animation-duration: 4.3s;" /></g>
+  <!-- 230,224 (8) -->
+  <g transform="translate(226 220) scale(0.3333)"><path class="twinkle cstar" d={sparkle} fill="#D6D3F7" style="animation-delay: 1.0s; animation-duration: 3.2s;" /></g>
+  <!-- 216,190 tail tip (13) -->
+  <g transform="translate(209.5 183.5) scale(0.5417)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 3.6s; animation-duration: 5s;" /></g>
+</svg>
+
+<style>
+  .cat-constellation {
+    display: block;
+    width: 144px;
+    height: 180px;
+    margin: 0 auto;
+    pointer-events: none;
+  }
+
+  /* Scale around each star's own box, not the SVG viewport (overrides the
+     global .twinkle transform-origin). */
+  .cstar {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+
+  /* Beside the form only when it fits. Sized against the Contact section
+     (a container, see .contact-section in globals.css) rather than the
+     viewport, because the desktop sidebar makes the section narrower than
+     100vw. With section width S = content width + 2 * 48px padding, the form
+     (a centred 620px column) ends at S/2 + 310px; leaving the 34px edge
+     offset and a 24px gap, the cat can be S/2 - 368px = 50cqw - 320px wide.
+     It shrinks from 270px to 160px, which is reached at a 960px content
+     width; narrower than that, the cat sits under the form instead. */
+  @container (min-width: 960px) {
+    .cat-constellation {
+      position: absolute;
+      right: 34px;
+      bottom: 48px;
+      margin: 0;
+      width: clamp(160px, calc(50cqw - 320px), 270px);
+      height: auto;
+      aspect-ratio: 240 / 300;
+    }
+  }
+</style>
