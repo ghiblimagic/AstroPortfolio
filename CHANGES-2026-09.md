@@ -1231,3 +1231,8 @@ inside the 226px content edge, no overflow.
 user's request; labels now match the "Spellman's Consulting" brand text
 (20px, 24px at `xl`), `--lh` back to 28px, mobile drawer back to 18px. The
 centered brand block stays.
+
+**Follow-up: caption contrast.** "Free tech community" was too dim to read
+comfortably. Changed from #8A93BF at 12px (5.4:1) to #B4BDE3 at 13px (8.8:1
+on the navy sidebar). This deviates from the original spec colour and size on
+purpose; the active-page caption (#D6D3F7) is unchanged.
