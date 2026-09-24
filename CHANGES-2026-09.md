@@ -1125,6 +1125,10 @@ empty space right of the contact form. Branch `contact-cat-constellation`.
 - The focus ring shows for keyboard focus only (`:focus:not(:focus-visible)`
   override for `.cat-button`). The shared `#contact button:focus` rule still
   shows the ring on mouse click for the Send button; left as is.
+- Fix: the click override first cleared only `outline`, which left the global
+  `button:focus` rule's 6px `--navy-deep` box-shadow showing as a dark ring
+  on click. The override now clears `box-shadow` too; keyboard focus keeps
+  both (lavender outline + navy halo, matching the Send button).
 
 ## 2026-09-23 — Constellation sidebar nav and hero fixes
 

@@ -116,10 +116,12 @@ const sparkle = "M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 
     cursor: pointer;
   }
 
-  /* Keep the global #contact button:focus ring for keyboard focus only;
-     :global(#contact) is needed to outrank that ID selector. */
+  /* Keep the focus ring for keyboard focus only. The global button:focus
+     rule adds a dark box-shadow as well as the outline, so clear both;
+     :global(#contact) is needed to outrank the #contact button:focus rule. */
   :global(#contact) .cat-button:focus:not(:focus-visible) {
     outline: none;
+    box-shadow: none;
   }
 
   .cat-svg {
