@@ -1226,3 +1226,8 @@ went from 20/24px to 24/28px (mobile drawer 18 to 20px) and `--lh` from 28 to
 block is now centered in the sidebar (`justify-center`, removed the logo's
 `ml-2`, centered text). Checked at 1024/1440px: longest label ends at 203px,
 inside the 226px content edge, no overflow.
+
+**Follow-up: font size reverted.** The larger nav labels were undone at the
+user's request; labels now match the "Spellman's Consulting" brand text
+(20px, 24px at `xl`), `--lh` back to 28px, mobile drawer back to 18px. The
+centered brand block stays.
