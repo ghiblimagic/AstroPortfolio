@@ -3,72 +3,158 @@ import Layout from '../layouts/Layout.astro';
 import '@/styles/globals.css'
 import '@/styles/normalize.css'
 import SpaceForSidebar from "@/components/SpaceForDesktopSidebar.astro"
-import WhereToFindMeSection from '@/components/WhereToFindMeSection.astro';
+import SectionDivider from "@/components/SectionDivider.astro"
+import { socialIcons } from "@/data/socialIcons.js"
+import { aboutExtraSocialIcons } from "@/data/aboutSocialIcons.js"
 
+const STAR_PATH = "M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z";
+
+const techList = [
+  "Building computers.",
+  "Playing classic games like Final Fantasy 7 with emulators.",
+  "Styling MySpace and Neopets profiles.",
+  "Saving others from technical issues, such as vengeful printers and stubborn computer errors.",
+];
+
+// Intro sparkles sit in the section's padding zones, clear of all text.
+const introStars = [
+  { style: "top:32px; left:6%; width:18px; height:18px; animation-delay:0.4s; animation-duration:3.8s;" },
+  { style: "top:40px; right:8%; width:14px; height:14px; animation-delay:1.6s; animation-duration:4.4s;" },
+  { style: "bottom:32px; left:12%; width:14px; height:14px; animation-delay:2.2s; animation-duration:4.1s;" },
+  { style: "bottom:40px; right:5%; width:20px; height:20px; animation-delay:0.9s; animation-duration:3.6s;" },
+];
+
+const contactStars = [
+  { style: "top:24px; left:6%; width:16px; height:16px; animation-delay:0.6s; animation-duration:4.2s;" },
+  { style: "top:40px; right:7%; width:12px; height:12px; animation-delay:1.9s; animation-duration:3.7s;" },
+  { style: "bottom:28px; left:14%; width:12px; height:12px; animation-delay:2.7s; animation-duration:4.6s;" },
+];
+
+// Same links and order as the previous About page.
+const socialOrder = ["linkedIn", "bluesky", "twitter", "github", "youtube", "twitch", "hashnode", "dev", "wellfound"];
+const allSocial = [...socialIcons, ...aboutExtraSocialIcons];
+const socials = socialOrder.flatMap((name) => allSocial.filter((s) => s.name === name));
 ---
 
 <Layout title="Janet Spellman's About Me">
-
-          
-    
-    <main id="main-content" tabindex="-1" class=" flex">
+    <main id="main-content" tabindex="-1" class="flex">
         <SpaceForSidebar />
-    <section class="min-w-0 flex-1 w-full mb-12">
-        <section class="mt-10 px-2 md:px-12 max-w-7xl">
-                         <h1 class="font-Ayaka text-4xl text-center pb-8" id="about">About Me (Your New Developer)</h1>
+        <div class="about-page min-w-0 flex-1 w-full">
 
-            <img class="max-w-[600px] mx-auto w-full" src="/images/me.jpg" alt="Janet Spellman" />
-         
-
-            <p class="mt-8"> Hi there, thanks for visiting! My "Spellman Magic" is software development*. </p>
-            
-            <p class="mt-4 mb-4">  I've always enjoyed using technology, whether by:  </p>
-                        
-                        <ul class="list-disc mx-auto pl-8 space-y-4"> 
-                        <li> Building computers. </li>
-                        <li> Playing classic games like Final Fantasy 7 with emulators. </li>
-                         <li> Styling MySpace and Neopets profiles. </li>
-                         <li> Or saving others from technical issues such as vengeful printers and stubborn computer errors.</li>
-                
-                </ul>
-            
-            <p class="mt-4"> My journey to code actually began when I worked at an animal shelter! I built an automated audiobook program, which reduced the stress levels of shelter pets and increased positive outcomes. Every since then, I've been using code to solve real world problems by building websites and full-stack applications. </p>
-
-           <p class="mt-4">* If "Spellman Magic" does not ring a bell, look up Sabrina the Teenage Witch. It was a popular 90s sitcom following the "Spellman" family of witches. Coincidentally (or magically?), that is my last name too. 😉.</p>
-
-            <h3 class="mt-8 text-center mb-8 font-Ayaka text-4xl" id="more-about-me fade-in">More about me: </h3>
-                <div class="flex justify-center fade-in">
-                <ul class="mx-auto space-y-4">                  
-                     <li> 🧩 Codewars/ Coding Challenge Fanatic. Feeling brave? Checkout out my <a class="underline text-blue-600 underline-offset-2"href="https://www.codewars.com/users/GhibliMagic"> Codewars profile</a>. This bad boy can fit so many fake internet nerd points.</li>
-                     <li> 🎬 📚 🎮 Fantasy Lover. </li>
-                     <li> 🎮 Favorite Games: Hades, Baldur's gate 3, Untitled Goose Game, and Final Fantasy 14. </li>
-                     <li> 🏞️ When the weather cooperates, I'm always hyped to go hiking! </li>
-                  
-                     <li> 📚 I've read a few novels in Japanese and I'm currently working on <span class="line-through">mastering</span> getting half decent at Spanish. </li>
-                     <li> 🐱🐶 enthusiast. </li>
-                     <li> 🐈 Always adding more features to our 2 catios! (Enclosed outside areas for cats).</li>
-                     <li>🧔 Caution: Approaching puns and dad jokes ahead. Eye-rolls may be unavoidable! </li>
+            <!-- 1. Intro -->
+            <section class="about-intro" aria-labelledby="about-heading">
+                <div class="about-stars" aria-hidden="true">
+                    {introStars.map((s) => (
+                        <svg class="about-star twinkle" style={s.style} viewBox="0 0 24 24" fill="var(--midnight-lavender)"><path d={STAR_PATH} /></svg>
+                    ))}
                 </div>
-    
-    
+                <div class="about-intro__grid">
+                    <div class="about-photo">
+                        <div class="about-photo__shadow" aria-hidden="true"></div>
+                        <img
+                            class="about-photo__img"
+                            src="/images/me.jpg"
+                            width="1000"
+                            height="999"
+                            alt="Janet Spellman smiling, wearing a lavender top"
+                            loading="eager"
+                            fetchpriority="high"
+                        />
+                    </div>
+                    <div class="about-intro__text">
+                        <p class="about-eyebrow">ABOUT ME</p>
+                        <h1 id="about-heading" class="about-h1">Hi there, thanks for visiting!</h1>
+                        <p class="about-intro__lead">My <span class="about-magic">Spellman Magic</span> is software development.</p>
+                        <div class="about-callout">
+                            <svg class="about-callout__star" viewBox="0 0 24 24" fill="var(--midnight-lavender)" aria-hidden="true"><path d={STAR_PATH} /></svg>
+                            <p>If "Spellman Magic" doesn't ring a bell, look up <em>Sabrina the Teenage Witch</em>, a popular 90s sitcom about the Spellman family of witches. Coincidentally (or magically?), that's my last name too.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <SectionDivider variant="clouds" fromColor="var(--midnight-navy)" toColor="var(--midnight-lavender-pale)" />
 
-    
-        </section>
-                 <section class="pt-12 pb-12 mb-8 bg-white">
-                     <div class="max-w-7xl mx-auto px-4 sm:px-12">
+            <!-- 2. How it started -->
+            <section class="about-story" aria-labelledby="story-heading">
+                <div class="about-story__grid">
+                    <div class="about-story__main">
+                        <h2 id="story-heading" class="about-h2">How it started</h2>
+                        <p>My journey to code actually began when I worked at an animal shelter! I built an automated audiobook program, which reduced the stress levels of shelter pets and increased positive outcomes.</p>
+                        <div class="about-highlight">
+                            <p class="about-highlight__eyebrow">FIRST PROJECT</p>
+                            <p class="about-highlight__text">An automated audiobook program that lowered shelter pets' stress and improved their outcomes.</p>
+                        </div>
+                        <p>Ever since then, I've been using code to solve real-world problems by building websites and full-stack applications.</p>
+                    </div>
+                    <div class="about-story__tech">
+                        <h3 class="about-h3">I've always loved tech, whether it was…</h3>
+                        <ul class="about-tech-list">
+                            {techList.map((item) => (
+                                <li>
+                                    <svg class="about-bullet" viewBox="0 0 24 24" fill="var(--midnight-navy)" aria-hidden="true"><path d={STAR_PATH} /></svg>
+                                    <span>{item}</span>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
+            </section>
 
-         <h2 class="font-Ayaka text-4xl text-center mb-8 fade-in" id="socials" >Where to find me </h2>
+            <!-- 3. More about me -->
+            <section class="about-more" aria-labelledby="more-heading">
+                <div class="about-more__inner">
+                    <h2 id="more-heading" class="about-h2 about-h2--center">More about me</h2>
+                    <ul class="about-facts">
+                        <li class="about-fact">
+                            <p class="about-fact__label"><svg class="about-bullet" viewBox="0 0 24 24" fill="var(--midnight-navy)" aria-hidden="true"><path d={STAR_PATH} /></svg>Coding challenges</p>
+                            <p class="about-fact__text">Codewars fanatic. Feeling brave? Check out my <a class="about-link" href="https://www.codewars.com/users/GhibliMagic">Codewars profile</a>. It can fit so many fake internet nerd points.</p>
+                        </li>
+                        <li class="about-fact">
+                            <p class="about-fact__label"><svg class="about-bullet" viewBox="0 0 24 24" fill="var(--midnight-navy)" aria-hidden="true"><path d={STAR_PATH} /></svg>Fantasy lover</p>
+                        </li>
+                        <li class="about-fact">
+                            <p class="about-fact__label"><svg class="about-bullet" viewBox="0 0 24 24" fill="var(--midnight-navy)" aria-hidden="true"><path d={STAR_PATH} /></svg>Favorite games</p>
+                            <p class="about-fact__text">Hades, Baldur's Gate 3, Untitled Goose Game and Final Fantasy 14.</p>
+                        </li>
+                        <li class="about-fact">
+                            <p class="about-fact__label"><svg class="about-bullet" viewBox="0 0 24 24" fill="var(--midnight-navy)" aria-hidden="true"><path d={STAR_PATH} /></svg>Hiking</p>
+                            <p class="about-fact__text">When the weather cooperates, I'm always hyped to go hiking!</p>
+                        </li>
+                        <li class="about-fact">
+                            <p class="about-fact__label"><svg class="about-bullet" viewBox="0 0 24 24" fill="var(--midnight-navy)" aria-hidden="true"><path d={STAR_PATH} /></svg>Languages</p>
+                            <p class="about-fact__text">I've read a few novels in Japanese, and I'm working on <s>mastering</s> getting half decent at Spanish.</p>
+                        </li>
+                        <li class="about-fact">
+                            <p class="about-fact__label"><svg class="about-bullet" viewBox="0 0 24 24" fill="var(--midnight-navy)" aria-hidden="true"><path d={STAR_PATH} /></svg>Pet enthusiast</p>
+                            <p class="about-fact__text">Always adding more features to our two catios (enclosed outdoor areas for cats)!</p>
+                        </li>
+                    </ul>
+                    <div class="about-caution">
+                        <p class="about-caution__label">CAUTION</p>
+                        <p class="about-caution__text">Approaching puns and dad jokes ahead. Eye-rolls may be unavoidable!</p>
+                    </div>
+                </div>
+            </section>
+            <SectionDivider variant="hills" fromColor="#ffffff" toColor="var(--midnight-navy)" midColor="var(--midnight-lavender)" />
 
-       
-         <WhereToFindMeSection/>
-       
-                     </div>
-                 </section>
+            <!-- 4. Where to find me -->
+            <section class="about-find" aria-labelledby="find-heading">
+                <div class="about-stars" aria-hidden="true">
+                    {contactStars.map((s) => (
+                        <svg class="about-star twinkle" style={s.style} viewBox="0 0 24 24" fill="#8A8FD0"><path d={STAR_PATH} /></svg>
+                    ))}
+                </div>
+                <h2 id="find-heading" class="about-h2 about-h2--center about-h2--light">Where to find me</h2>
+                <p class="about-find__sub">Say hi, follow along, or check out what I'm building.</p>
+                <div class="about-social-row">
+                    {socials.map((item) => (
+                        <a href={item.href} class="social-icon-link" aria-label={`Janet on ${item.label}`}>
+                            <svg class="social-icon-svg" viewBox={item.viewBox} aria-hidden="true"><path d={item.path} /></svg>
+                        </a>
+                    ))}
+                </div>
+            </section>
 
-
-        </section>
+        </div>
     </main>
-
-
-    </div>
 </Layout>

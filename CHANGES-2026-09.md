@@ -1236,3 +1236,105 @@ centered brand block stays.
 comfortably. Changed from #8A93BF at 12px (5.4:1) to #B4BDE3 at 13px (8.8:1
 on the navy sidebar). This deviates from the original spec colour and size on
 purpose; the active-page caption (#D6D3F7) is unchanged.
+
+## 2026-09-23 — Hero goose constellation
+
+Added `src/components/landingpage/GooseConstellation.astro`, a 10-star goose
+centred under the hero's "See My Work" / "Free Consultation" buttons (144px
+wide on desktop, 124px from 640px, 110px on mobile). Clicking it shows
+"Honk!" past its beak, like the Contact cat's "Meow!".
+
+**Key decisions:**
+- Extracted the cat's click-to-speak button, live region, script and focus
+  handling into `SpeakingConstellation.astro` (props `label`, `say`; text
+  placed via `--say-left` / `--say-top`) and moved the cat onto it, rather
+  than copying ~80 lines into the goose. The script now handles every
+  instance on the page.
+- Deviates from the goose spec's `aria-hidden` / never-focusable wording,
+  because the requested click behaviour needs a keyboard-reachable button.
+  As with the cat, the SVG stays `aria-hidden`; the button is named "Pet the
+  constellation goose" and "Honk!" is announced through a live region.
+- The mouse-click focus override now uses `!important` instead of
+  `:global(#contact)`, since the shared component is used outside
+  `#contact` and has to beat both `button:focus` and `#contact button:focus`.
+- Stars use the same wrapper-`<g>` / twinkling-`<path>` construction and
+  `.cstar` rule as the cat; the SVG is `overflow: visible` because the tail
+  star pokes past the viewBox edge.
+
+**Hero spacing (requested mid-task):** the gap between the hero and the
+clouds was too large. The hero `<section>` went from `sm:my-10 xl:my-24` to
+`mb-3 sm:mt-10 sm:mb-4 xl:mt-24` (top margins unchanged). Goose-to-cloud gap
+is now 74px at >=768px (was 98px, or 154px at >=1280px) and 48px on mobile.
+The 12px mobile margin is new: with none, the goose's feet sat 14px above
+the clouds divider's 38% sparkle. Moving that sparkle was tried first and
+rejected, since the clash is vertical and it would change the divider for
+every width.
+
+**Verification:** Chromium at 375-1920px: goose centred on the buttons,
+24px gap below them, no overlap with the buttons or photo, no horizontal
+scroll, other sparkles >= 26px away, 0.000 star drift while twinkling.
+Honk shows on click and on Tab + Enter (the goose follows "Free
+Consultation" in tab order); Contact cat still meows with no mouse-click
+ring. `pnpm build` (includes `astro check`) 0 errors.
+
+## 2026-09-23 - Torc page redesign
+
+Rebuilt /torc in the Midnight style (header with clouds, two cards, event
+types, previous-event link cards, closing CTA) following the written spec.
+Reused SectionDivider, .twinkle, .btn-primary and the about-page pattern of
+container queries on the page wrapper (torc-*, CSS in globals.css).
+
+- Added .btn-secondary (+ --navy) and .btn-primary--sm as global classes; the
+  hero secondary button is still scoped inside HeroButtons.astro.
+- New ExternalLinkIcon.astro; every external link gets icon plus hidden
+  "(opens in a new tab)".
+- Layout.astro takes an optional description prop (default unchanged).
+- ConstellationNav: active caption is now white; isActive ignores a trailing
+  slash so /torc/ in the built site marks Join Torc current.
+- Dropped TorcCalender.png from the page (Luma link replaces it); file left in
+  public/. DescriptionAndLinks.astro is now unused.
+- ambassador.png is 1080x1350 (portrait), so object-fit: contain in the square
+  box leaves pale lavender bands at the sides. Deliberate, per the spec.
+- Copy button: clipboard failure is logged and announced in the live region.
+
+## 2026-09-23 — Blog index and post layout redesign
+
+Redesigned `/blog` and the post layout in the Midnight style, and fixed post
+SEO (every post previously shared one `<title>` and the generic description).
+
+**What changed:**
+- Schema (`src/content/config.ts`): optional `audience` ("business" | "dev"),
+  `tags`, `highlight { value, label, detail? }`. `audience` is optional in the
+  schema only so the draft post can omit it; all published posts set it.
+- `src/lib/blog.ts` (`getPublishedPosts`, date helpers) is the single
+  newest-first list used by the index and by newer/older navigation.
+- Index: navy hero + clouds divider, featured newest post (stat panel only
+  when `highlight` exists), business (3-col) and dev (2-col) grids, hills
+  divider, closing CTA.
+- Post page: navy header, sticky TOC (`<details>` on narrow containers),
+  restyled prose, author card, newer/older cards, restyled comments.
+- `Layout.astro` now emits `og:title`/`og:description`; posts pass their own
+  title (`"<title> | Janet Spellman"`) and description.
+- Copy fixes to titles/summaries per the brief; `KeyLesson.astro` used in the
+  disk-usage post (that post's body was edited to wrap the lesson).
+
+**Key decisions / deviations:**
+- CSS lives in `src/styles/blog.css`, not `globals.css` (imported by the index
+  and the post layout). Breakpoints are container queries on `.blog-page`
+  because the sidebar narrows the content column (same reason as About).
+- Palette tokens are the existing `--midnight-*` names (no bare `--navy`).
+- Hero bottom padding is 48px, not ~210px: the clouds `SectionDivider` is its
+  own ~200px block after the header, so the extra padding would double up.
+- TOC lists H2s; posts with fewer than two H2s (need-a-website) fall back to
+  H2 + H3.
+- Code-block chrome, table wrappers and figures are added by a client script
+  in `BlogPostLayout.astro`, not rehype plugins (no new dependency). Figure
+  captions come from the markdown image `title`, never `alt`. Tables only get
+  a caption bar when they have a `<caption>`; no post has one yet.
+- Shiki uses a custom theme (`src/lib/midnight-shiki-theme.mjs`) on `#141B4D`
+  with light token colors; configured in `astro.config.mjs`.
+- Removed the unused lowercase `tags` list from `pnpm.mdx` in favor of `["Security"]`.
+- Comments: same component, API and reCAPTCHA logic; only classNames, label
+  text ("Comment" without the colon) and layout changed. The navy comments
+  band was dropped: the fields are now light-styled inside the article column.
+- Rejected: a new `summary` field (would duplicate `description`).

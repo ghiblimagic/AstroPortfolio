@@ -1,109 +1,180 @@
 ---
 import '@/styles/globals.css'
 import '@/styles/normalize.css'
+import '@/styles/blog.css'
 
 import Layout from '@/layouts/Layout.astro';
 import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar.astro"
 import TableOfContents from "@/components/blog/TableOfContents.astro"
 import CommentsSection from "@/components/blog/CommentsSection"
-import GradientDivider from '@/components/ui/gradientDivider.astro'
-import SectionDivider from "@/components/SectionDivider.astro"
+import Sparkle from "@/components/blog/Sparkle.astro"
+import AuthorCard from "@/components/blog/AuthorCard.astro"
+import PostNav from "@/components/blog/PostNav.astro"
+import { formatDate, isoDate, type BlogPost } from "@/lib/blog"
+
+interface Props {
+  post: BlogPost;
+  headings: import("astro").MarkdownHeading[];
+  newer?: BlogPost;
+  older?: BlogPost;
+}
 
 const { slug } = Astro.params; // from the URL
-console.log("slug in blogPostLayout.astro",slug)
 
 if (!slug) {
   throw new Error(`Post not found: ${slug}`);
 }
 
-const { title, date, description, headings } = Astro.props;
-
+const { post, headings, newer, older } = Astro.props;
+const { title, date, description, tags } = post.data;
 ---
-<Layout title="Janet Spellman's Blog.">
-  <main id="main-content" tabindex="-1" class="flex overflow-x-hidden bg-[var(--midnight-lavender-pale)]">
-  
+<Layout title={`${title} | Janet Spellman`} description={description}>
+  <main id="main-content" tabindex="-1" class="flex">
     <SpaceForDesktopSidebar/>
-    <div class="w-full overflow-x-hidden ">
-    
-      <div class="sm:px-12 max-w-4xl mx-auto bg-white   text-black rounded-2xl pb-16 overflow-x-hidden">
-        <article class="mx-4 overflow-x-hidden">
-          <header class="mb-8">
-            <h1 class="text-4xl font-bold my-6 pt-6 text-center text-[var(--midnight-navy)]">{title}</h1>
-            <span class="text-white text-base mx-auto bg-[var(--midnight-navy)] group-hover:bg-[var(--midnight-navy-deep)] w-fit py-1 px-4 rounded-2xl my-6 block">
-              <time datetime={date}>
-                {new Date(date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-              </time>
-            </span>
-            {description && <p class="text-xl mb-4 text-center">{description}</p>}
-          </header>
-          
-          <GradientDivider/>
-          
-          <!-- Sidebar TOC for desktop -->
-          <aside class="overflow-y-auto scrollbar-thin scrollbar-purple fade-in">
-            <TableOfContents headings={headings} />
-          </aside>
-          
-          <div class="prose prose-lg prose-headings:font-bold prose-headings:text-center max-w-none overflow-hidden">
-            <!--- prose is a class from Tailwind Typography, it adds well-formatted typographic styles to markdown files -->
-            <slot />
+    <div class="blog-page min-w-0 flex-1 w-full">
+
+      <header class="post-header">
+        <Sparkle size={16} style="top:56px; right:10%" delay={0.5} duration={4} />
+        <Sparkle size={11} style="bottom:40px; right:22%" delay={2} duration={4.8} opacity={0.6} hideOnMobile />
+        <div class="post-header__inner">
+          <a class="post-header__back" href="/blog">← All posts</a>
+          <div class="post-header__meta">
+            {tags && tags.length > 0 && (
+              <ul class="blog-featured__tags" aria-label="Tags">
+                {tags.map((tag) => <li class="blog-chip blog-chip--dark">{tag}</li>)}
+              </ul>
+            )}
+            <time class="blog-featured__date" datetime={isoDate(date)}>{formatDate(date)}</time>
           </div>
-        </article>
+          <h1 class="post-header__h1">{title}</h1>
+          {description && <p class="post-header__summary">{description}</p>}
+        </div>
+      </header>
+
+      <div class="post-body">
+        <div class="post-body__grid">
+          <TableOfContents headings={headings} />
+          <article class="post-article">
+            <div class="blog-prose">
+              <slot />
+            </div>
+
+            <AuthorCard />
+            <PostNav newer={newer} older={older} />
+
+            <section id="comments" class="blog-comments" aria-labelledby="comments-heading">
+              <CommentsSection slug={slug} currentUserId={null} client:load/>
+            </section>
+          </article>
+        </div>
       </div>
-
-      <!-- ****************** COMMMENTS ***************** -->
-      <!-- Full-width navy band with the wavy hills divider on top, matching the
-           homepage's Contact section at the bottom of the landing page -->
-
-      <SectionDivider variant="hills" fromColor="var(--midnight-lavender-pale)" toColor="var(--midnight-navy)" midColor="var(--midnight-lavender)" />
-
-      <section id="comments" class="mt-[-2px] p-4 sm:p-12 pb-20 w-full bg-[var(--midnight-navy)]">
-        <CommentsSection slug={slug} currentUserId={null} client:load/>
-      </section>
     </div>
   </main>
 </Layout>
 
 <script>
-     import { initFadeInObserver } from "@/utils/fadeInObserver"
+  // Enhance rendered markdown: code-block chrome + Copy, table wrappers, figures.
+  // Runs client-side so the MDX/Shiki output stays untouched at build time.
+  function enhanceCodeBlocks(root: Element) {
+    root.querySelectorAll<HTMLPreElement>("pre").forEach((pre, i) => {
+      if (pre.closest(".code-block")) return;
+      const label = pre.dataset.language && pre.dataset.language !== "plaintext" ? pre.dataset.language : "text";
+
+      const wrapper = document.createElement("div");
+      wrapper.className = "code-block";
+      const bar = document.createElement("div");
+      bar.className = "code-block__bar";
+      const lang = document.createElement("span");
+      lang.className = "code-block__lang";
+      lang.textContent = label;
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = "code-block__copy";
+      button.textContent = "Copy";
+      const status = document.createElement("span");
+      status.className = "visually-hidden";
+      status.setAttribute("aria-live", "polite");
+      status.id = `copy-status-${i}`;
+
+      button.addEventListener("click", async () => {
+        try {
+          await navigator.clipboard.writeText(pre.textContent ?? "");
+          button.textContent = "Copied";
+          status.textContent = "Copied";
+        } catch {
+          button.textContent = "Copy failed";
+          status.textContent = "Copy failed";
+        }
+        setTimeout(() => {
+          button.textContent = "Copy";
+          status.textContent = "";
+        }, 2000);
+      });
+
+      bar.append(lang, button, status);
+      pre.replaceWith(wrapper);
+      wrapper.append(bar, pre);
+      // A keyboard user needs to reach a horizontally scrolling block.
+      pre.tabIndex = 0;
+    });
+  }
+
+  function enhanceTables(root: Element) {
+    root.querySelectorAll<HTMLTableElement>("table").forEach((table) => {
+      if (table.closest(".table-wrap")) return;
+      const wrap = document.createElement("div");
+      wrap.className = "table-wrap";
+      const scroller = document.createElement("div");
+      scroller.className = "table-wrap__scroll";
+      scroller.tabIndex = 0;
+      scroller.setAttribute("role", "region");
+      const caption = table.querySelector("caption");
+      scroller.setAttribute("aria-label", caption?.textContent?.trim() || "Table");
+      table.replaceWith(wrap);
+      if (caption) {
+        const bar = document.createElement("div");
+        bar.className = "table-wrap__caption";
+        bar.textContent = caption.textContent;
+        caption.remove();
+        wrap.append(bar);
+      }
+      wrap.append(scroller);
+      scroller.append(table);
+    });
+  }
+
+  // Images become <figure>; the optional markdown title ("![alt](src "caption")")
+  // is the caption. Alt text is not reused, so screen readers don't hear it twice.
+  function enhanceFigures(root: Element) {
+    root.querySelectorAll<HTMLImageElement>("img").forEach((img) => {
+      if (img.closest("figure")) return;
+      const figure = document.createElement("figure");
+      const parent = img.parentElement;
+      const onlyChild = parent?.tagName === "P" && parent.children.length === 1 && !parent.textContent?.trim();
+      const target = onlyChild ? parent! : img;
+      target.replaceWith(figure);
+      figure.append(img);
+      if (img.title) {
+        const cap = document.createElement("figcaption");
+        cap.textContent = img.title;
+        img.removeAttribute("title");
+        figure.append(cap);
+      }
+    });
+  }
+
+  import { initFadeInObserver } from "@/utils/fadeInObserver"
 
   document.addEventListener('DOMContentLoaded', () => {
-    const proseContent = document.querySelector('.prose');
-    if (proseContent) {
-     // Get all direct children of prose (any element type)
-      const elements = proseContent.querySelectorAll(':scope > *');
-      elements.forEach((el) => {
-        el.classList.add('fade-in');
-      });
-    
-   
-    }
- 
+    const prose = document.querySelector('.blog-prose');
+    if (!prose) return;
+    enhanceCodeBlocks(prose);
+    enhanceTables(prose);
+    enhanceFigures(prose);
 
-// fade observer needed here because of timing
-// the one in the main layout has already been ran
-// so we're running it again after we're grabbed all the prose/ markdown
- initFadeInObserver()
+    prose.querySelectorAll(':scope > *').forEach((el) => el.classList.add('fade-in'));
+    // fade observer needed here because of timing: the one in the main layout
+    // has already run, so run it again after the markdown children are ready.
+    initFadeInObserver()
   });
 </script>
-
-<style>
-  /* Ensure no horizontal overflow anywhere */
-  :global(body) {
-    overflow-x: hidden;
-  }
-  
-  /* Make sure prose content doesn't overflow */
-  :global(.prose) {
-    overflow-wrap: break-word;
-    word-wrap: break-word;
-  }
-  
-  /* Ensure all images and embeds are responsive */
-  :global(.prose img),
-  :global(.prose video),
-  :global(.prose iframe) {
-    max-width: 100%;
-    height: auto;
-  }
-</style>

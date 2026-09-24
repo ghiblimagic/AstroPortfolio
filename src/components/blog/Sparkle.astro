@@ -1,0 +1,34 @@
+---
+// Decorative twinkling four-point star. Position it with `style`
+// (e.g. "top:20%; right:8%"); reduced motion is handled by .twinkle globally.
+interface Props {
+  size?: number;
+  color?: string;
+  opacity?: number;
+  delay?: number;
+  duration?: number;
+  style?: string;
+  hideOnMobile?: boolean;
+}
+
+const {
+  size = 16,
+  color = "var(--midnight-lavender)",
+  opacity = 0.8,
+  delay = 0,
+  duration = 4,
+  style = "",
+  hideOnMobile = false,
+} = Astro.props;
+---
+
+<svg
+  class:list={["blog-sparkle", "twinkle", { "blog-sparkle--hide-mobile": hideOnMobile }]}
+  style={`width:${size}px; height:${size}px; opacity:${opacity}; animation-delay:${delay}s; animation-duration:${duration}s; ${style}`}
+  viewBox="0 0 24 24"
+  fill={color}
+  aria-hidden="true"
+  focusable="false"
+>
+  <path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"></path>
+</svg>

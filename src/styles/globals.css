@@ -997,3 +997,963 @@ article img {
   opacity: 1;
   transform: translateY(0);
 }
+
+/* ---- About ---- */
+.about-page {
+  container: about / inline-size;
+}
+
+/* Custom properties live on the sections, not .about-page: a container query
+   cannot restyle its own container. */
+.about-page > section {
+  --about-pad-x: 48px;
+  --about-pad-y: 72px;
+}
+
+.about-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.about-star {
+  position: absolute;
+}
+
+.about-bullet {
+  flex: none;
+  width: 16px;
+  height: 16px;
+}
+
+.about-h2 {
+  margin: 0 0 20px;
+  font-size: 40px;
+  line-height: 1.2;
+  color: var(--midnight-navy);
+}
+
+.about-h2--center {
+  text-align: center;
+}
+
+.about-h2--light {
+  color: var(--midnight-white);
+  margin-bottom: 12px;
+}
+
+.about-h3 {
+  margin: 0 0 18px;
+  font-size: 28px;
+  line-height: 1.25;
+  color: var(--midnight-navy);
+}
+
+/* Intro (midnight) */
+.about-intro {
+  position: relative;
+  padding: 96px var(--about-pad-x);
+  background: var(--midnight-navy);
+}
+
+.about-intro__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: auto minmax(0, 560px);
+  justify-content: center;
+  align-items: center;
+  gap: 64px;
+}
+
+.about-photo {
+  --photo: 300px;
+  position: relative;
+  width: var(--photo);
+  height: var(--photo);
+}
+
+.about-photo__shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: var(--midnight-lavender);
+  transform: translate(14px, 14px);
+}
+
+.about-photo__img {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  border: 6px solid #ffffff;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.about-eyebrow {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--midnight-lavender);
+}
+
+.about-h1 {
+  margin: 0 0 20px;
+  font-size: 48px;
+  line-height: 1.15;
+  color: var(--midnight-white);
+}
+
+.about-intro__lead {
+  margin: 0 0 24px;
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--midnight-text-light);
+}
+
+.about-magic {
+  font-family: "AkayaKanadaka Script", serif;
+  font-style: italic;
+  font-size: 1.15em;
+  color: #c9c6f2;
+}
+
+.about-callout {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 14px 18px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(179, 174, 234, 0.25);
+  border-radius: 14px;
+  color: var(--midnight-text-light);
+  font-size: 16px;
+  line-height: 1.6;
+}
+
+.about-callout p {
+  margin: 0;
+}
+
+.about-callout__star {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  margin-top: 5px;
+}
+
+/* How it started (pale lavender) */
+.about-story {
+  padding: var(--about-pad-y) var(--about-pad-x);
+  background: var(--midnight-lavender-pale);
+}
+
+.about-story__grid {
+  display: grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 56px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.about-story p,
+.about-tech-list {
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--midnight-text-body);
+}
+
+.about-story__main > p {
+  margin: 0 0 20px;
+}
+
+.about-highlight {
+  margin: 24px 0;
+  padding: 24px 26px;
+  background: var(--midnight-navy);
+  border-radius: 18px;
+  box-shadow: 0 12px 32px rgba(20, 27, 77, 0.18);
+}
+
+.about-story .about-highlight__eyebrow {
+  margin: 0 0 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: var(--midnight-lavender);
+}
+
+.about-story .about-highlight__text {
+  margin: 0;
+  font-family: "AkayaKanadaka Script", serif;
+  font-size: 22px;
+  line-height: 1.4;
+  letter-spacing: normal;
+  color: var(--midnight-white);
+}
+
+.about-tech-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.about-tech-list li {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  padding: 18px 20px;
+  background: var(--midnight-white);
+  border: 1px solid var(--midnight-lavender-border);
+  border-radius: 16px;
+}
+
+.about-tech-list .about-bullet {
+  margin-top: 6px;
+}
+
+/* More about me (white) */
+.about-more {
+  padding: var(--about-pad-y) var(--about-pad-x) 240px;
+  background: #ffffff;
+}
+
+.about-more__inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.about-facts {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  align-items: start;
+  margin: 0 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.about-fact {
+  padding: 22px 24px;
+  background: var(--midnight-lavender-pale);
+  border-radius: 16px;
+}
+
+.about-fact p {
+  margin: 0;
+}
+
+.about-fact__label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  font-family: "AkayaKanadaka Script", serif;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--midnight-navy);
+}
+
+.about-fact__text {
+  margin-top: 8px !important;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--midnight-text-body);
+}
+
+.about-link {
+  color: #3f4499;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  border-radius: 3px;
+}
+
+.about-link:focus {
+  outline: none;
+  box-shadow: none;
+}
+
+.about-link:focus-visible {
+  outline: 3px solid #3f4499;
+  outline-offset: 3px;
+}
+
+.about-caution {
+  padding: 18px 24px;
+  text-align: center;
+  border: 2px dashed var(--midnight-lavender);
+  border-radius: 16px;
+}
+
+.about-caution p {
+  margin: 0;
+}
+
+.about-caution__label {
+  margin-bottom: 6px !important;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #5b55a8;
+}
+
+.about-caution__text {
+  font-family: "AkayaKanadaka Script", serif;
+  font-style: italic;
+  font-size: 19px;
+  color: var(--midnight-navy);
+}
+
+/* Where to find me (midnight). -1px overlaps the hills divider so no seam shows. */
+.about-find {
+  position: relative;
+  margin-top: -1px;
+  padding: 0 var(--about-pad-x) 90px;
+  text-align: center;
+  background: var(--midnight-navy);
+}
+
+.about-find__sub {
+  margin: 0 0 28px;
+  font-size: 16px;
+  color: var(--midnight-text-light);
+}
+
+.about-social-row {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+@container about (max-width: 900px) {
+  .about-photo {
+    --photo: 220px;
+  }
+
+  .about-intro__grid {
+    gap: 40px;
+  }
+
+  .about-story__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .about-facts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container about (max-width: 640px) {
+  .about-page > section {
+    --about-pad-x: 20px;
+    --about-pad-y: 64px;
+  }
+
+  .about-intro {
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  .about-intro__grid {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+    gap: 36px;
+  }
+
+  .about-photo {
+    --photo: min(220px, 100% - 14px);
+    margin-right: 14px;
+  }
+
+  .about-callout {
+    text-align: left;
+  }
+
+  .about-h1 {
+    font-size: 36px;
+  }
+
+  .about-h2 {
+    font-size: 32px;
+  }
+
+  .about-facts {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .about-more {
+    padding-bottom: 140px;
+  }
+
+  .about-find {
+    padding-bottom: 64px;
+  }
+}
+
+/* ---- Buttons shared by Torc (and reusable elsewhere) ---- */
+.btn-primary--sm {
+  padding: 6px 14px;
+  font-size: 12.5px;
+}
+
+.btn-secondary {
+  display: inline-block;
+  padding: 9px 20px;
+  font-family: "Inter", sans-serif;
+  font-size: 13.5px;
+  font-weight: 600;
+  text-align: center;
+  text-decoration: none;
+  color: var(--midnight-white);
+  background: transparent;
+  border: 2px solid var(--midnight-white);
+  border-radius: 10px;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.btn-secondary:hover {
+  background: rgb(255 255 255 / 0.12);
+}
+
+.btn-secondary:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 3px;
+}
+
+.btn-secondary--navy {
+  color: var(--midnight-navy);
+  border-color: var(--midnight-navy);
+}
+
+.btn-secondary--navy:hover {
+  background: rgb(20 27 77 / 0.08);
+}
+
+.btn-secondary--navy:focus-visible {
+  outline-color: var(--midnight-navy);
+}
+
+/* ---- Torc ---- */
+.torc-page {
+  container: torc / inline-size;
+}
+
+.torc-page > section {
+  --torc-pad-x: 48px;
+  --torc-pad-y: 72px;
+}
+
+.torc-stars {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.torc-star {
+  position: absolute;
+}
+
+.torc-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Akaya Kanadaka ships one weight; the browser default bold on headings
+   would be synthesized and look smeared. */
+.torc-h1,
+.torc-h2,
+.torc-h3 {
+  font-weight: 400;
+}
+
+.torc-h2 {
+  margin: 0 0 16px;
+  font-size: 40px;
+  line-height: 1.2;
+  color: var(--midnight-navy);
+}
+
+.torc-h2--center {
+  text-align: center;
+}
+
+.torc-h2--light {
+  color: var(--midnight-white);
+}
+
+.torc-h3 {
+  margin: 0 0 14px;
+  font-size: 28px;
+  line-height: 1.25;
+  color: var(--midnight-navy);
+}
+
+.torc-h3--sm {
+  margin: 10px 0 8px;
+  font-size: 22px;
+}
+
+.torc-intro {
+  max-width: 640px;
+  margin: 0 auto 36px;
+  text-align: center;
+  font-size: 17px;
+  line-height: 1.7;
+  color: var(--midnight-text-body);
+}
+
+.torc-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+/* Every full-size Torc button shares one height, padding and centering, in the
+   header, cards and closing CTA alike. */
+.torc-page .btn-primary:not(.btn-primary--sm),
+.torc-page .btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 22px;
+  border-radius: 10px;
+}
+
+/* Softer shadow than the site-wide primary button, scoped to this page. */
+.torc-page .btn-primary {
+  box-shadow:
+    0 3px 0 #8f89ce,
+    0 5px 12px rgba(0, 0, 0, 0.18);
+}
+
+.torc-page .btn-primary:active {
+  transform: translateY(2px);
+  box-shadow:
+    0 1px 0 #8f89ce,
+    0 2px 6px rgba(0, 0, 0, 0.18);
+}
+
+/* Card buttons stack at one shared full width so sizes match across cards. */
+.torc-actions--card {
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: auto;
+  padding-top: 24px;
+}
+
+.torc-actions--card > a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 20px;
+}
+
+.torc-actions--center {
+  justify-content: center;
+}
+
+/* Header (midnight) */
+.torc-header {
+  position: relative;
+  padding: 84px var(--torc-pad-x) 230px;
+  background: var(--midnight-navy);
+}
+
+.torc-header__grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 600px) auto;
+  justify-content: center;
+  align-items: center;
+  gap: 72px;
+}
+
+.torc-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 18px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  color: var(--midnight-white);
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(179, 174, 234, 0.3);
+  border-radius: 999px;
+}
+
+.torc-h1 {
+  margin: 0 0 20px;
+  font-size: 48px;
+  line-height: 1.15;
+  color: var(--midnight-white);
+}
+
+.torc-lead {
+  margin: 0 0 16px;
+  font-size: 18px;
+  line-height: 1.65;
+  color: var(--midnight-text-light);
+}
+
+.torc-photo {
+  --photo: 380px;
+  position: relative;
+  width: var(--photo);
+  /* Image is 4:5; the 6px border is included so the content box is exactly
+     4:5 too and contain leaves no bands. */
+  height: calc((var(--photo) - 12px) * 1.25 + 12px);
+}
+
+.torc-photo__shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: 20px;
+  background: var(--midnight-lavender);
+  transform: translate(14px, 14px);
+}
+
+/* The source image is portrait; contain keeps the whole badge visible and the
+   pale fill shows in the leftover bands instead of cropping. */
+.torc-photo__img {
+  position: relative;
+  display: block;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border: 6px solid #ffffff;
+  border-radius: 20px;
+  object-fit: contain;
+  background: #ffffff;
+}
+
+/* Two things in one (pale lavender) */
+.torc-two {
+  padding: var(--torc-pad-y) var(--torc-pad-x);
+  background: var(--midnight-lavender-pale);
+}
+
+.torc-cards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  align-items: stretch;
+  gap: 28px;
+}
+
+.torc-card {
+  display: flex;
+  flex-direction: column;
+  padding: 30px;
+  background: #ffffff;
+  border: 1px solid var(--midnight-lavender-border);
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(20, 27, 77, 0.08);
+}
+
+.torc-card > p {
+  margin: 0 0 14px;
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--midnight-text-body);
+}
+
+.torc-card > .torc-eyebrow {
+  margin: 0 0 8px;
+}
+
+.torc-eyebrow {
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  color: #5b55a8;
+}
+
+.torc-code-box {
+  margin-top: 8px;
+  padding: 18px 20px;
+  background: var(--midnight-lavender-pale);
+  border: 1px dashed var(--midnight-lavender);
+  border-radius: 14px;
+}
+
+.torc-code-box p {
+  margin: 0;
+}
+
+.torc-code-box__label {
+  margin-bottom: 10px !important;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #5b55a8;
+}
+
+.torc-code-box__row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+}
+
+.torc-code {
+  padding: 6px 14px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--midnight-navy);
+  background: #ffffff;
+  border-radius: 8px;
+}
+
+.torc-code-box__note {
+  margin-top: 12px !important;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--midnight-text-body);
+}
+
+/* Cards sit on white, so the pale primary button needs a visible edge. */
+.torc-card .btn-primary {
+  border: 1px solid #8f89ce;
+}
+
+/* Types of events + Previous events (white) */
+.torc-events {
+  padding: var(--torc-pad-y) var(--torc-pad-x) 40px;
+  background: #ffffff;
+}
+
+.torc-types {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+  margin: 32px 0 28px;
+  padding: 0;
+  list-style: none;
+}
+
+.torc-type {
+  padding: 22px 22px 24px;
+  background: var(--midnight-lavender-pale);
+  border-radius: 16px;
+}
+
+.torc-type__star {
+  display: block;
+  width: 16px;
+  height: 16px;
+}
+
+.torc-type p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.6;
+  color: var(--midnight-text-body);
+}
+
+.torc-reassure {
+  padding: 18px 24px;
+  text-align: center;
+  border: 2px dashed var(--midnight-lavender);
+  border-radius: 16px;
+}
+
+.torc-reassure p {
+  margin: 0;
+}
+
+.torc-reassure__label {
+  margin-bottom: 6px !important;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #5b55a8;
+}
+
+.torc-reassure__text {
+  font-family: "AkayaKanadaka Script", serif;
+  font-style: italic;
+  font-size: 18px;
+  color: var(--midnight-navy);
+}
+
+.torc-previous {
+  padding: 40px var(--torc-pad-x) 100px;
+  background: #ffffff;
+}
+
+.torc-links {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.torc-link-card {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+  padding: 20px 22px;
+  text-decoration: none;
+  background: #ffffff;
+  border: 1px solid var(--midnight-lavender-border);
+  border-radius: 14px;
+  transition:
+    border-color 180ms ease,
+    box-shadow 180ms ease,
+    transform 180ms ease;
+}
+
+.torc-link-card:hover {
+  border-color: #3f4499;
+  box-shadow: 0 8px 22px rgba(20, 27, 77, 0.12);
+  transform: translateY(-2px);
+}
+
+.torc-link-card:focus-visible {
+  outline: 3px solid #3f4499;
+  outline-offset: 3px;
+}
+
+.torc-link-card__main {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.torc-link-card__title {
+  font-family: "AkayaKanadaka Script", serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--midnight-navy);
+}
+
+.torc-link-card__sub {
+  font-size: 14px;
+  color: var(--midnight-text-body);
+}
+
+.torc-link-card__action {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+  color: #3f4499;
+}
+
+.torc-link-card:hover .torc-link-card__action {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Ready to join (midnight). -1px overlaps the hills divider so no seam shows. */
+.torc-ready {
+  position: relative;
+  margin-top: -1px;
+  padding: 0 var(--torc-pad-x) 90px;
+  text-align: center;
+  background: var(--midnight-navy);
+}
+
+.torc-ready__sub {
+  max-width: 560px;
+  margin: 0 auto 8px;
+  font-size: 17px;
+  line-height: 1.6;
+  color: var(--midnight-text-light);
+}
+
+.torc-ready .torc-actions {
+  position: relative;
+}
+
+@container torc (max-width: 1000px) {
+  .torc-types {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@container torc (max-width: 900px) {
+  .torc-header__grid {
+    grid-template-columns: minmax(0, 1fr);
+    justify-items: center;
+    text-align: center;
+    gap: 48px;
+  }
+
+  .torc-header__text {
+    max-width: 600px;
+  }
+
+  .torc-header .torc-actions {
+    justify-content: center;
+  }
+
+  .torc-cards,
+  .torc-links {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+@container torc (max-width: 640px) {
+  .torc-page > section {
+    --torc-pad-x: 20px;
+    --torc-pad-y: 56px;
+  }
+
+  .torc-header {
+    padding-top: 64px;
+    padding-bottom: 150px;
+  }
+
+  .torc-photo {
+    --photo: min(300px, 100% - 14px);
+    margin-right: 14px;
+  }
+
+  .torc-h1 {
+    font-size: 36px;
+  }
+
+  .torc-h2 {
+    font-size: 32px;
+  }
+
+  .torc-card {
+    padding: 24px 20px;
+  }
+
+  .torc-types {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .torc-link-card {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .torc-previous {
+    padding-bottom: 60px;
+  }
+
+  .torc-ready {
+    padding-bottom: 64px;
+  }
+}

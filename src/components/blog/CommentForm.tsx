@@ -135,7 +135,7 @@ export default function CommentForm({
   return (
     <form
       onSubmit={handleSubmit}
-      className="flex flex-col gap-2 p-4"
+      className="blog-comments__form"
     >
       <label htmlFor="name-comment-submission">Name (optional)</label>
       <input
@@ -143,29 +143,29 @@ export default function CommentForm({
         id="name-comment-submission"
         value={author}
         onChange={(e) => setAuthor(e.target.value)}
-        className="input-styling"
+        className="blog-comments__field"
       />
-      <label htmlFor="comment-submission">Comment: </label>
+      <label htmlFor="comment-submission">Comment</label>
 
       <textarea
         value={content}
         id="comment-submission"
         onChange={(e) => setContent(e.target.value)}
-        className="input-styling"
+        className="blog-comments__field blog-comments__field--textarea"
         maxLength={10000}
         required
       />
 
       {/* *************** Recaptcha ************ */}
       {recaptchaLoading && (
-        <span className="text-center text-sm text-gray-400 mt-2">
+        <span className="text-center text-sm mt-2 blog-comments__note">
           Loading security verification...
         </span>
       )}
 
       {recaptchaFailed && !showV2 && (
         <div className="text-center mt-2">
-          <p className="text-yellow-500 text-sm mb-2">
+          <p className="text-sm mb-2 blog-comments__note">
             Security verification couldn&apos;t load.
           </p>
           <button
@@ -181,7 +181,7 @@ export default function CommentForm({
       {showV2 && (
         <div className="flex flex-col items-center my-3">
           {recaptchaFailed && (
-            <p className="text-sm text-gray-400 text-center mb-2">
+            <p className="text-sm text-center mb-2 blog-comments__note">
               Using backup verification method
             </p>
           )}
@@ -198,12 +198,12 @@ export default function CommentForm({
         </div>
       )}
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="blog-comments__error" role="alert">{error}</p>}
 
       <button
         type="submit"
         disabled={isSubmitting || recaptchaLoading}
-        className={`btn-primary mx-auto mt-4 ${isSubmitting ? "opacity-60" : ""}`}
+        className={`btn-primary blog-comments__submit mt-4 ${isSubmitting ? "opacity-60" : ""}`}
       >
         {isSubmitting ? "Posting..." : "Post Comment"}
       </button>

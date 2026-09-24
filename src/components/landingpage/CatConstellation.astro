@@ -1,14 +1,16 @@
 ---
 // Sitting-cat constellation for the Contact section; clicking it shows a
-// "Meow!" beside its head. Each star's
+// "Meow!" beside its head (see SpeakingConstellation). Each star's
 // position/size lives on a wrapping <g>; the <path> inside only twinkles.
 // Putting both on one element breaks: the animation's CSS `transform`
 // replaces the SVG `transform` attribute and the star jumps off its vertex.
+import SpeakingConstellation from './SpeakingConstellation.astro';
+
 const sparkle = "M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z";
 ---
 
 <div class="cat-constellation">
-<button type="button" class="cat-button" aria-label="Pet the constellation cat">
+<SpeakingConstellation label="Pet the constellation cat" say="Meow!">
 <svg
   class="cat-svg"
   viewBox="0 0 240 300"
@@ -70,96 +72,25 @@ const sparkle = "M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 
   <!-- 216,190 tail tip (13) -->
   <g transform="translate(209.5 183.5) scale(0.5417)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 3.6s; animation-duration: 5s;" /></g>
 </svg>
-</button>
-<!-- Live region so the meow is announced too; emptied again once it fades. -->
-<span class="cat-meow" role="status" aria-live="polite"></span>
+</SpeakingConstellation>
 </div>
-
-<script>
-  const cat = document.querySelector('.cat-button');
-  const meow = document.querySelector('.cat-meow');
-  let hideTimer: ReturnType<typeof setTimeout> | undefined;
-
-  if (cat && meow) {
-    cat.addEventListener('click', () => {
-      clearTimeout(hideTimer);
-      // Clear and force a reflow so a repeat click restarts the animation.
-      meow.textContent = '';
-      meow.classList.remove('is-visible');
-      void (meow as HTMLElement).offsetWidth;
-      meow.textContent = 'Meow!';
-      meow.classList.add('is-visible');
-      hideTimer = setTimeout(() => {
-        meow.classList.remove('is-visible');
-        meow.textContent = '';
-      }, 1800);
-    });
-  }
-</script>
 
 <style>
   .cat-constellation {
     position: relative;
+    /* "Meow!" sits right of the head (x ~ 120-200, y ~ 20-60 in the
+       viewBox): empty space inside the cat's own box, clear of the form. */
+    --say-left: 52%;
+    --say-top: 5%;
     width: 144px;
     height: 180px;
     margin: 0 auto;
-  }
-
-  .cat-button {
-    display: block;
-    width: 100%;
-    height: 100%;
-    padding: 0;
-    border: 0;
-    border-radius: 12px;
-    background: none;
-    cursor: pointer;
-  }
-
-  /* Keep the focus ring for keyboard focus only. The global button:focus
-     rule adds a dark box-shadow as well as the outline, so clear both;
-     :global(#contact) is needed to outrank the #contact button:focus rule. */
-  :global(#contact) .cat-button:focus:not(:focus-visible) {
-    outline: none;
-    box-shadow: none;
   }
 
   .cat-svg {
     display: block;
     width: 100%;
     height: 100%;
-  }
-
-  /* Sits right of the head (x ~ 120-200, y ~ 20-60 in the viewBox), which is
-     empty space inside the cat's own box, so it can't reach the form. */
-  .cat-meow {
-    position: absolute;
-    left: 52%;
-    top: 5%;
-    font-family: "AkayaKanadaka Script", serif;
-    font-size: 1.25rem;
-    color: var(--midnight-white);
-    white-space: nowrap;
-    pointer-events: none;
-    opacity: 0;
-  }
-
-  .cat-meow.is-visible {
-    animation: meow-pop 1.8s ease-out forwards;
-  }
-
-  @keyframes meow-pop {
-    0% { opacity: 0; transform: translateY(6px) scale(0.8); }
-    15% { opacity: 1; transform: none; }
-    75% { opacity: 1; transform: none; }
-    100% { opacity: 0; transform: translateY(-6px); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .cat-meow.is-visible {
-      animation: none;
-      opacity: 1;
-    }
   }
 
   /* Scale around each star's own box, not the SVG viewport (overrides the

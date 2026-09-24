@@ -1,0 +1,42 @@
+---
+import Sparkle from "./Sparkle.astro";
+import { formatDate, isoDate, type BlogPost } from "@/lib/blog";
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+const { title, date, description, tags, highlight } = post.data;
+// Keep the arrow in lavender: "96% → 59%" becomes ["96% ", "59%"].
+const valueParts = highlight?.value.split("→");
+---
+
+<a class:list={["blog-featured", { "blog-featured--single": !highlight }]} href={`/blog/${post.slug}`}>
+  <div class="blog-featured__main">
+    {tags && tags.length > 0 && (
+      <ul class="blog-featured__tags" aria-label="Tags">
+        {tags.map((tag) => <li class="blog-chip blog-chip--dark">{tag}</li>)}
+      </ul>
+    )}
+    <time class="blog-featured__date" datetime={isoDate(date)}>{formatDate(date)}</time>
+    <h3 class="blog-featured__title">{title}</h3>
+    {description && <p class="blog-featured__summary">{description}</p>}
+    <span class="btn-primary blog-featured__btn">Read the write-up →</span>
+  </div>
+
+  {highlight && (
+    <div class="blog-featured__stat">
+      <Sparkle size={14} style="top:18px; right:22px" delay={0.4} duration={3.6} />
+      <Sparkle size={10} style="bottom:26px; left:22px" delay={1.6} duration={4.4} opacity={0.6} />
+      <Sparkle size={18} style="bottom:20px; right:34px" delay={2.4} duration={5} opacity={0.9} />
+      <p class="blog-featured__value">
+        {valueParts && valueParts.length === 2
+          ? <>{valueParts[0].trimEnd()} <span class="blog-featured__arrow" aria-hidden="true">→</span><span class="visually-hidden"> to </span> {valueParts[1].trimStart()}</>
+          : highlight.value}
+      </p>
+      <p class="blog-featured__label">{highlight.label}</p>
+      {highlight.detail && <p class="blog-featured__detail">{highlight.detail}</p>}
+    </div>
+  )}
+</a>

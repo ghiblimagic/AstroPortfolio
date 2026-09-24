@@ -55,8 +55,8 @@ export default function CommentsSection({
         appendTo: "body",
       }}
     >
-      <div className="max-w-4xl mx-auto px-2 sm:px-12 w-full text-white">
-        <h2 className="font-Ayaka text-3xl sm:text-4xl mb-6 text-center">
+      <div className="blog-comments__inner">
+        <h2 id="comments-heading" className="blog-comments__h2">
           Comments
         </h2>
 

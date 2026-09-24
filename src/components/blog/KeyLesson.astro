@@ -1,0 +1,12 @@
+---
+// Callout for a post's takeaway. Use from MDX: <KeyLesson>...</KeyLesson>
+import Sparkle from "./Sparkle.astro";
+---
+
+<aside class="key-lesson" aria-label="Key lesson">
+  <p class="key-lesson__eyebrow">
+    <Sparkle size={13} opacity={1} style="position:static" />
+    KEY LESSON
+  </p>
+  <div class="key-lesson__body"><slot /></div>
+</aside>

@@ -2,7 +2,16 @@
 title: "Email alert: WordPress Droplet at Disk Utilization 95%+"
 date: "2026-09-07"
 description: "How I found the cause of high disk usage, cleared the stale data, prevented it from happening again, and reclaimed 11GB."
+audience: "dev"
+tags: ["Server ops", "WordPress"]
+highlight:
+  value: "96% → 59%"
+  label: "disk usage, in about 15 minutes"
+  detail: "~11GB reclaimed"
 ---
+
+import KeyLesson from "@/components/blog/KeyLesson.astro";
+
 
 I recently received a monitoring alert from a Digital Ocean WordPress droplet:
 
@@ -391,9 +400,9 @@ This time, the fix goes into the actual config file (`binlog_expire_logs_seconds
 
 ## Summary
 
-The key lesson is this:
-
+<KeyLesson>
 **If you change a MySQL variable with `SET GLOBAL`, that change dies at the next restart unless it's also written into a config file.** Always do both, or just skip `SET GLOBAL` entirely for anything you want to actually stick.
+</KeyLesson>
 
 - binary logs can silently consume huge amounts of disk space
 - an expiry setting can exist and still do nothing until the service is restarted

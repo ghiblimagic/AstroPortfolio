@@ -1,0 +1,22 @@
+---
+import { formatDate, isoDate, type BlogPost } from "@/lib/blog";
+
+interface Props {
+  post: BlogPost;
+}
+
+const { post } = Astro.props;
+const { title, date, description, tags } = post.data;
+---
+
+<li class="blog-card-item">
+  <a class="blog-card" href={`/blog/${post.slug}`}>
+    <div class="blog-card__top">
+      {tags?.[0] ? <span class="blog-chip">{tags[0]}</span> : <span></span>}
+      <time class="blog-card__date" datetime={isoDate(date)}>{formatDate(date)}</time>
+    </div>
+    <h3 class="blog-card__title">{title}</h3>
+    {description && <p class="blog-card__summary">{description}</p>}
+    <span class="blog-card__more" aria-hidden="true">Read post →</span>
+  </a>
+</li>

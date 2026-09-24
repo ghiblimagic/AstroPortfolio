@@ -3,8 +3,10 @@
 // desktop sidebar and the mobile drawer, so the two never drift apart
 // (they previously had different labels and even different font classes).
 const currentPath = Astro.url.pathname;
+const trimSlash = (p: string) => (p.length > 1 ? p.replace(/\/$/, "") : p);
 const isActive = (path: string) =>
-  currentPath === path || (path === "/blog" && currentPath.startsWith("/blog/"));
+  trimSlash(currentPath) === trimSlash(path) ||
+  (path === "/blog" && currentPath.startsWith("/blog/"));
 
 const STAR_PATH =
   "M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z";
@@ -230,7 +232,7 @@ const items = [
   }
 
   .c-label-active .c-caption {
-    color: #d6d3f7;
+    color: #ffffff;
   }
 
   @media (prefers-reduced-motion: reduce) {

@@ -4,11 +4,13 @@ import tailwind from "@astrojs/tailwind";
 import netlify from "@astrojs/netlify";
 import mdx from "@astrojs/mdx";
 import sitemap from "@astrojs/sitemap";
+import midnightTheme from "./src/lib/midnight-shiki-theme.mjs";
 
 // https://astro.build/config
 export default defineConfig({
   site: "https://main--vermillion-mandazi-4ce414.netlify.app/",
   integrations: [react(), tailwind(), sitemap(), mdx()],
+  markdown: { shikiConfig: { theme: midnightTheme } },
   output: "static",
   adapter: netlify(),
   prefetch: {

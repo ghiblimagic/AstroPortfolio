@@ -1,0 +1,95 @@
+---
+// Goose constellation under the hero buttons; clicking it shows "Honk!" past
+// its beak (see SpeakingConstellation). As with CatConstellation, each star's
+// position/size lives on a wrapping <g> and the <path> inside only twinkles,
+// because the animation's CSS `transform` would replace an SVG `transform`
+// attribute on the same element.
+import SpeakingConstellation from './SpeakingConstellation.astro';
+
+const sparkle = "M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z";
+---
+
+<div class="goose-constellation">
+<SpeakingConstellation label="Pet the constellation goose" say="Honk!">
+<svg
+  class="goose-svg"
+  viewBox="0 0 250 312"
+  aria-hidden="true"
+  focusable="false"
+>
+  <g stroke="#B3AEEA" stroke-opacity="0.6" stroke-width="3" stroke-linecap="round">
+    <line x1="230" y1="20" x2="184" y2="24" /><!-- beak - head -->
+    <line x1="184" y1="24" x2="166" y2="66" /><!-- head - neck curve -->
+    <line x1="166" y1="66" x2="182" y2="110" /><!-- neck curve - neck base -->
+    <line x1="182" y1="110" x2="70" y2="131" /><!-- neck base - back -->
+    <line x1="70" y1="131" x2="10" y2="139" /><!-- back - tail -->
+    <line x1="10" y1="139" x2="74" y2="211" /><!-- tail - hip -->
+    <line x1="74" y1="211" x2="185" y2="197" /><!-- hip - chest -->
+    <line x1="185" y1="197" x2="182" y2="110" /><!-- chest - neck base -->
+    <line x1="74" y1="211" x2="48" y2="290" /><!-- hip - left foot -->
+    <line x1="74" y1="211" x2="122" y2="296" /><!-- hip - right foot -->
+  </g>
+
+  <!-- Stars: translate(X - size/2, Y - size/2) scale(size/24) -->
+  <!-- beak 230,20 (22) -->
+  <g transform="translate(219 9) scale(0.9167)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 0.4s; animation-duration: 3.7s;" /></g>
+  <!-- head 184,24 (28) -->
+  <g transform="translate(170 10) scale(1.1667)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 2.2s; animation-duration: 4.5s;" /></g>
+  <!-- neck curve 166,66 (20) -->
+  <g transform="translate(156 56) scale(0.8333)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 1.3s; animation-duration: 3.2s;" /></g>
+  <!-- neck base 182,110 (28) -->
+  <g transform="translate(168 96) scale(1.1667)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 3.5s; animation-duration: 4.1s;" /></g>
+  <!-- back 70,131 (24) -->
+  <g transform="translate(58 119) scale(1)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 0.9s; animation-duration: 4.8s;" /></g>
+  <!-- tail 10,139 (28) -->
+  <g transform="translate(-4 125) scale(1.1667)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 2.8s; animation-duration: 3.4s;" /></g>
+  <!-- hip 74,211 (28) -->
+  <g transform="translate(60 197) scale(1.1667)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 1.7s; animation-duration: 5s;" /></g>
+  <!-- chest 185,197 (24) -->
+  <g transform="translate(173 185) scale(1)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 3.9s; animation-duration: 3.9s;" /></g>
+  <!-- left foot 48,290 (24) -->
+  <g transform="translate(36 278) scale(1)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 0.1s; animation-duration: 4.3s;" /></g>
+  <!-- right foot 122,296 (24) -->
+  <g transform="translate(110 284) scale(1)"><path class="twinkle cstar" d={sparkle} fill="#FFFFFF" style="animation-delay: 2.5s; animation-duration: 3.0s;" /></g>
+</svg>
+</SpeakingConstellation>
+</div>
+
+<style>
+  .goose-constellation {
+    /* "Honk!" starts just clear of the beak star (x 241 of 250), at beak height. */
+    --say-left: 100%;
+    --say-top: -2%;
+    width: 110px;
+    aspect-ratio: 250 / 312;
+    /* HeroButtons ends with 16px of padding; this makes the gap ~24px. */
+    margin: 8px auto 0;
+  }
+
+  @media (min-width: 640px) {
+    .goose-constellation {
+      width: 124px;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .goose-constellation {
+      width: 144px;
+    }
+  }
+
+  .goose-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* the tail star pokes 4 units past the viewBox's left edge */
+    overflow: visible;
+  }
+
+  /* Scale around each star's own box, not the SVG viewport (overrides the
+     global .twinkle transform-origin). */
+  .cstar {
+    transform-box: fill-box;
+    transform-origin: center;
+  }
+</style>

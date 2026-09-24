@@ -1,50 +1,103 @@
 ---
-import Layout from '@/layouts/Layout.astro';
-import '@/styles/globals.css'
-import '@/styles/normalize.css'
-import { getCollection } from 'astro:content';
-import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar.astro"
+import Layout from "@/layouts/Layout.astro";
+import "@/styles/globals.css";
+import "@/styles/normalize.css";
+import "@/styles/blog.css";
+import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar.astro";
+import SectionDivider from "@/components/SectionDivider.astro";
+import Sparkle from "@/components/blog/Sparkle.astro";
+import FeaturedPost from "@/components/blog/FeaturedPost.astro";
+import PostCard from "@/components/blog/PostCard.astro";
+import { getPublishedPosts } from "@/lib/blog";
 
-const posts = await getCollection('blog');
-const sorted = posts
-  .filter(p => !p.data.draft)
-  .sort((a, b) => new Date(b.data.date).getTime() - new Date(a.data.date).getTime());
+const posts = await getPublishedPosts();
+const [featured, ...rest] = posts;
+const business = rest.filter((p) => p.data.audience === "business");
+// The featured post is excluded from its own group (newest-first order is kept).
+const dev = rest.filter((p) => p.data.audience === "dev");
+
+const groups = [
+  {
+    id: "business",
+    eyebrow: "FOR BUSINESS OWNERS",
+    title: "Guides for your website",
+    intro: "Plain-language help deciding what your business actually needs.",
+    posts: business,
+    gridClass: "blog-grid--3",
+  },
+  {
+    id: "dev",
+    eyebrow: "FOR DEVELOPERS",
+    title: "Dev notes",
+    intro: "Security, dev journals, explainers and things I learned the hard way.",
+    posts: dev,
+    gridClass: "blog-grid--2",
+  },
+];
 ---
 
-<Layout title="Janet Spellman's Blog.">
+<Layout
+  title="Blog | Janet Spellman"
+  description="Incident write-ups and dev notes for developers, plus plain-language website guides for business owners."
+>
+  <main id="main-content" tabindex="-1" class="flex">
+    <SpaceForDesktopSidebar />
+    <div class="blog-page min-w-0 flex-1 w-full">
+      <header class="blog-hero">
+        <Sparkle size={16} style="top:64px; right:12%" delay={0.3} duration={3.8} />
+        <Sparkle size={11} style="top:46%; right:24%" delay={1.7} duration={4.6} opacity={0.6} hideOnMobile />
+        <Sparkle size={20} style="bottom:56px; right:6%" delay={2.6} duration={5} opacity={0.9} />
 
-  <main id="main-content" tabindex="-1" class="min-h-screen h-full flex pb-24 bg-[var(--midnight-lavender-pale)]">
-    	<SpaceForDesktopSidebar />
-        	<div class="max-w-7xl mx-auto w-full">
-
-                <!-- ********************* HEADER ********************* -->
-
-        <div class=" rounded-2xl mx-auto  " >
-    <h1 class=" text-4xl xl:text-6xl text-[var(--midnight-navy)] font-bold  text-center font-Ayaka py-3 pt-10">Blog</h1>
+        <div class="blog-hero__inner">
+          <p class="blog-eyebrow blog-eyebrow--light">
+            <Sparkle size={14} delay={0} duration={4} opacity={1} style="position:static" />
+            BLOG
+          </p>
+          <h1 class="blog-hero__h1">Notes, fixes and guides</h1>
+          <p class="blog-hero__intro">
+            Incident write-ups and dev notes for fellow developers, plus plain-language guides for business owners.
+          </p>
+          <nav aria-label="Blog sections">
+            <ul class="blog-jump">
+              <li><a class="blog-jump__link blog-jump__link--active" href="/blog" aria-current="page">All posts</a></li>
+              <li><a class="blog-jump__link" href="#business">For business owners</a></li>
+              <li><a class="blog-jump__link" href="#dev">Dev notes</a></li>
+            </ul>
+          </nav>
         </div>
+      </header>
 
-<!-- ********************* BLOG LIST *********************** -->
+      <SectionDivider variant="clouds" fromColor="var(--midnight-navy)" toColor="var(--midnight-lavender-pale)" />
 
-    <div class=" pt-10 px-4 sm:px-12 text-center">
-    <ul class="space-y-8">
-      {sorted.map(post => (
-        <li class=" px-4 py-10 bg-white rounded-2xl shadow-lg fade-in">
-          <a href={`/blog/${post.slug}`} class=" text-xl xl:text-2xl font-semibold text-[var(--midnight-navy)] hover:text-[var(--midnight-navy-deep)] group w-full">
+      <div class="blog-pale">
+        {featured && (
+          <section class="blog-section" aria-labelledby="latest-heading">
+            <h2 id="latest-heading" class="blog-eyebrow blog-eyebrow--dark">LATEST POST</h2>
+            <FeaturedPost post={featured} />
+          </section>
+        )}
 
-            {post.data.title}
+        {groups.map((group) => group.posts.length > 0 && (
+          <section id={group.id} class="blog-section" aria-labelledby={`${group.id}-heading`}>
+            <p class="blog-eyebrow blog-eyebrow--dark">{group.eyebrow}</p>
+            <h2 id={`${group.id}-heading`} class="blog-section__h2">{group.title}</h2>
+            <p class="blog-section__intro">{group.intro}</p>
+            <ul class:list={["blog-grid", group.gridClass]}>
+              {group.posts.map((post) => <PostCard post={post} />)}
+            </ul>
+          </section>
+        ))}
+      </div>
 
-          <div class="text-white text-base mx-auto bg-[var(--midnight-navy)] group-hover:bg-[var(--midnight-navy-deep)]  w-fit py-1 px-4 rounded-2xl my-4">
-            {new Date(post.data.date).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}
-          </div>
-          {post.data.description && (
-            <p class=" mt-2 text-base">{post.data.description}</p>
-          )}
-             </a>
-        </li>
-      ))}
-    </ul>
+      <SectionDivider variant="hills" fromColor="var(--midnight-lavender-pale)" toColor="var(--midnight-navy)" midColor="var(--midnight-lavender)" />
+
+      <section class="blog-closing" aria-labelledby="closing-heading">
+        <Sparkle size={12} style="top:28%; left:12%" delay={0.8} duration={4.2} opacity={0.45} />
+        <Sparkle size={16} style="bottom:26%; right:14%" delay={2.2} duration={5} opacity={0.4} />
+        <h2 id="closing-heading" class="blog-closing__h2">Have a project in mind?</h2>
+        <p class="blog-closing__text">Whether you're hiring or need a site built, I'd love to hear from you.</p>
+        <a class="btn-primary" href="/#contact">Get in touch →</a>
+      </section>
     </div>
-</div>
   </main>
-
 </Layout>

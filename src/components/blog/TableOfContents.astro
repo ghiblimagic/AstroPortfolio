@@ -1,95 +1,75 @@
 ---
-import type { MarkdownHeading } from 'astro';
+import type { MarkdownHeading } from "astro";
 
 interface Props {
   headings: MarkdownHeading[];
 }
 
 const { headings } = Astro.props;
-const filteredHeadings = headings.filter(h => h.depth <= 4);
+// Prefer H2s only; posts that are mostly H3s (e.g. need-a-website) would
+// otherwise get an empty TOC, so fall back to H2 + H3.
+const h2s = headings.filter((h) => h.depth === 2);
+const items = h2s.length >= 2 ? h2s : headings.filter((h) => h.depth === 2 || h.depth === 3);
 ---
 
-{filteredHeadings.length > 0 && (
-  <nav class="toc mb-8 p-6 rounded-lg border border-gray-200 shadow-lg">
-    <div class="flex justify-between items-center mb-4">
-      <h2 class="text-xl font-bold">Table of Contents</h2>
-      <button 
-        id="toc-toggle" 
-        class="text-[var(--midnight-navy)] hover:text-[var(--midnight-navy-deep)] font-semibold transition-transform"
-        aria-label="Toggle table of contents"
-        aria-expanded="true"
-      >
-        <svg 
-          id="toc-arrow" 
-          class="w-5 h-5 transition-transform duration-200" 
-          fill="none" 
-          stroke="currentColor" 
-          viewBox="0 0 24 24"
-        >
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
-    </div>
-    <ul id="toc-list" class="space-y-2 transition-all duration-300 overflow-hidden">
-      {filteredHeadings.map((heading) => (
-        <li 
-          class="toc-item"
-          style={`margin-left: ${(heading.depth - 2) * 1}rem`}
-        >
-          <a 
-            href={`#${heading.slug}`}
-            class={`text-[var(--midnight-navy)] hover:text-[var(--midnight-navy-deep)] hover:underline block transition-colors ${
-              heading.depth === 2 ? 'font-semibold' : ''
-            }`}
-          >
-            {heading.text}
-          </a>
-        </li>
-      ))}
-    </ul>
-  </nav>
+{items.length > 0 && (
+  <>
+    <!-- Desktop: sticky sidebar. Mobile: collapsible <details>. Which one shows
+         is a container query in globals.css; the hidden one is display:none. -->
+    <aside class="blog-toc blog-toc--aside" aria-labelledby="toc-heading">
+      <h2 id="toc-heading" class="blog-toc__heading">ON THIS PAGE</h2>
+      <ul class="blog-toc__list">
+        {items.map((h) => (
+          <li><a class:list={["blog-toc__link", { "blog-toc__link--sub": h.depth === 3 }]} href={`#${h.slug}`} data-toc-link>{h.text}</a></li>
+        ))}
+      </ul>
+    </aside>
+
+    <details class="blog-toc blog-toc--details">
+      <summary class="blog-toc__summary">On this page</summary>
+      <ul class="blog-toc__list">
+        {items.map((h) => (
+          <li><a class:list={["blog-toc__link", { "blog-toc__link--sub": h.depth === 3 }]} href={`#${h.slug}`} data-toc-link>{h.text}</a></li>
+        ))}
+      </ul>
+    </details>
+  </>
 )}
 
 <script>
-  const toggleButton = document.getElementById('toc-toggle');
-  const tocList = document.getElementById('toc-list');
-  const arrow = document.getElementById('toc-arrow');
-  
-  let isOpen = true;
-  
-  toggleButton?.addEventListener('click', () => {
-    isOpen = !isOpen;
-    
-    if (tocList) {
-      if (isOpen) {
-        tocList.style.maxHeight = tocList.scrollHeight + 'px';
-        tocList.style.opacity = '1';
-      } else {
-        tocList.style.maxHeight = '0';
-        tocList.style.opacity = '0';
+  // Highlight the section being read: the last heading whose top has scrolled
+  // above the trigger line. IntersectionObserver only signals *when* to
+  // recompute; it cannot say which heading is "current" on its own.
+  const links = Array.from(document.querySelectorAll<HTMLAnchorElement>("[data-toc-link]"));
+  const ids = Array.from(new Set(links.map((l) => decodeURIComponent(l.hash.slice(1)))));
+  const headings = ids
+    .map((id) => document.getElementById(id))
+    .filter((el): el is HTMLElement => el !== null);
+
+  if (headings.length > 0) {
+    const TRIGGER = 140;
+    let current = "";
+
+    const update = () => {
+      let active = headings[0].id;
+      for (const h of headings) {
+        if (h.getBoundingClientRect().top <= TRIGGER) active = h.id;
       }
-    }
-    
-    if (arrow) {
-      arrow.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(-180deg)';
-    }
-    
-    toggleButton?.setAttribute('aria-expanded', isOpen.toString());
-  });
-  
-  // Set initial max-height for smooth animation
-  if (tocList && isOpen) {
-    tocList.style.maxHeight = tocList.scrollHeight + 'px';
+      if (active === current) return;
+      current = active;
+      for (const link of links) {
+        const on = decodeURIComponent(link.hash.slice(1)) === active;
+        link.classList.toggle("is-current", on);
+        if (on) link.setAttribute("aria-current", "location");
+        else link.removeAttribute("aria-current");
+      }
+    };
+
+    const observer = new IntersectionObserver(update, {
+      rootMargin: `-${TRIGGER}px 0px -55% 0px`,
+      threshold: [0, 1],
+    });
+    headings.forEach((h) => observer.observe(h));
+    update();
   }
 </script>
-
-<style>
-  .toc {
-    max-height: calc(100vh - 2rem);
-    overflow-y: auto;
-  }
-  
-  #toc-list {
-    transition: max-height 0.3s ease-in-out, opacity 0.3s ease-in-out;
-  }
-</style>

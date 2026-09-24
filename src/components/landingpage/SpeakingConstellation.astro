@@ -1,0 +1,104 @@
+---
+// Clickable wrapper for a decorative constellation: clicking (or Enter/Space)
+// shows `say` next to it for 1.8s and announces it via a live region. The
+// slotted SVG should be aria-hidden; `label` is the button's accessible name.
+// The consumer sizes this by sizing its parent, and places the text with the
+// --say-left / --say-top custom properties (percentages of that box).
+interface Props {
+  label: string;
+  say: string;
+}
+
+const { label, say } = Astro.props;
+---
+
+<div class="speaking-constellation" data-say={say}>
+  <button type="button" class="sc-button" aria-label={label}>
+    <slot />
+  </button>
+  <!-- Emptied again once the text fades, so it isn't left in the page. -->
+  <span class="sc-say" role="status" aria-live="polite"></span>
+</div>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.speaking-constellation').forEach((root) => {
+    const button = root.querySelector('.sc-button');
+    const out = root.querySelector<HTMLElement>('.sc-say');
+    const text = root.dataset.say ?? '';
+    let hideTimer: ReturnType<typeof setTimeout> | undefined;
+
+    if (!button || !out) return;
+
+    button.addEventListener('click', () => {
+      clearTimeout(hideTimer);
+      // Clear and force a reflow so a repeat click restarts the animation.
+      out.textContent = '';
+      out.classList.remove('is-visible');
+      void out.offsetWidth;
+      out.textContent = text;
+      out.classList.add('is-visible');
+      hideTimer = setTimeout(() => {
+        out.classList.remove('is-visible');
+        out.textContent = '';
+      }, 1800);
+    });
+  });
+</script>
+
+<style>
+  .speaking-constellation {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .sc-button {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    border: 0;
+    border-radius: 12px;
+    background: none;
+    cursor: pointer;
+  }
+
+  /* Focus ring for keyboard focus only. The global button:focus rule adds a
+     dark box-shadow as well as the outline, and section rules such as
+     #contact button:focus outrank any class selector here, hence !important
+     (limited to the mouse-focus state of this one button). */
+  .sc-button:focus:not(:focus-visible) {
+    outline: none !important;
+    box-shadow: none !important;
+  }
+
+  .sc-say {
+    position: absolute;
+    left: var(--say-left, 50%);
+    top: var(--say-top, 0);
+    font-family: "AkayaKanadaka Script", serif;
+    font-size: 1.25rem;
+    color: var(--midnight-white);
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+  }
+
+  .sc-say.is-visible {
+    animation: say-pop 1.8s ease-out forwards;
+  }
+
+  @keyframes say-pop {
+    0% { opacity: 0; transform: translateY(6px) scale(0.8); }
+    15% { opacity: 1; transform: none; }
+    75% { opacity: 1; transform: none; }
+    100% { opacity: 0; transform: translateY(-6px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .sc-say.is-visible {
+      animation: none;
+      opacity: 1;
+    }
+  }
+</style>
