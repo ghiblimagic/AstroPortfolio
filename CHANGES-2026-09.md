@@ -1109,3 +1109,19 @@ empty space right of the contact form. Branch `contact-cat-constellation`.
 
 **Noted, not fixed:** the homepage already has a 1px horizontal overflow at
 375px wide (present with the cat hidden too).
+
+**Follow-ups (same day):**
+- Beside-form placement now centres the cat vertically in the section
+  (`top: 50%` + `translateY(-50%)`) instead of pinning it 48px from the
+  bottom.
+- Clicking the cat shows "Meow!" beside its head for 1.8s. This deviates from
+  the original spec's `aria-hidden` / `pointer-events: none`: a click target
+  has to be reachable by keyboard, so the SVG is wrapped in a real `<button>`
+  ("Pet the constellation cat"). The SVG itself stays `aria-hidden`, and
+  "Meow!" is written into a `role="status"` live region so screen readers
+  announce it; it is emptied again once it fades. The label sits in empty
+  space inside the cat's own box, so it can't reach the form. With reduced
+  motion it simply appears, with no pop/fade.
+- The focus ring shows for keyboard focus only (`:focus:not(:focus-visible)`
+  override for `.cat-button`). The shared `#contact button:focus` rule still
+  shows the ring on mouse click for the Send button; left as is.
