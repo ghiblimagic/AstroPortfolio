@@ -67,7 +67,7 @@ const items = [
       current = id;
       links.forEach((link) => {
         const on = link.dataset.spy === id;
-        if (on) link.setAttribute("aria-current", "page");
+        if (on) link.setAttribute("aria-current", id === "home" ? "page" : "location");
         else link.removeAttribute("aria-current");
         link.querySelector(".c-star")?.classList.toggle("active", on);
         link.querySelector(".c-star")?.classList.toggle("twinkle", on);
