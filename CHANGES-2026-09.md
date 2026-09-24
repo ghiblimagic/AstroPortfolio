@@ -1184,3 +1184,45 @@ at page bottom) and toggles `aria-current`, the big star and the pill. Chose a
 scroll-position check over IntersectionObserver because `#home` wraps the
 whole page and the sections are uneven heights. Verified in Chromium by
 clicking each link.
+
+## 2026-09-23 — About page redesign
+
+Rebuilt `src/pages/about.astro` as four full-bleed Midnight sections (intro
+on navy, How it started on pale lavender, More about me on white, Where to
+find me on navy) to match the homepage. Reuses `SectionDivider` (clouds after
+the intro, hills after More about me), `.twinkle` stars, the existing heading/
+body fonts and the gradient social icon classes. CSS lives in `globals.css`
+under `/* ---- About ---- */` (`about-*` classes).
+
+**Key decisions:**
+- The spec's `--navy` (#141B4D) is the site's `--midnight-navy`; the site's
+  own `--navy` is #1b2f70, so all `--midnight-*` tokens were used.
+- Breakpoints use a container query on `.about-page` (tablet <=900px,
+  mobile <=640px) instead of viewport media queries, because the 250px
+  desktop sidebar makes the content column much narrower than the viewport
+  (same reasoning as the contact cat constellation). Custom properties for
+  padding sit on the sections, since a container query cannot restyle its own
+  container.
+- Social row: the old page showed 9 links; `socialIcons.js` has 6. Added
+  `src/data/aboutSocialIcons.js` (Hashnode, dev.to, Wellfound, paths copied
+  from `public/images/*.svg`) and the page merges both, in the old About order.
+  Header/footer icon set unchanged.
+- Codewars link gets a scoped `:focus-visible` ring (#3F4499), since the
+  global white `a:focus` ring is invisible on pale lavender.
+- Removed the old `fade-in` classes and the emoji; `WhereToFindMeSection.astro`
+  is now unused (left in place, not deleted).
+- The mockup was not visible in the request, so it was built from the text.
+
+**Verification:** `pnpm astro check` 0 errors. Headless Edge screenshots at
+1440px and 500px: layout, stacking, circular photo, dividers with no visible
+seam. 390px could not be captured (headless min window width clips it), so
+narrower widths are unverified. Keyboard focus and reduced-motion were not
+tested in a browser; reduced motion relies on the existing `.twinkle` override.
+Not committed (project is not a git repository).
+
+**Follow-up (same day): larger nav font, centered brand block.** Sidebar labels
+went from 20/24px to 24/28px (mobile drawer 18 to 20px) and `--lh` from 28 to
+30px so the pill still fits the 50px pitch. The logo + "Spellman's Consulting"
+block is now centered in the sidebar (`justify-center`, removed the logo's
+`ml-2`, centered text). Checked at 1024/1440px: longest label ends at 203px,
+inside the 226px content edge, no overflow.
