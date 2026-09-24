@@ -28,7 +28,20 @@ if (!slug) {
 const { post, headings, newer, older } = Astro.props;
 const { title, date, description, tags } = post.data;
 ---
-<Layout title={`${title} | Janet Spellman`} description={description}>
+<Layout
+  title={`${title} | Janet Spellman`}
+  description={description}
+  type="article"
+  jsonLd={[{
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    headline: title,
+    description,
+    datePublished: isoDate(date),
+    author: { "@type": "Person", name: "Janet Spellman", url: "https://janetspellman.com/" },
+    mainEntityOfPage: new URL(Astro.url.pathname, Astro.site).href,
+  }]}
+>
   <main id="main-content" tabindex="-1" class="flex">
     <SpaceForDesktopSidebar/>
     <div class="blog-page min-w-0 flex-1 w-full">

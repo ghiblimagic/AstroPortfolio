@@ -8,7 +8,7 @@ import midnightTheme from "./src/lib/midnight-shiki-theme.mjs";
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://main--vermillion-mandazi-4ce414.netlify.app/",
+  site: "https://janetspellman.com/",
   integrations: [react(), tailwind(), sitemap(), mdx()],
   markdown: { shikiConfig: { theme: midnightTheme } },
   output: "static",

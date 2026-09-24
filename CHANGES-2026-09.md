@@ -1338,3 +1338,19 @@ SEO (every post previously shared one `<title>` and the generic description).
   text ("Comment" without the colon) and layout changed. The navy comments
   band was dropped: the fields are now light-styled inside the article column.
 - Rejected: a new `summary` field (would duplicate `description`).
+
+## 2026-09-23 — SEO pass (canonical domain, structured data, local wording)
+
+- `astro.config.mjs` `site` and `public/robots.txt` pointed at the Netlify preview
+  domain, so the sitemap listed preview URLs; both now use `https://janetspellman.com/`
+  (assumed to be the production domain, matching the existing og:image).
+- `Layout.astro`: canonical link, `og:url`/`og:site_name`/`og:image:alt`, `twitter:card`,
+  optional `noindex`, `type` (website/article) and `jsonLd` props; fixed the malformed
+  generator meta.
+- Home: Person JSON-LD (region only, sameAs from `socialIcons`), new title/description and a
+  Southern California / Inland Empire / San Diego / freelance sentence in the hero.
+  About and Other Projects got specific titles and descriptions; `/success` is noindex.
+  Blog posts emit `BlogPosting` JSON-LD and `og:type=article`.
+- Rejected for now: RSS feed (needs the new `@astrojs/rss` dependency, awaiting approval).
+- Verified with `pnpm build` (canonical, noindex, JSON-LD in dist). Not verified: Rich
+  Results Test, social card preview, Search Console.

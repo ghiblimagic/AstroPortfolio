@@ -12,11 +12,31 @@ import SkillsGrid from '@/components/landingpage/SkillsGrid.astro'
 import ContactSection from '@/components/landingpage/ContactSection.astro'
 import SpaceForDesktopSidebar from "@/components/SpaceForDesktopSidebar.astro"
 import SectionDivider from "@/components/SectionDivider.astro"
+import { socialIcons } from "@/data/socialIcons.js"
 
+const personJsonLd = {
+	"@context": "https://schema.org",
+	"@type": "Person",
+	name: "Janet Spellman",
+	url: "https://janetspellman.com/",
+	jobTitle: "Software Engineer and Web Developer",
+	image: "https://janetspellman.com/images/me.jpg",
+	address: {
+		"@type": "PostalAddress",
+		addressRegion: "CA",
+		addressCountry: "US",
+	},
+	knowsAbout: ["Web development", "Software engineering", "Astro", "React", "Web accessibility"],
+	sameAs: socialIcons.map((item) => item.href),
+};
 ---
 
 
-<Layout title="Janet Spellman's Portfolio.">
+<Layout
+	title="Janet Spellman | Software Developer in Southern California"
+	description="Janet Spellman is a Southern California software engineer and web developer open to roles in the Inland Empire and San Diego, and to freelance website projects anywhere."
+	jsonLd={[personJsonLd]}
+>
 
 
 

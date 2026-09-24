@@ -36,7 +36,10 @@ const allSocial = [...socialIcons, ...aboutExtraSocialIcons];
 const socials = socialOrder.flatMap((name) => allSocial.filter((s) => s.name === name));
 ---
 
-<Layout title="Janet Spellman's About Me">
+<Layout
+    title="About Janet Spellman | Southern California Software Developer"
+    description="About Janet Spellman, a software developer in Southern California: background, skills, and what I'm looking for in Inland Empire, San Diego and freelance work."
+>
     <main id="main-content" tabindex="-1" class="flex">
         <SpaceForSidebar />
         <div class="about-page min-w-0 flex-1 w-full">

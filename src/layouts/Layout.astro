@@ -2,11 +2,19 @@
 interface Props {
     title: string;
     description?: string;
+    type?: "website" | "article";
+    noindex?: boolean;
+    jsonLd?: Record<string, unknown>[];
 }
 const {
     title,
     description = "Software developer portfolio covering Janet Spellman's website building services, previous projects and skills",
+    type = "website",
+    noindex = false,
+    jsonLd = [],
 } = Astro.props;
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL("/images/thumbnail.png", Astro.site).href;
 import SocialLinksNav from "../components/navigation/SocialLinksNav"
 import NavToggleButton from "@/components/buttons/NavToggleButton.astro"
 import { socialIcons } from "@/data/socialIcons.js"
@@ -22,8 +30,17 @@ import { socialIcons } from "@/data/socialIcons.js"
         <meta name="description" content={description} />
         <meta property="og:title" content={title} />
         <meta property="og:description" content={description} />
-        <meta property="og:type" content="website" />
-        <meta property="og:image" content="https://janetspellman.com/images/thumbnail.png" />
+        <meta property="og:type" content={type} />
+        <meta property="og:url" content={canonicalUrl} />
+        <meta property="og:site_name" content="Janet Spellman" />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:alt" content="Janet Spellman, software developer" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="canonical" href={canonicalUrl} />
+        {noindex && <meta name="robots" content="noindex" />}
+        {jsonLd.map((data) => (
+            <script is:inline type="application/ld+json" set:html={JSON.stringify(data)} />
+        ))}
         <meta name="viewport" content="width=device-width" />
         <link rel="icon" fetchpriority="high" href="/images/transparent-logo-bright-small.png" />
         <link rel="sitemap" href="/sitemap-index.xml" />
@@ -34,7 +51,7 @@ import { socialIcons } from "@/data/socialIcons.js"
 <link rel="preload" href="/fonts/OpenSans-Bold.woff2" as="font" type="font/woff2" crossorigin />
 <link rel="preload" href="/fonts/AkayaKanadaka-Regular.woff2" as="font" type="font/woff2" crossorigin />
 
-        <meta name="Janet Spellman's portfolio" content={Astro.generator} />
+        <meta name="generator" content={Astro.generator} />
         <title>{title}</title>
  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "cfc795e13ebd438698757185c698ac69"}'></script><!-- End Cloudflare Web Analytics -->
     </head>
