@@ -12,7 +12,7 @@ function SocialLinksNav() {
   // https://stackoverflow.com/questions/69911071/mapping-and-displaying-fontawesome-icons had to change icon name to a non string value
   return (
     <NavigationMenu
-      className="md:pr-10 py-2 "
+      className="py-2 min-w-0"
       id="social"
       aria-label="Site and social links"
     >
@@ -27,7 +27,7 @@ function SocialLinksNav() {
         loading="eager"
       />
 
-      <NavigationMenuList>
+      <NavigationMenuList className="flex-wrap justify-end gap-y-1">
         {/* <a
           className="skip-link right-5 top-5 p-3 bg-mainColor text-white"
           href="#main-content"
@@ -54,7 +54,7 @@ function SocialLinksNav() {
             <NavigationMenuLink
               href={item.href}
               aria-label={`Janet on ${item.label}`}
-              className="social-icon-link mx-1"
+              className="social-icon-link mx-0.5 sm:mx-1"
             >
               <svg
                 className="social-icon-svg"

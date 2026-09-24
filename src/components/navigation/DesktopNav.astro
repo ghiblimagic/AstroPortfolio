@@ -2,9 +2,7 @@
 
 import { Image } from 'astro:assets'
 import logo from '../../../public/images/transparent-logo-bright-small.webp'
-
-const currentPath = Astro.url.pathname;
-const isActive = (path: string) => currentPath === path || (path === '/blog' && currentPath.startsWith('/blog/'));
+import ConstellationNav from './ConstellationNav.astro'
 
 ---
 
@@ -13,8 +11,8 @@ const isActive = (path: string) => currentPath === path || (path === '/blog' && 
 <nav
   id="desktop-nav"
   aria-label="Main"
-  class="fixed left-0 top-0 w-[250px] h-screen bg-[var(--midnight-navy)] px-6 pt-16 z-51 text-white border-r-4 overflow-y-auto"
-  style="border-right: 1px solid rgba(255,255,255,0.10);"
+  class="fixed left-0 top-0 w-[250px] h-screen bg-[var(--midnight-navy)] px-6 pt-16 z-51 text-white overflow-y-auto"
+  style="border-right: 1px solid rgba(179,174,234,0.18);"
 
 >
     <div class="flex  items-center gap-4 py-4 glow ">
@@ -32,64 +30,32 @@ const isActive = (path: string) => currentPath === path || (path === '/blog' && 
         <span class="inline-block text-white text-xl lg:text-xl xl:text-2xl "> Consulting</span>
       </p>
     </div>
-    
-  <ul class="flex flex-col text-center font-Akaya text-xl lg:text-xl xl:text-2xl [&>li]:py-1 xl:[&>li]:py-2">
-      <li class="glow  my-auto">
-        <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/') }]} aria-current={isActive('/') ? 'page' : undefined} href="/">
-        Home
-        </a>
-      </li>
-      
-      <li class="glow ">
-        <a class="block rounded-lg px-3 py-1" href="/#projects">
-         Projects
-        </a>
-      </li>
-      
-      
-      <li class="glow ">
-        <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/about/') }]} aria-current={isActive('/about/') ? 'page' : undefined} href="/about/">About</a>
-      </li>
-      
-      <li class="glow ">
-        <a class="block rounded-lg px-3 py-1" href="/#services">
-          Services
-        </a>
-      </li>
 
-      <li class="glow ">
-        <a class="block rounded-lg px-3 py-1" href="/#process">The Process</a>
-      </li>
+    <div class="relative pb-[72px] text-xl xl:text-2xl">
+      <ConstellationNav />
 
-      <li class="glow ">
-        <a class="block rounded-lg px-3 py-1" href="/#skills">Skills</a>
-      </li>
-
-      <li class="glow ">
-        <a class="block rounded-lg px-3 py-1" href="/#contact">Contact</a>
-      </li>
-
-      <li class="glow ">
-        <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/blog') }]} aria-current={isActive('/blog') ? 'page' : undefined} href="/blog">Blog</a>
-      </li>
-
-      
-      <li class="glow ">
-        <a class:list={['block rounded-lg px-3 py-1', { 'nav-link-active': isActive('/torc') }]} aria-current={isActive('/torc') ? 'page' : undefined} href="/torc">Join Torc (Free Tech Community)</a>
-      </li>
-    </ul>
-
-    <div class="flex flex-col space-y-5 items-center justify-items-center pt-8"></div>
+      {/* Decorative background sparkles - purely visual, kept clear of
+          the constellation's stars/labels so they never read as part of
+          the nav line. */}
+      <div class="sidebar-sparkles" aria-hidden="true">
+        <svg class="sidebar-sparkle twinkle" style="top:14px; right:10px; width:10px; height:10px; animation-delay:0.5s; animation-duration:3.8s;" viewBox="0 0 24 24" fill="#D6D3F7"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+        <svg class="sidebar-sparkle twinkle" style="top:264px; right:14px; width:8px; height:8px; animation-delay:1.8s; animation-duration:4.2s;" viewBox="0 0 24 24" fill="#D6D3F7"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+        <svg class="sidebar-sparkle twinkle" style="bottom:36px; left:20px; width:12px; height:12px; animation-delay:0.9s; animation-duration:4.6s;" viewBox="0 0 24 24" fill="#D6D3F7"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+        <svg class="sidebar-sparkle twinkle" style="bottom:14px; left:70px; width:9px; height:9px; animation-delay:2.6s; animation-duration:3.6s;" viewBox="0 0 24 24" fill="#D6D3F7"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+      </div>
+    </div>
   </nav>
 </div>
 
 <style>
-  #desktop-nav ul a {
-    color: var(--midnight-white);
+  .sidebar-sparkles {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
   }
 
-  #desktop-nav ul a.nav-link-active {
-    background: rgba(179, 174, 234, 0.22);
-    color: var(--midnight-white);
+  .sidebar-sparkle {
+    position: absolute;
+    opacity: 0.6;
   }
 </style>

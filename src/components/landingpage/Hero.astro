@@ -18,6 +18,14 @@ import HeroButtons from "./HeroButtons.astro"
 				loading="eager"
 				fetchpriority="high"
 			/>
+
+			<!-- Sparkles live in the empty square corners around the round
+			     photo (top-left/top-right), clear of the offset circle and
+			     of every line of hero text at any width. -->
+			<div class="hero-stars" aria-hidden="true">
+				<svg class="hero-star twinkle" style="top:4%; left:4%; width:20px; height:20px; animation-delay:1.4s; animation-duration:4.4s;" viewBox="0 0 24 24" fill="var(--midnight-lavender)"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+				<svg class="hero-star twinkle" style="top:6%; right:4%; width:14px; height:14px; animation-delay:2.6s; animation-duration:3.9s;" viewBox="0 0 24 24" fill="var(--midnight-lavender)"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+			</div>
 		</div>
 
 		<div class="relative max-w-md">
@@ -30,9 +38,7 @@ import HeroButtons from "./HeroButtons.astro"
 			</h1>
 
 			<div class="hero-stars" aria-hidden="true">
-				<svg class="hero-star twinkle" style="top:-38px; left:8%; width:16px; height:16px; animation-delay:0.3s; animation-duration:3.6s;" viewBox="0 0 24 24" fill="var(--midnight-lavender)"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
-				<svg class="hero-star twinkle" style="top:10px; left:90%; width:20px; height:20px; animation-delay:1.4s; animation-duration:4.4s;" viewBox="0 0 24 24" fill="var(--midnight-lavender)"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
-				<svg class="hero-star twinkle" style="top:120px; left:0%; width:14px; height:14px; animation-delay:2.6s; animation-duration:3.9s;" viewBox="0 0 24 24" fill="var(--midnight-lavender)"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
+				<svg class="hero-star twinkle" style="top:-52px; left:8%; width:16px; height:16px; animation-delay:0.3s; animation-duration:3.6s;" viewBox="0 0 24 24" fill="var(--midnight-lavender)"><path d="M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z"/></svg>
 			</div>
 
 			<p class="text-[var(--midnight-white)]"> I build features for engineering teams and custom sites for businesses. From tools that guide business owners, to storefronts, to apps that help pets find homes, I combine creativity and code to bring ideas to life.

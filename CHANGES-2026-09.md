@@ -1125,3 +1125,48 @@ empty space right of the contact form. Branch `contact-cat-constellation`.
 - The focus ring shows for keyboard focus only (`:focus:not(:focus-visible)`
   override for `.cat-button`). The shared `#contact button:focus` rule still
   shows the ring on mouse click for the Send button; left as is.
+
+## 2026-09-23 — Constellation sidebar nav and hero fixes
+
+Restyled the sidebar nav as a "constellation" (star nodes joined by a faint
+dotted line) and fixed three hero/top-bar issues, on branch
+`sidebar-constellation`.
+
+**What and why:** Nav items are now left-aligned four-point stars (same path
+as the hero sparkles) on a single dotted vertical line. The current page gets
+a larger twinkling star plus a soft pill and `aria-current="page"`. "Join Torc"
+is two lines ("Free tech community" caption). Desktop has 4 decorative
+background sparkles; the mobile drawer uses the same layout without them.
+Hero fixes: sparkles no longer touch text, the last social icon is no longer
+clipped, and the top bar has breathing room above the Contact button.
+
+**Key decisions:**
+- New shared `navigation/ConstellationNav.astro` used by both DesktopNav and
+  MobileNav. The two lists had drifted (different labels, and MobileNav used
+  a misspelled `font-Ayaka` class); the drawer now uses the Akaya script font
+  as chosen.
+- Line geometry is CSS custom properties (`--pitch`, `--line-x`, `--count`),
+  so the `::before` line starts and ends exactly at the first and last star
+  centers with no JS. Verified in a browser: all star centers at x=35, line
+  ends at first/last star centers.
+- Stars are positioned with top/left offsets, not `translate`, because the
+  `.twinkle` keyframes overwrite `transform`. Hover scale is excluded from the
+  active star for the same reason.
+- Font sizes stay on the wrappers (`text-xl xl:text-2xl` desktop, `text-lg`
+  mobile) so the existing nav font is unchanged.
+- Hero sparkles moved into the empty corners around the portrait; the one
+  above the headline moved up to -52px.
+- Header gets `relative pt-5 pr-8`; social list wraps (`flex-wrap`) with
+  tighter icon margins on narrow screens. Mobile drawer now uses `top-full`
+  so it follows the taller header.
+
+**Verified:** `astro check` clean (0 errors; existing hints only). Headless
+Chromium at 375/768/1440px: no horizontal scroll, all 6 icons fully visible
+(32px from the right edge), Contact top at 29px. Not verified: hover/focus
+ring visuals and prefers-reduced-motion in a live browser (reduced-motion
+relies on the existing `.twinkle` rule in globals.css).
+
+**Left alone:** `#mobile-menu` still has a stray `bg-yellow-300` class (hidden
+behind the nav background); unrelated uncommitted `ContactSection.astro`,
+`CatConstellation.astro` and a `globals.css` container-type line were not
+touched or committed.

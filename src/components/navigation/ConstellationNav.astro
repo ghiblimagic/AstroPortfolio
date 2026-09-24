@@ -1,0 +1,187 @@
+---
+// ConstellationNav.astro - shared star-node nav list used by both the
+// desktop sidebar and the mobile drawer, so the two never drift apart
+// (they previously had different labels and even different font classes).
+const currentPath = Astro.url.pathname;
+const isActive = (path: string) =>
+  currentPath === path || (path === "/blog" && currentPath.startsWith("/blog/"));
+
+const STAR_PATH =
+  "M12 0 C13 8 16 11 24 12 C16 13 13 16 12 24 C11 16 8 13 0 12 C8 11 11 8 12 0Z";
+
+const items = [
+  { label: "Home", href: "/" },
+  { label: "Projects", href: "/#projects" },
+  { label: "About", href: "/about/" },
+  { label: "Services", href: "/#services" },
+  { label: "The Process", href: "/#process" },
+  { label: "Skills", href: "/#skills" },
+  { label: "Contact", href: "/#contact" },
+  { label: "Blog", href: "/blog" },
+  { label: "Join Torc", caption: "Free tech community", href: "/torc" },
+];
+---
+
+<ul class="constellation font-Akaya" style={`--count:${items.length}`}>
+  {items.map((item) => {
+    const active = isActive(item.href);
+    return (
+      <li>
+        <a
+          class="c-link"
+          href={item.href}
+          aria-current={active ? "page" : undefined}
+        >
+          <svg
+            class:list={["c-star", { active, twinkle: active }]}
+            aria-hidden="true"
+            focusable="false"
+            viewBox="0 0 24 24"
+          >
+            <path d={STAR_PATH} />
+          </svg>
+          <span class:list={["c-label", { "c-label-active": active }]}>
+            {item.label}
+            {item.caption && <span class="c-caption">{item.caption}</span>}
+          </span>
+        </a>
+      </li>
+    );
+  })}
+</ul>
+
+<style>
+  .constellation {
+    position: relative;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    --pitch: 50px;
+    --line-x: 11px;
+    --label-x: 33px;
+    --lh: 28px;
+  }
+
+  /* Dotted constellation line: runs exactly from the first star's center
+     to the last star's center, never past either end. */
+  .constellation::before {
+    content: "";
+    position: absolute;
+    left: calc(var(--line-x) - 0.75px);
+    top: calc(var(--pitch) / 2);
+    width: 1.5px;
+    height: calc((var(--count) - 1) * var(--pitch));
+    background: repeating-linear-gradient(
+      to bottom,
+      rgba(179, 174, 234, 0.45) 0 2px,
+      transparent 2px 7px
+    );
+    border-radius: 1px;
+    pointer-events: none;
+  }
+
+  .constellation li {
+    height: var(--pitch);
+  }
+
+  /* Last item (Join Torc) grows to fit its caption without moving the
+     line, which must still end at this star's center at --pitch/2. */
+  .constellation li:last-child {
+    height: auto;
+    min-height: var(--pitch);
+    padding-bottom: 12px;
+  }
+
+  .c-link {
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    height: 100%;
+    padding: calc((var(--pitch) - var(--lh)) / 2) 12px 0 var(--label-x);
+    text-decoration: none;
+    color: var(--midnight-text-light);
+  }
+
+  .c-link:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+  .c-link:focus-visible {
+    outline: 2px solid #ffffff;
+    outline-offset: 2px;
+    border-radius: 10px;
+  }
+
+  .c-star {
+    position: absolute;
+    top: calc(var(--pitch) / 2 - 6px);
+    left: calc(var(--line-x) - 6px);
+    width: 12px;
+    height: 12px;
+    fill: #d6d3f7;
+    opacity: 0.85;
+    transform-origin: center;
+    transition:
+      transform 0.2s ease,
+      fill 0.2s ease,
+      opacity 0.2s ease;
+    z-index: 1;
+  }
+
+  .c-star.active {
+    top: calc(var(--pitch) / 2 - 11px);
+    left: calc(var(--line-x) - 11px);
+    width: 22px;
+    height: 22px;
+    fill: #ffffff;
+    opacity: 1;
+  }
+
+  .c-link:hover .c-star:not(.active),
+  .c-link:focus-visible .c-star:not(.active) {
+    fill: #ffffff;
+    opacity: 1;
+    transform: scale(1.25);
+  }
+
+  .c-label {
+    line-height: var(--lh);
+    color: var(--midnight-text-light);
+    transition: color 0.2s ease;
+  }
+
+  .c-link:hover .c-label,
+  .c-link:focus-visible .c-label {
+    color: #ffffff;
+  }
+
+  .c-label-active {
+    display: inline-block;
+    color: #ffffff;
+    font-weight: 700;
+    background: rgba(179, 174, 234, 0.16);
+    border-radius: 10px;
+    padding: 8px 14px;
+    margin-top: -8px;
+  }
+
+  .c-caption {
+    display: block;
+    font-family: "Open Sans", Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 16px;
+    color: #8a93bf;
+  }
+
+  .c-label-active .c-caption {
+    color: #d6d3f7;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .c-star {
+      transition: none;
+    }
+  }
+</style>
